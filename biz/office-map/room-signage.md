@@ -1,6 +1,6 @@
 # Office Map — Room Signage
 
-> Full spec — very different context from portal surfaces.
+> Full spec — very different context from portal platforms.
 
 ---
 

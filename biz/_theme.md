@@ -1,6 +1,6 @@
 # Biz — Theme
 
-> User portal and admin portal theme tokens. Separate surface definitions.
+> User portal and admin portal theme tokens. Separate platform definitions.
 
 ---
 

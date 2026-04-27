@@ -171,7 +171,7 @@
   <!-- STATS -->
   <div class="hub-intro">
     <h2>UX Library — <em>Colorkrew</em></h2>
-    <p>Centralised design documentation across all Colorkrew products. Foundations and components are shared cross-product. Each product folder contains feature-level specs by surface and role.</p>
+    <p>Centralised design documentation across all Colorkrew products. Foundations and components are shared cross-product. Each product folder contains feature-level specs by platform and role.</p>
     <div class="hub-stats">
       <div class="stat"><div class="stat-n">7</div><div class="stat-l">Products</div></div>
       <div class="stat"><div class="stat-n">10</div><div class="stat-l">Foundations</div></div>
@@ -240,14 +240,14 @@ Sitemap
   var DEFS = {
     'Product Name': { type: 'select', options: ['Biz', 'Workflows', 'CKID', 'Intra', 'Files', 'Updates', 'Goals'] },
     'Feature Name': { type: 'text',   hint: 'e.g. Office Map' },
-    'Surface':      { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
+    'Platform':     { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Platform A':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Platform B':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Pattern Name': { type: 'text',   hint: 'e.g. Empty State' },
     'Products':     { type: 'multi',  options: ['Biz', 'Workflows', 'CKID', 'Intra', 'Files', 'Updates', 'Goals'] },
     'Figma URL':         { type: 'text', hint: 'Paste Figma file or frame URL' },
-    'Baseline Figma URL': { type: 'text', hint: 'Figma frame for the baseline surface' },
-    'Delta Figma URL':    { type: 'text', hint: 'Figma frame for the delta surface' },
+    'Baseline Figma URL': { type: 'text', hint: 'Figma frame for the baseline platform' },
+    'Delta Figma URL':    { type: 'text', hint: 'Figma frame for the delta platform' },
   };
 
   // Derived keys: auto-computed from another key, shown as non-interactive chips
@@ -289,10 +289,10 @@ Sitemap
       section: 'Update',
       icon: 'ti-folder-plus',
       title: 'Add a new feature to a product',
-      desc: 'Scaffold files + register in nav + generate spec from Figma',
+      desc: 'Set up files, register in nav, and generate spec from Figma',
       body:
 'Add a new feature called [Feature Name] to [Product Name].\n\n' +
-'── SCAFFOLD ──────────────────────────────────────────────────\n' +
+'── SET UP ───────────────────────────────────────────────────\n' +
 '1. Create /[product-slug]/[feature-slug]/ with:\n' +
 '   - feature.html — shell page only (spec content added in step 5)\n' +
 '   - feature.md   — stub mirror\n' +
@@ -304,11 +304,11 @@ Sitemap
 '3. Add folder block to sitemap.html under the [Product Name] section.\n' +
 '   Include a row for feature.html + .md. Follow the format of an existing feature block.\n\n' +
 '4. Add to /[product-slug]/changelog.html:\n' +
-'   "Added [Feature Name] — scaffold created, spec pending."\n\n' +
+'   "Added [Feature Name] — files created, spec pending."\n\n' +
 '── SPEC ──────────────────────────────────────────────────────\n' +
 '5. Run /document-feature-spec to generate the full feature spec from Figma:\n' +
 '   Product: [Product Name]  ·  Feature: [Feature Name]\n' +
-'   Surface: [Surface]  ·  Figma: [Figma URL]\n\n' +
+'   Platform: [Platform]  ·  Figma: [Figma URL]\n\n' +
 '   The skill reads config files, extracts design context from Figma,\n' +
 '   populates feature.html in place, and updates the coverage table in _index.html.'
     },
@@ -316,7 +316,7 @@ Sitemap
       section: 'Update',
       icon: 'ti-devices',
       title: 'Add a platform delta to a feature',
-      desc: 'Compare two Figma surfaces and document only what differs',
+      desc: 'Compare two Figma platforms and document only what differs',
       body:
 'Document a platform delta for [Product Name] › [Feature Name].\n\n' +
 'Baseline: [Platform A]  ·  Figma: [Baseline Figma URL]\n' +
@@ -325,8 +325,8 @@ Sitemap
 'The skill will:\n' +
 '- Check if the baseline spec exists at /[product-slug]/[feature-slug]/feature.html\n' +
 '- Compare both frames across layout, interactions, copy, and platform constraints\n' +
-'- Write /[product-slug]/[feature-slug]/[delta-surface-slug].html with only what differs\n' +
-'- Skip writing the file if both surfaces are identical (marks coverage table as "identical")\n' +
+'- Write /[product-slug]/[feature-slug]/[delta-platform-slug].html with only what differs\n' +
+'- Skip writing the file if both platforms are identical (marks coverage table as "identical")\n' +
 '- Update the coverage table in /[product-slug]/_index.html'
     },
     {
@@ -337,12 +337,12 @@ Sitemap
       body:
 'Audit /[product-slug]/[feature-slug]/ for UX inconsistencies.\n\n' +
 'Check for:\n' +
-'- Terminology mismatches across surfaces (e.g. "Cancel" vs "Dismiss")\n' +
+'- Terminology mismatches across platforms (e.g. "Cancel" vs "Dismiss")\n' +
 '- Interaction pattern differences that are not intentional platform deltas\n' +
 '- Badge or status label inconsistencies\n' +
-'- Missing states (empty, loading, error) on any surface\n' +
+'- Missing states (empty, loading, error) on any platform\n' +
 '- Layout or hierarchy deviations vs other features in the same product\n\n' +
-'Report findings as a list grouped by surface. Flag each as: Minor / Moderate / Critical.'
+'Report findings as a list grouped by platform. Flag each as: Minor / Moderate / Critical.'
     },
     {
       section: 'Check',
@@ -352,13 +352,13 @@ Sitemap
       body:
 'Audit the Figma file at [Figma URL] against the UX Library spec for [Product Name] › [Feature Name].\n\n' +
 'Spec source: /[product-slug]/[feature-slug]/\n\n' +
-'Fetch the Figma file and compare its screens against every surface page in the spec. Check for:\n' +
+'Fetch the Figma file and compare its screens against every platform page in the spec. Check for:\n' +
 '- Missing or extra UI elements not documented in the spec\n' +
 '- Copy or label differences (e.g. button labels, empty state messages)\n' +
 '- Interaction or state gaps (missing loading, error, or empty states)\n' +
 '- Visual treatment deviations (layout, hierarchy, component usage)\n' +
 '- Platform-specific rules that the Figma design violates or omits\n\n' +
-'Output a table: Surface | Element | Spec says | Figma shows | Severity (Minor / Moderate / Critical)\n' +
+'Output a table: Platform | Element | Spec says | Figma shows | Severity (Minor / Moderate / Critical)\n' +
 'Summarise whether the Figma file is aligned, partially aligned, or misaligned with the spec.'
     },
     {
@@ -373,7 +373,7 @@ Sitemap
 '- Visual treatment (icon, colour, layout)\n' +
 '- Interaction behaviour (dismiss, retry, redirect)\n' +
 '- Whether each product uses the shared Foundations rule or deviates\n\n' +
-'Output a comparison table: Product | Surface | Approach | Deviates from standard?\n' +
+'Output a comparison table: Product | Platform | Approach | Deviates from standard?\n' +
 'Flag deviations and suggest whether they should be normalised or documented as intentional.'
     },
     {
@@ -383,7 +383,7 @@ Sitemap
       desc: 'Lift a feature-level component into the shared product Components page',
       body:
 'Promote the [Component Name] component from [Product Name] › [Feature Name] to the [Product Name] shared component library.\n\n' +
-'Source: /[product-slug]/[feature-slug]/[surface].html\n\n' +
+'Source: /[product-slug]/[feature-slug]/[platform].html\n\n' +
 'Steps:\n' +
 '1. Read the source page and extract the component definition\n' +
 '2. Generalise it — remove feature-specific copy, keep it applicable across all features in [Product Name]\n' +
@@ -399,7 +399,7 @@ Sitemap
       desc: 'Lift a feature or product component into shared Global Foundations or Components',
       body:
 'Promote the [Component Name] component to the Global shared library.\n\n' +
-'Source: /[product-slug]/[feature-slug]/[surface].html  (feature-level)\n' +
+'Source: /[product-slug]/[feature-slug]/[platform].html  (feature-level)\n' +
 '     or /[product-slug]/_components.html               (product-level)\n\n' +
 'Steps:\n' +
 '1. Read the source page and extract the component definition\n' +

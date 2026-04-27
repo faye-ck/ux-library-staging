@@ -163,7 +163,7 @@ Add a new product section at the end of the products list. Follow the exact form
 ### Root `changelog.html`
 
 Add an Added entry to the current version block:
-`"[Product Name] — product scaffolded via setup-product. [N] features listed, config files created, [N] tokens need confirmation."`
+`"[Product Name] — product set up via setup-product. [N] features listed, config files created, [N] tokens need confirmation."`
 
 ---
 

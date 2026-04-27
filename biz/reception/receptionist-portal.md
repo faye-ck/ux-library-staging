@@ -1,6 +1,6 @@
 # Reception — Receptionist Portal
 
-> Separate surface, full spec — dedicated receptionist workflows.
+> Separate platform, full spec — dedicated receptionist workflows.
 
 ---
 
