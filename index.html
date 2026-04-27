@@ -245,7 +245,9 @@ Sitemap
     'Platform B':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Pattern Name': { type: 'text',   hint: 'e.g. Empty State' },
     'Products':     { type: 'multi',  options: ['Biz', 'Workflows', 'CKID', 'Intra', 'Files', 'Updates', 'Goals'] },
-    'Figma URL':    { type: 'text',   hint: 'Paste Figma file or frame URL' },
+    'Figma URL':         { type: 'text', hint: 'Paste Figma file or frame URL' },
+    'Baseline Figma URL': { type: 'text', hint: 'Figma frame for the baseline surface' },
+    'Delta Figma URL':    { type: 'text', hint: 'Figma frame for the delta surface' },
   };
 
   // Derived keys: auto-computed from another key, shown as non-interactive chips
@@ -321,16 +323,18 @@ Sitemap
       section: 'Update',
       icon: 'ti-devices',
       title: 'Add a platform delta to a feature',
-      desc: 'Document how a feature differs per platform',
+      desc: 'Compare two Figma surfaces and document only what differs',
       body:
-'Add a platform delta section to /[product-slug]/[feature-slug]/[Surface].html.\n\n' +
-'The delta documents how [Feature Name] behaves differently on [Platform B] compared to [Platform A].\n\n' +
-'Cover the following differences:\n' +
-'- Layout: describe the layout difference\n' +
-'- Interactions: describe the interaction difference\n' +
-'- Missing capabilities: what is not available on [Platform B]\n' +
-'- Additional constraints: e.g. offline mode, touch-only, reduced permissions\n\n' +
-'Use a .card block with a platform badge and a clear "Platform Delta" section heading.'
+'Document a platform delta for [Product Name] › [Feature Name].\n\n' +
+'Baseline: [Platform A]  ·  Figma: [Baseline Figma URL]\n' +
+'Delta:    [Platform B]  ·  Figma: [Delta Figma URL]\n\n' +
+'Run /add-platform-delta with the above inputs.\n\n' +
+'The skill will:\n' +
+'- Check if the baseline spec exists at /[product-slug]/[feature-slug]/feature.html\n' +
+'- Compare both frames across layout, interactions, copy, and platform constraints\n' +
+'- Write /[product-slug]/[feature-slug]/[delta-surface-slug].html with only what differs\n' +
+'- Skip writing the file if both surfaces are identical (marks coverage table as "identical")\n' +
+'- Update the coverage table in /[product-slug]/_index.html'
     },
     {
       section: 'Update',
