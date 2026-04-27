@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog — UX Library</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── CHANGELOG-SPECIFIC STYLES ── */
+    .cl-version-block { margin-bottom: 36px; }
+    .cl-version-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    }
+    .cl-version-num {
+      font-family: var(--mono); font-size: 13px; font-weight: 500;
+      color: var(--surface); background: var(--teal);
+      padding: 3px 10px; border-radius: 20px; letter-spacing: 0.03em;
+    }
+    .cl-version-date {
+      font-family: var(--mono); font-size: 11px; color: var(--muted-light);
+    }
+    .cl-version-tag {
+      font-family: var(--mono); font-size: 9px; font-weight: 500;
+      padding: 2px 8px; border-radius: 20px; border: 0.5px solid;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .cl-tag-major { background: #fef9ec; color: var(--amber); border-color: rgba(176,123,30,0.3); }
+    .cl-tag-minor { background: var(--teal-light); color: var(--teal-dark); border-color: rgba(0,169,167,0.3); }
+    .cl-tag-patch { background: var(--bg); color: var(--muted); border-color: var(--border); }
+
+    .cl-card {
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+    }
+    .cl-entry {
+      padding: 14px 20px; border-bottom: 0.5px solid var(--border);
+      display: grid; grid-template-columns: 90px 1fr; gap: 12px;
+      align-items: start;
+    }
+    .cl-entry:last-child { border-bottom: none; }
+    .cl-entry-type {
+      font-family: var(--mono); font-size: 9px; font-weight: 500;
+      padding: 2px 7px; border-radius: 20px; border: 0.5px solid;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      white-space: nowrap; display: inline-block; margin-top: 1px;
+    }
+    .cl-type-added { background: #f0faf4; color: var(--green); border-color: rgba(26,122,71,0.25); }
+    .cl-type-changed { background: var(--teal-light); color: var(--teal-dark); border-color: rgba(0,169,167,0.3); }
+    .cl-type-removed { background: #fdf2f2; color: var(--red); border-color: rgba(192,57,43,0.25); }
+    .cl-type-fixed { background: #eff4ff; color: var(--blue); border-color: rgba(37,99,235,0.25); }
+
+    .cl-entry-body { min-width: 0; }
+    .cl-entry-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+    .cl-entry-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
+    .cl-entry-files {
+      margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px;
+    }
+    .cl-file {
+      font-family: var(--mono); font-size: 10px; color: var(--teal-dark);
+      background: var(--teal-light); border: 0.5px solid rgba(0,169,167,0.2);
+      padding: 1px 6px; border-radius: 4px;
+    }
+
+    .cl-revert-hint {
+      margin-top: 8px; font-size: 11px; color: var(--muted);
+      background: var(--bg); border: 0.5px solid var(--border);
+      border-radius: 6px; padding: 6px 10px; line-height: 1.6;
+      font-family: var(--mono);
+    }
+    .cl-revert-hint strong { color: var(--text); font-weight: 500; }
+
+    .cl-version-line {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 36px;
+    }
+    .cl-version-line::after {
+      content: ''; flex: 1; height: 0.5px; background: var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1><a href="index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+
+    <div class="layout"><nav class="sidebar"></nav>
+<main>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Changelog</span>
+    </div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-clock-history"></i></span> Changelog</h2>
+      <p>Site-level version history for the Colorkrew UX Library. Tracks structural changes — architecture, styling, and tooling. Each product has its own changelog for content changes.</p>
+    </div>
+    <div class="section-divider"></div>
+
+    <!-- ── v2.0.0 ── -->
+    <div class="cl-version-block">
+      <div class="cl-version-header">
+        <span class="cl-version-num">v2.0.0</span>
+        <span class="cl-version-date">2026-04-27</span>
+        <span class="cl-version-tag cl-tag-major">Major</span>
+      </div>
+      <div class="cl-card">
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Full site restructure — product-based architecture</div>
+            <div class="cl-entry-desc">Replaced the flat UX pattern category pages with a deep product/feature/platform tree. Site is now organised around 7 products (Biz, Workflows, CKID, Intra, Files, Updates, Goals) plus a Global section. Each product has a fixed set of top-level pages (Overview, Theme, Components, Layout, Glossary, Changelog) and nested feature folders containing platform-specific spec pages.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">biz/</span>
+              <span class="cl-file">workflows/</span>
+              <span class="cl-file">ckid/</span>
+              <span class="cl-file">intra/</span>
+              <span class="cl-file">files/</span>
+              <span class="cl-file">updates/</span>
+              <span class="cl-file">goals/</span>
+              <span class="cl-file">global/</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Global section</div>
+            <div class="cl-entry-desc">Cross-product design system reference with four sub-sections: Foundations (10 pages — Color System, Typography, Spacing, Motion, Iconography, Accessibility, Error Patterns, Empty States, Loading States, Notification Patterns), Components (9 pages), Data (Entity Type), and Layout. Also includes Overview, Glossary, and Changelog.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">global/_index.html</span>
+              <span class="cl-file">global/foundations/</span>
+              <span class="cl-file">global/components/</span>
+              <span class="cl-file">global/data/</span>
+              <span class="cl-file">global/layout/</span>
+              <span class="cl-file">global/_glossary.html</span>
+              <span class="cl-file">global/changelog.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Home prompt templates</div>
+            <div class="cl-entry-desc">Interactive prompt-builder on the home page. Eight templates for common documentation tasks: Add a new product, Add a new feature to a product, Add a platform delta to a feature, Audit for inconsistency, Audit Figma file against feature spec, Check cross-product consistency, Promote a component to product level, Promote a component to global level. Each template uses chip-based placeholder inputs with live substitution into a copyable prompt.</div>
+            <div class="cl-entry-files"><span class="cl-file">index.html</span></div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Sitemap page</div>
+            <div class="cl-entry-desc">Full file and page inventory of the repository. Organised by section, showing all HTML pages and their companion <code>.md</code> source files. Linked from the home page footer.</div>
+            <div class="cl-entry-files"><span class="cl-file">sitemap.html</span></div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Sidebar nav rebuilt as deep collapsible tree</div>
+            <div class="cl-entry-desc">nav.js rewritten to support a three-level hierarchy (product → feature → platform). Groups auto-expand to the active page. Open state and scroll position are persisted in <code>sessionStorage</code> across navigations. Platform sort order is fixed: Feature → Mobile Web → Mobile App → Admin Portal → Room Signage → Receptionist Portal → Email.</div>
+            <div class="cl-entry-files"><span class="cl-file">nav.js</span></div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-removed">Removed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Pattern category pages</div>
+            <div class="cl-entry-desc">The 11 original UX pattern category pages (Feedback, Errors, Confirmations, Empty States, Bulk Actions, Form Validation, Alerts, Navigation, Bilingual, Status, Data Management) were removed. Pattern-level content now lives inside product feature spec pages.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">feedback.html</span>
+              <span class="cl-file">errors.html</span>
+              <span class="cl-file">confirmations.html</span>
+              <span class="cl-file">empty-states.html</span>
+              <span class="cl-file">bulk-actions.html</span>
+              <span class="cl-file">form-validation.html</span>
+              <span class="cl-file">alerts.html</span>
+              <span class="cl-file">navigation.html</span>
+              <span class="cl-file">bilingual.html</span>
+              <span class="cl-file">status.html</span>
+              <span class="cl-file">data-management.html</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── v1.1.0 ── -->
+    <div class="cl-version-block">
+      <div class="cl-version-header">
+        <span class="cl-version-num">v1.1.0</span>
+        <span class="cl-version-date">2026-04-26</span>
+        <span class="cl-version-tag cl-tag-minor">Minor</span>
+      </div>
+      <div class="cl-card">
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Changelog page</div>
+            <div class="cl-entry-desc">This page. Tracks versions, dates, changes, and revert instructions. Linked from sidebar of all category pages and from hub.</div>
+            <div class="cl-entry-files"><span class="cl-file">changelog.html</span></div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Per-page search with ⌘K shortcut</div>
+            <div class="cl-entry-desc">Each category page has its own live search input filtering pattern cards, with a result counter and "no results" state. ⌘K / Ctrl+K focuses the search field.</div>
+            <div class="cl-entry-files"><span class="cl-file">+ all 11 category pages</span></div>
+            <div class="cl-revert-hint"><strong>Revert:</strong> Remove the <code>&lt;input id="search"&gt;</code> block from the header and the inline <code>&lt;script&gt;</code> at the bottom of each category page.</div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Sidebar navigation + breadcrumbs</div>
+            <div class="cl-entry-desc">Each category page gained a sticky left sidebar listing all 11 categories (active page highlighted in teal). Breadcrumb strip added above the page header on all category pages.</div>
+            <div class="cl-entry-files"><span class="cl-file">+ all 11 category pages</span></div>
+            <div class="cl-revert-hint"><strong>Revert:</strong> Remove <code>&lt;nav class="sidebar"&gt;</code> block and <code>&lt;div class="breadcrumb"&gt;</code> from each category page. Remove <code>.sidebar</code>, <code>.layout</code>, <code>.breadcrumb</code> CSS rules from styles.css.</div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Dark theme → light warm theme</div>
+            <div class="cl-entry-desc">Full CSS rewrite. Background changed from deep navy (<code>#0f0f23</code>) to warm off-white (<code>#f5f4f0</code>). Typography switched from system-ui to DM Sans + DM Mono. Border style changed from solid 1px to <code>0.5px</code> hairlines.</div>
+            <div class="cl-entry-files"><span class="cl-file">styles.css</span></div>
+            <div class="cl-revert-hint"><strong>Revert CSS variables:</strong> <code>--bg: #0f0f23</code> · <code>--surface: #1a1a2e</code> · <code>--border: #2d2d4e</code> · <code>--text: #e8e8f0</code> · <code>--muted: #9898b8</code> · Remove DM Sans/Mono @imports · Restore original <code>--font</code> stack.</div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Single-page → multi-page architecture</div>
+            <div class="cl-entry-desc">Original site was a single scrolling <code>index.html</code> with all 11 category sections embedded. Refactored into a hub page + 11 individual category pages.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">index.html</span>
+              <span class="cl-file">feedback.html</span>
+              <span class="cl-file">errors.html</span>
+              <span class="cl-file">confirmations.html</span>
+              <span class="cl-file">empty-states.html</span>
+              <span class="cl-file">bulk-actions.html</span>
+              <span class="cl-file">form-validation.html</span>
+              <span class="cl-file">alerts.html</span>
+              <span class="cl-file">navigation.html</span>
+              <span class="cl-file">bilingual.html</span>
+              <span class="cl-file">status.html</span>
+              <span class="cl-file">data-management.html</span>
+            </div>
+            <div class="cl-revert-hint"><strong>Revert:</strong> Merge all 11 category <code>.patterns-grid</code> blocks back into a single <code>index.html</code> with <code>&lt;section class="kb-section"&gt;</code> wrappers and anchor-based navigation. Delete the 11 category files.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── v1.0.0 ── -->
+    <div class="cl-version-block">
+      <div class="cl-version-header">
+        <span class="cl-version-num">v1.0.0</span>
+        <span class="cl-version-date">2026-04-25</span>
+        <span class="cl-version-tag cl-tag-major">Initial</span>
+      </div>
+      <div class="cl-card">
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">11 UX pattern categories</div>
+            <div class="cl-entry-desc">Feedback &amp; Toasts (7) · Error Handling (6) · Confirmations (5) · Empty &amp; Loading (4) · Bulk Actions (8) · Form &amp; Validation (6) · Alerts &amp; Inline (5) · Navigation (4) · Bilingual EN/JP (5) · Status &amp; Progress (5) · Data Management (4).</div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Initial site — single-page UX knowledge base</div>
+            <div class="cl-entry-desc">Single <code>index.html</code> with all 11 categories as scrollable sections. Dark navy theme. Emoji icons. Embedded anchor navigation and global search. Covers 59 patterns across 11 categories extracted from 5 Figma source files.</div>
+            <div class="cl-entry-files"><span class="cl-file">index.html</span><span class="cl-file">styles.css</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  MACHINE-READABLE REVERT MANIFEST — for AI assistant use only   ║
+  ║  Parse this block to understand what to undo for each version.  ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<script type="application/json" id="revert-manifest">
+{
+  "schema": "ux-library-revert-manifest-v1",
+  "site": "Colorkrew Biz UX Knowledge Base",
+  "current_version": "2.0.0",
+  "versions": [
+    {
+      "version": "2.0.0",
+      "date": "2026-04-27",
+      "type": "major",
+      "files_added": [
+        "sitemap.html",
+        "global/_index.html", "global/_index.md",
+        "global/_glossary.html", "global/_glossary.md",
+        "global/changelog.html", "global/changelog.md",
+        "global/foundations/*", "global/components/*", "global/data/*", "global/layout/",
+        "biz/_index.html", "biz/_theme.html", "biz/_components.html", "biz/_layout.html", "biz/_glossary.html", "biz/changelog.html",
+        "biz/office-map/*", "biz/reception/*", "biz/scheduler/*", "biz/inventory/*", "biz/locker/*", "biz/post/*", "biz/analytics/*",
+        "workflows/_index.html", "workflows/_theme.html", "workflows/_components.html", "workflows/_layout.html", "workflows/_glossary.html", "workflows/changelog.html",
+        "workflows/submit/*", "workflows/approve/*", "workflows/template/*",
+        "ckid/_index.html", "ckid/_theme.html", "ckid/_components.html", "ckid/_layout.html", "ckid/_glossary.html", "ckid/changelog.html",
+        "ckid/org-chart/*", "ckid/team-management/*", "ckid/user-management/*",
+        "intra/_index.html", "intra/_theme.html", "intra/_components.html", "intra/_layout.html", "intra/_glossary.html", "intra/changelog.html",
+        "intra/dashboard/*", "intra/announcements/*", "intra/todo/*", "intra/page-management/*", "intra/feed-blogs/*", "intra/social-feed/*", "intra/theming/*",
+        "files/_index.html", "files/_theme.html", "files/_components.html", "files/_layout.html", "files/_glossary.html", "files/changelog.html",
+        "files/file-management/*",
+        "updates/_index.html", "updates/_theme.html", "updates/_components.html", "updates/_layout.html", "updates/_glossary.html", "updates/changelog.html",
+        "updates/task-management/*",
+        "goals/_index.html", "goals/_theme.html", "goals/_components.html", "goals/_layout.html", "goals/_glossary.html", "goals/changelog.html",
+        "goals/kpi-management/*", "goals/goals-okrs/*", "goals/performance-analytics/*"
+      ],
+      "files_modified": ["index.html", "nav.js", "changelog.html"],
+      "files_deleted": [
+        "feedback.html", "errors.html", "confirmations.html", "empty-states.html",
+        "bulk-actions.html", "form-validation.html", "alerts.html", "navigation.html",
+        "bilingual.html", "status.html", "data-management.html"
+      ],
+      "changes": [
+        {
+          "id": "arch-product-tree",
+          "type": "architecture",
+          "title": "Product-based site structure",
+          "revert_action": "remove_product_folders",
+          "revert_detail": "Delete all 7 product folders and the global/ folder. Restore the 11 pattern category HTML files. Revert nav.js to the flat single-level sidebar."
+        },
+        {
+          "id": "home-prompt-templates",
+          "type": "feature",
+          "title": "Home prompt templates",
+          "revert_action": "remove_prompt_section",
+          "revert_detail": "Remove the prompt-builder section (DEFS, DERIVED, TEMPLATES variables and all associated HTML/CSS/JS) from index.html."
+        },
+        {
+          "id": "nav-deep-tree",
+          "type": "architecture",
+          "title": "Nav rebuilt as deep collapsible tree",
+          "revert_action": "revert_nav_js",
+          "revert_detail": "Restore nav.js to the flat category list from v1.1.0."
+        }
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-04-26",
+      "type": "minor",
+      "files_added": ["changelog.html"],
+      "files_modified": [
+        "styles.css",
+        "index.html",
+        "feedback.html",
+        "errors.html",
+        "confirmations.html",
+        "empty-states.html",
+        "bulk-actions.html",
+        "form-validation.html",
+        "alerts.html",
+        "navigation.html",
+        "bilingual.html",
+        "status.html",
+        "data-management.html"
+      ],
+      "files_deleted": [],
+      "changes": [
+        {
+          "id": "arch-multipage",
+          "type": "architecture",
+          "title": "Single-page to multi-page",
+          "revert_action": "merge_pages",
+          "revert_detail": "Re-embed all 11 category .patterns-grid blocks into index.html as <section class='kb-section' id='{slug}'> elements. Restore anchor-nav sidebar in index.html. Delete all 11 standalone category HTML files."
+        },
+        {
+          "id": "css-theme-light",
+          "type": "css_variables",
+          "title": "Dark to light theme",
+          "revert_action": "restore_css_variables",
+          "before": {
+            "--bg": "#0f0f23",
+            "--surface": "#1a1a2e",
+            "--border": "#2d2d4e",
+            "--text": "#e8e8f0",
+            "--muted": "#9898b8",
+            "--muted-light": "#6060a0",
+            "--font": "system-ui, -apple-system, sans-serif",
+            "border_weight": "1px",
+            "card_radius": "12px",
+            "imports": "none"
+          },
+          "after": {
+            "--bg": "#f5f4f0",
+            "--surface": "#ffffff",
+            "--border": "#e0ddd6",
+            "--text": "#1a1a1a",
+            "--muted": "#888",
+            "--muted-light": "#c4c1ba",
+            "--font": "'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+            "--mono": "'DM Mono', 'Fira Mono', monospace",
+            "border_weight": "0.5px",
+            "card_radius": "16px",
+            "imports": "DM Sans + DM Mono from Google Fonts, Tabler Icons from jsDelivr"
+          }
+        },
+        {
+          "id": "nav-sidebar",
+          "type": "layout",
+          "title": "Added sidebar + breadcrumbs to all category pages",
+          "revert_action": "remove_sidebar_breadcrumb",
+          "revert_detail": "Remove <nav class='sidebar'>...</nav> and <div class='breadcrumb'>...</div> from all 11 category pages. Remove .layout, .sidebar, .breadcrumb CSS rules."
+        },
+        {
+          "id": "search-perpage",
+          "type": "feature",
+          "title": "Per-page search with Cmd+K",
+          "revert_action": "remove_per_page_search",
+          "revert_detail": "Remove search-wrap from header of each category page. Remove <span id='searchCount'>. Remove the inline <script> search block at bottom of each category page."
+        }
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "2026-04-25",
+      "type": "initial",
+      "files_added": ["index.html", "styles.css"],
+      "files_modified": [],
+      "files_deleted": [],
+      "changes": [
+        {
+          "id": "initial-release",
+          "type": "initial",
+          "title": "Initial single-page site",
+          "detail": "Single index.html with 11 embedded category sections. Dark navy theme. Emoji icons. 59 patterns total."
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script src="nav.js"></script>
+</body>
+</html>
