@@ -584,9 +584,10 @@ Sitemap
   // Parse [Key] tokens and render interactive chips inline within the text.
   function renderBody(bodyText) {
     modalBody.innerHTML = '';
-    var parts = bodyText.split(/(\[[^\]]+\])/g);
+    // Only match [Key Name] tokens: start with a letter, contain only letters/digits/spaces/hyphens
+    var parts = bodyText.split(/(\[[A-Za-z][A-Za-z0-9 \-]*\])/g);
     parts.forEach(function (part) {
-      var m = part.match(/^\[(.+)\]$/);
+      var m = part.match(/^\[([A-Za-z][A-Za-z0-9 \-]*)\]$/);
       if (m) {
         var key = m[1];
         modalBody.appendChild(makeChip(key));
@@ -675,24 +676,8 @@ Sitemap
     window.getSelection().addRange(range);
 
     _onChipInput = function () {
-      // Live-update state and derived chips without touching editingChip itself
-      var v = span.textContent;
-      state[key] = v;
-      Object.keys(DERIVED).forEach(function (dk) {
-        if (DERIVED[dk].from === key) {
-          modalBody.querySelectorAll('.p-chip[data-key="' + dk + '"]').forEach(function (c) {
-            updateChipDisplay(c, dk);
-          });
-        }
-      });
-      if (currentTplSection) {
-        var sec = getSectionByLabel(currentTplSection);
-        if (sec && sec.sharedKeys && sec.sharedKeys.indexOf(key) !== -1) {
-          if (!sectionSharedState[currentTplSection]) sectionSharedState[currentTplSection] = {};
-          sectionSharedState[currentTplSection][key] = v;
-          refreshSectionChip(currentTplSection, key, v);
-        }
-      }
+      // Route through setValue so all chips with this key (and derived chips) update live
+      setValue(key, span.textContent);
     };
     _onChipKeydown = function (e) {
       if (e.key === 'Enter') { e.preventDefault(); commitEdit(); }
@@ -792,7 +777,8 @@ Sitemap
           rm.className = 'dd-url-remove';
           rm.textContent = '✕';
           rm.title = 'Remove';
-          rm.addEventListener('click', function () {
+          rm.addEventListener('click', function (e) {
+            e.stopPropagation();
             draft.splice(i, 1);
             if (draft.length === 0) draft = [''];
             saveDraft();
@@ -810,7 +796,8 @@ Sitemap
       addBtn.textContent = '+ Add URL';
       var filled = draft.filter(function (u) { return u.trim(); }).length;
       addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
-      addBtn.addEventListener('click', function () {
+      addBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
         if (draft.length < MAX) {
           draft.push('');
           buildRows();
