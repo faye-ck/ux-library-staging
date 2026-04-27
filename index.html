@@ -273,10 +273,22 @@ Sitemap
     { label: 'Promote' },
   ];
 
+  // ── PRODUCT → FEATURE MAP ─────────────────────────────────────────────────
+  // Used by 'product-features' type to populate Feature Name dropdown
+  var PRODUCT_FEATURES = {
+    'Biz':       ['Office Map', 'Reception', 'Scheduler', 'Inventory', 'Locker', 'Post', 'Analytics'],
+    'Workflows': ['Submit', 'Approve', 'Template'],
+    'CKID':      ['Org Chart', 'Team Management', 'User Management'],
+    'Intra':     ['Dashboard', 'Page Management', 'Theming'],
+    'Files':     ['File Management'],
+    'Updates':   ['Task Management'],
+    'Goals':     ['KPI Management', 'Goals & OKRs', 'Performance Analytics'],
+  };
+
   // ── PLACEHOLDER DEFINITIONS ───────────────────────────────────────────────
   var DEFS = {
     'Product Name': { type: 'select', options: ['Biz', 'Workflows', 'CKID', 'Intra', 'Files', 'Updates', 'Goals'] },
-    'Feature Name': { type: 'text',   hint: 'e.g. Office Map' },
+    'Feature Name': { type: 'product-features', hint: 'e.g. Office Map' },
     'Platform':     { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Platform A':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Platform B':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
@@ -327,6 +339,9 @@ Sitemap
       icon: 'ti-folder-plus',
       title: 'Add a new feature to a product',
       desc: 'Set up files, register in nav, and generate spec from Figma',
+      defs: {
+        'Feature Name': { type: 'text', hint: 'e.g. Office Map' },
+      },
       body:
 'Add a new feature called [Feature Name] to [Product Name].\n\n' +
 '── SET UP ───────────────────────────────────────────────────\n' +
@@ -611,6 +626,14 @@ Sitemap
           if (editingChip !== span) enterInlineEdit(span, key);
         } else if (def && def.type === 'url-list') {
           openUrlListDropdown(key, span);
+        } else if (def && def.type === 'product-features') {
+          var product = state['Product Name'] || '';
+          var features = PRODUCT_FEATURES[product];
+          if (features && features.length) {
+            openFeatureDropdown(key, span, features);
+          } else {
+            if (editingChip !== span) enterInlineEdit(span, key);
+          }
         } else {
           openDropdown(key, span);
         }
@@ -640,13 +663,14 @@ Sitemap
       return;
     }
 
+    var showCaret = !isDerived && !(def && def.type === 'text');
     var val = getVal(key);
     if (val) {
       span.classList.add('filled');
-      span.innerHTML = escHtml(val) + (isDerived ? '' : ' <i class="ti ti-chevron-down chip-caret"></i>');
+      span.innerHTML = escHtml(val) + (showCaret ? ' <i class="ti ti-chevron-down chip-caret"></i>' : '');
     } else {
       span.classList.remove('filled');
-      span.innerHTML = escHtml(key) + (isDerived ? '' : ' <i class="ti ti-chevron-down chip-caret"></i>');
+      span.innerHTML = escHtml(key) + (showCaret ? ' <i class="ti ti-chevron-down chip-caret"></i>' : '');
     }
   }
 
@@ -826,6 +850,30 @@ Sitemap
     }
 
     buildRows();
+    dropdown.style.display = 'block';
+    positionDropdown(chipEl);
+  }
+
+  function openFeatureDropdown(key, chipEl, options) {
+    if (activeKey === key && dropdown.style.display !== 'none') {
+      dropdown.style.display = 'none';
+      activeKey = null;
+      return;
+    }
+    dropdown.style.display = 'none';
+    activeKey = key;
+    var currentVal = state[key] || '';
+    dropdown.innerHTML = '';
+    options.forEach(function (opt) {
+      var d = document.createElement('div');
+      d.className = 'dd-option' + (currentVal === opt ? ' selected' : '');
+      d.textContent = opt;
+      d.addEventListener('click', function () {
+        setValue(key, opt);
+        closeDropdown();
+      });
+      dropdown.appendChild(d);
+    });
     dropdown.style.display = 'block';
     positionDropdown(chipEl);
   }
