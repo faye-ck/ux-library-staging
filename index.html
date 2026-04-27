@@ -294,22 +294,28 @@ Sitemap
       section: 'Update',
       icon: 'ti-folder-plus',
       title: 'Add a new feature to a product',
-      desc: 'New feature folder + nav entry',
+      desc: 'Scaffold files + register in nav + generate spec from Figma',
       body:
-'Add a new feature called [Feature Name] to the [Product Name] product.\n\n' +
-'1. Create the feature folder /[product-slug]/[feature-slug]/ with:\n' +
-'   - feature.html + feature.md  (feature overview / spec page)\n' +
-'   - Breadcrumb: Home / [Product Name] / [Feature Name] / Feature\n' +
-'   - Use an existing feature page (e.g. biz/office-map/feature.html) as the page template.\n\n' +
-'2. Register [Feature Name] in nav.js inside the [Product Name] children:\n' +
-'   - Add a new feature group { label: "[Feature Name]", children: [...] } before the Changelog entry\n' +
-'   - Add a Feature leaf: { label: \'Feature\', href: \'/[product-slug]/[feature-slug]/feature.html\' }\n\n' +
-'3. Update sitemap.html:\n' +
-'   - Add a new folder block for [product-slug]/[feature-slug]/ inside the [Product Name] section\n' +
-'   - Include a row for feature.html +.md\n' +
-'   - Follow the format of an existing feature folder block.\n\n' +
-'4. Update /[product-slug]/changelog.html:\n' +
-'   - Add an Added entry to the current version block: "[Feature Name] feature scaffolded — feature overview page created."'
+'Add a new feature called [Feature Name] to [Product Name].\n\n' +
+'── SCAFFOLD ──────────────────────────────────────────────────\n' +
+'1. Create /[product-slug]/[feature-slug]/ with:\n' +
+'   - feature.html — shell page only (spec content added in step 5)\n' +
+'   - feature.md   — stub mirror\n' +
+'   Breadcrumb: Home / [Product Name] / [Feature Name] / Feature\n' +
+'   Base the shell on an existing feature page (e.g. biz/office-map/feature.html).\n\n' +
+'2. Register in nav.js inside [Product Name] children, before Changelog:\n' +
+'   { label: "[Feature Name]", children:\n' +
+'     [{ label: "Feature", href: "/[product-slug]/[feature-slug]/feature.html" }] }\n\n' +
+'3. Add folder block to sitemap.html under the [Product Name] section.\n' +
+'   Include a row for feature.html + .md. Follow the format of an existing feature block.\n\n' +
+'4. Add to /[product-slug]/changelog.html:\n' +
+'   "Added [Feature Name] — scaffold created, spec pending."\n\n' +
+'── SPEC ──────────────────────────────────────────────────────\n' +
+'5. Run /document-feature-spec to generate the full feature spec from Figma:\n' +
+'   Product: [Product Name]  ·  Feature: [Feature Name]\n' +
+'   Surface: [Surface]  ·  Figma: [Figma URL]\n\n' +
+'   The skill reads config files, extracts design context from Figma,\n' +
+'   populates feature.html in place, and updates the coverage table in _index.html.'
     },
     {
       section: 'Update',
