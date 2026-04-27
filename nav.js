@@ -207,34 +207,9 @@
           ]
         },
         {
-          label: 'Announcements', children: [
-            { label: 'Feature',     href: '/intra/announcements/feature.html' },
-            { label: 'Mobile Web',  href: '/intra/announcements/mobile-web.html' },
-            { label: 'Email',       href: '/intra/announcements/email.html' },
-          ]
-        },
-        {
-          label: 'Todo', children: [
-            { label: 'Feature',     href: '/intra/todo/feature.html' },
-            { label: 'Mobile Web',  href: '/intra/todo/mobile-web.html' },
-          ]
-        },
-        {
           label: 'Page Management', children: [
             { label: 'Feature',     href: '/intra/page-management/feature.html' },
             { label: 'Mobile Web',  href: '/intra/page-management/mobile-web.html' },
-          ]
-        },
-        {
-          label: 'Feed & Blogs', children: [
-            { label: 'Feature',     href: '/intra/feed-blogs/feature.html' },
-            { label: 'Mobile Web',  href: '/intra/feed-blogs/mobile-web.html' },
-          ]
-        },
-        {
-          label: 'Social Feed', children: [
-            { label: 'Feature',     href: '/intra/social-feed/feature.html' },
-            { label: 'Mobile Web',  href: '/intra/social-feed/mobile-web.html' },
           ]
         },
         {
