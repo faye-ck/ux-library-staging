@@ -139,6 +139,43 @@
     }
     .dd-done:hover { background: var(--teal-light); }
 
+    /* ── INLINE TEXT CHIP ── */
+    .p-chip.editing {
+      cursor: text; border-style: solid; border-color: var(--teal);
+      background: var(--teal-light); color: var(--teal);
+      min-width: 80px; white-space: nowrap; outline: none;
+    }
+    .p-chip.editing:focus { outline: none; }
+    .p-chip.editing:empty::before {
+      content: attr(data-placeholder); color: var(--muted-light); pointer-events: none;
+    }
+
+    /* ── URL LIST DROPDOWN ── */
+    .dd-url-row {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 10px;
+    }
+    .dd-url-row input {
+      flex: 1; border: 0.5px solid var(--border); border-radius: 6px;
+      padding: 6px 10px; font-size: 12px; font-family: var(--mono);
+      outline: none; background: var(--bg); color: var(--text); min-width: 0;
+    }
+    .dd-url-row input:focus { border-color: var(--teal); }
+    .dd-url-row input::placeholder { color: var(--muted-light); }
+    .dd-url-remove {
+      background: none; border: none; cursor: pointer; font-size: 11px;
+      color: var(--muted-light); padding: 2px 4px; border-radius: 4px;
+      line-height: 1; flex-shrink: 0; transition: color 0.1s;
+    }
+    .dd-url-remove:hover { color: var(--text); }
+    .dd-url-add {
+      width: 100%; padding: 7px 14px; border-top: 0.5px solid var(--border);
+      font-size: 11px; font-family: var(--mono); color: var(--teal);
+      background: none; border-left: none; border-right: none; border-bottom: none;
+      cursor: pointer; text-align: left; font-weight: 500; transition: background 0.1s;
+    }
+    .dd-url-add:hover { background: var(--teal-light); }
+
     /* ── COPY BTN ── */
     .copy-btn {
       font-family: var(--mono); font-size: 11px;
@@ -245,9 +282,9 @@ Sitemap
     'Platform B':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Pattern Name': { type: 'text',   hint: 'e.g. Empty State' },
     'Products':     { type: 'multi',  options: ['Biz', 'Workflows', 'CKID', 'Intra', 'Files', 'Updates', 'Goals'] },
-    'Figma URL':         { type: 'text', hint: 'Paste Figma file or frame URL' },
-    'Baseline Figma URL': { type: 'text', hint: 'Figma frame for the baseline platform' },
-    'Delta Figma URL':    { type: 'text', hint: 'Figma frame for the delta platform' },
+    'Figma URL':         { type: 'url-list', hint: 'Paste Figma URL', max: 5 },
+    'Baseline Figma URL': { type: 'url-list', hint: 'Paste baseline Figma URL', max: 5 },
+    'Delta Figma URL':    { type: 'url-list', hint: 'Paste delta Figma URL', max: 5 },
   };
 
   // Derived keys: auto-computed from another key, shown as non-interactive chips
@@ -419,6 +456,9 @@ Sitemap
   var sectionSharedState = {};  // sectionLabel → { key → value }
   var currentTplSection = null; // section label of the currently open template
   var activeSectionCtx = null;  // { label } when a section-header chip triggered the dropdown
+  var editingChip = null;       // chip element currently in inline-text edit mode
+  var _onChipInput = null;      // input listener ref for cleanup
+  var _onChipKeydown = null;    // keydown listener ref for cleanup
 
   // ── BUILD LAYOUT ─────────────────────────────────────────────────────────
   var grid = document.getElementById('prompt-grid');
@@ -526,12 +566,14 @@ Sitemap
   }
 
   function closeModal() {
+    commitEdit();
     modal.style.display = 'none';
     document.body.style.overflow = '';
     closeDropdown();
     state = {};
     activeKey = null;
     currentTplSection = null;
+    editingChip = null;
   }
 
   document.getElementById('modal-close').addEventListener('click', closeModal);
@@ -563,14 +605,40 @@ Sitemap
     if (!isDerived) {
       span.addEventListener('click', function (e) {
         e.stopPropagation();
-        openDropdown(key, span);
+        var def = activeDefs[key] || DEFS[key];
+        if (def && def.type === 'text') {
+          if (editingChip !== span) enterInlineEdit(span, key);
+        } else if (def && def.type === 'url-list') {
+          openUrlListDropdown(key, span);
+        } else {
+          openDropdown(key, span);
+        }
       });
     }
     return span;
   }
 
   function updateChipDisplay(span, key) {
+    if (span === editingChip) return; // being typed into — don't overwrite
     var isDerived = !!DERIVED[key];
+    var def = activeDefs[key] || DEFS[key];
+
+    if (def && def.type === 'url-list') {
+      var urls = getNonEmptyUrls(state[key] || '');
+      if (urls.length === 0) {
+        span.classList.remove('filled');
+        span.innerHTML = escHtml(key) + ' <i class="ti ti-chevron-down chip-caret"></i>';
+      } else if (urls.length === 1) {
+        span.classList.add('filled');
+        var u = urls[0]; var display = u.length > 38 ? '…' + u.slice(-28) : u;
+        span.innerHTML = escHtml(display) + ' <i class="ti ti-chevron-down chip-caret"></i>';
+      } else {
+        span.classList.add('filled');
+        span.innerHTML = escHtml(urls.length + ' Figma URLs') + ' <i class="ti ti-chevron-down chip-caret"></i>';
+      }
+      return;
+    }
+
     var val = getVal(key);
     if (val) {
       span.classList.add('filled');
@@ -587,6 +655,192 @@ Sitemap
       return src ? DERIVED[key].fn(src) : '';
     }
     return state[key] || '';
+  }
+
+  // ── INLINE TEXT EDITING ──────────────────────────────────────────────────
+  function enterInlineEdit(span, key) {
+    if (editingChip) commitEdit();
+    editingChip = span;
+    var def = activeDefs[key] || DEFS[key];
+    span.dataset.placeholder = (def && def.hint) || 'Type…';
+    span.classList.add('editing');
+    span.contentEditable = 'true';
+    span.textContent = state[key] || '';
+    span.focus();
+    // Cursor to end
+    var range = document.createRange();
+    range.selectNodeContents(span);
+    range.collapse(false);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    _onChipInput = function () {
+      // Live-update state and derived chips without touching editingChip itself
+      var v = span.textContent;
+      state[key] = v;
+      Object.keys(DERIVED).forEach(function (dk) {
+        if (DERIVED[dk].from === key) {
+          modalBody.querySelectorAll('.p-chip[data-key="' + dk + '"]').forEach(function (c) {
+            updateChipDisplay(c, dk);
+          });
+        }
+      });
+      if (currentTplSection) {
+        var sec = getSectionByLabel(currentTplSection);
+        if (sec && sec.sharedKeys && sec.sharedKeys.indexOf(key) !== -1) {
+          if (!sectionSharedState[currentTplSection]) sectionSharedState[currentTplSection] = {};
+          sectionSharedState[currentTplSection][key] = v;
+          refreshSectionChip(currentTplSection, key, v);
+        }
+      }
+    };
+    _onChipKeydown = function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); commitEdit(); }
+      if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); }
+    };
+    // Strip HTML on paste — insert as plain text
+    span._onPaste = function (e) {
+      e.preventDefault();
+      var text = (e.clipboardData || window.clipboardData).getData('text/plain');
+      document.execCommand('insertText', false, text);
+    };
+    span.addEventListener('input', _onChipInput);
+    span.addEventListener('keydown', _onChipKeydown);
+    span.addEventListener('paste', span._onPaste);
+    span.addEventListener('blur', commitEdit, { once: true });
+  }
+
+  function commitEdit() {
+    if (!editingChip) return;
+    var span = editingChip;
+    var key = span.dataset.key;
+    var val = span.textContent.trim();
+    span.removeEventListener('input', _onChipInput);
+    span.removeEventListener('keydown', _onChipKeydown);
+    if (span._onPaste) { span.removeEventListener('paste', span._onPaste); delete span._onPaste; }
+    editingChip = null; _onChipInput = null; _onChipKeydown = null;
+    span.contentEditable = 'false';
+    span.classList.remove('editing');
+    setValue(key, val);
+    updateChipDisplay(span, key);
+  }
+
+  function cancelEdit() {
+    if (!editingChip) return;
+    var span = editingChip;
+    var key = span.dataset.key;
+    span.removeEventListener('input', _onChipInput);
+    span.removeEventListener('keydown', _onChipKeydown);
+    if (span._onPaste) { span.removeEventListener('paste', span._onPaste); delete span._onPaste; }
+    editingChip = null; _onChipInput = null; _onChipKeydown = null;
+    span.contentEditable = 'false';
+    span.classList.remove('editing');
+    updateChipDisplay(span, key);
+  }
+
+  // ── URL LIST HELPERS ─────────────────────────────────────────────────────
+  function getNonEmptyUrls(str) {
+    if (!str) return [];
+    return str.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+
+  function openUrlListDropdown(key, chipEl) {
+    if (activeKey === key && dropdown.style.display !== 'none') {
+      dropdown.style.display = 'none';
+      activeKey = null;
+      return;
+    }
+    dropdown.style.display = 'none';
+    activeKey = key;
+    var def = activeDefs[key] || DEFS[key];
+    var MAX = (def && def.max) || 5;
+
+    // Working draft (includes in-progress empty rows)
+    var draft = getNonEmptyUrls(state[key] || '');
+    if (draft.length === 0) draft = [''];
+
+    function saveDraft() {
+      state[key] = draft.filter(function (u) { return u.trim(); }).join('\n');
+      modalBody.querySelectorAll('.p-chip[data-key="' + key + '"]').forEach(function (c) {
+        updateChipDisplay(c, key);
+      });
+    }
+
+    function buildRows() {
+      dropdown.innerHTML = '';
+      draft.forEach(function (url, i) {
+        var row = document.createElement('div');
+        row.className = 'dd-url-row';
+
+        var inp = document.createElement('input');
+        inp.type = 'text';
+        inp.placeholder = (def && def.hint) ? (i === 0 ? def.hint : 'Another URL…') : (i === 0 ? 'Paste Figma URL…' : 'Another URL…');
+        inp.value = url;
+        inp.addEventListener('input', function () {
+          draft[i] = inp.value;
+          saveDraft();
+          updateAddBtn();
+        });
+        inp.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === 'Escape') { e.preventDefault(); closeDropdown(); }
+        });
+        row.appendChild(inp);
+
+        // Remove button: show when >1 row, or this row has content
+        if (draft.length > 1 || url.trim()) {
+          var rm = document.createElement('button');
+          rm.className = 'dd-url-remove';
+          rm.textContent = '✕';
+          rm.title = 'Remove';
+          rm.addEventListener('click', function () {
+            draft.splice(i, 1);
+            if (draft.length === 0) draft = [''];
+            saveDraft();
+            buildRows();
+            positionDropdown(chipEl);
+          });
+          row.appendChild(rm);
+        }
+        dropdown.appendChild(row);
+      });
+
+      // Add URL button
+      var addBtn = document.createElement('button');
+      addBtn.className = 'dd-url-add';
+      addBtn.textContent = '+ Add URL';
+      var filled = draft.filter(function (u) { return u.trim(); }).length;
+      addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
+      addBtn.addEventListener('click', function () {
+        if (draft.length < MAX) {
+          draft.push('');
+          buildRows();
+          positionDropdown(chipEl);
+          var inputs = dropdown.querySelectorAll('.dd-url-row input');
+          if (inputs.length) inputs[inputs.length - 1].focus();
+        }
+      });
+      dropdown.appendChild(addBtn);
+
+      // Focus first empty input
+      setTimeout(function () {
+        var inputs = dropdown.querySelectorAll('.dd-url-row input');
+        for (var j = 0; j < inputs.length; j++) {
+          if (!inputs[j].value) { inputs[j].focus(); return; }
+        }
+        if (inputs.length) inputs[0].focus();
+      }, 30);
+    }
+
+    function updateAddBtn() {
+      var addBtn = dropdown.querySelector('.dd-url-add');
+      if (!addBtn) return;
+      var filled = draft.filter(function (u) { return u.trim(); }).length;
+      addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
+    }
+
+    buildRows();
+    dropdown.style.display = 'block';
+    positionDropdown(chipEl);
   }
 
   function setValue(key, val) {
@@ -735,14 +989,13 @@ Sitemap
     var btn = this;
 
     // Assemble final text from modal body nodes
+    commitEdit(); // commit any in-progress inline edit
     var text = '';
     modalBody.childNodes.forEach(function (node) {
       if (node.nodeType === Node.TEXT_NODE) {
         text += node.textContent;
       } else if (node.classList && node.classList.contains('p-chip')) {
-        var key = node.dataset.key;
-        var val = getVal(key);
-        text += val || '[' + key + ']';
+        text += getValForCopy(node.dataset.key);
       }
     });
 
@@ -790,6 +1043,18 @@ Sitemap
         btn.style.position = '';
       }, 150);
     }, 1800);
+  }
+
+  function getValForCopy(key) {
+    var def = activeDefs[key] || DEFS[key];
+    if (def && def.type === 'url-list') {
+      var urls = getNonEmptyUrls(state[key] || '');
+      if (urls.length === 0) return '[' + key + ']';
+      if (urls.length === 1) return urls[0];
+      return urls.join('\n');
+    }
+    var val = getVal(key);
+    return val || '[' + key + ']';
   }
 
   function escHtml(s) {
