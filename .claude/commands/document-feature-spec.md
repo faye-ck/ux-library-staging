@@ -133,10 +133,32 @@ Open `/[product]/_index.html` and update the platform coverage table row for thi
 
 ---
 
+## Step 6 — Update changelog and sitemap
+
+### `/[product]/changelog.html`
+
+Look for an existing entry for [Feature Name] in the current version block (likely added during scaffolding as "spec pending"):
+- **If found:** update that entry in place → `"[Feature Name] — [Surface] spec documented."`
+- **If not found:** add a new Added entry → `"[Feature Name] — [Surface] spec documented."`
+
+Do not add a duplicate entry if one already exists.
+
+### `sitemap.html`
+
+Find the feature folder block for `/[product-slug]/[feature-slug]/` under the [Product Name] section:
+- **If found:** confirm `feature.html` row is present — no further action needed.
+- **If not found** (skill ran without prior scaffolding): add the folder block following the format of an existing feature block. Include rows for `feature.html` and `feature.md`.
+
+> **Cost tip:** Read only the relevant product section of `sitemap.html`, not the entire file, to locate the correct insertion point.
+
+---
+
 ## Output
 
 - `/[product]/[feature-slug]/feature.html` — the generated or updated spec
 - Updated coverage table in `/[product]/_index.html`
+- Updated `/[product]/changelog.html` — entry added or updated
+- Updated `sitemap.html` — feature folder block confirmed or added
 - Summary in the conversation: feature documented, open items count, any tokens or terms that need to be added to config files
 
 ---

@@ -165,10 +165,31 @@ Open `/[product]/_index.html` and update the platform coverage table:
 
 ---
 
+## Step 8 — Update changelog and sitemap
+
+### `/[product]/changelog.html`
+
+Add an Added entry to the current version block:
+- **If a delta file was written:** `"[Feature Name] — [Delta Surface] delta documented."`
+- **If surfaces were identical (no file written):** `"[Feature Name] — [Delta Surface] confirmed identical to baseline, no delta file needed."`
+
+### `sitemap.html`
+
+Find the feature folder block for `/[product-slug]/[feature-slug]/` under the [Product Name] section:
+- **If a delta file was written:** add a row for `[delta-surface-slug].html` and `[delta-surface-slug].md` inside the existing feature folder block.
+- **If surfaces were identical:** no sitemap change needed.
+- **If the feature folder block is missing entirely:** add it first following the format of an existing feature block, then add the delta row.
+
+> **Cost tip:** Read only the relevant product section of `sitemap.html`, not the entire file, to locate the correct insertion point.
+
+---
+
 ## Output
 
 - `/[product]/[feature-slug]/[delta-surface-slug].html` — the delta file (if differences found)
 - Updated coverage table in `/[product]/_index.html`
+- Updated `/[product]/changelog.html` — entry added
+- Updated `sitemap.html` — delta file row added (if file was written)
 - Summary in the conversation: differences found per dimension, open items count, whether a file was written or the surfaces were identical
 
 ---
