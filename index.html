@@ -168,14 +168,6 @@
       line-height: 1; flex-shrink: 0; transition: color 0.1s;
     }
     .dd-url-remove:hover { color: var(--text); }
-    .dd-url-type {
-      flex-shrink: 0; padding: 3px 7px; border-radius: 5px;
-      font-size: 10px; font-family: var(--mono); font-weight: 600;
-      cursor: pointer; border: none; letter-spacing: 0.04em; text-transform: uppercase;
-      transition: background 0.1s, color 0.1s;
-    }
-    .dd-url-type.figma   { background: var(--teal-light); color: var(--teal); }
-    .dd-url-type.clickup { background: #f0ebff; color: #7b4dd6; }
     .dd-url-add {
       width: 100%; padding: 7px 14px; border-top: 0.5px solid var(--border);
       font-size: 11px; font-family: var(--mono); color: var(--teal);
@@ -302,9 +294,9 @@ Sitemap
     'Platform B':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Pattern Name': { type: 'text',   hint: 'e.g. Empty State' },
     'Products':     { type: 'multi',  options: ['Biz', 'Workflows', 'CKID', 'Intra', 'Files', 'Updates', 'Goals'] },
-    'Figma URL':         { type: 'url-list', hint: 'Paste Figma URL', max: 5 },
-    'Baseline Figma URL': { type: 'url-list', hint: 'Paste baseline Figma URL', max: 5 },
-    'Delta Figma URL':    { type: 'url-list', hint: 'Paste delta Figma URL', max: 5 },
+    'URL':          { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
+    'Baseline URL': { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
+    'Delta URL':    { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
   };
 
   // Derived keys: auto-computed from another key, shown as non-interactive chips
@@ -368,7 +360,7 @@ Sitemap
 '── SPEC ──────────────────────────────────────────────────────\n' +
 '5. Run /document-feature-spec to generate the full feature spec from Figma:\n' +
 '   Product: [Product Name]  ·  Feature: [Feature Name]\n' +
-'   Platform: [Platform]  ·  Figma: [Figma URL]\n\n' +
+'   Platform: [Platform]  ·  URL: [URL]\n\n' +
 '   The skill reads config files, extracts design context from Figma,\n' +
 '   populates feature.html in place, and updates the coverage table in _index.html.'
     },
@@ -379,8 +371,8 @@ Sitemap
       desc: 'Compare two Figma platforms and document only what differs',
       body:
 'Document a platform delta for [Product Name] › [Feature Name].\n\n' +
-'Baseline: [Platform A]  ·  Figma: [Baseline Figma URL]\n' +
-'Delta:    [Platform B]  ·  Figma: [Delta Figma URL]\n\n' +
+'Baseline: [Platform A]  ·  URL: [Baseline URL]\n' +
+'Delta:    [Platform B]  ·  URL: [Delta URL]\n\n' +
 'Run /add-platform-delta with the above inputs.\n\n' +
 'The skill will:\n' +
 '- Check if the baseline spec exists at /[product-slug]/[feature-slug]/feature.html\n' +
@@ -410,7 +402,7 @@ Sitemap
       title: 'Audit Figma file against feature spec',
       desc: 'Find gaps between a Figma design and the UX Library spec',
       body:
-'Audit the Figma file at [Figma URL] against the UX Library spec for [Product Name] › [Feature Name].\n\n' +
+'Audit the Figma file at [URL] against the UX Library spec for [Product Name] › [Feature Name].\n\n' +
 'Spec source: /[product-slug]/[feature-slug]/\n\n' +
 'Fetch the Figma file and compare its screens against every platform page in the spec. Check for:\n' +
 '- Missing or extra UI elements not documented in the spec\n' +
@@ -666,13 +658,7 @@ Sitemap
         span.innerHTML = escHtml(display) + ' <i class="ti ti-chevron-down chip-caret"></i>';
       } else {
         span.classList.add('filled');
-        var fc = entries.filter(function(e){return e.type==='figma';}).length;
-        var cc = entries.filter(function(e){return e.type==='clickup';}).length;
-        var label = entries.length + ' URLs';
-        if (fc && cc) label += ' (' + fc + ' Figma, ' + cc + ' ClickUp)';
-        else if (fc > 1) label = fc + ' Figma URLs';
-        else if (cc > 1) label = cc + ' ClickUp URLs';
-        span.innerHTML = escHtml(label) + ' <i class="ti ti-chevron-down chip-caret"></i>';
+        span.innerHTML = escHtml(entries.length + ' URLs') + ' <i class="ti ti-chevron-down chip-caret"></i>';
       }
       return;
     }
@@ -775,8 +761,15 @@ Sitemap
     return entries.filter(function (e) { return e.url.trim(); })
       .map(function (e) { return e.type + '|' + e.url; }).join('\n');
   }
-  function getNonEmptyUrls(str) { // returns plain url strings (for backward compat)
-    return parseUrlEntries(str).map(function (e) { return e.url; });
+  function getNonEmptyUrls(str) {
+    if (!str) return [];
+    return str.split('\n').map(function (line) {
+      line = line.trim();
+      // Strip legacy type prefix (figma|url or clickup|url)
+      var pipe = line.indexOf('|');
+      if (pipe !== -1 && pipe < 10) line = line.slice(pipe + 1).trim();
+      return line;
+    }).filter(Boolean);
   }
 
   function openUrlListDropdown(key, chipEl) {
@@ -790,12 +783,12 @@ Sitemap
     var def = activeDefs[key] || DEFS[key];
     var MAX = (def && def.max) || 5;
 
-    // Working draft: array of {type, url} — includes in-progress empty rows
-    var draft = parseUrlEntries(state[key] || '');
-    if (draft.length === 0) draft = [{ type: 'figma', url: '' }];
+    // Working draft: plain URL strings — includes in-progress empty rows
+    var draft = getNonEmptyUrls(state[key] || '');
+    if (draft.length === 0) draft = [''];
 
     function saveDraft() {
-      state[key] = serializeEntries(draft);
+      state[key] = draft.filter(function (u) { return u.trim(); }).join('\n');
       modalBody.querySelectorAll('.p-chip[data-key="' + key + '"]').forEach(function (c) {
         updateChipDisplay(c, key);
       });
@@ -803,33 +796,16 @@ Sitemap
 
     function buildRows() {
       dropdown.innerHTML = '';
-      draft.forEach(function (entry, i) {
+      draft.forEach(function (url, i) {
         var row = document.createElement('div');
         row.className = 'dd-url-row';
 
-        // Type toggle badge
-        var typeBtn = document.createElement('button');
-        typeBtn.className = 'dd-url-type ' + entry.type;
-        typeBtn.textContent = entry.type === 'figma' ? 'Figma' : 'ClickUp';
-        typeBtn.title = 'Click to switch type';
-        typeBtn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          entry.type = entry.type === 'figma' ? 'clickup' : 'figma';
-          saveDraft();
-          typeBtn.className = 'dd-url-type ' + entry.type;
-          typeBtn.textContent = entry.type === 'figma' ? 'Figma' : 'ClickUp';
-        });
-        row.appendChild(typeBtn);
-
         var inp = document.createElement('input');
         inp.type = 'text';
-        var ph = entry.type === 'figma'
-          ? (i === 0 ? ((def && def.hint) || 'Paste Figma URL…') : 'Another Figma URL…')
-          : 'Paste ClickUp URL…';
-        inp.placeholder = ph;
-        inp.value = entry.url;
+        inp.placeholder = i === 0 ? ((def && def.hint) || 'Add URL…') : 'Add another URL…';
+        inp.value = url;
         inp.addEventListener('input', function () {
-          entry.url = inp.value;
+          draft[i] = inp.value;
           saveDraft();
           updateAddBtn();
         });
@@ -839,7 +815,7 @@ Sitemap
         row.appendChild(inp);
 
         // Remove button: show when >1 row or this row has content
-        if (draft.length > 1 || entry.url.trim()) {
+        if (draft.length > 1 || url.trim()) {
           var rm = document.createElement('button');
           rm.className = 'dd-url-remove';
           rm.textContent = '✕';
@@ -847,7 +823,7 @@ Sitemap
           rm.addEventListener('click', function (e) {
             e.stopPropagation();
             draft.splice(i, 1);
-            if (draft.length === 0) draft = [{ type: 'figma', url: '' }];
+            if (draft.length === 0) draft = [''];
             saveDraft();
             buildRows();
             positionDropdown(chipEl);
@@ -861,12 +837,12 @@ Sitemap
       var addBtn = document.createElement('button');
       addBtn.className = 'dd-url-add';
       addBtn.textContent = '+ Add URL';
-      var filled = draft.filter(function (e) { return e.url.trim(); }).length;
+      var filled = draft.filter(function (u) { return u.trim(); }).length;
       addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
       addBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         if (draft.length < MAX) {
-          draft.push({ type: 'figma', url: '' });
+          draft.push('');
           buildRows();
           positionDropdown(chipEl);
           var inputs = dropdown.querySelectorAll('.dd-url-row input');
@@ -888,7 +864,7 @@ Sitemap
     function updateAddBtn() {
       var addBtn = dropdown.querySelector('.dd-url-add');
       if (!addBtn) return;
-      var filled = draft.filter(function (e) { return e.url.trim(); }).length;
+      var filled = draft.filter(function (u) { return u.trim(); }).length;
       addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
     }
 
@@ -1136,15 +1112,9 @@ Sitemap
   function getValForCopy(key) {
     var def = activeDefs[key] || DEFS[key];
     if (def && def.type === 'url-list') {
-      var entries = parseUrlEntries(state[key] || '');
-      if (entries.length === 0) return '[' + key + ']';
-      if (entries.length === 1) {
-        var e = entries[0];
-        return e.type === 'clickup' ? 'ClickUp: ' + e.url : e.url;
-      }
-      return entries.map(function (e) {
-        return (e.type === 'clickup' ? 'ClickUp: ' : 'Figma:   ') + e.url;
-      }).join('\n');
+      var urls = getNonEmptyUrls(state[key] || '');
+      if (urls.length === 0) return '[' + key + ']';
+      return urls.join('\n');
     }
     var val = getVal(key);
     return val || '[' + key + ']';
