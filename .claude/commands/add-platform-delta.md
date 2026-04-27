@@ -1,11 +1,11 @@
 ---
 name: add-platform-delta
-description: Document a platform delta for the Colorkrew UX Library by comparing two Figma frames — a baseline platform and a delta platform — and writing only what differs. Use this skill whenever a designer says "add a platform delta", "document mobile differences", "how does this differ on mobile", "write a delta for", or provides two Figma URLs for the same feature on different platforms. Also triggers when asked to create or populate a mobile-web.html, mobile-app.html, admin-portal.html, room-signage.html, or email.html file in the UX library. Requires Figma MCP to be connected.
+description: Document a platform delta for the Colorkrew UX Library by comparing a baseline platform and a delta platform, and writing only what differs. Use this skill whenever a designer says "add a platform delta", "document mobile differences", "how does this differ on mobile", "write a delta for", or provides URLs for the same feature on different platforms. Also triggers when asked to create or populate a mobile-web.html, mobile-app.html, admin-portal.html, room-signage.html, or email.html file in the UX library. Requires Figma MCP to be connected.
 ---
 
 # Add Platform Delta
 
-Generates a platform delta `.md` (AI-facing) and `.html` (designer-facing) for the Colorkrew UX Library by comparing a baseline Figma frame against a delta platform frame, writing only what differs. If no meaningful differences exist, reports that no delta file is needed. See `CLAUDE.md` at the library root for format rules.
+Generates a platform delta `.md` (AI-facing) and `.html` (designer-facing) for the Colorkrew UX Library by comparing a baseline platform against a delta platform, writing only what differs. Primary source for each platform is a Figma frame; ClickUp or other spec URLs can be provided as supplementary context. If no meaningful differences exist, reports that no delta file is needed. See `CLAUDE.md` at the library root for format rules.
 
 ## Inputs required
 
@@ -13,11 +13,13 @@ Before starting, confirm you have:
 - **Product** — one of: biz, workflows, ckid, intra, files, updates, goals
 - **Feature name** — e.g. "Office Map", "Reception", "Submit"
 - **Baseline platform** — the already-documented platform (e.g. User Portal)
-- **Baseline Figma URL** — Figma frame link for the baseline
+- **Baseline URL(s)** — Figma frame link for the baseline *(primary)*; ClickUp or other spec URL *(supplementary, optional)*
 - **Delta platform** — the new platform to document (e.g. Mobile Web, Mobile App, Room Signage, Email, Admin Portal, Receptionist Portal)
-- **Delta Figma URL** — Figma frame link for the delta platform
+- **Delta URL(s)** — Figma frame link for the delta platform *(primary)*; ClickUp or other spec URL *(supplementary, optional)*
 
-If any are missing, ask for them before proceeding.
+A Figma URL is strongly recommended for each platform. ClickUp or other URLs are treated as supplementary context only.
+
+If any required inputs are missing, ask for them before proceeding.
 
 Also check: does the baseline spec already exist at `/[product]/[feature-slug]/feature.md`?
 - If yes: read it in Step 2
@@ -25,19 +27,34 @@ Also check: does the baseline spec already exist at `/[product]/[feature-slug]/f
 
 ---
 
-## Step 1 — Extract design context from both frames
+## Step 1 — Process provided URLs for both platforms
 
-Call `get_design_context` on both Figma URLs independently.
+For each platform (baseline and delta), handle each provided URL by type:
 
-Use `get_metadata` first if either frame is large, then target specific nodes.
+**Figma URLs (primary):**
 
-Call `get_screenshot` on both frames to enable visual comparison of:
+Call `get_design_context` on each Figma URL independently.
+
+Use `get_metadata` first if a frame is large, then target specific nodes.
+
+Call `get_screenshot` on Figma frames to enable visual comparison of:
 - Overall layout structure
 - Navigation and hierarchy
 - Component sizing and density
 - Visible/hidden elements
 
 Note for each frame: all screens, copy, components, interactions, and any designer annotations.
+
+**ClickUp or other URLs (supplementary):**
+
+Fetch the content of each URL. Use it as additional context for that platform:
+- Platform-specific requirements or constraints
+- Behaviour differences noted in writing outside Figma
+- Edge cases or business rules that may not be visible in the design
+
+Where a supplementary URL and Figma disagree, note the discrepancy in Open Items under "Decisions needed".
+
+If no Figma URL was provided for a platform, note this in Open Items under "Missing states or flows" — visual comparison for that platform will be limited.
 
 ---
 

@@ -1,11 +1,11 @@
 ---
 name: document-feature-spec
-description: Document a UX feature spec for the Colorkrew UX Library by extracting design context from a Figma frame URL. Use this skill whenever a designer says "document a feature", "write a spec for", "generate a feature spec", "spec out", or provides a Figma URL and asks to create library documentation. Also triggers when asked to populate a feature.html file in the UX library. Requires Figma MCP to be connected.
+description: Document a UX feature spec for the Colorkrew UX Library by extracting design context from a Figma frame URL and any supplementary spec URLs. Use this skill whenever a designer says "document a feature", "write a spec for", "generate a feature spec", "spec out", or provides a URL and asks to create library documentation. Also triggers when asked to populate a feature.html file in the UX library. Requires Figma MCP to be connected.
 ---
 
 # Document Feature Spec
 
-Generates a complete `feature.md` (AI-facing) and `feature.html` (designer-facing) spec for the Colorkrew UX Library from a Figma frame. See `CLAUDE.md` at the library root for format rules for each file type.
+Generates a complete `feature.md` (AI-facing) and `feature.html` (designer-facing) spec for the Colorkrew UX Library. Primary source is a Figma frame; ClickUp or other spec URLs can be provided as supplementary context. See `CLAUDE.md` at the library root for format rules for each file type.
 
 ## Inputs required
 
@@ -13,17 +13,25 @@ Before starting, confirm you have:
 - **Product** — one of: biz, workflows, ckid, intra, files, updates, goals
 - **Feature name** — e.g. "Office Map", "Reception", "Submit"
 - **Platform** — primary platform: User Portal, Admin Portal, Mobile Web, Mobile App, Email, Room Signage
-- **Figma URL** — link to the specific frame or node (not the full file)
+- **URL(s)** — at least one of:
+  - **Figma URL** *(primary)* — link to the specific frame or node, not the full file. Used for visual design extraction.
+  - **ClickUp or other URL** *(supplementary)* — spec document, task, or requirements page. Used as additional context alongside Figma.
 
-If any are missing, ask for them before proceeding.
+A Figma URL is strongly recommended. If only non-Figma URLs are provided, visual design context will be limited.
+
+If no URLs at all are provided, ask for them before proceeding.
 
 ---
 
-## Step 1 — Extract design context from Figma
+## Step 1 — Process provided URLs
 
-Use `get_design_context` with the provided Figma URL.
+Handle each provided URL by type:
 
-If the frame is large or complex, first call `get_metadata` to get the node hierarchy, then call `get_design_context` on specific child nodes to avoid token limit truncation. Target individual screens or states rather than entire pages.
+**Figma URLs (primary — use for all provided Figma links):**
+
+Use `get_design_context` with each Figma URL.
+
+If a frame is large or complex, first call `get_metadata` to get the node hierarchy, then call `get_design_context` on specific child nodes to avoid token limit truncation. Target individual screens or states rather than entire pages.
 
 Use `get_screenshot` for:
 - States that are hard to infer from metadata (hover, error, empty)
@@ -36,6 +44,17 @@ Extract and note:
 - Component patterns used
 - Role-specific variations if multiple user types are shown
 - Any annotations or notes left by the designer in the Figma file
+
+**ClickUp or other URLs (supplementary):**
+
+Fetch the content of each URL. Read it as supplementary spec context:
+- Requirements, acceptance criteria, and feature scope
+- Design decisions or constraints documented outside Figma
+- Edge cases or business rules described in writing
+
+Supplement the Figma extraction with this context. Where Figma and a spec doc conflict, note the discrepancy in Open Items under "Decisions needed".
+
+If no Figma URL was provided, note this in Open Items under "Missing states or flows" — visual design context is limited to supplementary sources only.
 
 ---
 
