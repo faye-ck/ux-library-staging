@@ -262,35 +262,28 @@ Sitemap
       section: 'Create',
       icon: 'ti-building-plus',
       title: 'Add a new product',
-      desc: 'Scaffold all files for a new product',
+      desc: 'Interactive setup — config, stubs, nav, sitemap generated automatically',
       defs: {
         'Product Name': { type: 'text', hint: 'e.g. Goals' },
       },
       body:
-'Add a new product called [Product Name] to the UX Library.\n\n' +
-'1. Create the product root files at /[product-slug]/:\n' +
-'   - _index.html + _index.md  (Overview page, breadcrumb: Home / [Product Name])\n' +
-'   - changelog.html + changelog.md\n\n' +
-'2. Create the Config group files at /[product-slug]/:\n' +
-'   - _theme.html + _theme.md\n' +
-'   - _components.html + _components.md\n' +
-'   - _layout.html + _layout.md\n' +
-'   - _guidelines.html + _guidelines.md\n' +
-'   - _glossary.html + _glossary.md\n\n' +
-'   Use the existing product files (e.g. biz/_theme.html) as the page template. Set the title, breadcrumb, and heading to "[Product Name] — [Page]".\n\n' +
-'3. Register [Product Name] in nav.js:\n' +
-'   - Add a new product group with label "[Product Name]" after the last existing product\n' +
-'   - Structure: Overview → Config { Theme, Components, Layout, Guidelines, Glossary } → Changelog\n' +
-'   - Use /[product-slug]/ as the path prefix. Follow the exact nav structure of an existing product.\n\n' +
-'4. Update sitemap.html:\n' +
-'   - Add a new <!-- ── [Product Name] ── --> section after the last product section\n' +
-'   - Include: Overview row, Changelog row, then a config/ folder block listing all 5 Config files\n' +
-'   - Follow the format of an existing product section.\n\n' +
-'5. Update changelog.html:\n' +
-'   - Add an Added entry to the current version block: "[Product Name] product scaffolded — overview, config group (Theme, Components, Layout, Guidelines, Glossary), and changelog pages created."\n\n' +
-'6. Update index.html:\n' +
-'   - In the DEFS object, find the \'Product Name\' key and add "[Product Name]" to its options array\n' +
-'   - This ensures [Product Name] appears in the product dropdown across all other prompt templates'
+'Set up [Product Name] in the UX Library.\n\n' +
+'Run /setup-product — the skill will guide you through the rest interactively.\n' +
+'Have these ready before you start:\n' +
+'  · Feature names (just a list — e.g. Dashboard, Announcements, Todo)\n' +
+'  · Platforms supported (portal, mobile web, email, etc.)\n' +
+'  · User roles and what they can do\n' +
+'  · Brand colors — hex codes or a Figma link to color styles\n\n' +
+'The skill generates automatically:\n' +
+'  · config/ files (theme mapped to global tokens, components, layout, guidelines, glossary)\n' +
+'  · _index.html with roles, feature list, and platform coverage table\n' +
+'  · Feature stub folders — one per feature, ready for /document-feature-spec\n' +
+'  · nav.js entry, sitemap.html section, and root changelog.html entry\n\n' +
+'── AFTER SETUP ──────────────────────────────────────────────\n' +
+'One manual step when the skill is done:\n' +
+'In this file (index.html), find the DEFS \'Product Name\' options array\n' +
+'and add "[Product Name]" — this enables it in the dropdown for\n' +
+'/document-feature-spec, /add-platform-delta, and all Update templates.'
     },
     {
       section: 'Update',
