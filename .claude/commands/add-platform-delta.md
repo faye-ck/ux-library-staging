@@ -5,7 +5,7 @@ description: Document a platform delta for the Colorkrew UX Library by comparing
 
 # Add Platform Delta
 
-Generates a platform delta file for the Colorkrew UX Library by comparing a baseline Figma frame against a delta platform frame, writing only what differs. If no meaningful differences exist, reports that no delta file is needed.
+Generates a platform delta `.md` (AI-facing) and `.html` (designer-facing) for the Colorkrew UX Library by comparing a baseline Figma frame against a delta platform frame, writing only what differs. If no meaningful differences exist, reports that no delta file is needed. See `CLAUDE.md` at the library root for format rules.
 
 ## Inputs required
 
@@ -19,7 +19,7 @@ Before starting, confirm you have:
 
 If any are missing, ask for them before proceeding.
 
-Also check: does the baseline spec already exist at `/[product]/[feature-slug]/feature.html`?
+Also check: does the baseline spec already exist at `/[product]/[feature-slug]/feature.md`?
 - If yes: read it in Step 2
 - If no: warn the designer and suggest running `/document-feature-spec` first. You can still proceed but note the spec was not available for reference.
 
@@ -43,14 +43,14 @@ Note for each frame: all screens, copy, components, interactions, and any design
 
 ## Step 2 — Read the baseline spec and config files
 
-If the baseline spec exists, read `/[product]/[feature-slug]/feature.html`.
+If the baseline spec exists, read `/[product]/[feature-slug]/feature.md`.
 
 Read these config files:
 ```
-/[product]/config/_theme.html        ← color tokens (for delta-specific token notes)
-/[product]/config/_glossary.html     ← verify any copy differences use approved terms
-/[product]/config/_guidelines.html   ← check for platform-specific rules
-/global/_guidelines.html             ← check for platform-specific rules
+/[product]/config/_theme.md        ← color tokens (for delta-specific token notes)
+/[product]/config/_glossary.md     ← verify any copy differences use approved terms
+/[product]/config/_guidelines.md   ← check for platform-specific rules
+/global/_guidelines.md             ← check for platform-specific rules
 ```
 
 ---
@@ -78,7 +78,7 @@ Compare baseline vs delta across these dimensions:
 
 ### Copy changes
 - Any labels, CTAs, or messages that differ between platforms
-- Verify against `_glossary.html` — flag any unapproved terms
+- Verify against `_glossary.md` — flag any unapproved terms
 
 ### Platform-specific constraints
 - Offline behavior (Mobile App)
@@ -95,14 +95,14 @@ Compare baseline vs delta across these dimensions:
 
 **Do not write a delta file if** the platforms are functionally and visually identical. In this case:
 - Report the finding in the conversation
-- Update the coverage table in `/[product]/_index.html` — mark the delta platform column as `identical`
+- Update the coverage table in `/[product]/_index.md` and `_index.html` — mark the delta platform column as `identical`
 - Stop here
 
 ---
 
-## Step 5 — Generate the delta file
+## Step 5 — Generate the delta files
 
-Write to `/[product]/[feature-slug]/[delta-platform-slug].html`.
+Write both to `/[product]/[feature-slug]/`:
 
 Platform slug mapping:
 - Mobile Web → `mobile-web`
@@ -112,18 +112,20 @@ Platform slug mapping:
 - Email → `email`
 - Receptionist Portal → `receptionist-portal`
 
-**Delta files contain only what changes.** Do not repeat content from the baseline spec. Open with:
+**Delta files contain only what changes.** Do not repeat content from the baseline spec. Both files open with:
 
 ```
-Base spec: /[product]/[feature-slug]/feature.html
+Base spec: /[product]/[feature-slug]/feature.md
 Platform: [Delta platform name]
 
 Delta only — anything not listed here is identical to the base spec.
 ```
 
-Then include only the sections where differences were found. Omit sections with no differences.
+**`[platform-slug].md`** — AI-facing. Frontmatter with `product`, `feature`, `platform`, `status: draft`, `last_updated`. Inline flags (`CONFIRM:`, `INFERRED:`, `MISSING:`). Only sections where differences were found.
 
-For Admin Portal (Biz only): note at the top whether this is a `delta` (admin is additive on a separate platform) or `full spec` (admin portal is substantially different). If it's a full spec, cover all sections as you would in `feature.html`.
+**`[platform-slug].html`** — Human-facing. Visual layout with flags rendered as banners/badges. Only sections where differences were found.
+
+For Admin Portal (Biz only): note at the top whether this is a `delta` (admin is additive on a separate platform) or `full spec` (admin portal is substantially different). If it's a full spec, cover all sections as you would in `feature.md` / `feature.html`.
 
 ---
 
@@ -148,45 +150,27 @@ Append an "Open Items" section even if empty.
 
 ## Step 7 — Update the coverage table
 
-Open `/[product]/_index.html` and update the platform coverage table:
+Open `/[product]/_index.md` and update the platform coverage table:
 - Mark the delta platform column for this feature as `delta`
 - If no file was created, mark as `identical`
 
----
-
-## Step 8 — Update changelog and sitemap
-
-### `/[product]/changelog.html`
-
-Add an Added entry to the current version block:
-- **If a delta file was written:** `"[Feature Name] — [Delta Platform] delta documented."`
-- **If platforms were identical (no file written):** `"[Feature Name] — [Delta Platform] confirmed identical to baseline, no delta file needed."`
-
-### `sitemap.html`
-
-Find the feature folder block for `/[product-slug]/[feature-slug]/` under the [Product Name] section:
-- **If a delta file was written:** add a row for `[delta-platform-slug].html` and `[delta-platform-slug].md` inside the existing feature folder block.
-- **If platforms were identical:** no sitemap change needed.
-- **If the feature folder block is missing entirely:** add it first following the format of an existing feature block, then add the delta row.
-
-> **Cost tip:** Read only the relevant product section of `sitemap.html`, not the entire file, to locate the correct insertion point.
+Then update `/[product]/_index.html` to match.
 
 ---
 
 ## Output
 
-- `/[product]/[feature-slug]/[delta-platform-slug].html` — the delta file (if differences found)
-- Updated coverage table in `/[product]/_index.html`
-- Updated `/[product]/changelog.html` — entry added
-- Updated `sitemap.html` — delta file row added (if file was written)
-- Summary in the conversation: differences found per dimension, open items count, whether a file was written or the platforms were identical
+- `/[product]/[feature-slug]/[delta-platform-slug].md` — AI-facing delta (if differences found)
+- `/[product]/[feature-slug]/[delta-platform-slug].html` — designer-facing delta (if differences found)
+- Updated coverage table in `/[product]/_index.md` and `_index.html`
+- Summary in the conversation: differences found per dimension, open items count, whether files were written or the platforms were identical
 
 ---
 
 ## Notes
 
 - The delta file must not duplicate baseline content — if a section is unchanged, omit it entirely
-- For Biz Admin Portal: the admin portal has its own theme tokens — reference the admin portal section of `/biz/config/_theme.html` for any color tokens used
-- For Room Signage: this is usually a full spec (not a delta) because the context is entirely different — kiosk display, no user login, auto-refresh. If that's the case, treat it like `feature.html` rather than a delta
+- For Biz Admin Portal: the admin portal has its own theme tokens — reference the admin portal section of `/biz/config/_theme.md` for any color tokens used
+- For Room Signage: this is usually a full spec (not a delta) because the context is entirely different — kiosk display, no user login, auto-refresh. If that's the case, treat it like `feature.md` / `feature.html` rather than a delta
 - For Email: document rendering constraints explicitly — what CSS is supported, whether images are used, plain-text fallback
 - If `get_design_context` is truncated on either frame, note which screens were missed and list them in Open Items

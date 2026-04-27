@@ -9,16 +9,20 @@ Sets up all the required config files for a new product in the Colorkrew UX Libr
 
 ## What this skill creates
 
+Each file is generated in two formats — `.md` for Claude, `.html` for designers. See `CLAUDE.md` at the library root for format rules.
+
 ```
 [product]/
-  _index.html          ← product overview + platform coverage table
-  changelog.html       ← empty, ready to use
+  _index.md / _index.html          ← product overview + platform coverage table
+  changelog.html                   ← empty, ready to use
   config/
-    _theme.html        ← color tokens mapped to the global schema
-    _components.html   ← empty component registry
-    _layout.html       ← empty layout documentation
-    _guidelines.html   ← empty guidelines
-    _glossary.html     ← empty glossary
+    _theme.md / _theme.html        ← color tokens mapped to the global schema
+    _components.md / _components.html  ← empty component registry
+    _layout.md / _layout.html      ← empty layout documentation
+    _guidelines.md / _guidelines.html  ← empty guidelines
+    _glossary.md / _glossary.html  ← empty glossary
+  [feature-slug]/
+    feature.md / feature.html      ← stub, ready for document-feature-spec
 ```
 
 ---
@@ -62,31 +66,35 @@ If you're not sure, just say what you know and we'll flag the gaps."
 
 ## Step 2 — Read the global color schema
 
-Read `/global/foundations/color-system.html` to get the full list of required semantic token slots.
+Read `/global/foundations/color-system.md` to get the full list of required semantic token slots.
 
 ---
 
-## Step 3 — Generate `config/_theme.html`
+## Step 3 — Generate `config/_theme.md` and `config/_theme.html`
 
 Map the designer's brand colors to the semantic slots from the color schema.
 
 Rules:
-- Every required slot must have a value — if a color wasn't provided, make a reasonable suggestion based on the brand palette and flag it clearly as "suggested — needs confirmation"
+- Every required slot must have a value — if a color wasn't provided, make a reasonable suggestion based on the brand palette and flag it as `CONFIRM:`
 - Provide both light and dark mode values for every slot
-- Flag any slots where the provided colors may fail contrast requirements (below 4.5:1 for text, 3:1 for UI elements)
-- Include a product-specific tokens section for any colors that don't fit the global schema but will likely be needed (e.g. status colors, category colors)
+- Flag any slots where the provided colors may fail contrast requirements (below 4.5:1 for text, 3:1 for UI elements) with `CONFIRM:`
+- Include a product-specific tokens section for any colors that don't fit the global schema
 - Never write "TBD" — always provide a suggested value with a flag
 
-At the top of the file, add a summary box:
+**`_theme.md`** — include raw hex values, token names, contrast ratios, and all `CONFIRM:` / `INFERRED:` flags inline. Add frontmatter with `confirms_needed: [N]`.
+
+**`_theme.html`** — render color swatches visually, show `CONFIRM:` flags as yellow warning banners, show contrast failures as red badges. Add a summary box at the top:
 ```
-⚠️ [N] tokens need designer confirmation — search for "CONFIRM:" in this file
+⚠️ [N] tokens need your confirmation — they are highlighted in yellow below.
 ```
 
 ---
 
-## Step 4 — Generate `_index.html`
+## Step 4 — Generate `_index.md` and `_index.html`
 
-Create the product overview page with:
+**`_index.md`** — frontmatter with product slug, platforms list, roles list, feature slugs. Body: feature table with status `pending`, platform coverage matrix with all cells `pending`.
+
+**`_index.html`** — visual overview page with:
 
 **Features section** — list each feature with a one-line placeholder description. Mark each as `— not yet documented`
 
@@ -102,36 +110,48 @@ For non-Biz products: no Admin Portal column. Admin is documented via role secti
 
 ## Step 5 — Create feature stub folders
 
-For each feature the designer listed in Q2, create an empty folder with a placeholder file:
+For each feature the designer listed in Q2, create a folder with stub files for both formats:
 
 ```
-[product]/[feature-slug]/.gitkeep   ← or an empty feature.html stub
+[product]/[feature-slug]/
+  feature.md    ← AI stub
+  feature.html  ← designer stub
 ```
 
 Use a URL-friendly slug for each folder name (lowercase, hyphens, no spaces). For example "Page Management" → `page-management`.
 
-Inside each folder, create a minimal `feature.html` stub:
+**`feature.md` stub:**
+```md
+---
+product: [product-slug]
+feature: [feature-slug]
+status: stub
+---
+<!-- Not yet documented. Run document-feature-spec to generate this spec. -->
+```
+
+**`feature.html` stub:**
 ```html
 <!-- [Feature Name] — not yet documented. Run document-feature-spec to generate this spec. -->
 ```
 
-This gives the product a visible structure from day one, and `document-feature-spec` will populate these files when the designer is ready.
+`document-feature-spec` will overwrite both files when the designer is ready.
 
 ---
 
 ## Step 6 — Generate remaining config files
 
-Create these as empty but structured files, ready to fill in:
+Create each as both `.md` and `.html`. All are empty but structured, ready to fill in.
 
-**`changelog.html`** — empty changelog with correct format, dated today
+**`changelog.html`** — empty changelog dated today, ready for designers to log changes.
 
-**`config/_components.html`** — header + empty table with columns: Component | Used in | Promoted from
+**`config/_components.md` / `config/_components.html`** — empty component registry. Columns: Component | Used in | Promoted from.
 
-**`config/_layout.html`** — header + section stubs: Page anatomy, Navigation, Grid system, Spacing rules — each marked "To be documented"
+**`config/_layout.md` / `config/_layout.html`** — section stubs: Page anatomy, Navigation, Grid system, Spacing rules — each marked `status: pending`.
 
-**`config/_guidelines.html`** — header + instruction: "Add product-specific UX guidelines here. See /global/_guidelines.html for global rules that already apply to all products."
+**`config/_guidelines.md` / `config/_guidelines.html`** — empty with note: "Add product-specific UX guidelines here. Global rules in `/global/_guidelines.md` apply automatically."
 
-**`config/_glossary.html`** — header + empty table with columns: Term (EN) | Term (JA) | Do not use (JA) | Context | Status — with one example row using a placeholder term
+**`config/_glossary.md` / `config/_glossary.html`** — empty glossary table. Columns: Term (EN) | Term (JA) | Do not use (JA) | Context | Status — with one example placeholder row.
 
 ---
 
@@ -143,50 +163,26 @@ If `nav.js` doesn't exist or you can't modify it, list the nav entries the desig
 
 ---
 
-## Step 8 — Update sitemap and changelog
-
-### `sitemap.html`
-
-Add a new product section at the end of the products list. Follow the exact format of an existing product section. Include:
-- Overview row → `[product-slug]/_index.html`
-- Changelog row → `[product-slug]/changelog.html`
-- `config/` folder block listing all 5 config files:
-  - `config/_theme.html`
-  - `config/_components.html`
-  - `config/_layout.html`
-  - `config/_guidelines.html`
-  - `config/_glossary.html`
-- One stub folder row per feature listed in Q2
-
-> **Cost tip:** Read only the last product section of `sitemap.html` as a formatting reference — you only need the pattern, not the entire file.
-
-### Root `changelog.html`
-
-Add an Added entry to the current version block:
-`"[Product Name] — product set up via setup-product. [N] features listed, config files created, [N] tokens need confirmation."`
-
----
-
-## Step 9 — Summary
+## Step 8 — Summary
 
 Report back to the designer in plain language:
 
 ```
 ✅ Done! Here's what was created for [Product Name]:
 
-Files created:
-- [product]/_index.html
+Files created (each as .md + .html):
+- [product]/_index
 - [product]/changelog.html
-- [product]/config/_theme.html  ← [N] tokens need your confirmation
-- [product]/config/_components.html
-- [product]/config/_layout.html
-- [product]/config/_guidelines.html
-- [product]/config/_glossary.html
-- [product]/[feature-slug]/ folders ← one stub folder per feature listed
+- [product]/config/_theme  ← [N] tokens need your confirmation
+- [product]/config/_components
+- [product]/config/_layout
+- [product]/config/_guidelines
+- [product]/config/_glossary
+- [product]/[feature-slug]/feature  ← one stub per feature listed
 
 Next steps:
-1. Open config/_theme.html and confirm the [N] flagged tokens
-2. When you're ready to document a feature, share its Figma frame URL and use /document-feature-spec — it will find the existing stub folder and fill it in
+1. Open config/_theme.html and confirm the [N] highlighted tokens
+2. When you're ready to document a feature, share its Figma frame URL and use /document-feature-spec — it will find the existing stub and fill it in
 3. If your product has platform differences, use /add-platform-delta after each feature
 
 Questions? Reach out to [Faye] who manages the UX Library.
