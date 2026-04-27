@@ -168,6 +168,14 @@
       line-height: 1; flex-shrink: 0; transition: color 0.1s;
     }
     .dd-url-remove:hover { color: var(--text); }
+    .dd-url-type {
+      flex-shrink: 0; padding: 3px 7px; border-radius: 5px;
+      font-size: 10px; font-family: var(--mono); font-weight: 600;
+      cursor: pointer; border: none; letter-spacing: 0.04em; text-transform: uppercase;
+      transition: background 0.1s, color 0.1s;
+    }
+    .dd-url-type.figma   { background: var(--teal-light); color: var(--teal); }
+    .dd-url-type.clickup { background: #f0ebff; color: #7b4dd6; }
     .dd-url-add {
       width: 100%; padding: 7px 14px; border-top: 0.5px solid var(--border);
       font-size: 11px; font-family: var(--mono); color: var(--teal);
@@ -648,17 +656,23 @@ Sitemap
     var def = activeDefs[key] || DEFS[key];
 
     if (def && def.type === 'url-list') {
-      var urls = getNonEmptyUrls(state[key] || '');
-      if (urls.length === 0) {
+      var entries = parseUrlEntries(state[key] || '');
+      if (entries.length === 0) {
         span.classList.remove('filled');
         span.innerHTML = escHtml(key) + ' <i class="ti ti-chevron-down chip-caret"></i>';
-      } else if (urls.length === 1) {
+      } else if (entries.length === 1) {
         span.classList.add('filled');
-        var u = urls[0]; var display = u.length > 38 ? '…' + u.slice(-28) : u;
+        var u = entries[0].url; var display = u.length > 38 ? '…' + u.slice(-28) : u;
         span.innerHTML = escHtml(display) + ' <i class="ti ti-chevron-down chip-caret"></i>';
       } else {
         span.classList.add('filled');
-        span.innerHTML = escHtml(urls.length + ' Figma URLs') + ' <i class="ti ti-chevron-down chip-caret"></i>';
+        var fc = entries.filter(function(e){return e.type==='figma';}).length;
+        var cc = entries.filter(function(e){return e.type==='clickup';}).length;
+        var label = entries.length + ' URLs';
+        if (fc && cc) label += ' (' + fc + ' Figma, ' + cc + ' ClickUp)';
+        else if (fc > 1) label = fc + ' Figma URLs';
+        else if (cc > 1) label = cc + ' ClickUp URLs';
+        span.innerHTML = escHtml(label) + ' <i class="ti ti-chevron-down chip-caret"></i>';
       }
       return;
     }
@@ -748,9 +762,21 @@ Sitemap
   }
 
   // ── URL LIST HELPERS ─────────────────────────────────────────────────────
-  function getNonEmptyUrls(str) {
+  // Each entry stored as "figma|url" or "clickup|url", newline-separated
+  function parseUrlEntries(str) {
     if (!str) return [];
-    return str.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    return str.split('\n').map(function (line) {
+      var pipe = line.indexOf('|');
+      if (pipe === -1) return { type: 'figma', url: line.trim() }; // legacy
+      return { type: line.slice(0, pipe), url: line.slice(pipe + 1).trim() };
+    }).filter(function (e) { return e.url; });
+  }
+  function serializeEntries(entries) {
+    return entries.filter(function (e) { return e.url.trim(); })
+      .map(function (e) { return e.type + '|' + e.url; }).join('\n');
+  }
+  function getNonEmptyUrls(str) { // returns plain url strings (for backward compat)
+    return parseUrlEntries(str).map(function (e) { return e.url; });
   }
 
   function openUrlListDropdown(key, chipEl) {
@@ -764,12 +790,12 @@ Sitemap
     var def = activeDefs[key] || DEFS[key];
     var MAX = (def && def.max) || 5;
 
-    // Working draft (includes in-progress empty rows)
-    var draft = getNonEmptyUrls(state[key] || '');
-    if (draft.length === 0) draft = [''];
+    // Working draft: array of {type, url} — includes in-progress empty rows
+    var draft = parseUrlEntries(state[key] || '');
+    if (draft.length === 0) draft = [{ type: 'figma', url: '' }];
 
     function saveDraft() {
-      state[key] = draft.filter(function (u) { return u.trim(); }).join('\n');
+      state[key] = serializeEntries(draft);
       modalBody.querySelectorAll('.p-chip[data-key="' + key + '"]').forEach(function (c) {
         updateChipDisplay(c, key);
       });
@@ -777,16 +803,33 @@ Sitemap
 
     function buildRows() {
       dropdown.innerHTML = '';
-      draft.forEach(function (url, i) {
+      draft.forEach(function (entry, i) {
         var row = document.createElement('div');
         row.className = 'dd-url-row';
 
+        // Type toggle badge
+        var typeBtn = document.createElement('button');
+        typeBtn.className = 'dd-url-type ' + entry.type;
+        typeBtn.textContent = entry.type === 'figma' ? 'Figma' : 'ClickUp';
+        typeBtn.title = 'Click to switch type';
+        typeBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          entry.type = entry.type === 'figma' ? 'clickup' : 'figma';
+          saveDraft();
+          typeBtn.className = 'dd-url-type ' + entry.type;
+          typeBtn.textContent = entry.type === 'figma' ? 'Figma' : 'ClickUp';
+        });
+        row.appendChild(typeBtn);
+
         var inp = document.createElement('input');
         inp.type = 'text';
-        inp.placeholder = (def && def.hint) ? (i === 0 ? def.hint : 'Another URL…') : (i === 0 ? 'Paste Figma URL…' : 'Another URL…');
-        inp.value = url;
+        var ph = entry.type === 'figma'
+          ? (i === 0 ? ((def && def.hint) || 'Paste Figma URL…') : 'Another Figma URL…')
+          : 'Paste ClickUp URL…';
+        inp.placeholder = ph;
+        inp.value = entry.url;
         inp.addEventListener('input', function () {
-          draft[i] = inp.value;
+          entry.url = inp.value;
           saveDraft();
           updateAddBtn();
         });
@@ -795,8 +838,8 @@ Sitemap
         });
         row.appendChild(inp);
 
-        // Remove button: show when >1 row, or this row has content
-        if (draft.length > 1 || url.trim()) {
+        // Remove button: show when >1 row or this row has content
+        if (draft.length > 1 || entry.url.trim()) {
           var rm = document.createElement('button');
           rm.className = 'dd-url-remove';
           rm.textContent = '✕';
@@ -804,7 +847,7 @@ Sitemap
           rm.addEventListener('click', function (e) {
             e.stopPropagation();
             draft.splice(i, 1);
-            if (draft.length === 0) draft = [''];
+            if (draft.length === 0) draft = [{ type: 'figma', url: '' }];
             saveDraft();
             buildRows();
             positionDropdown(chipEl);
@@ -818,12 +861,12 @@ Sitemap
       var addBtn = document.createElement('button');
       addBtn.className = 'dd-url-add';
       addBtn.textContent = '+ Add URL';
-      var filled = draft.filter(function (u) { return u.trim(); }).length;
+      var filled = draft.filter(function (e) { return e.url.trim(); }).length;
       addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
       addBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         if (draft.length < MAX) {
-          draft.push('');
+          draft.push({ type: 'figma', url: '' });
           buildRows();
           positionDropdown(chipEl);
           var inputs = dropdown.querySelectorAll('.dd-url-row input');
@@ -845,7 +888,7 @@ Sitemap
     function updateAddBtn() {
       var addBtn = dropdown.querySelector('.dd-url-add');
       if (!addBtn) return;
-      var filled = draft.filter(function (u) { return u.trim(); }).length;
+      var filled = draft.filter(function (e) { return e.url.trim(); }).length;
       addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
     }
 
@@ -889,6 +932,16 @@ Sitemap
     } else {
       // Triggered by a modal chip — update modal state + modal chips
       state[key] = val;
+      // If Product Name changed, clear Feature Name when it no longer exists in the new product
+      if (key === 'Product Name') {
+        var features = PRODUCT_FEATURES[val] || [];
+        if (state['Feature Name'] && features.indexOf(state['Feature Name']) === -1) {
+          state['Feature Name'] = '';
+          modalBody.querySelectorAll('.p-chip[data-key="Feature Name"]').forEach(function (c) {
+            updateChipDisplay(c, 'Feature Name');
+          });
+        }
+      }
       modalBody.querySelectorAll('.p-chip[data-key="' + key + '"]').forEach(function (chip) {
         updateChipDisplay(chip, key);
       });
@@ -1083,10 +1136,15 @@ Sitemap
   function getValForCopy(key) {
     var def = activeDefs[key] || DEFS[key];
     if (def && def.type === 'url-list') {
-      var urls = getNonEmptyUrls(state[key] || '');
-      if (urls.length === 0) return '[' + key + ']';
-      if (urls.length === 1) return urls[0];
-      return urls.join('\n');
+      var entries = parseUrlEntries(state[key] || '');
+      if (entries.length === 0) return '[' + key + ']';
+      if (entries.length === 1) {
+        var e = entries[0];
+        return e.type === 'clickup' ? 'ClickUp: ' + e.url : e.url;
+      }
+      return entries.map(function (e) {
+        return (e.type === 'clickup' ? 'ClickUp: ' : 'Figma:   ') + e.url;
+      }).join('\n');
     }
     var val = getVal(key);
     return val || '[' + key + ']';
