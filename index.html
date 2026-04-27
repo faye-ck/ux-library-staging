@@ -301,8 +301,9 @@ Sitemap
 
   // Derived keys: auto-computed from another key, shown as non-interactive chips
   var DERIVED = {
-    'product-slug':  { from: 'Product Name', fn: function(v){ return v.toLowerCase().replace(/\s+/g,'-'); } },
-    'feature-slug':  { from: 'Feature Name', fn: function(v){ return v.toLowerCase().replace(/\s+/g,'-'); } },
+    'product-slug':        { from: 'Product Name', fn: function(v){ return v.toLowerCase().replace(/\s+/g,'-'); } },
+    'feature-slug':        { from: 'Feature Name', fn: function(v){ return v.toLowerCase().replace(/\s+/g,'-'); } },
+    'delta-platform-slug': { from: 'Platform B',   fn: function(v){ return v.toLowerCase().replace(/\s+/g,'-'); } },
   };
 
   // ── TEMPLATE DATA ─────────────────────────────────────────────────────────
@@ -868,6 +869,7 @@ Sitemap
       addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
     }
 
+    dropdown.style.minWidth = '420px';
     buildRows();
     dropdown.style.display = 'block';
     positionDropdown(chipEl);
@@ -880,6 +882,7 @@ Sitemap
       return;
     }
     dropdown.style.display = 'none';
+    dropdown.style.minWidth = '';
     activeKey = key;
     var currentVal = state[key] || '';
     dropdown.innerHTML = '';
@@ -953,6 +956,7 @@ Sitemap
       activeSectionCtx = null;
       return;
     }
+    dropdown.style.minWidth = '';
     // Hide any previous dropdown without resetting activeSectionCtx (set by caller)
     dropdown.style.display = 'none';
     activeKey = key;
