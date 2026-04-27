@@ -163,7 +163,31 @@ If `nav.js` doesn't exist or you can't modify it, list the nav entries the desig
 
 ---
 
-## Step 8 — Summary
+## Step 8 — Update sitemap and changelog
+
+### `sitemap.html`
+
+Add a new product section at the end of the products list. Follow the exact format of an existing product section. Include:
+- Overview row → `[product-slug]/_index.html`
+- Changelog row → `[product-slug]/changelog.html`
+- `config/` folder block listing all 5 config files (`.html` and `.md` for each):
+  - `config/_theme`
+  - `config/_components`
+  - `config/_layout`
+  - `config/_guidelines`
+  - `config/_glossary`
+- One stub folder row per feature listed in Q2 (rows for `feature.md` and `feature.html`)
+
+> **Cost tip:** Read only the last product section of `sitemap.html` as a formatting reference — you only need the pattern, not the entire file.
+
+### Root `changelog.html`
+
+Add an Added entry to the current version block:
+`"[Product Name] — product set up via setup-product. [N] features listed, config files created, [N] tokens need confirmation."`
+
+---
+
+## Step 9 — Summary
 
 Report back to the designer in plain language:
 

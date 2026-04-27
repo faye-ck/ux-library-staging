@@ -158,11 +158,32 @@ Then update `/[product]/_index.html` to match.
 
 ---
 
+## Step 8 — Update changelog and sitemap
+
+### `/[product]/changelog.html`
+
+Add an Added entry to the current version block:
+- **If a delta file was written:** `"[Feature Name] — [Delta Platform] delta documented."`
+- **If platforms were identical (no file written):** `"[Feature Name] — [Delta Platform] confirmed identical to baseline, no delta file needed."`
+
+### `sitemap.html`
+
+Find the feature folder block for `/[product-slug]/[feature-slug]/` under the [Product Name] section:
+- **If a delta file was written:** add rows for `[delta-platform-slug].md` and `[delta-platform-slug].html` inside the existing feature folder block.
+- **If platforms were identical:** no sitemap change needed.
+- **If the feature folder block is missing entirely:** add it first following the format of an existing feature block, then add the delta rows.
+
+> **Cost tip:** Read only the relevant product section of `sitemap.html`, not the entire file, to locate the correct insertion point.
+
+---
+
 ## Output
 
 - `/[product]/[feature-slug]/[delta-platform-slug].md` — AI-facing delta (if differences found)
 - `/[product]/[feature-slug]/[delta-platform-slug].html` — designer-facing delta (if differences found)
 - Updated coverage table in `/[product]/_index.md` and `_index.html`
+- Updated `/[product]/changelog.html` — entry added
+- Updated `sitemap.html` — delta file rows added (if file was written)
 - Summary in the conversation: differences found per dimension, open items count, whether files were written or the platforms were identical
 
 ---
