@@ -248,6 +248,9 @@ main { flex: 1; padding: 40px 48px; max-width: 1080px; min-width: 0; }
 .badge-email { background: #fef9ec; color: var(--amber); border-color: rgba(176,123,30,0.25); }
 .badge-admin { background: var(--bg); color: var(--muted); border-color: var(--border); }
 
+/* Changelog [Test] badge — skill QA run entries */
+.cl-type-test { background: #fef3c7; color: #92400e; border-color: rgba(180,130,30,0.3); }
+
 .card-rule {
   font-size: 12px; color: #555; margin-bottom: 12px;
   padding: 9px 12px; background: var(--bg);

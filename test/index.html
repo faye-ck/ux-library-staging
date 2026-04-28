@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skill Test Lab · Colorkrew UX Library</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #030712;
+      --surface: #0f172a;
+      --surface2:#1e293b;
+      --surface3:#334155;
+      --border:  #1e293b;
+      --border2: #334155;
+      --text:    #f1f5f9;
+      --text2:   #e2e8f0;
+      --muted:   #94a3b8;
+      --muted2:  #64748b;
+      --muted3:  #475569;
+      --indigo:  #6366f1;
+      --blue:    #3b82f6;
+      --green:   #22c55e;
+      --yellow:  #f59e0b;
+      --orange:  #f97316;
+      --red:     #ef4444;
+      --info-bg: #0c1a2e;
+      --info-bd: #1e3a5f;
+      --info-tx: #7dd3fc;
+      --mono: 'IBM Plex Mono', 'Fira Code', 'Courier New', monospace;
+      --radius: 10px;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: var(--mono);
+      color: var(--text2);
+      min-height: 100vh;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .lab-header {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .lab-header-title { font-weight: 800; font-size: 14px; letter-spacing: -0.01em; color: var(--text); }
+    .lab-header-sub { font-size: 11px; color: var(--muted3); margin-top: 2px; }
+    .lab-tabs { display: flex; gap: 4px; }
+    .lab-tab {
+      background: none; border: 1px solid transparent; border-radius: 6px;
+      padding: 5px 10px; font-size: 11px; font-weight: 600; font-family: var(--mono);
+      color: var(--muted2); cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .lab-tab.active { background: var(--surface2); border-color: var(--border2); color: var(--text); }
+    .lab-tab:hover:not(.active) { color: var(--muted); }
+
+    /* ── LAYOUT ── */
+    .lab-body {
+      max-width: 780px; margin: 0 auto;
+      padding: 20px 16px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .card-pad { padding: 16px; }
+    .card-title { font-weight: 700; font-size: 13px; color: var(--text); margin-bottom: 8px; }
+    .card-subtitle { font-size: 11px; color: var(--muted3); line-height: 1.6; }
+
+    /* ── LABELS ── */
+    .field-label {
+      font-size: 11px; color: var(--muted2); font-weight: 600;
+      margin-bottom: 4px; display: block;
+    }
+    .section-label {
+      font-size: 11px; font-weight: 600; color: var(--muted3);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+    }
+
+    /* ── INPUTS ── */
+    input[type="text"], textarea {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 7px 10px; font-size: 12px; font-family: var(--mono);
+      color: var(--text2); outline: none; transition: border-color 0.15s;
+    }
+    input[type="text"]:focus, textarea:focus { border-color: var(--indigo); }
+    input[type="text"]::placeholder, textarea::placeholder { color: var(--muted3); }
+    textarea { resize: vertical; line-height: 1.5; }
+
+    /* ── VARS GRID ── */
+    .vars-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .vars-field { display: flex; flex-direction: column; gap: 4px; }
+    .vars-hint { font-size: 11px; color: var(--muted3); margin-top: 8px; }
+
+    /* ── BADGE ── */
+    .badge {
+      border-radius: 4px; padding: 1px 6px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.03em; white-space: nowrap;
+    }
+
+    /* ── SCENARIO CARD ── */
+    .scenario-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 13px 16px; border-bottom: 1px solid var(--border);
+      background: #0a0f1e;
+    }
+    .scenario-icon { font-size: 20px; flex-shrink: 0; }
+    .scenario-title { font-weight: 700; font-size: 13px; color: var(--text); }
+    .scenario-desc { font-size: 12px; color: var(--muted2); margin-top: 2px; }
+    .scenario-badges { display: flex; gap: 6px; align-items: center; margin-left: auto; flex-shrink: 0; }
+    .scenario-body { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+
+    /* ── PROMPT BOX ── */
+    .prompt-box {
+      background: var(--surface2); border-radius: 8px; padding: 10px 12px;
+      font-size: 12px; color: var(--muted); line-height: 1.6;
+      position: relative;
+    }
+    .prompt-text { padding-right: 90px; white-space: pre-wrap; word-break: break-word; }
+    .prompt-hint { font-size: 11px; color: var(--muted3); margin-top: 4px; }
+    .copy-btn {
+      position: absolute; top: 8px; right: 8px;
+      background: var(--surface); border: 1px solid var(--border2);
+      border-radius: 6px; padding: 4px 10px; font-size: 12px; font-family: var(--mono);
+      color: var(--muted); cursor: pointer; transition: all 0.2s;
+    }
+    .copy-btn:hover { border-color: var(--indigo); color: var(--text); }
+    .copy-btn.copied { background: rgba(34,197,94,0.13); border-color: var(--green); color: var(--green); }
+
+    /* ── CHECKLIST ── */
+    .check-item {
+      display: flex; gap: 8px; align-items: flex-start; cursor: pointer;
+      padding: 5px 0; user-select: none;
+    }
+    .check-box {
+      width: 16px; height: 16px; margin-top: 1px; flex-shrink: 0;
+      border: 2px solid var(--border2); border-radius: 3px;
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .check-box.checked { border-color: var(--blue); background: var(--blue); }
+    .check-tick { color: #fff; font-size: 10px; line-height: 1; display: none; }
+    .check-box.checked .check-tick { display: block; }
+    .check-label { font-size: 13px; color: var(--muted); transition: color 0.15s; }
+    .check-label.checked { color: var(--text2); }
+
+    /* ── STAR RATING ── */
+    .star-row { display: flex; gap: 2px; align-items: center; }
+    .star-btn {
+      background: none; border: none; cursor: pointer;
+      padding: 0 1px; font-size: 18px; line-height: 1;
+      color: var(--border2); transition: color 0.15s;
+    }
+    .star-rating-label { font-size: 11px; margin-left: 4px; font-weight: 600; }
+
+    /* ── SAFETY NOTICE ── */
+    .safety-notice {
+      background: var(--info-bg); border: 1px solid var(--info-bd);
+      border-radius: 10px; padding: 10px 14px;
+      font-size: 12px; color: var(--info-tx);
+      display: flex; gap: 8px; align-items: flex-start;
+      line-height: 1.6;
+    }
+
+    /* ── SUMMARY ── */
+    .summary-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; background: var(--surface2); border-radius: 8px;
+    }
+    .summary-row-icon { font-size: 16px; flex-shrink: 0; }
+    .summary-row-title { font-size: 12px; font-weight: 600; color: var(--text2); }
+    .summary-row-notes { font-size: 11px; color: var(--muted2); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .summary-badges { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+    .summary-stars { font-size: 12px; font-weight: 700; }
+
+    /* ── FIGMA TIPS ── */
+    .tips-collapsible-btn {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: 13px; font-weight: 600; font-family: var(--mono);
+      transition: color 0.15s;
+    }
+    .tips-collapsible-btn:hover { color: var(--text2); }
+    .tips-body { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 8px; }
+    .tip-item { background: var(--surface2); border-radius: 8px; padding: 10px 12px; }
+    .tip-item-title { font-weight: 700; font-size: 12px; color: var(--text2); margin-bottom: 2px; }
+    .tip-item-url { font-family: var(--mono); font-size: 11px; color: var(--indigo); margin-bottom: 4px; }
+    .tip-item-note { font-size: 11px; color: var(--muted2); }
+
+    /* ── IMPROVEMENT LIST ── */
+    .improve-row {
+      display: flex; gap: 10px; padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .improve-row:last-child { border-bottom: none; }
+    .improve-arrow { color: var(--indigo); font-size: 14px; flex-shrink: 0; }
+    .improve-title { font-size: 12px; font-weight: 600; color: var(--text2); }
+    .improve-q { font-size: 11px; color: var(--muted2); margin-top: 2px; }
+
+    /* ── EXPORT / CLEAR BUTTONS ── */
+    .btn-ghost {
+      background: none; border: 1px solid var(--border2); border-radius: 8px;
+      padding: 7px 14px; font-size: 12px; font-family: var(--mono); color: var(--muted2);
+      cursor: pointer; transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--muted); }
+    .btn-ghost.success { color: var(--green); border-color: var(--green); }
+
+    /* ── UTIL ── */
+    .hidden { display: none !important; }
+    .flex-end { display: flex; justify-content: flex-end; padding-top: 4px; }
+    .gap-8 { display: flex; flex-direction: column; gap: 8px; }
+    .gap-10 { display: flex; flex-direction: column; gap: 10px; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="lab-header">
+  <div>
+    <div class="lab-header-title">UX Library · Skill Test Lab</div>
+    <div class="lab-header-sub">End-to-end testing for setup-product · document-feature-spec · add-platform-delta</div>
+  </div>
+  <div class="lab-tabs">
+    <button class="lab-tab active" data-tab="test">Tests</button>
+    <button class="lab-tab" data-tab="figma">Figma Tips</button>
+    <button class="lab-tab" data-tab="summary">Summary</button>
+  </div>
+</header>
+
+<!-- BODY -->
+<div class="lab-body" id="lab-body">
+  <!-- Panels injected by JS -->
+</div>
+
+<script>
+(function () {
+
+  // ── DATA ─────────────────────────────────────────────────────────────────
+
+  var RATING_LABELS = ['—', 'Poor', 'Okay', 'Good', 'Great', 'Perfect'];
+  var RATING_COLORS = ['#475569', '#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6'];
+
+  var SCENARIOS = [
+    {
+      id: 'setup',
+      label: '1. Setup Product',
+      skill: 'setup-product',
+      icon: '📦',
+      desc: 'Create a new product with config files, feature stubs, and coverage table.',
+      promptFn: function (v) {
+        return 'Set up my product in the UX Library. Product name: ' + (v.productName || 'TestProduct') + '. Features: ' + (v.features || 'Dashboard, Notifications, Settings') + '. Platforms: Main portal, Mobile web. Roles: Admin, Standard user. Brand colors: ' + (v.brandColor || '#2563EB') + ' as primary, #F59E0B as accent. No logo yet.';
+      },
+      checks: [
+        'Created _index.md and _index.html',
+        'Created config/_theme with color tokens',
+        'Created feature stub folders',
+        'Updated sitemap.html',
+        'Summary shown in plain language',
+        'CONFIRM: flags on uncertain tokens',
+      ],
+    },
+    {
+      id: 'feature',
+      label: '2. Document Feature Spec',
+      skill: 'document-feature-spec',
+      icon: '📄',
+      desc: 'Extract a feature spec from a Figma frame and write feature.md + feature.html.',
+      promptFn: function (v) {
+        return 'Document a feature spec for the UX Library. Product: ' + (v.productName || 'TestProduct') + '. Feature: ' + (v.featureName || 'Dashboard') + '. Platform: User Portal. Figma URL: ' + (v.figmaUrl || '[paste your Figma URL here]') + '.';
+      },
+      checks: [
+        'Extracted design context from Figma',
+        'Read config files (_theme, _glossary, _guidelines)',
+        'Wrote feature.md with frontmatter',
+        'Wrote feature.html with visual layout',
+        'Open Items section present',
+        'No raw hex values in output',
+        'Copy uses approved glossary terms',
+        'Updated _index coverage table',
+      ],
+    },
+    {
+      id: 'delta',
+      label: '3. Add Platform Delta',
+      skill: 'add-platform-delta',
+      icon: '🔀',
+      desc: 'Compare two Figma frames and document only what differs on the delta platform.',
+      promptFn: function (v) {
+        return 'Add a platform delta for the UX Library. Product: ' + (v.productName || 'TestProduct') + '. Feature: ' + (v.featureName || 'Dashboard') + '. Baseline: User Portal — Figma URL: ' + (v.figmaUrl || '[paste baseline Figma URL]') + '. Delta platform: Mobile Web — Figma URL: ' + (v.deltaFigmaUrl || '[paste mobile Figma URL]') + '.';
+      },
+      checks: [
+        'Called get_design_context on both URLs',
+        'Delta file contains ONLY differences',
+        'No baseline content repeated in delta',
+        'Open Items section present',
+        "Updated coverage table to 'delta'",
+        'Changelog updated',
+      ],
+    },
+    {
+      id: 'audit',
+      label: '4. Audit for Inconsistencies',
+      skill: 'document-feature-spec',
+      icon: '🔍',
+      desc: 'Re-run spec on a revised Figma URL and check for inconsistencies with config files.',
+      promptFn: function (v) {
+        return 'Document a feature spec for the UX Library. Product: ' + (v.productName || 'TestProduct') + '. Feature: ' + (v.featureName2 || 'Settings') + '. Platform: User Portal. Figma URL: ' + (v.figmaUrl2 || '[paste your second Figma URL]') + '. Note: intentionally use a frame that has hex values not in the theme, to test inconsistency detection.';
+      },
+      checks: [
+        'Flagged hex values not in _theme.md',
+        'Flagged copy not in _glossary.md',
+        'Missing states listed in Open Items',
+        'INFERRED: labels on assumed content',
+        'MISSING: flags where states are absent',
+        'No silent guesses — everything flagged',
+      ],
+    },
+  ];
+
+  var FIGMA_TIPS = [
+    { label: 'Full file URL', url: 'https://www.figma.com/file/XXXX/Name', note: 'May pull too much context — can exceed token limit.' },
+    { label: 'Specific frame URL', url: 'https://www.figma.com/file/XXXX/Name?node-id=123%3A456', note: 'Recommended. Targets one frame = fewer tokens, more accurate.' },
+    { label: 'Prototype URL', url: 'https://www.figma.com/proto/XXXX/...', note: 'Works for visual context but metadata is limited.' },
+  ];
+
+  var IMPROVE_ITEMS = [
+    { title: 'Prompt template improvements', q: 'Does adding "use get_metadata first" to the prompt reduce unnecessary full-context calls?' },
+    { title: 'Skill instruction tweaks', q: 'Does the skill re-read config files it already has? Could memoization hints help?' },
+    { title: 'URL type comparison', q: 'Does a node-specific URL give a cleaner, more focused extraction than a full file URL?' },
+    { title: 'Overfetching', q: 'Does the skill read all of sitemap.html when it only needs the last product section?' },
+    { title: 'Missing flag accuracy', q: "Does the skill correctly flag when a hex value in Figma doesn't match any token?" },
+  ];
+
+  var VAR_FIELDS = [
+    ['productName',    'Product name',                               'e.g. Goals'],
+    ['features',       'Features (comma-separated)',                  'e.g. Dashboard, Settings'],
+    ['brandColor',     'Primary brand hex',                          'e.g. #2563EB'],
+    ['featureName',    'Feature to document (test 2)',               'e.g. Dashboard'],
+    ['featureName2',   'Feature for audit test (test 4)',            'e.g. Settings'],
+    ['figmaUrl',       'Figma URL — baseline frame',                 'https://figma.com/file/...'],
+    ['deltaFigmaUrl',  'Figma URL — mobile/delta frame',             'https://figma.com/file/...'],
+    ['figmaUrl2',      'Figma URL — audit frame (intentionally inconsistent)', 'https://figma.com/file/...'],
+  ];
+
+  // ── LOCALSTORAGE ─────────────────────────────────────────────────────────
+
+  var LS_VARS    = 'ux-test-vars';
+  var LS_RESULTS = 'ux-test-results';
+
+  var DEFAULT_VARS = { productName:'', features:'', brandColor:'', featureName:'', featureName2:'', figmaUrl:'', deltaFigmaUrl:'', figmaUrl2:'' };
+
+  function loadLS(key, def) {
+    try { return JSON.parse(localStorage.getItem(key)) || def; }
+    catch (e) { return def; }
+  }
+  function saveLS(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
+  }
+
+  var vars    = loadLS(LS_VARS,    Object.assign({}, DEFAULT_VARS));
+  var results = loadLS(LS_RESULTS, {});
+
+  // ── STATE ─────────────────────────────────────────────────────────────────
+
+  var currentTab = 'test';
+
+  // ── HELPERS ──────────────────────────────────────────────────────────────
+
+  function badge(color, text) {
+    var s = document.createElement('span');
+    s.className = 'badge';
+    s.style.background   = color + '22';
+    s.style.color        = color;
+    s.style.border       = '1px solid ' + color + '55';
+    s.textContent        = text;
+    return s;
+  }
+
+  function makeCopyBtn(getTextFn) {
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy prompt';
+    btn.addEventListener('click', function () {
+      var text = getTextFn();
+      navigator.clipboard.writeText(text)
+        .then(function () {
+          btn.classList.add('copied');
+          btn.textContent = 'Copied!';
+          setTimeout(function () {
+            btn.classList.remove('copied');
+            btn.textContent = 'Copy prompt';
+          }, 1500);
+        })
+        .catch(function () {});
+    });
+    return btn;
+  }
+
+  function setResult(id, patch) {
+    results[id] = Object.assign({}, results[id] || {}, patch);
+    saveLS(LS_RESULTS, results);
+  }
+
+  // ── SCENARIO CARD ────────────────────────────────────────────────────────
+
+  function makeScenarioCard(s) {
+    var card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.scenarioId = s.id;
+
+    // Header
+    var header = document.createElement('div');
+    header.className = 'scenario-header';
+
+    var iconEl = document.createElement('span');
+    iconEl.className = 'scenario-icon';
+    iconEl.textContent = s.icon;
+
+    var info = document.createElement('div');
+    info.style.flex = '1';
+    var titleEl = document.createElement('div');
+    titleEl.className = 'scenario-title';
+    titleEl.textContent = s.label;
+    var descEl = document.createElement('div');
+    descEl.className = 'scenario-desc';
+    descEl.textContent = s.desc;
+    info.appendChild(titleEl);
+    info.appendChild(descEl);
+
+    var badgesEl = document.createElement('div');
+    badgesEl.className = 'scenario-badges';
+    badgesEl.appendChild(badge('#6366f1', s.skill));
+
+    header.appendChild(iconEl);
+    header.appendChild(info);
+    header.appendChild(badgesEl);
+    card.appendChild(header);
+
+    // Body
+    var body = document.createElement('div');
+    body.className = 'scenario-body';
+
+    // Prompt
+    var promptSection = document.createElement('div');
+    var promptSectionLabel = document.createElement('div');
+    promptSectionLabel.className = 'section-label';
+    promptSectionLabel.textContent = 'Prompt to run';
+
+    var promptBox = document.createElement('div');
+    promptBox.className = 'prompt-box';
+
+    var promptText = document.createElement('div');
+    promptText.className = 'prompt-text';
+    promptText.textContent = s.promptFn(vars);
+
+    var copyBtn = makeCopyBtn(function () { return s.promptFn(vars); });
+
+    promptBox.appendChild(promptText);
+    promptBox.appendChild(copyBtn);
+
+    var promptHint = document.createElement('div');
+    promptHint.className = 'prompt-hint';
+    promptHint.textContent = '💡 Paste this into a new Claude conversation. Fill in any Figma URLs first.';
+
+    promptSection.appendChild(promptSectionLabel);
+    promptSection.appendChild(promptBox);
+    promptSection.appendChild(promptHint);
+    body.appendChild(promptSection);
+
+    // Store ref for live update
+    promptText.dataset.promptRef = s.id;
+
+    // Checklist
+    var checkSection = document.createElement('div');
+    var checkLabel = document.createElement('div');
+    checkLabel.className = 'section-label';
+    checkLabel.textContent = 'Quality checklist — tick what you observed in the output';
+    checkSection.appendChild(checkLabel);
+
+    var r = results[s.id] || {};
+    s.checks.forEach(function (label, i) {
+      var item = document.createElement('label');
+      item.className = 'check-item';
+
+      var box = document.createElement('span');
+      box.className = 'check-box' + (r.checks && r.checks[i] ? ' checked' : '');
+      var tick = document.createElement('span');
+      tick.className = 'check-tick';
+      tick.textContent = '✓';
+      box.appendChild(tick);
+
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      input.style.display = 'none';
+      input.checked = !!(r.checks && r.checks[i]);
+
+      var labelEl = document.createElement('span');
+      labelEl.className = 'check-label' + (r.checks && r.checks[i] ? ' checked' : '');
+      labelEl.textContent = label;
+
+      item.appendChild(box);
+      item.appendChild(input);
+      item.appendChild(labelEl);
+
+      item.addEventListener('click', function () {
+        var cur = results[s.id] || {};
+        var checks = Object.assign({}, cur.checks || {});
+        checks[i] = !checks[i];
+        setResult(s.id, { checks: checks });
+        box.classList.toggle('checked', !!checks[i]);
+        labelEl.classList.toggle('checked', !!checks[i]);
+        input.checked = !!checks[i];
+        updateScenarioBadge(s.id, badgesEl);
+        updateSummaryIfVisible();
+      });
+
+      checkSection.appendChild(item);
+    });
+    body.appendChild(checkSection);
+
+    // Rating + Notes
+    var ratingSection = document.createElement('div');
+    ratingSection.style.display = 'flex';
+    ratingSection.style.flexDirection = 'column';
+    ratingSection.style.gap = '10px';
+
+    // Star rating
+    var ratingWrap = document.createElement('div');
+    var ratingLabel = document.createElement('div');
+    ratingLabel.className = 'section-label';
+    ratingLabel.textContent = 'Overall quality rating';
+    ratingWrap.appendChild(ratingLabel);
+    ratingWrap.appendChild(makeStarRating(s.id, badgesEl));
+    ratingSection.appendChild(ratingWrap);
+
+    // Notes
+    ratingSection.appendChild(makeTextarea(s.id, 'notes', 'Notes / what to improve',
+      "e.g. 'Didn't flag hex value mismatch', 'Prompt was too vague about platform'…", 72));
+
+    // Token efficiency
+    ratingSection.appendChild(makeTextarea(s.id, 'tokenNotes', 'Token efficiency observation',
+      "e.g. 'Read the full sitemap — only needed the last section'…", 56));
+
+    body.appendChild(ratingSection);
+    card.appendChild(body);
+    return card;
+  }
+
+  function makeStarRating(scenarioId, badgesEl) {
+    var row = document.createElement('div');
+    row.className = 'star-row';
+
+    var r = results[scenarioId] || {};
+    var current = r.rating || 0;
+
+    var labelEl = document.createElement('span');
+    labelEl.className = 'star-rating-label';
+    if (current > 0) {
+      labelEl.textContent = RATING_LABELS[current];
+      labelEl.style.color = RATING_COLORS[current];
+    }
+
+    var stars = [];
+    for (var n = 1; n <= 5; n++) {
+      (function (n) {
+        var btn = document.createElement('button');
+        btn.className = 'star-btn';
+        btn.title = RATING_LABELS[n];
+        btn.textContent = '★';
+        btn.style.color = n <= current ? RATING_COLORS[current] : 'var(--border2)';
+
+        btn.addEventListener('mouseenter', function () {
+          stars.forEach(function (s, i) {
+            s.style.color = (i + 1) <= n ? RATING_COLORS[n] : 'var(--border2)';
+          });
+          labelEl.textContent = RATING_LABELS[n];
+          labelEl.style.color = RATING_COLORS[n];
+        });
+        btn.addEventListener('mouseleave', function () {
+          var cur2 = (results[scenarioId] || {}).rating || 0;
+          stars.forEach(function (s, i) {
+            s.style.color = (i + 1) <= cur2 ? RATING_COLORS[cur2] : 'var(--border2)';
+          });
+          labelEl.textContent = cur2 > 0 ? RATING_LABELS[cur2] : '';
+          labelEl.style.color = cur2 > 0 ? RATING_COLORS[cur2] : '';
+        });
+        btn.addEventListener('click', function () {
+          var cur2 = (results[scenarioId] || {}).rating || 0;
+          var newVal = n === cur2 ? 0 : n;
+          setResult(scenarioId, { rating: newVal });
+          stars.forEach(function (s, i) {
+            s.style.color = (i + 1) <= newVal ? RATING_COLORS[newVal] : 'var(--border2)';
+          });
+          labelEl.textContent = newVal > 0 ? RATING_LABELS[newVal] : '';
+          labelEl.style.color = newVal > 0 ? RATING_COLORS[newVal] : '';
+          updateScenarioBadge(scenarioId, badgesEl);
+          updateSummaryIfVisible();
+        });
+
+        stars.push(btn);
+        row.appendChild(btn);
+      })(n);
+    }
+    row.appendChild(labelEl);
+    return row;
+  }
+
+  function makeTextarea(scenarioId, field, labelText, placeholder, minH) {
+    var wrap = document.createElement('div');
+    var lbl = document.createElement('div');
+    lbl.className = 'section-label';
+    lbl.textContent = labelText;
+    var ta = document.createElement('textarea');
+    ta.placeholder = placeholder;
+    ta.style.minHeight = minH + 'px';
+    var r = results[scenarioId] || {};
+    ta.value = r[field] || '';
+    ta.addEventListener('input', function () {
+      var patch = {};
+      patch[field] = ta.value;
+      setResult(scenarioId, patch);
+      updateSummaryIfVisible();
+    });
+    wrap.appendChild(lbl);
+    wrap.appendChild(ta);
+    return wrap;
+  }
+
+  function getCheckedCount(id) {
+    var r = results[id] || {};
+    return Object.values(r.checks || {}).filter(Boolean).length;
+  }
+
+  function updateScenarioBadge(id, badgesEl) {
+    var s = SCENARIOS.find(function (x) { return x.id === id; });
+    if (!s) return;
+    var checked = getCheckedCount(id);
+    var total   = s.checks.length;
+    var r = results[id] || {};
+    // Remove old count badge
+    var old = badgesEl.querySelector('[data-count-badge]');
+    if (old) old.remove();
+    if (checked > 0 || r.rating > 0) {
+      var b = badge(checked === total ? '#22c55e' : '#f59e0b', checked + '/' + total);
+      b.dataset.countBadge = '1';
+      badgesEl.appendChild(b);
+    }
+  }
+
+  // ── TEST VARIABLES PANEL ─────────────────────────────────────────────────
+
+  function makeVarsPanel() {
+    var card = document.createElement('div');
+    card.className = 'card card-pad';
+
+    var title = document.createElement('div');
+    title.className = 'card-title';
+    title.textContent = '🧪 Test Variables';
+
+    var sub = document.createElement('div');
+    sub.className = 'card-subtitle';
+    sub.style.marginBottom = '12px';
+    sub.textContent = 'Fill these in once — they\'ll populate all prompts below automatically.';
+
+    var grid = document.createElement('div');
+    grid.className = 'vars-grid';
+
+    VAR_FIELDS.forEach(function (f) {
+      var key = f[0], label = f[1], ph = f[2];
+      var wrap = document.createElement('div');
+      wrap.className = 'vars-field';
+      var lbl = document.createElement('label');
+      lbl.className = 'field-label';
+      lbl.textContent = label;
+      var inp = document.createElement('input');
+      inp.type = 'text';
+      inp.placeholder = ph;
+      inp.value = vars[key] || '';
+      inp.addEventListener('input', function () {
+        vars[key] = inp.value;
+        saveLS(LS_VARS, vars);
+        // Update all prompt texts
+        SCENARIOS.forEach(function (s) {
+          var el = document.querySelector('[data-prompt-ref="' + s.id + '"]');
+          if (el) el.textContent = s.promptFn(vars);
+        });
+      });
+      wrap.appendChild(lbl);
+      wrap.appendChild(inp);
+      grid.appendChild(wrap);
+    });
+
+    var hint = document.createElement('div');
+    hint.className = 'vars-hint';
+    hint.textContent = '💾 Variables auto-save in your browser. Clear with the button below if you start a new test run.';
+
+    card.appendChild(title);
+    card.appendChild(sub);
+    card.appendChild(grid);
+    card.appendChild(hint);
+    return card;
+  }
+
+  // ── SAFETY NOTICE ────────────────────────────────────────────────────────
+
+  function makeSafetyNotice() {
+    var el = document.createElement('div');
+    el.className = 'safety-notice';
+    el.innerHTML = '<span style="flex-shrink:0;margin-top:1px">🛡</span><div><strong>Safe testing:</strong> These tests use a sandbox product name. They won\'t overwrite your real library files unless you reuse an existing product slug. Use a unique name like "TestCo" or "SandboxApp" to stay safe. When done, delete the test folder from your library.</div>';
+    return el;
+  }
+
+  // ── CLEAR BUTTON ─────────────────────────────────────────────────────────
+
+  function makeClearBtn() {
+    var wrap = document.createElement('div');
+    wrap.className = 'flex-end';
+    var btn = document.createElement('button');
+    btn.className = 'btn-ghost';
+    btn.textContent = '🗑 Clear all results & variables';
+    btn.addEventListener('click', function () {
+      results = {};
+      vars    = Object.assign({}, DEFAULT_VARS);
+      saveLS(LS_VARS, vars);
+      saveLS(LS_RESULTS, results);
+      btn.classList.add('success');
+      btn.textContent = '✓ Cleared';
+      setTimeout(function () {
+        btn.classList.remove('success');
+        btn.textContent = '🗑 Clear all results & variables';
+        render();
+      }, 1500);
+    });
+    wrap.appendChild(btn);
+    return wrap;
+  }
+
+  // ── FIGMA TIPS PANEL ─────────────────────────────────────────────────────
+
+  function makeFigmaPanel() {
+    var frag = document.createDocumentFragment();
+
+    // URL comparison card
+    var card1 = document.createElement('div');
+    card1.className = 'card card-pad';
+    var t1 = document.createElement('div');
+    t1.className = 'card-title';
+    t1.textContent = '🔗 Which Figma URL type works best?';
+    var p1 = document.createElement('div');
+    p1.className = 'card-subtitle';
+    p1.style.marginBottom = '14px';
+    p1.textContent = 'One of the goals of this test is figuring out which Figma URL format gives the best results — accurate extraction with fewest tokens used. Use the notes field in each test to record what you tried.';
+    card1.appendChild(t1);
+    card1.appendChild(p1);
+
+    FIGMA_TIPS.forEach(function (tip, i) {
+      var item = document.createElement('div');
+      item.style.background = 'var(--surface2)';
+      item.style.borderRadius = '10px';
+      item.style.padding = '12px 14px';
+      if (i < FIGMA_TIPS.length - 1) item.style.marginBottom = '8px';
+      item.innerHTML =
+        '<div class="tip-item-title">' + tip.label + '</div>' +
+        '<div class="tip-item-url">' + tip.url + '</div>' +
+        '<div class="tip-item-note">' + tip.note + '</div>';
+      card1.appendChild(item);
+    });
+
+    // How-to box
+    var howto = document.createElement('div');
+    howto.style.cssText = 'background:var(--info-bg);border:1px solid var(--info-bd);border-radius:10px;padding:12px 14px;margin-top:8px;';
+    howto.innerHTML =
+      '<div style="font-weight:700;font-size:12px;color:var(--info-tx);margin-bottom:6px">How to get a specific frame URL in Figma</div>' +
+      '<ol style="margin:0;padding-left:16px;font-size:12px;color:var(--muted2);line-height:1.8">' +
+      '<li>Click the frame you want in Figma</li>' +
+      '<li>Right-click → "Copy link to selection"</li>' +
+      '<li>This gives you a URL with <code style="background:var(--surface2);padding:0 4px;border-radius:3px">?node-id=XXX</code> — that\'s the specific frame URL</li>' +
+      '<li>Paste it into the test variables above</li>' +
+      '</ol>';
+    card1.appendChild(howto);
+    frag.appendChild(card1);
+
+    // Improvement suggestions card
+    var card2 = document.createElement('div');
+    card2.className = 'card card-pad';
+    var t2 = document.createElement('div');
+    t2.className = 'card-title';
+    t2.textContent = '💡 Improvement suggestions to watch for';
+    card2.appendChild(t2);
+
+    IMPROVE_ITEMS.forEach(function (item, i) {
+      var row = document.createElement('div');
+      row.className = 'improve-row';
+      if (i === IMPROVE_ITEMS.length - 1) row.style.borderBottom = 'none';
+      row.innerHTML =
+        '<span class="improve-arrow">→</span>' +
+        '<div><div class="improve-title">' + item.title + '</div>' +
+        '<div class="improve-q">' + item.q + '</div></div>';
+      card2.appendChild(row);
+    });
+    frag.appendChild(card2);
+    return frag;
+  }
+
+  // ── SUMMARY PANEL ────────────────────────────────────────────────────────
+
+  function makeSummaryPanel() {
+    var card = document.createElement('div');
+    card.className = 'card card-pad';
+    card.id = 'summary-panel';
+    renderSummaryContent(card);
+    return card;
+  }
+
+  function renderSummaryContent(card) {
+    card.innerHTML = '';
+    var title = document.createElement('div');
+    title.className = 'card-title';
+    title.textContent = '📊 Test Summary';
+    card.appendChild(title);
+
+    var rows = SCENARIOS.map(function (s) {
+      var r = results[s.id] || {};
+      var checked = getCheckedCount(s.id);
+      return { s: s, checked: checked, total: s.checks.length, rating: r.rating || 0, notes: r.notes || '', tokenNotes: r.tokenNotes || '' };
+    });
+
+    var attempted = rows.filter(function (r) { return r.checked > 0 || r.rating > 0; });
+
+    if (attempted.length === 0) {
+      var empty = document.createElement('div');
+      empty.style.cssText = 'font-size:12px;color:var(--muted3)';
+      empty.textContent = 'Run tests and fill in the checklists above — your summary will appear here.';
+      card.appendChild(empty);
+      return;
+    }
+
+    var list = document.createElement('div');
+    list.className = 'gap-8';
+
+    rows.forEach(function (row) {
+      var r = document.createElement('div');
+      r.className = 'summary-row';
+
+      var icon = document.createElement('span');
+      icon.className = 'summary-row-icon';
+      icon.textContent = row.s.icon;
+
+      var info = document.createElement('div');
+      info.style.cssText = 'flex:1;min-width:0';
+      var titleEl = document.createElement('div');
+      titleEl.className = 'summary-row-title';
+      titleEl.textContent = row.s.label;
+      info.appendChild(titleEl);
+      if (row.notes) {
+        var notesEl = document.createElement('div');
+        notesEl.className = 'summary-row-notes';
+        notesEl.textContent = row.notes;
+        info.appendChild(notesEl);
+      }
+
+      var bdgs = document.createElement('div');
+      bdgs.className = 'summary-badges';
+      var color = row.checked === row.total && row.total > 0 ? '#22c55e' : row.checked > 0 ? '#f59e0b' : '#475569';
+      bdgs.appendChild(badge(color, row.checked + '/' + row.total));
+      if (row.rating > 0) {
+        var stars = document.createElement('span');
+        stars.className = 'summary-stars';
+        stars.style.color = RATING_COLORS[row.rating];
+        stars.textContent = '★'.repeat(row.rating);
+        bdgs.appendChild(stars);
+      }
+
+      r.appendChild(icon);
+      r.appendChild(info);
+      r.appendChild(bdgs);
+      list.appendChild(r);
+    });
+
+    card.appendChild(list);
+
+    // Export button
+    var exportBtn = document.createElement('button');
+    exportBtn.className = 'btn-ghost';
+    exportBtn.style.marginTop = '4px';
+    exportBtn.textContent = '⬇ Export results as .txt';
+    exportBtn.addEventListener('click', function () {
+      var lines = ['# UX Library Skill Test Results', '', new Date().toLocaleDateString(), ''];
+      rows.forEach(function (r) {
+        lines.push('## ' + r.s.label);
+        lines.push('Checklist: ' + r.checked + '/' + r.total);
+        lines.push('Rating: ' + (RATING_LABELS[r.rating] || '—'));
+        if (r.notes) lines.push('Notes: ' + r.notes);
+        if (r.tokenNotes) lines.push('Token efficiency: ' + r.tokenNotes);
+        lines.push('');
+      });
+      var blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'ux-library-test-' + Date.now() + '.txt';
+      a.click();
+    });
+    card.appendChild(exportBtn);
+  }
+
+  function updateSummaryIfVisible() {
+    if (currentTab !== 'summary') return;
+    var panel = document.getElementById('summary-panel');
+    if (panel) renderSummaryContent(panel);
+  }
+
+  // ── RENDER ────────────────────────────────────────────────────────────────
+
+  function render() {
+    var body = document.getElementById('lab-body');
+    body.innerHTML = '';
+
+    if (currentTab === 'test') {
+      body.appendChild(makeVarsPanel());
+      body.appendChild(makeSafetyNotice());
+      SCENARIOS.forEach(function (s) {
+        var card = makeScenarioCard(s);
+        // Re-apply badge counts after initial render
+        var badgesEl = card.querySelector('.scenario-badges');
+        updateScenarioBadge(s.id, badgesEl);
+        body.appendChild(card);
+      });
+      body.appendChild(makeClearBtn());
+    }
+
+    if (currentTab === 'figma') {
+      body.appendChild(makeFigmaPanel());
+    }
+
+    if (currentTab === 'summary') {
+      body.appendChild(makeSummaryPanel());
+    }
+  }
+
+  // ── TABS ──────────────────────────────────────────────────────────────────
+
+  document.querySelectorAll('.lab-tab').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      currentTab = btn.dataset.tab;
+      document.querySelectorAll('.lab-tab').forEach(function (b) {
+        b.classList.toggle('active', b === btn);
+      });
+      render();
+    });
+  });
+
+  // ── INIT ──────────────────────────────────────────────────────────────────
+
+  render();
+
+})();
+</script>
+</body>
+</html>

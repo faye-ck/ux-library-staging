@@ -263,6 +263,11 @@
       ]
     },
     {
+      label: 'Test Lab', children: [
+        { label: 'Skill Tests', href: '/test/index.html' },
+      ]
+    },
+    {
       label: 'Goals', children: [
         { label: 'Overview',    href: '/goals/_index.html' },
         {
