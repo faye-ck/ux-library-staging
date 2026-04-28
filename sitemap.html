@@ -42,6 +42,12 @@
     .sm-file.sm-asset { color: var(--muted-light); }
     .sm-file.sm-changelog a { color: var(--muted); }
 
+    .sm-md {
+      font-family: var(--mono); font-size: 9px;
+      color: var(--teal-dark); background: var(--teal-light);
+      border: 0.5px solid rgba(25,118,210,0.2);
+      padding: 1px 5px; border-radius: 4px; white-space: nowrap;
+    }
     .sm-skeleton {
       font-family: var(--mono); font-size: 9px;
       color: var(--muted); background: var(--bg);
@@ -86,7 +92,7 @@
   </div>
   <div class="page-header">
     <h2>Sitemap</h2>
-    <p>Full page and file structure of the UX Library repository. Each row links to the rendered page.</p>
+    <p>Full page and file structure of the UX Library repository. Each row links to the rendered page. <span style="font-family:var(--mono);font-size:11px;background:var(--teal-light);color:var(--teal-dark);padding:1px 6px;border-radius:4px;border:0.5px solid rgba(25,118,210,0.2)">+.md</span> indicates a companion Markdown source file exists.</p>
   </div>
   <div class="section-divider"></div>
 
@@ -169,7 +175,7 @@
       <div class="sm-section-title">Global</div>
       <div class="sm-rows">
         <div class="sm-row">
-          <div class="sm-left"><span class="sm-file"><a href="global/_index.html">global/_index.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/_index.html">global/_index.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Overview</span>
         </div>
         <div class="sm-row">
@@ -182,43 +188,43 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>global/foundations/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/foundations/color-system.html">color-system.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/foundations/color-system.html">color-system.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Color System</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/foundations/typography.html">typography.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/foundations/typography.html">typography.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Typography</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/foundations/spacing.html">spacing.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/foundations/spacing.html">spacing.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Spacing</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/foundations/motion.html">motion.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/foundations/motion.html">motion.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Motion</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/foundations/iconography.html">iconography.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/foundations/iconography.html">iconography.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Iconography</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/foundations/accessibility.html">accessibility.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/foundations/accessibility.html">accessibility.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Accessibility</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/foundations/error-patterns.html">error-patterns.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/foundations/error-patterns.html">error-patterns.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Error Patterns</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/foundations/empty-states.html">empty-states.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/foundations/empty-states.html">empty-states.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Empty States</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/foundations/loading-states.html">loading-states.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/foundations/loading-states.html">loading-states.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Loading States</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/foundations/notification-patterns.html">notification-patterns.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/foundations/notification-patterns.html">notification-patterns.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Notification Patterns</span>
         </div>
       </div>
@@ -227,39 +233,39 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>global/components/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/components/button.html">button.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/components/button.html">button.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Button</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/components/input.html">input.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/components/input.html">input.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Input</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/components/modal.html">modal.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/components/modal.html">modal.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Modal</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/components/table.html">table.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/components/table.html">table.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Table</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/components/nav-shell.html">nav-shell.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/components/nav-shell.html">nav-shell.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Nav Shell</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/components/toast.html">toast.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/components/toast.html">toast.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Toast</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/components/pagination.html">pagination.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/components/pagination.html">pagination.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Pagination</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/components/data-viz-primitives.html">data-viz-primitives.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/components/data-viz-primitives.html">data-viz-primitives.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Data Viz</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/components/form-validation.html">form-validation.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/components/form-validation.html">form-validation.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Form Validation</span>
         </div>
       </div>
@@ -268,15 +274,15 @@
       <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/_layout.html">_layout.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/_layout.html">_layout.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Layout</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/_guidelines.html">_guidelines.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/_guidelines.html">_guidelines.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Guidelines</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/_glossary.html">_glossary.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/_glossary.html">_glossary.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Glossary</span>
         </div>
       </div>
@@ -285,7 +291,7 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>global/data/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="global/data/entity-type.html">entity-type.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="global/data/entity-type.html">entity-type.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Entity Type</span>
         </div>
       </div>
@@ -296,7 +302,7 @@
       <div class="sm-section-title">Biz</div>
       <div class="sm-rows">
         <div class="sm-row">
-          <div class="sm-left"><span class="sm-file"><a href="biz/_index.html">biz/_index.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/_index.html">biz/_index.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Overview</span>
         </div>
         <div class="sm-row">
@@ -307,23 +313,23 @@
       <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/_theme.html">_theme.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Theme</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/_components.html">_components.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/_components.html">_components.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Components</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/_layout.html">_layout.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/_layout.html">_layout.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Layout</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/_guidelines.html">_guidelines.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/_guidelines.html">_guidelines.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Guidelines</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/_glossary.html">_glossary.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/_glossary.html">_glossary.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Glossary</span>
         </div>
       </div>
@@ -331,7 +337,7 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>biz/analytics/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/analytics/admin-portal.html">admin-portal.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/analytics/admin-portal.html">admin-portal.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Admin Portal</span>
         </div>
       </div>
@@ -339,15 +345,15 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>biz/inventory/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/inventory/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/inventory/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/inventory/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/inventory/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/inventory/admin-portal.html">admin-portal.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/inventory/admin-portal.html">admin-portal.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Admin Portal</span>
         </div>
       </div>
@@ -355,15 +361,15 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>biz/locker/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/locker/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/locker/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/locker/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/locker/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/locker/admin-portal.html">admin-portal.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/locker/admin-portal.html">admin-portal.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Admin Portal</span>
         </div>
       </div>
@@ -371,23 +377,23 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>biz/office-map/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/office-map/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/office-map/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/office-map/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/office-map/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/office-map/mobile-app.html">mobile-app.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/office-map/mobile-app.html">mobile-app.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile App</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/office-map/admin-portal.html">admin-portal.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/office-map/admin-portal.html">admin-portal.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Admin Portal</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/office-map/room-signage.html">room-signage.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/office-map/room-signage.html">room-signage.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Room Signage</span>
         </div>
       </div>
@@ -395,15 +401,15 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>biz/post/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/post/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/post/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/post/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/post/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/post/admin-portal.html">admin-portal.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/post/admin-portal.html">admin-portal.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Admin Portal</span>
         </div>
       </div>
@@ -411,23 +417,23 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>biz/reception/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/reception/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/reception/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/reception/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/reception/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/reception/receptionist-portal.html">receptionist-portal.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/reception/receptionist-portal.html">receptionist-portal.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Receptionist Portal</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/reception/admin-portal.html">admin-portal.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/reception/admin-portal.html">admin-portal.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Admin Portal</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/reception/email.html">email.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/reception/email.html">email.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Email</span>
         </div>
       </div>
@@ -435,19 +441,19 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>biz/scheduler/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/scheduler/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/scheduler/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/scheduler/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/scheduler/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/scheduler/mobile-app.html">mobile-app.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/scheduler/mobile-app.html">mobile-app.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile App</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="biz/scheduler/admin-portal.html">admin-portal.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="biz/scheduler/admin-portal.html">admin-portal.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Admin Portal</span>
         </div>
       </div>
@@ -458,7 +464,7 @@
       <div class="sm-section-title">Workflows</div>
       <div class="sm-rows">
         <div class="sm-row">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/_index.html">workflows/_index.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/_index.html">workflows/_index.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Overview</span>
         </div>
         <div class="sm-row">
@@ -469,23 +475,23 @@
       <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/_theme.html">_theme.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Theme</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/_components.html">_components.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/_components.html">_components.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Components</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/_layout.html">_layout.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/_layout.html">_layout.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Layout</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/_guidelines.html">_guidelines.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/_guidelines.html">_guidelines.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Guidelines</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/_glossary.html">_glossary.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/_glossary.html">_glossary.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Glossary</span>
         </div>
       </div>
@@ -493,15 +499,15 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>workflows/approve/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/approve/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/approve/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/approve/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/approve/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/approve/email.html">email.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/approve/email.html">email.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Email</span>
         </div>
       </div>
@@ -509,15 +515,15 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>workflows/submit/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/submit/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/submit/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/submit/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/submit/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/submit/email.html">email.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/submit/email.html">email.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Email</span>
         </div>
       </div>
@@ -525,7 +531,7 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>workflows/template/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="workflows/template/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="workflows/template/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
       </div>
@@ -536,7 +542,7 @@
       <div class="sm-section-title">CKID</div>
       <div class="sm-rows">
         <div class="sm-row">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/_index.html">ckid/_index.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/_index.html">ckid/_index.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Overview</span>
         </div>
         <div class="sm-row">
@@ -547,23 +553,23 @@
       <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/_theme.html">_theme.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Theme</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/_components.html">_components.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/_components.html">_components.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Components</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/_layout.html">_layout.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/_layout.html">_layout.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Layout</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/_guidelines.html">_guidelines.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/_guidelines.html">_guidelines.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Guidelines</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/_glossary.html">_glossary.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/_glossary.html">_glossary.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Glossary</span>
         </div>
       </div>
@@ -571,11 +577,11 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>ckid/org-chart/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/org-chart/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/org-chart/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/org-chart/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/org-chart/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
       </div>
@@ -583,11 +589,11 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>ckid/team-management/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/team-management/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/team-management/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/team-management/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/team-management/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
       </div>
@@ -595,11 +601,11 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>ckid/user-management/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/user-management/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/user-management/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="ckid/user-management/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="ckid/user-management/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
       </div>
@@ -610,7 +616,7 @@
       <div class="sm-section-title">Intra</div>
       <div class="sm-rows">
         <div class="sm-row">
-          <div class="sm-left"><span class="sm-file"><a href="intra/_index.html">intra/_index.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/_index.html">intra/_index.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Overview</span>
         </div>
         <div class="sm-row">
@@ -621,23 +627,23 @@
       <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="intra/_theme.html">_theme.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Theme</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="intra/_components.html">_components.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/_components.html">_components.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Components</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="intra/_layout.html">_layout.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/_layout.html">_layout.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Layout</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="intra/_guidelines.html">_guidelines.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/_guidelines.html">_guidelines.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Guidelines</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="intra/_glossary.html">_glossary.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/_glossary.html">_glossary.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Glossary</span>
         </div>
       </div>
@@ -645,11 +651,11 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>intra/dashboard/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="intra/dashboard/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/dashboard/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="intra/dashboard/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/dashboard/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
       </div>
@@ -657,11 +663,11 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>intra/page-management/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="intra/page-management/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/page-management/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="intra/page-management/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/page-management/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
       </div>
@@ -669,7 +675,7 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>intra/theming/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="intra/theming/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="intra/theming/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
       </div>
@@ -681,7 +687,7 @@
       <div class="sm-section-title">Files</div>
       <div class="sm-rows">
         <div class="sm-row">
-          <div class="sm-left"><span class="sm-file"><a href="files/_index.html">files/_index.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="files/_index.html">files/_index.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Overview</span>
         </div>
         <div class="sm-row">
@@ -692,23 +698,23 @@
       <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="files/_theme.html">_theme.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="files/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Theme</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="files/_components.html">_components.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="files/_components.html">_components.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Components</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="files/_layout.html">_layout.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="files/_layout.html">_layout.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Layout</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="files/_guidelines.html">_guidelines.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="files/_guidelines.html">_guidelines.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Guidelines</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="files/_glossary.html">_glossary.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="files/_glossary.html">_glossary.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Glossary</span>
         </div>
       </div>
@@ -716,11 +722,11 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>files/file-management/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="files/file-management/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="files/file-management/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="files/file-management/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="files/file-management/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
       </div>
@@ -731,7 +737,7 @@
       <div class="sm-section-title">Updates</div>
       <div class="sm-rows">
         <div class="sm-row">
-          <div class="sm-left"><span class="sm-file"><a href="updates/_index.html">updates/_index.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="updates/_index.html">updates/_index.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Overview</span>
         </div>
         <div class="sm-row">
@@ -742,23 +748,23 @@
       <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="updates/_theme.html">_theme.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="updates/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Theme</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="updates/_components.html">_components.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="updates/_components.html">_components.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Components</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="updates/_layout.html">_layout.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="updates/_layout.html">_layout.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Layout</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="updates/_guidelines.html">_guidelines.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="updates/_guidelines.html">_guidelines.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Guidelines</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="updates/_glossary.html">_glossary.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="updates/_glossary.html">_glossary.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Glossary</span>
         </div>
       </div>
@@ -766,11 +772,11 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>updates/task-management/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="updates/task-management/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="updates/task-management/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="updates/task-management/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="updates/task-management/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
       </div>
@@ -781,7 +787,7 @@
       <div class="sm-section-title">Goals</div>
       <div class="sm-rows">
         <div class="sm-row">
-          <div class="sm-left"><span class="sm-file"><a href="goals/_index.html">goals/_index.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/_index.html">goals/_index.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Overview</span>
         </div>
         <div class="sm-row">
@@ -792,23 +798,23 @@
       <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/_theme.html">_theme.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Theme</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/_components.html">_components.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/_components.html">_components.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Components</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/_layout.html">_layout.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/_layout.html">_layout.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Layout</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/_guidelines.html">_guidelines.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/_guidelines.html">_guidelines.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Guidelines</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/_glossary.html">_glossary.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/_glossary.html">_glossary.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Glossary</span>
         </div>
       </div>
@@ -816,11 +822,11 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>goals/goals-okrs/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/goals-okrs/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/goals-okrs/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/goals-okrs/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/goals-okrs/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
       </div>
@@ -828,11 +834,11 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>goals/kpi-management/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/kpi-management/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/kpi-management/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/kpi-management/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/kpi-management/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
       </div>
@@ -840,11 +846,11 @@
       <div class="sm-folder"><i class="ti ti-folder-open"></i>goals/performance-analytics/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/performance-analytics/feature.html">feature.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/performance-analytics/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Feature</span>
         </div>
         <div class="sm-row sm-indent2">
-          <div class="sm-left"><span class="sm-file"><a href="goals/performance-analytics/mobile-web.html">mobile-web.html</a></span></div>
+          <div class="sm-left"><span class="sm-file"><a href="goals/performance-analytics/mobile-web.html">mobile-web.html</a></span><span class="sm-md">+.md</span></div>
           <span class="sm-label">Mobile Web</span>
         </div>
       </div>
