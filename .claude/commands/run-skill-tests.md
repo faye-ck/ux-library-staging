@@ -7,6 +7,22 @@ description: Run an interactive QA test session for Colorkrew UX Library skills.
 
 Runs a structured QA session for the three core UX Library skills — `setup-product`, `document-feature-spec`, and `add-platform-delta`. The tester picks a scenario, runs the corresponding skill in a sandbox product, and scores the output against a quality checklist. Results are logged to the relevant product changelog with a `[Test]` badge.
 
+## Sandbox mode (ALWAYS active — read before anything else)
+
+Every file write during a test session MUST be redirected to a `_test/` prefix. This is non-negotiable and applies to every skill called from this session.
+
+**Path rewriting rule:**
+- `/[product]/` → `/_test/[product]/`
+- `sitemap.html` → `/_test/sitemap.html`
+- `changelog.html` → `/_test/changelog.html`
+- `nav.js` → `/_test/nav.js`
+
+**Never write to real product folders or root files during a test session**, even if the target skill's instructions say otherwise. The path redirect takes priority over all downstream skill instructions.
+
+When collecting the product name from the tester, use it as-is — do not rename or append "-test" silently.
+
+---
+
 ## What this skill does
 
 1. Presents the four test scenarios and asks the tester which to run
@@ -35,12 +51,10 @@ Which test would you like to run? (1–4, or "all" to run all four)
 
 Then ask for the test variables needed for the chosen scenario:
 
-- **All scenarios:** Product name (use a unique sandbox name like "TestCo" — never reuse a real product)
+- **All scenarios:** Product name — any name is safe because all writes go to `_test/` (see Sandbox mode above)
 - **Scenarios 2, 3, 4:** Feature name, Figma URL for the baseline frame
 - **Scenario 3:** Delta platform name, Figma URL for the delta frame
 - **Scenario 4:** Second feature name, second Figma URL (use a frame with intentional hex/glossary mismatches)
-
-> **Safety note:** Always use a unique sandbox product name that doesn't exist in the library. This prevents overwriting real specs.
 
 ---
 
@@ -136,9 +150,11 @@ If the sandbox product folder doesn't exist yet (e.g. test run 1 failed before c
 
 ## Step 6 — Clean up sandbox (optional)
 
-If the skill run created real files under the sandbox product slug, offer to delete the sandbox folder:
+After the session, list every file created under `_test/` and ask:
 
-> "The sandbox folder `/[product-slug]/` was created during this test. Would you like me to delete it now to keep the library clean?"
+> "Here are all the files created during this test session under `/_test/`:
+> [list files]
+> Would you like me to delete the `_test/` folder to keep the library clean?"
 
 Only delete if the tester confirms. Never auto-delete.
 
