@@ -380,14 +380,16 @@ Sitemap
     {
       section: 'Update',
       icon: 'ti-devices',
-      title: 'Add a platform delta to a feature',
-      desc: 'Compare two Figma platforms and document only what differs',
+      title: 'Add platform deltas to a feature',
+      desc: 'Compare Figma platforms and document only what differs (up to 3 deltas)',
       body:
-'Document a platform delta for [Product Name] › [Feature Name].\n\n' +
-'Baseline: [Platform A]  ·  URL: [Baseline URL]\n' +
-'Delta:    [Platform B]  ·  URL: [Delta URL]\n\n' +
-'Run /add-platform-delta with the above inputs.\n\n' +
-'The skill will:\n' +
+'Document platform deltas for [Product Name] › [Feature Name].\n\n' +
+'Baseline: [Platform A]  ·  URL: [Baseline URL]\n\n' +
+'Run /add-platform-delta once per delta below.\n\n' +
+'Delta 1: [Platform B]   ·  URL: [Delta URL]\n' +
+'Delta 2: [Platform B2]  ·  URL: [Delta URL 2]   ← leave blank to skip\n' +
+'Delta 3: [Platform B3]  ·  URL: [Delta URL 3]   ← leave blank to skip\n\n' +
+'Each run will:\n' +
 '- Check if the baseline spec exists at /[product-slug]/[feature-slug]/feature.html\n' +
 '- Compare both frames across layout, interactions, copy, and platform constraints\n' +
 '- Write /[product-slug]/[feature-slug]/[delta-platform-slug].html with only what differs\n' +
