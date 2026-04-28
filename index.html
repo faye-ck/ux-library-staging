@@ -482,6 +482,7 @@ Sitemap
       title: 'Run skill tests',
       desc: 'QA the three core skills end-to-end with scored checklists',
       body:
+'⚠ Run this in the ux-library-staging repo, not ux-library-main.\n\n' +
 'Run /run-skill-tests to start an interactive skill QA session.\n\n' +
 'Available test scenarios:\n' +
 '  1. Setup Product          — /setup-product\n' +
@@ -491,10 +492,10 @@ Sitemap
 'The skill will:\n' +
 '  · Ask which scenario(s) to run\n' +
 '  · Collect test variables (product name, Figma URLs, etc.)\n' +
-'  · Run the target skill in a sandbox context\n' +
+'  · Write all test output to _test/ — real library files are never touched\n' +
 '  · Walk through a quality checklist for the output\n' +
-'  · Log results to changelog with a "Test" badge\n\n' +
-'Safety: always use a unique sandbox product name (e.g. "TestCo") — never reuse a real product slug.\n\n' +
+'  · Log results to changelog with a "Test" badge\n' +
+'  · Offer to clean up the _test/ folder when done\n\n' +
 'Track results visually at /test/index.html'
     },
   ];
