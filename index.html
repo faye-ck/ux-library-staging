@@ -933,14 +933,18 @@ Sitemap
     } else {
       // Triggered by a modal chip — update modal state + modal chips
       state[key] = val;
-      // If Product Name changed, clear Feature Name when it no longer exists in the new product
+      // If Product Name changed, clear Feature Name when it no longer exists in the new product.
+      // Only applies when Feature Name is a product-features dropdown, not a free-text field.
       if (key === 'Product Name') {
-        var features = PRODUCT_FEATURES[val] || [];
-        if (state['Feature Name'] && features.indexOf(state['Feature Name']) === -1) {
-          state['Feature Name'] = '';
-          modalBody.querySelectorAll('.p-chip[data-key="Feature Name"]').forEach(function (c) {
-            updateChipDisplay(c, 'Feature Name');
-          });
+        var featureNameDef = activeDefs['Feature Name'] || DEFS['Feature Name'];
+        if (featureNameDef && featureNameDef.type === 'product-features') {
+          var features = PRODUCT_FEATURES[val] || [];
+          if (state['Feature Name'] && features.indexOf(state['Feature Name']) === -1) {
+            state['Feature Name'] = '';
+            modalBody.querySelectorAll('.p-chip[data-key="Feature Name"]').forEach(function (c) {
+              updateChipDisplay(c, 'Feature Name');
+            });
+          }
         }
       }
       modalBody.querySelectorAll('.p-chip[data-key="' + key + '"]').forEach(function (chip) {
