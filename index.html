@@ -293,11 +293,15 @@ Sitemap
     'Platform':     { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Platform A':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Platform B':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
+    'Platform B2':  { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
+    'Platform B3':  { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Pattern Name': { type: 'text',   hint: 'e.g. Empty State' },
     'Products':     { type: 'multi',  options: ['Biz', 'Workflows', 'CKID', 'Intra', 'Files', 'Updates', 'Goals'] },
     'URL':          { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
     'Baseline URL': { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
     'Delta URL':    { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
+    'Delta URL 2':  { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
+    'Delta URL 3':  { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
   };
 
   // Derived keys: auto-computed from another key, shown as non-interactive chips
@@ -365,11 +369,13 @@ Sitemap
 '   Platform: [Platform]  ·  URL: [URL]\n\n' +
 '   The skill reads config files, extracts design context from Figma,\n' +
 '   populates feature.html in place, and updates the coverage table in _index.html.\n\n' +
-'── DELTA (optional) ──────────────────────────────────────────\n' +
-'6. If a delta platform is needed, run /add-platform-delta after step 5:\n' +
-'   Baseline: [Platform]  ·  URL: [URL]\n' +
-'   Delta:    [Platform B]  ·  URL: [Delta URL]\n\n' +
-'   Skip this step if no delta platform is needed for this feature.'
+'── DELTA (optional, up to 3) ────────────────────────────────\n' +
+'6. If delta platforms are needed, run /add-platform-delta once per delta.\n' +
+'   Baseline is always: [Platform]  ·  URL: [URL]\n\n' +
+'   Delta 1: [Platform B]   ·  URL: [Delta URL]\n' +
+'   Delta 2: [Platform B2]  ·  URL: [Delta URL 2]   ← leave blank to skip\n' +
+'   Delta 3: [Platform B3]  ·  URL: [Delta URL 3]   ← leave blank to skip\n\n' +
+'   Skip this step entirely if no delta platforms are needed for this feature.'
     },
     {
       section: 'Update',
