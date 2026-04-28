@@ -33,15 +33,20 @@ For each platform (baseline and delta), handle each provided URL by type:
 
 **Figma URLs (primary):**
 
-Call `get_design_context` on each Figma URL independently.
+Follow this sequence for each Figma URL (baseline and delta independently). Do not skip steps:
 
-Use `get_metadata` first if a frame is large, then target specific nodes.
+1. **Inspect first with `get_metadata`.** Call `get_metadata` before anything else. Read the node hierarchy — identify named screens, count frames, note structure. Never call `get_design_context` on a large frame without understanding its structure first.
 
-Call `get_screenshot` on Figma frames to enable visual comparison of:
-- Overall layout structure
-- Navigation and hierarchy
-- Component sizing and density
-- Visible/hidden elements
+2. **Target specific nodes with `get_design_context`.** Based on the metadata, call `get_design_context` on individual screens — not the root frame. For large or multi-screen frames, call separately per section to avoid truncation.
+
+3. **Always call `get_screenshot` on both frames.** Screenshots are essential for delta work — use them to visually compare:
+   - Overall layout structure and reflow patterns
+   - Navigation patterns and hierarchy differences
+   - Component sizing, density, and touch target changes
+   - Elements that appear, disappear, or change prominence
+   - Any designer annotations specific to that platform
+
+4. **Work incrementally.** If `get_design_context` is truncated on either frame, note which screens were missed and call again on the specific nodes. List still-missing screens in Open Items.
 
 Note for each frame: all screens, copy, components, interactions, and any designer annotations.
 

@@ -29,21 +29,26 @@ Handle each provided URL by type:
 
 **Figma URLs (primary — use for all provided Figma links):**
 
-Use `get_design_context` with each Figma URL.
+Follow this sequence for every Figma URL. Do not skip steps:
 
-If a frame is large or complex, first call `get_metadata` to get the node hierarchy, then call `get_design_context` on specific child nodes to avoid token limit truncation. Target individual screens or states rather than entire pages.
+1. **Inspect first with `get_metadata`.** Always call `get_metadata` on the URL before anything else. Read the node hierarchy — count top-level frames, identify named screens, note the structure. Never call `get_design_context` on a large frame without understanding its hierarchy first.
 
-Use `get_screenshot` for:
-- States that are hard to infer from metadata (hover, error, empty)
-- Flows with multiple sequential screens
-- Any frame where visual layout context matters
+2. **Target specific nodes with `get_design_context`.** Based on the metadata, identify and call `get_design_context` on individual screens or states — not the entire page or root frame. If the frame is small and focused, a single call is fine. If it is large or multi-screen, call separately for each meaningful section to avoid truncation.
 
-Extract and note:
+3. **Validate visually with `get_screenshot`.** Always call `get_screenshot` after extracting design context. Use it to:
+   - Verify the overall layout structure and visual hierarchy
+   - Catch states that are hard to infer from metadata (hover, error, empty, disabled)
+   - Confirm component sizing, density, and spacing
+   - Spot annotations or notes left by the designer
+
+4. **Work incrementally.** If `get_design_context` is truncated, note which screens were missed, call again on the specific nodes that were cut off, and list any still-missing screens in Open Items.
+
+Extract and note from each screen:
 - All visible screens and their apparent purpose
 - UI copy (labels, CTAs, messages, placeholders)
 - Component patterns used
 - Role-specific variations if multiple user types are shown
-- Any annotations or notes left by the designer in the Figma file
+- Any designer annotations visible in the frame or as separate note layers
 
 **ClickUp or other URLs (supplementary):**
 
