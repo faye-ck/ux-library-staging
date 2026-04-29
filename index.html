@@ -271,7 +271,6 @@ Sitemap
     { label: 'Update', sharedKeys: ['Product Name'] },
     { label: 'Check' },
     { label: 'Promote' },
-    { label: 'Test' },
   ];
 
   // ── PRODUCT → FEATURE MAP ─────────────────────────────────────────────────
@@ -295,6 +294,7 @@ Sitemap
     'Platform B':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Platform B2':  { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Platform B3':  { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
+    'Scope':        { type: 'select', options: ['Entire product', 'Specific feature'] },
     'Pattern Name': { type: 'text',   hint: 'e.g. Empty State' },
     'Products':     { type: 'multi',  options: ['Biz', 'Workflows', 'CKID', 'Intra', 'Files', 'Updates', 'Goals'] },
     'URL':          { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
@@ -397,36 +397,20 @@ Sitemap
 '- Update the coverage table in /[product-slug]/_index.html'
     },
     {
-      section: 'Update',
-      icon: 'ti-list-check',
-      title: 'Audit for inconsistency',
-      desc: 'Find mismatches within a product or feature',
-      body:
-'Audit /[product-slug]/[feature-slug]/ for UX inconsistencies.\n\n' +
-'Check for:\n' +
-'- Terminology mismatches across platforms (e.g. "Cancel" vs "Dismiss")\n' +
-'- Interaction pattern differences that are not intentional platform deltas\n' +
-'- Badge or status label inconsistencies\n' +
-'- Missing states (empty, loading, error) on any platform\n' +
-'- Layout or hierarchy deviations vs other features in the same product\n\n' +
-'Report findings as a list grouped by platform. Flag each as: Minor / Moderate / Critical.'
-    },
-    {
       section: 'Check',
       icon: 'ti-brand-figma',
-      title: 'Audit Figma file against feature spec',
-      desc: 'Find gaps between a Figma design and the UX Library spec',
+      title: 'Audit Figma file against a product or feature',
+      desc: 'Compare a Figma file against the UX Library — entire product or specific feature',
       body:
-'Audit the Figma file at [URL] against the UX Library spec for [Product Name] › [Feature Name].\n\n' +
-'Spec source: /[product-slug]/[feature-slug]/\n\n' +
-'Fetch the Figma file and compare its screens against every platform page in the spec. Check for:\n' +
-'- Missing or extra UI elements not documented in the spec\n' +
-'- Copy or label differences (e.g. button labels, empty state messages)\n' +
-'- Interaction or state gaps (missing loading, error, or empty states)\n' +
-'- Visual treatment deviations (layout, hierarchy, component usage)\n' +
-'- Platform-specific rules that the Figma design violates or omits\n\n' +
-'Output a table: Platform | Element | Spec says | Figma shows | Severity (Minor / Moderate / Critical)\n' +
-'Summarise whether the Figma file is aligned, partially aligned, or misaligned with the spec.'
+'Run /audit-figma to audit the Figma file at [URL] against the UX Library for [Product Name].\n\n' +
+'Scope: [Scope]\n' +
+'Feature: [Feature Name]   ← only used when Scope = "Specific feature"; leave blank to skip\n\n' +
+'The skill will:\n' +
+'· Read the relevant UX Library spec for the chosen scope\n' +
+'· Extract design context from the Figma file using the figma-use protocol\n' +
+'· Compare every screen against the documented spec\n' +
+'· Output a prioritised findings report grouped by severity\n' +
+'· Flag each finding as Critical / Moderate / Minor with a recommended fix'
     },
     {
       section: 'Check',
@@ -475,28 +459,6 @@ Sitemap
 '4. Update the source page to reference the global component instead of duplicating it\n' +
 '5. Note the promotion in /global/changelog.html as an Added entry\n\n' +
 'Flag any product- or feature-specific variations that should remain as deltas on the source page.'
-    },
-    {
-      section: 'Test',
-      icon: 'ti-test-pipe',
-      title: 'Run skill tests',
-      desc: 'QA the three core skills end-to-end with scored checklists',
-      body:
-'⚠ Run this in the ux-library-staging repo, not ux-library-main.\n\n' +
-'Run /run-skill-tests to start an interactive skill QA session.\n\n' +
-'Available test scenarios:\n' +
-'  1. Setup Product          — /setup-product\n' +
-'  2. Document Feature Spec  — /document-feature-spec\n' +
-'  3. Add Platform Delta     — /add-platform-delta\n' +
-'  4. Audit for Inconsistencies — /document-feature-spec with intentional mismatches\n\n' +
-'The skill will:\n' +
-'  · Ask which scenario(s) to run\n' +
-'  · Collect test variables (product name, Figma URLs, etc.)\n' +
-'  · Write all test output to _test/ — real library files are never touched\n' +
-'  · Walk through a quality checklist for the output\n' +
-'  · Log results to changelog with a "Test" badge\n' +
-'  · Offer to clean up the _test/ folder when done\n\n' +
-'Track results visually at /test/index.html'
     },
   ];
 
