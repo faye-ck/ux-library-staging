@@ -378,7 +378,15 @@
       } else if (node.href) {
         var a = document.createElement('a');
         a.href = node.href;
-        a.style.paddingLeft = paddingLeft + 'px';
+        // Depth-0 flat links: add chevron-width offset (10px icon + 6px gap = 16px)
+        // so text aligns with product group-button text at the same depth.
+        // Also apply top-level styling to match nav-group--product buttons.
+        if (depth === 0) {
+          a.style.paddingLeft = (paddingLeft + 16) + 'px';
+          a.classList.add('nav-link--top');
+        } else {
+          a.style.paddingLeft = paddingLeft + 'px';
+        }
 
         var linkInner = '';
         if (node.icon) {
