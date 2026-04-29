@@ -28,15 +28,69 @@
         },
         {
           label: 'Components', children: [
-            { label: 'Button',          href: '/global/components/button.html' },
-            { label: 'Input',           href: '/global/components/input.html' },
-            { label: 'Modal',           href: '/global/components/modal.html' },
-            { label: 'Table',           href: '/global/components/table.html' },
-            { label: 'Nav Shell',       href: '/global/components/nav-shell.html' },
-            { label: 'Toast',           href: '/global/components/toast.html' },
-            { label: 'Pagination',      href: '/global/components/pagination.html' },
-            { label: 'Data Viz',        href: '/global/components/data-viz-primitives.html' },
-            { label: 'Form Validation', href: '/global/components/form-validation.html' },
+            {
+              label: 'Inputs', children: [
+                { label: 'Autocomplete',   href: '/global/components/autocomplete.html' },
+                { label: 'Button',         href: '/global/components/button.html' },
+                { label: 'Button Group',   href: '/global/components/button-group.html' },
+                { label: 'Checkbox',       href: '/global/components/checkbox.html' },
+                { label: 'FAB',            href: '/global/components/fab.html' },
+                { label: 'Number Field',   href: '/global/components/number-field.html' },
+                { label: 'Radio Group',    href: '/global/components/radio-group.html' },
+                { label: 'Select',         href: '/global/components/select.html' },
+                { label: 'Slider',         href: '/global/components/slider.html' },
+                { label: 'Switch',         href: '/global/components/switch.html' },
+                { label: 'Text Field',     href: '/global/components/text-field.html' },
+                { label: 'Toggle Button',  href: '/global/components/toggle-button.html' },
+              ]
+            },
+            {
+              label: 'Data Display', children: [
+                { label: 'Avatar',   href: '/global/components/avatar.html' },
+                { label: 'Badge',    href: '/global/components/badge.html' },
+                { label: 'Chip',     href: '/global/components/chip.html' },
+                { label: 'Divider',  href: '/global/components/divider.html' },
+                { label: 'List',     href: '/global/components/list.html' },
+                { label: 'Table',    href: '/global/components/table.html' },
+                { label: 'Tooltip',  href: '/global/components/tooltip.html' },
+              ]
+            },
+            {
+              label: 'Feedback', children: [
+                { label: 'Alert',     href: '/global/components/alert.html' },
+                { label: 'Backdrop',  href: '/global/components/backdrop.html' },
+                { label: 'Dialog',    href: '/global/components/dialog.html' },
+                { label: 'Progress',  href: '/global/components/progress.html' },
+                { label: 'Snackbar',  href: '/global/components/snackbar.html' },
+              ]
+            },
+            {
+              label: 'Surfaces', children: [
+                { label: 'Accordion',  href: '/global/components/accordion.html' },
+                { label: 'App Bar',    href: '/global/components/app-bar.html' },
+                { label: 'Card',       href: '/global/components/card.html' },
+              ]
+            },
+            {
+              label: 'Navigation', children: [
+                { label: 'Breadcrumbs',  href: '/global/components/breadcrumbs.html' },
+                { label: 'Drawer',       href: '/global/components/drawer.html' },
+                { label: 'Link',         href: '/global/components/link.html' },
+                { label: 'Menu',         href: '/global/components/menu.html' },
+                { label: 'Menubar',      href: '/global/components/menubar.html' },
+                { label: 'Pagination',   href: '/global/components/pagination.html' },
+                { label: 'Tabs',         href: '/global/components/tabs.html' },
+              ]
+            },
+            {
+              label: 'Utilities', children: [
+                { label: 'Popover',              href: '/global/components/popover.html' },
+                { label: 'Textarea Autoresize',  href: '/global/components/textarea-autoresize.html' },
+                { label: 'Date Picker',          href: '/global/components/date-picker.html' },
+                { label: 'Date Calendar',        href: '/global/components/date-calendar.html' },
+                { label: 'Time Picker',          href: '/global/components/time-picker.html' },
+              ]
+            },
           ]
         },
         {

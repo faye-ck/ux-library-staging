@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Button — Components — UX Library</title>
+  <title>Radio Group — Components — UX Library</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
     .md-content { max-width: 720px; }
@@ -32,10 +32,10 @@
 <div class="layout">
   <nav class="sidebar"></nav>
   <main>
-    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Button</span></div>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Radio Group</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-hand-click"></i></span> Button</h2>
-      <p>Triggers an action or event — the primary interactive element in any UI.</p>
+      <h2><span class="icon"><i class="ti ti-circle-dot"></i></span> Radio Group</h2>
+      <p>Single-selection control — only one option can be active at a time.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
@@ -46,17 +46,17 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
         <div>
           <h3 class="md-h3">Variants</h3>
-          <table class="token-table"><tbody><tr><td>Contained (filled)</td></tr><tr><td>Outlined</td></tr><tr><td>Text (ghost)</td></tr></tbody></table>
+          <table class="token-table"><tbody><tr><td>Default</td></tr><tr><td>Controlled</td></tr><tr><td>Custom icon</td></tr></tbody></table>
         </div>
         <div>
           <h3 class="md-h3">Sizes</h3>
-          <table class="token-table"><tbody><tr><td>Small</td></tr><tr><td>Medium</td></tr><tr><td>Large</td></tr></tbody></table>
+          <table class="token-table"><tbody><tr><td>Small</td></tr><tr><td>Medium</td></tr></tbody></table>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
         <div>
           <h3 class="md-h3">States</h3>
-          <table class="token-table"><tbody><tr><td>Default</td></tr><tr><td>Hover</td></tr><tr><td>Focused</td></tr><tr><td>Disabled</td></tr><tr><td>Loading</td></tr></tbody></table>
+          <table class="token-table"><tbody><tr><td>Unselected</td></tr><tr><td>Selected</td></tr><tr><td>Disabled (individual or group)</td></tr><tr><td>Error</td></tr></tbody></table>
         </div>
         <div>
           <h3 class="md-h3">Colors</h3>
@@ -67,12 +67,12 @@
       <hr class="md-hr">
 
       <h2 class="md-h2">Key Options</h2>
-      <ul><li>Start icon / end icon</li><li>Icon-only button (pair with Tooltip)</li><li>Full-width layout</li><li>Link behavior (renders as anchor)</li><li>File upload button</li><li>Loading state with spinner</li></ul>
+      <ul><li>Vertical (default) or Horizontal orientation</li><li>Label placement: end (default), start, top, bottom</li><li>Error state with helper text via FormControl</li><li>Standalone radio or grouped via RadioGroup</li></ul>
 
       <hr class="md-hr">
 
       <h2 class="md-h2">Common Use Cases</h2>
-      <ul><li>Primary actions</li><li>Secondary actions</li><li>Destructive actions</li><li>Form submit</li></ul>
+      <ul><li>Exclusive option selection</li><li>Settings with mutual choices</li><li>Survey single-answer questions</li></ul>
 
       <hr class="md-hr">
 
