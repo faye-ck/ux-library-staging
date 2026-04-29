@@ -9,6 +9,7 @@
   // no icon unless they have an explicit icon property.
   var NAV = [
     { label: 'Home', href: '/index.html' },
+    { label: 'Figma Tips', href: '/figma-tips/index.html' },
     {
       label: 'Global', children: [
         { label: 'Overview',  href: '/global/_index.html' },
@@ -263,11 +264,6 @@
       ]
     },
     {
-      label: 'Test Lab', children: [
-        { label: 'Skill Tests', href: '/test/index.html' },
-      ]
-    },
-    {
       label: 'Goals', children: [
         { label: 'Overview',    href: '/goals/_index.html' },
         {
@@ -476,6 +472,25 @@
           sessionStorage.removeItem(SS_SCROLL);
         }
       } catch (e) {}
+    });
+  });
+
+  // ── FOOTER INJECTION ─────────────────────────────────────────────────────
+  // Injects the site footer into every <main> element.
+  // Uses absolute paths so it works regardless of page depth.
+  document.addEventListener('DOMContentLoaded', function () {
+    var mains = document.querySelectorAll('main');
+    mains.forEach(function (main) {
+      var footer = document.createElement('footer');
+      footer.className = 'site-footer';
+      footer.innerHTML =
+        '<a href="/changelog.html"><i class="ti ti-clock-history"></i> Site Changelog</a>' +
+        '<span class="site-footer-sep">·</span>' +
+        '<a href="/sitemap.html">Sitemap</a>' +
+        '<span class="site-footer-sep">·</span>' +
+        '<a href="/figma-tips/index.html">Figma Tips</a>' +
+        '<span class="site-footer-version">v2.0.0 · 2026-04-27</span>';
+      main.appendChild(footer);
     });
   });
 

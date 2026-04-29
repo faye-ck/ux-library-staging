@@ -197,7 +197,28 @@ body {
 /* .sidebar-home removed — back navigation now via breadcrumbs */
 
 /* ── MAIN ── */
-main { flex: 1; padding: 40px 48px; max-width: 1080px; min-width: 0; }
+main { flex: 1; padding: 40px 48px; max-width: 1080px; min-width: 0; display: flex; flex-direction: column; }
+
+/* ── SITE FOOTER ── */
+.site-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 0.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.site-footer a {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); text-decoration: none;
+  transition: color 0.12s;
+}
+.site-footer a:hover { color: var(--text); }
+.site-footer a .ti { font-size: 13px; }
+.site-footer-sep { font-family: var(--mono); font-size: 11px; color: var(--muted-light); }
+.site-footer-version { font-family: var(--mono); font-size: 11px; color: var(--muted-light); margin-left: auto; }
 
 /* ── PAGE HEADER ── */
 .page-header { margin-bottom: 28px; }

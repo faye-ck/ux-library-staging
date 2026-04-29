@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Figma Tips — UX Library</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .ft-content { max-width: 720px; }
+
+    /* Section headings */
+    .ft-h2 { font-size: 15px; font-weight: 600; color: var(--text); margin: 32px 0 10px; letter-spacing: -0.2px; }
+    .ft-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
+    .ft-hr  { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
+
+    /* Step cards — the 4-step protocol */
+    .ft-steps { display: flex; flex-direction: column; gap: 10px; }
+    .ft-step {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+    }
+    .ft-step-num {
+      flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--teal-light); color: var(--teal-dark);
+      font-family: var(--mono); font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ft-step-body { flex: 1; }
+    .ft-step-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .ft-step-desc  { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .ft-step code  { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); background: var(--bg); padding: 1px 5px; border-radius: 3px; border: 0.5px solid var(--border); }
+
+    /* URL format cards */
+    .ft-url-list { display: flex; flex-direction: column; gap: 8px; }
+    .ft-url-card {
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-radius: 8px; padding: 12px 14px;
+    }
+    .ft-url-card.ft-url-good { border-color: #86efac; background: #f0fdf4; }
+    .ft-url-card.ft-url-bad  { border-color: #fca5a5; background: #fef2f2; }
+    .ft-url-label { font-size: 11px; font-weight: 700; font-family: var(--mono); margin-bottom: 3px; }
+    .ft-url-card.ft-url-good .ft-url-label { color: #166534; }
+    .ft-url-card.ft-url-bad  .ft-url-label { color: #991b1b; }
+    .ft-url-card .ft-url-example { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 5px; word-break: break-all; }
+    .ft-url-card .ft-url-note   { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+    /* Gotcha cards */
+    .ft-gotcha-list { display: flex; flex-direction: column; gap: 8px; }
+    .ft-gotcha {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: #fffbeb; border: 0.5px solid #fde68a;
+      border-radius: 8px; padding: 11px 13px;
+    }
+    .ft-gotcha-icon { color: #d97706; font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .ft-gotcha-title { font-size: 12px; font-weight: 700; color: #78350f; margin-bottom: 2px; }
+    .ft-gotcha-body  { font-size: 12px; color: #92400e; line-height: 1.55; }
+    .ft-gotcha-body code { font-family: var(--mono); font-size: 11px; background: rgba(0,0,0,0.06); padding: 1px 4px; border-radius: 3px; }
+
+    /* Frame tips */
+    .ft-tip-list { display: flex; flex-direction: column; gap: 6px; padding: 0; margin: 0; list-style: none; }
+    .ft-tip-list li {
+      font-size: 12px; color: var(--muted); line-height: 1.6; padding: 8px 12px;
+      background: var(--surface); border-radius: 6px; border: 0.5px solid var(--border);
+    }
+    .ft-tip-list li strong { color: var(--text); }
+
+    /* Skill reference links */
+    .ft-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ft-skill-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--mono); font-size: 11px;
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-radius: 6px; padding: 7px 12px;
+      color: var(--teal-dark); text-decoration: none;
+      transition: border-color 0.12s, background 0.12s;
+    }
+    .ft-skill-link:hover { border-color: var(--teal); background: var(--teal-light); }
+    .ft-skill-link .ti { font-size: 13px; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Figma Tips</span>
+    </div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-brand-figma"></i></span> Figma Tips</h2>
+      <p class="page-subtitle">How Claude reads your Figma files — and how to get the best results from every skill.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="ft-content">
+
+      <!-- ── HOW CLAUDE READS FIGMA ── -->
+      <div class="ft-h2">How Claude reads Figma</div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:16px;">
+        Every skill that reads Figma follows the same four-step protocol. Understanding this helps you structure your files so skills extract accurate, complete information the first time.
+      </p>
+
+      <div class="ft-steps">
+        <div class="ft-step">
+          <div class="ft-step-num">1</div>
+          <div class="ft-step-body">
+            <div class="ft-step-title">Inspect with <code>get_metadata</code></div>
+            <div class="ft-step-desc">Always called first. Reads the full node hierarchy — frame names, page count, structure. Claude uses this to understand what's in the file before fetching any content. Never skip this step or call <code>get_design_context</code> blind on a large frame.</div>
+          </div>
+        </div>
+        <div class="ft-step">
+          <div class="ft-step-num">2</div>
+          <div class="ft-step-body">
+            <div class="ft-step-title">Extract with <code>get_design_context</code></div>
+            <div class="ft-step-desc">Called on individual screens — not the root frame. For multi-screen files, Claude calls separately per section to avoid truncation. This gives Claude the UI copy, layer names, component types, and annotations per screen.</div>
+          </div>
+        </div>
+        <div class="ft-step">
+          <div class="ft-step-num">3</div>
+          <div class="ft-step-body">
+            <div class="ft-step-title">Verify with <code>get_screenshot</code></div>
+            <div class="ft-step-desc">Always taken after extraction. Used to visually confirm layout, catch states that are hard to infer from metadata (hover, error, disabled, empty), and spot designer annotations. Screenshots are especially important for delta work — comparing platforms side by side.</div>
+          </div>
+        </div>
+        <div class="ft-step">
+          <div class="ft-step-num">4</div>
+          <div class="ft-step-body">
+            <div class="ft-step-title">Work incrementally</div>
+            <div class="ft-step-desc">If <code>get_design_context</code> is truncated, Claude notes the missed screens, calls again on those specific nodes, and lists any still-unread screens in the Open Items section of the output.</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="ft-hr" />
+
+      <!-- ── URL FORMAT ── -->
+      <div class="ft-h2">Figma URL format</div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:14px;">
+        The URL you provide determines how much context Claude pulls. More context isn't always better — large frames can exceed token limits and reduce accuracy.
+      </p>
+
+      <div class="ft-url-list">
+        <div class="ft-url-card ft-url-good">
+          <div class="ft-url-label">✓ Recommended — Specific frame URL</div>
+          <div class="ft-url-example">https://www.figma.com/file/XXXX/Name?node-id=123%3A456</div>
+          <div class="ft-url-note">Targets one frame. Fewer tokens, more accurate extraction. Use this whenever possible. Copy from Figma by right-clicking a frame → "Copy link to selection".</div>
+        </div>
+        <div class="ft-url-card">
+          <div class="ft-url-label" style="color:var(--muted);">△ Acceptable — Prototype URL</div>
+          <div class="ft-url-example">https://www.figma.com/proto/XXXX/...</div>
+          <div class="ft-url-note">Works for visual context but metadata is limited. Claude can see the screens but may have less access to layer names and component data.</div>
+        </div>
+        <div class="ft-url-card ft-url-bad">
+          <div class="ft-url-label">✕ Avoid — Full file URL</div>
+          <div class="ft-url-example">https://www.figma.com/file/XXXX/Name</div>
+          <div class="ft-url-note">Pulls everything in the file. Can exceed token limits on large files, causing truncation. Only use for very small, single-screen files.</div>
+        </div>
+      </div>
+
+      <hr class="ft-hr" />
+
+      <!-- ── FRAME STRUCTURE TIPS ── -->
+      <div class="ft-h2">How to structure your frames</div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:14px;">
+        Claude reads layer names and frame names to understand context. Well-named frames produce better specs with fewer open items.
+      </p>
+
+      <ul class="ft-tip-list">
+        <li><strong>Name your frames descriptively.</strong> Use names like "Empty State", "Error — Network", "Admin View" rather than "Frame 123". Claude uses these names to identify screen purpose.</li>
+        <li><strong>Group screens by platform or state.</strong> If your file covers multiple platforms (User Portal, Mobile Web), put each in a named top-level frame. Skills like <code>/add-platform-delta</code> need to target them individually.</li>
+        <li><strong>Use component names from the glossary.</strong> If a component is called "Toast" in the library, name the layer "Toast" in Figma. Mismatched names appear as undocumented components in Open Items.</li>
+        <li><strong>Annotate intentional deviations.</strong> If a platform omits a feature intentionally, add a text layer or sticky note explaining why. Claude will include it in the spec and reduce false-positive Open Items.</li>
+        <li><strong>Keep one feature per frame link.</strong> Passing one Figma URL per feature (or per platform) gives the cleanest extractions. Avoid linking to pages with many unrelated features mixed together.</li>
+        <li><strong>Show all states you want documented.</strong> Empty, loading, error, and success states must be visible as separate frames or sections. If a state isn't in the Figma file, Claude can't document it and will flag it as missing.</li>
+      </ul>
+
+      <hr class="ft-hr" />
+
+      <!-- ── COMMON GOTCHAS ── -->
+      <div class="ft-h2">Common gotchas</div>
+
+      <div class="ft-gotcha-list">
+        <div class="ft-gotcha">
+          <i class="ti ti-alert-triangle ft-gotcha-icon"></i>
+          <div>
+            <div class="ft-gotcha-title">Truncated extraction on large frames</div>
+            <div class="ft-gotcha-body">If a frame has 20+ screens, <code>get_design_context</code> may be cut off. Claude will note this in Open Items and re-call on missed nodes — but you'll get faster, more complete results by linking to individual sections rather than one giant page.</div>
+          </div>
+        </div>
+        <div class="ft-gotcha">
+          <i class="ti ti-alert-triangle ft-gotcha-icon"></i>
+          <div>
+            <div class="ft-gotcha-title">Hidden layers aren't extracted</div>
+            <div class="ft-gotcha-body">Layers hidden in Figma are not included in <code>get_design_context</code>. If you have hidden states (e.g. a disabled button variant), make them visible before running a skill or show them in a separate frame.</div>
+          </div>
+        </div>
+        <div class="ft-gotcha">
+          <i class="ti ti-alert-triangle ft-gotcha-icon"></i>
+          <div>
+            <div class="ft-gotcha-title">Hex values instead of token names</div>
+            <div class="ft-gotcha-body">If a color in Figma is applied as a raw hex (e.g. <code>#2563EB</code>) instead of a library variable, Claude will flag it as an inconsistency in Open Items. Use Figma library color variables so Claude can map them to token names in <code>_theme.md</code>.</div>
+          </div>
+        </div>
+        <div class="ft-gotcha">
+          <i class="ti ti-alert-triangle ft-gotcha-icon"></i>
+          <div>
+            <div class="ft-gotcha-title">Unapproved copy terms</div>
+            <div class="ft-gotcha-body">Copy in Figma is compared against <code>_glossary.md</code> during spec generation. Terms not in the glossary (e.g. "Cancel" vs the approved "Dismiss") are flagged as inconsistencies. Check the product glossary before writing UI copy in Figma.</div>
+          </div>
+        </div>
+        <div class="ft-gotcha">
+          <i class="ti ti-alert-triangle ft-gotcha-icon"></i>
+          <div>
+            <div class="ft-gotcha-title">Platform-specific frames on the wrong page</div>
+            <div class="ft-gotcha-body">For <code>/add-platform-delta</code>, you need separate Figma URLs for baseline and delta platforms. If both are on the same page with no clear separation, Claude may mix up which screens belong to which platform.</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="ft-hr" />
+
+      <!-- ── SKILL REFERENCE ── -->
+      <div class="ft-h2">Skills that read Figma</div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:14px;">
+        All three core skills use the same four-step Figma reading protocol. Download the skill files to read the full instructions.
+      </p>
+
+      <div class="ft-skills">
+        <a class="ft-skill-link" href="/.claude/commands/document-feature-spec.md" download>
+          <i class="ti ti-file-text"></i> /document-feature-spec
+        </a>
+        <a class="ft-skill-link" href="/.claude/commands/add-platform-delta.md" download>
+          <i class="ti ti-layers-difference"></i> /add-platform-delta
+        </a>
+        <a class="ft-skill-link" href="/.claude/commands/audit-figma.md" download>
+          <i class="ti ti-brand-figma"></i> /audit-figma
+        </a>
+        <a class="ft-skill-link" href="/.claude/commands/figma-use.md" download>
+          <i class="ti ti-book"></i> figma-use (reference)
+        </a>
+      </div>
+
+    </div>
+  </main>
+</div>
+<script src="../nav.js"></script>
+</body>
+</html>

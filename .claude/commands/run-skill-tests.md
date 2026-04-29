@@ -44,7 +44,7 @@ UX Library Skill Test Lab
 1. Setup Product          → tests /setup-product
 2. Document Feature Spec  → tests /document-feature-spec
 3. Add Platform Delta     → tests /add-platform-delta
-4. Audit for Inconsistencies → tests /document-feature-spec (with intentional mismatches)
+4. Audit Figma against spec → tests /audit-figma
 
 Which test would you like to run? (1–4, or "all" to run all four)
 ```
@@ -54,7 +54,7 @@ Then ask for the test variables needed for the chosen scenario:
 - **All scenarios:** Product name — any name is safe because all writes go to `_test/` (see Sandbox mode above)
 - **Scenarios 2, 3, 4:** Feature name, Figma URL for the baseline frame
 - **Scenario 3:** Delta platform name, Figma URL for the delta frame
-- **Scenario 4:** Second feature name, second Figma URL (use a frame with intentional hex/glossary mismatches)
+- **Scenario 4:** Product name, Figma URL to audit (can be an existing documented feature or a new frame)
 
 ---
 
@@ -71,8 +71,8 @@ Run `/document-feature-spec` with product, feature, platform, and Figma URL.
 **Scenario 3 — Add Platform Delta:**
 Run `/add-platform-delta` with both baseline and delta platform/URL pairs.
 
-**Scenario 4 — Audit for Inconsistencies:**
-Run `/document-feature-spec` with the second Figma URL. The frame should contain hex values and copy that intentionally don't match the product's `_theme.md` and `_glossary.md`, to verify the skill flags them correctly.
+**Scenario 4 — Audit Figma against spec:**
+Run `/audit-figma` with the provided product, scope (Entire product or Specific feature), and Figma URL. Verify the skill reads Figma correctly, matches screens to spec pages, and produces a prioritised findings report.
 
 ---
 
@@ -106,13 +106,15 @@ After the skill completes, go through the checklist for the scenario:
 - [ ] Coverage table updated to `delta`
 - [ ] Changelog updated with delta entry
 
-### Scenario 4 — Audit for Inconsistencies
-- [ ] Flagged hex values in Figma that don't match `_theme.md` — listed in Open Items
-- [ ] Flagged copy that doesn't match `_glossary.md` terms
-- [ ] Missing states listed in Open Items under "Missing states or flows"
-- [ ] `INFERRED:` labels used for content assumed but not shown in Figma
-- [ ] `MISSING:` flags where expected states are absent
-- [ ] No silent guesses — every uncertain item has a flag
+### Scenario 4 — Audit Figma against spec
+- [ ] Called `get_metadata` before `get_design_context` (figma-use protocol followed)
+- [ ] Called `get_screenshot` for visual verification
+- [ ] Matched Figma screens to spec pages correctly
+- [ ] Findings grouped by severity: Critical / Moderate / Minor
+- [ ] Each finding includes a "Fix" column with actionable guidance
+- [ ] Undocumented Figma screens listed separately
+- [ ] Quick wins section present
+- [ ] Overall verdict (Aligned / Partially aligned / Misaligned) stated clearly
 
 ---
 
