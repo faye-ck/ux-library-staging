@@ -13,6 +13,59 @@
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* Entity cards */
+    .entity-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0 20px; }
+    .entity-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 16px; }
+    .entity-card-icon { font-size: 20px; color: var(--teal); margin-bottom: 8px; }
+    .entity-card-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .entity-card-type { font-family: var(--mono); font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-light); margin-bottom: 8px; }
+    .entity-card-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .entity-card-tag { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 20px; margin-top: 8px; }
+    .tag-exclusive { background: #fef9ec; color: #7a5210; border: 0.5px solid rgba(176,123,30,0.3); }
+    .tag-inclusive { background: #f0faf4; color: #1a7a47; border: 0.5px solid rgba(26,122,71,0.3); }
+    .tag-global { background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid rgba(25,118,210,0.25); }
+
+    /* Precedence diagram */
+    .precedence-stack { display: flex; flex-direction: column; gap: 6px; margin: 12px 0 20px; }
+    .precedence-row { display: flex; align-items: center; gap: 12px; }
+    .precedence-bar { flex: 1; border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .precedence-bar-everyone { background: var(--bg); border: 0.5px solid var(--border); }
+    .precedence-bar-group { background: var(--teal-light); border: 0.5px solid rgba(25,118,210,0.2); }
+    .precedence-bar-user { background: var(--teal); border: 0.5px solid var(--teal-dark); }
+    .precedence-label { font-size: 13px; font-weight: 500; }
+    .precedence-bar-everyone .precedence-label { color: var(--muted); }
+    .precedence-bar-group .precedence-label { color: var(--teal-dark); }
+    .precedence-bar-user .precedence-label { color: #fff; }
+    .precedence-sublabel { font-family: var(--mono); font-size: 10px; }
+    .precedence-bar-everyone .precedence-sublabel { color: var(--muted-light); }
+    .precedence-bar-group .precedence-sublabel { color: rgba(25,118,210,0.7); }
+    .precedence-bar-user .precedence-sublabel { color: rgba(255,255,255,0.7); }
+    .precedence-level { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--muted-light); width: 48px; text-align: right; flex-shrink: 0; }
+    .arrow-up { font-size: 11px; color: var(--muted-light); text-align: right; padding-right: 4px; margin-right: 60px; font-family: var(--mono); }
+
+    /* Example box */
+    .example-box { background: var(--bg); border: 0.5px solid var(--border); border-radius: 10px; padding: 16px; font-size: 12px; color: #444; line-height: 1.7; margin: 12px 0 20px; }
+    .example-box strong { color: var(--text); }
+    .example-box .ex-label { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-light); margin-bottom: 10px; display: block; }
+    .example-rows { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+    .example-row { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 6px; }
+    .ex-scope { font-family: var(--mono); font-size: 11px; font-weight: 500; width: 140px; flex-shrink: 0; }
+    .ex-access { font-size: 12px; flex: 1; }
+    .ex-wins { font-family: var(--mono); font-size: 10px; font-weight: 600; color: #1a7a47; }
+    .ex-row-everyone { background: var(--surface); }
+    .ex-row-group { background: var(--teal-light); }
+    .ex-row-user { background: var(--surface); border: 0.5px solid var(--border); }
+    .ex-scope-everyone { color: var(--muted); }
+    .ex-scope-group { color: var(--teal-dark); }
+    .ex-scope-user { color: var(--text); }
   </style>
 </head>
 <body>
@@ -27,12 +80,121 @@
     <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Data</span><span class="breadcrumb-sep">/</span><span>Entity Type</span></div>
     <div class="page-header">
       <h2><span class="icon"><i class="ti ti-database"></i></span> Entity Type</h2>
+      <p>Shared entity type definitions used across all Colorkrew products. Defines what each entity is and how permission precedence works when scopes overlap.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-      <blockquote class="md-quote">Shared entity type definitions and display conventions used across all products.</blockquote>
-<hr class="md-hr">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Entity Types</h2>
+
+      <div class="entity-grid">
+        <div class="entity-card">
+          <div class="entity-card-icon"><i class="ti ti-user"></i></div>
+          <div class="entity-card-name">Individual User</div>
+          <div class="entity-card-type">Entity</div>
+          <div class="entity-card-desc">A single person with a Colorkrew account. Belongs to one Department and zero or more User Groups.</div>
+        </div>
+        <div class="entity-card">
+          <div class="entity-card-icon"><i class="ti ti-users-group"></i></div>
+          <div class="entity-card-name">Group</div>
+          <div class="entity-card-type">Entity — two types</div>
+          <div class="entity-card-desc">A collection of users. Exists as either a Department or a User Group.</div>
+        </div>
+        <div class="entity-card">
+          <div class="entity-card-icon"><i class="ti ti-world"></i></div>
+          <div class="entity-card-name">Everyone</div>
+          <div class="entity-card-type">Scope</div>
+          <div class="entity-card-desc">Company-wide scope. Applies to all users regardless of department or group membership.</div>
+          <div><span class="entity-card-tag tag-global">Lowest precedence</span></div>
+        </div>
+      </div>
+
+      <h3 class="md-h3">Group Types</h3>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Membership per User</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Department</strong></td>
+            <td>Organizational unit — e.g., Engineering, Sales, HR. Reflects the company org structure.</td>
+            <td><span class="entity-card-tag tag-exclusive">Exactly one</span></td>
+          </tr>
+          <tr>
+            <td><strong>User Group</strong></td>
+            <td>Flexible grouping for access control, workflows, or cross-functional collaboration.</td>
+            <td><span class="entity-card-tag tag-inclusive">Zero or more</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Permission Precedence</h2>
+      <p>When permission scopes conflict, the <strong style="color:var(--text)">most specific (smallest) scope always wins</strong>. An individual user's permission overrides any group or company-wide setting.</p>
+
+      <div class="precedence-stack">
+        <div class="arrow-up">▲ higher precedence wins</div>
+        <div class="precedence-row">
+          <div class="precedence-bar precedence-bar-user">
+            <div class="precedence-label">Individual User</div>
+            <div class="precedence-sublabel">Highest precedence</div>
+          </div>
+          <div class="precedence-level">Lv 3</div>
+        </div>
+        <div class="precedence-row">
+          <div class="precedence-bar precedence-bar-group">
+            <div class="precedence-label">Group <span style="font-weight:400;font-size:12px;">— Department or User Group</span></div>
+            <div class="precedence-sublabel">Mid precedence</div>
+          </div>
+          <div class="precedence-level">Lv 2</div>
+        </div>
+        <div class="precedence-row">
+          <div class="precedence-bar precedence-bar-everyone">
+            <div class="precedence-label">Everyone</div>
+            <div class="precedence-sublabel">Lowest precedence</div>
+          </div>
+          <div class="precedence-level">Lv 1</div>
+        </div>
+      </div>
+
+      <h3 class="md-h3">Example</h3>
+      <div class="example-box">
+        <span class="ex-label">Scenario — three overlapping permissions on the same resource</span>
+        <div class="example-rows">
+          <div class="example-row ex-row-everyone">
+            <span class="ex-scope ex-scope-everyone">Everyone</span>
+            <span class="ex-access">Read-only access</span>
+          </div>
+          <div class="example-row ex-row-group">
+            <span class="ex-scope ex-scope-group">User Group</span>
+            <span class="ex-access">Edit access</span>
+          </div>
+          <div class="example-row ex-row-user">
+            <span class="ex-scope ex-scope-user">Individual User</span>
+            <span class="ex-access">No access</span>
+            <span class="ex-wins">← wins</span>
+          </div>
+        </div>
+        <p style="margin-top:12px;margin-bottom:0;">The user's individual setting (no access) takes precedence over both the group and company-wide settings — even though a broader scope grants more access.</p>
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Rules</h2>
+      <ul>
+        <li>A user belongs to exactly <strong style="color:var(--text)">one Department</strong> at a time — departments are mutually exclusive.</li>
+        <li>A user can belong to <strong style="color:var(--text)">zero or more User Groups</strong> — there is no upper limit.</li>
+        <li>Individual User permissions always override Group permissions.</li>
+        <li>Group permissions always override Everyone permissions.</li>
+        <li>When a user is in multiple User Groups with conflicting permissions, the most restrictive applies — unless the product defines a different resolution strategy.</li>
+      </ul>
+
     </div>
   </main>
 </div>

@@ -13,6 +13,24 @@
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 20px; }
+    .rule-box { padding: 12px 14px; border-radius: 8px; font-size: 12px; line-height: 1.65; }
+    .rule-do { background: #f0faf4; border-left: 2px solid #1a7a47; }
+    .rule-dont { background: #fdf0ef; border-left: 2px solid #c0392b; }
+    .rule-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .rule-do .rule-label { color: #1a7a47; }
+    .rule-dont .rule-label { color: #c0392b; }
+    .rule-box ul { margin: 0; padding-left: 16px; }
+    .rule-box ul li { margin-bottom: 3px; color: #444; }
+    .info-box { background: var(--teal-light); border: 0.5px solid rgba(25,118,210,0.2); border-radius: 8px; padding: 12px 14px; font-size: 12px; color: #444; line-height: 1.65; margin: 12px 0 20px; }
+    .info-box strong { color: var(--teal-dark); }
   </style>
 </head>
 <body>
@@ -22,18 +40,134 @@
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
-  <nav class="sidebar">
-  </nav>
+  <nav class="sidebar"></nav>
   <main>
     <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Foundations</span><span class="breadcrumb-sep">/</span><span>Color System</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-layers"></i></span> Color System</h2>
+      <h2><span class="icon"><i class="ti ti-palette"></i></span> Color System</h2>
+      <p>MUI's palette token system is the foundation for all Colorkrew products. Color decisions reference semantic tokens — never raw hex values. Each product defines its full palette in <code>_theme.md</code>.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-      <blockquote class="md-quote">Schema and rules only — no hex values. All tokens reference semantic roles.</blockquote>
-<hr class="md-hr">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Token Format</h2>
+      <p>All color tokens follow MUI's palette naming convention:</p>
+      <p><code>palette.&lt;role&gt;.&lt;variant&gt;</code> — e.g., <code>palette.primary.main</code>, <code>palette.text.secondary</code></p>
+      <p>Never reference a hex value directly in a component spec or design token file. Always use the semantic name so that themes (light/dark) and product overrides work correctly.</p>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Required Palette Roles</h2>
+      <p>Every product must define all of the following roles in its <code>_theme.md</code>.</p>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Variants</th>
+            <th>Typical Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>primary</code></td>
+            <td><code>main</code>, <code>light</code>, <code>dark</code>, <code>contrastText</code></td>
+            <td>Primary actions, links, key highlights</td>
+          </tr>
+          <tr>
+            <td><code>secondary</code></td>
+            <td><code>main</code>, <code>light</code>, <code>dark</code>, <code>contrastText</code></td>
+            <td>Secondary actions, accents</td>
+          </tr>
+          <tr>
+            <td><code>error</code></td>
+            <td><code>main</code>, <code>light</code>, <code>dark</code>, <code>contrastText</code></td>
+            <td>Errors, destructive actions, validation failures</td>
+          </tr>
+          <tr>
+            <td><code>warning</code></td>
+            <td><code>main</code>, <code>light</code>, <code>dark</code>, <code>contrastText</code></td>
+            <td>Warnings, cautionary states</td>
+          </tr>
+          <tr>
+            <td><code>info</code></td>
+            <td><code>main</code>, <code>light</code>, <code>dark</code>, <code>contrastText</code></td>
+            <td>Informational messages, tips</td>
+          </tr>
+          <tr>
+            <td><code>success</code></td>
+            <td><code>main</code>, <code>light</code>, <code>dark</code>, <code>contrastText</code></td>
+            <td>Confirmation, completed states, positive feedback</td>
+          </tr>
+          <tr>
+            <td><code>text</code></td>
+            <td><code>primary</code>, <code>secondary</code>, <code>disabled</code></td>
+            <td>All text content</td>
+          </tr>
+          <tr>
+            <td><code>background</code></td>
+            <td><code>default</code>, <code>paper</code></td>
+            <td>Page background, surface backgrounds (cards, modals)</td>
+          </tr>
+          <tr>
+            <td><code>action</code></td>
+            <td><code>active</code>, <code>hover</code>, <code>selected</code>, <code>disabled</code>, <code>disabledBackground</code>, <code>focus</code></td>
+            <td>Interactive element states</td>
+          </tr>
+          <tr>
+            <td><code>divider</code></td>
+            <td>(single value)</td>
+            <td>Separators, borders between sections</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Brand & Custom Tokens</h2>
+      <p>Products may add brand-specific color tokens using the same format. Define them under a descriptive role name:</p>
+      <p><code>palette.brand.main</code>, <code>palette.brand.light</code>, <code>palette.brand.dark</code>, <code>palette.brand.contrastText</code></p>
+      <p>All custom tokens must be listed and documented in the product's <code>_theme.md</code>.</p>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">What Goes in Each Product's <code>_theme.md</code></h2>
+      <ul>
+        <li>All required palette roles above with resolved hex values</li>
+        <li>Any additional brand-specific tokens</li>
+        <li>Dark mode palette overrides, clearly labeled and separated from light mode values</li>
+        <li>Notes on intended usage context per token (e.g., "primary.light is used for hover backgrounds only")</li>
+      </ul>
+
+      <div class="info-box">
+        <strong>Accessibility reminder:</strong> All text/background color combinations must meet WCAG 2.1 AA contrast minimums (4.5:1 for normal text, 3:1 for large text and UI components). Verify contrast before finalizing palette values. See <a href="accessibility.html">Accessibility</a> for full requirements.
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Do / Don't</h2>
+      <div class="rule-grid">
+        <div class="rule-box rule-do">
+          <span class="rule-label">Do</span>
+          <ul>
+            <li>Reference tokens by name: <code>palette.primary.main</code></li>
+            <li>Define all required roles in <code>_theme.md</code></li>
+            <li>Document any custom tokens with usage context</li>
+            <li>Label dark mode values separately</li>
+            <li>Verify contrast ratios against WCAG 2.1 AA</li>
+          </ul>
+        </div>
+        <div class="rule-box rule-dont">
+          <span class="rule-label">Don't</span>
+          <ul>
+            <li>Hardcode hex or RGB values in component specs</li>
+            <li>Invent token names outside MUI convention without documenting them</li>
+            <li>Apply <code>primary.main</code> for decorative non-interactive elements</li>
+            <li>Mix light and dark mode values without clear labeling</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>

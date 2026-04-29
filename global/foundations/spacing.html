@@ -13,6 +13,31 @@
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: middle; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .scale-row { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; margin: 16px 0 20px; }
+    .scale-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .scale-bar { background: var(--teal); border-radius: 3px; width: 24px; }
+    .scale-label { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+    .scale-px { font-family: var(--mono); font-size: 9px; color: var(--muted-light); }
+    .badge { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.03em; }
+    .badge-primary { background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid rgba(25,118,210,0.25); }
+    .badge-allowed { background: var(--bg); color: var(--muted); border: 0.5px solid var(--border); }
+    .rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 20px; }
+    .rule-box { padding: 12px 14px; border-radius: 8px; font-size: 12px; line-height: 1.65; }
+    .rule-do { background: #f0faf4; border-left: 2px solid #1a7a47; }
+    .rule-dont { background: #fdf0ef; border-left: 2px solid #c0392b; }
+    .rule-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .rule-do .rule-label { color: #1a7a47; }
+    .rule-dont .rule-label { color: #c0392b; }
+    .rule-box ul { margin: 0; padding-left: 16px; }
+    .rule-box ul li { margin-bottom: 3px; color: #444; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   </style>
 </head>
 <body>
@@ -22,18 +47,109 @@
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
-  <nav class="sidebar">
-  </nav>
+  <nav class="sidebar"></nav>
   <main>
     <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Foundations</span><span class="breadcrumb-sep">/</span><span>Spacing</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-layers"></i></span> Spacing</h2>
+      <h2><span class="icon"><i class="ti ti-layout-distribute-vertical"></i></span> Spacing</h2>
+      <p>The base unit is 8px. All spacing — padding, margin, gap — uses multiples of 8. Fine-grained adjustments within components may use multiples of 4. Always reference <code>theme.spacing()</code> tokens in code.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-      <blockquote class="md-quote">Spacing scale, grid system, and layout density rules.</blockquote>
-<hr class="md-hr">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Scale Overview</h2>
+      <p>Two scales are supported. Use the primary scale by default.</p>
+
+      <div class="scale-row">
+        <div class="scale-item"><div class="scale-bar" style="height:8px"></div><div class="scale-label">8</div><div class="scale-px">×8</div></div>
+        <div class="scale-item"><div class="scale-bar" style="height:16px"></div><div class="scale-label">16</div><div class="scale-px">×8</div></div>
+        <div class="scale-item"><div class="scale-bar" style="height:24px"></div><div class="scale-label">24</div><div class="scale-px">×8</div></div>
+        <div class="scale-item"><div class="scale-bar" style="height:32px"></div><div class="scale-label">32</div><div class="scale-px">×8</div></div>
+        <div class="scale-item"><div class="scale-bar" style="height:40px"></div><div class="scale-label">40</div><div class="scale-px">×8</div></div>
+        <div class="scale-item"><div class="scale-bar" style="height:48px"></div><div class="scale-label">48</div><div class="scale-px">×8</div></div>
+        <div class="scale-item"><div class="scale-bar" style="height:64px"></div><div class="scale-label">64</div><div class="scale-px">×8</div></div>
+        <div class="scale-item"><div class="scale-bar" style="height:80px"></div><div class="scale-label">80</div><div class="scale-px">×8</div></div>
+        <div class="scale-item"><div class="scale-bar" style="height:96px"></div><div class="scale-label">96</div><div class="scale-px">×8</div></div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <h3 class="md-h3">Primary Scale <span class="badge badge-primary">×8</span></h3>
+          <p>Use for layout, section padding, card padding, page margins, and gaps between components.</p>
+          <p><strong style="color:var(--text);font-size:13px;">8, 16, 24, 32, 40, 48, 64, 80, 96, 128</strong></p>
+        </div>
+        <div>
+          <h3 class="md-h3">Allowed Scale <span class="badge badge-allowed">×4</span></h3>
+          <p>Use for fine-grained adjustments within components — icon padding, dense lists, inline gaps, input fields.</p>
+          <p><strong style="color:var(--text);font-size:13px;">4, 8, 12, 16, 20, 24, 28, 32</strong></p>
+        </div>
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">MUI Token Reference</h2>
+      <p><code>theme.spacing(n)</code> — where <code>n × 8px</code> = result. Use in <code>sx</code> props or <code>theme.spacing()</code> calls.</p>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Token</th>
+            <th>Value</th>
+            <th>sx shorthand</th>
+            <th>Common use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>spacing(0.5)</code></td><td>4px</td><td><code>p: 0.5</code></td><td>Icon nudges, tight inline gaps</td></tr>
+          <tr><td><code>spacing(1)</code></td><td>8px</td><td><code>p: 1</code></td><td>Button icon padding, chip gap</td></tr>
+          <tr><td><code>spacing(2)</code></td><td>16px</td><td><code>p: 2</code></td><td>Card internal padding, input padding</td></tr>
+          <tr><td><code>spacing(3)</code></td><td>24px</td><td><code>p: 3</code></td><td>Section padding, dialog padding</td></tr>
+          <tr><td><code>spacing(4)</code></td><td>32px</td><td><code>p: 4</code></td><td>Component separation, form gap</td></tr>
+          <tr><td><code>spacing(5)</code></td><td>40px</td><td><code>p: 5</code></td><td>Section margin, drawer header</td></tr>
+          <tr><td><code>spacing(6)</code></td><td>48px</td><td><code>p: 6</code></td><td>Page section spacing</td></tr>
+          <tr><td><code>spacing(8)</code></td><td>64px</td><td><code>p: 8</code></td><td>Large section breaks</td></tr>
+          <tr><td><code>spacing(10)</code></td><td>80px</td><td><code>p: 10</code></td><td>Hero sections, onboarding</td></tr>
+          <tr><td><code>spacing(12)</code></td><td>96px</td><td><code>p: 12</code></td><td>Page top margin, max gutters</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">MUI Grid</h3>
+      <p>The default MUI Grid spacing is <code>spacing={2}</code> = 16px gutters. Adjust with the same multiplier system. The MUI Grid uses a 12-column base by default.</p>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">When to Use ×4</h2>
+      <ul>
+        <li>Padding inside an icon button (e.g., 4px or 12px)</li>
+        <li>Gaps between a label and an icon in the same element</li>
+        <li>Dense list item padding where ×8 would feel too loose</li>
+        <li>Fine alignment corrections within a tightly constrained layout</li>
+      </ul>
+      <p>Avoid mixing ×8 and ×4 at the same layout level. Use one consistently per component.</p>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Do / Don't</h2>
+      <div class="rule-grid">
+        <div class="rule-box rule-do">
+          <span class="rule-label">Do</span>
+          <ul>
+            <li>Use <code>theme.spacing()</code> in all code</li>
+            <li>Default to ×8 for layout and component gaps</li>
+            <li>Use ×4 within components for fine adjustments</li>
+            <li>Keep one scale consistent at each layout level</li>
+          </ul>
+        </div>
+        <div class="rule-box rule-dont">
+          <span class="rule-label">Don't</span>
+          <ul>
+            <li>Hardcode px values (e.g., <code>padding: 10px</code>)</li>
+            <li>Use arbitrary values not on either scale (7px, 13px, 22px)</li>
+            <li>Mix ×4 and ×8 on adjacent elements at the same level</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>

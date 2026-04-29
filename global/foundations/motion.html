@@ -13,6 +13,29 @@
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .principle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 20px; }
+    .principle-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+    .principle-num { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--teal); margin-bottom: 4px; }
+    .principle-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .principle-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 20px; }
+    .rule-box { padding: 12px 14px; border-radius: 8px; font-size: 12px; line-height: 1.65; }
+    .rule-do { background: #f0faf4; border-left: 2px solid #1a7a47; }
+    .rule-dont { background: #fdf0ef; border-left: 2px solid #c0392b; }
+    .rule-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .rule-do .rule-label { color: #1a7a47; }
+    .rule-dont .rule-label { color: #c0392b; }
+    .rule-box ul { margin: 0; padding-left: 16px; }
+    .rule-box ul li { margin-bottom: 3px; color: #444; }
+    .warn-box { background: #fef9ec; border: 0.5px solid rgba(176,123,30,0.25); border-left: 2px solid #b07b1e; border-radius: 8px; padding: 12px 14px; font-size: 12px; color: #444; line-height: 1.65; margin: 12px 0 20px; }
+    .warn-box strong { color: #7a5210; }
   </style>
 </head>
 <body>
@@ -22,18 +45,148 @@
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
-  <nav class="sidebar">
-  </nav>
+  <nav class="sidebar"></nav>
   <main>
     <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Foundations</span><span class="breadcrumb-sep">/</span><span>Motion</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-layers"></i></span> Motion</h2>
+      <h2><span class="icon"><i class="ti ti-player-play"></i></span> Motion</h2>
+      <p>Motion should be purposeful and subtle. Use MUI transition tokens for consistency. All animations must respect <code>prefers-reduced-motion</code> — never use motion as the sole indicator of a state change.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-      <blockquote class="md-quote">Easing curves, duration tokens, and animation principles.</blockquote>
-<hr class="md-hr">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Principles</h2>
+      <div class="principle-grid">
+        <div class="principle-card">
+          <div class="principle-num">01</div>
+          <div class="principle-title">Purposeful</div>
+          <div class="principle-desc">Every animation communicates something — state change, hierarchy, or context shift. No purely decorative motion.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">02</div>
+          <div class="principle-title">Subtle</div>
+          <div class="principle-desc">Short durations and gentle easing. The UI should feel responsive, not theatrical or sluggish.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">03</div>
+          <div class="principle-title">Accessible</div>
+          <div class="principle-desc">Always apply <code>prefers-reduced-motion</code> media query. Users who disable animations must still get full functionality.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">04</div>
+          <div class="principle-title">Consistent</div>
+          <div class="principle-desc">Use the same duration and easing token for the same type of action across all components in a product.</div>
+        </div>
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Duration Tokens</h2>
+      <p><code>theme.transitions.duration.&lt;name&gt;</code></p>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Token</th>
+            <th>Value</th>
+            <th>Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>shortest</code></td><td>150ms</td><td>Micro-interactions — hover states, focus rings</td></tr>
+          <tr><td><code>shorter</code></td><td>200ms</td><td>Small UI state changes — toggle, checkbox, chip</td></tr>
+          <tr><td><code>short</code></td><td>250ms</td><td>Default component transitions</td></tr>
+          <tr><td><code>standard</code></td><td>300ms</td><td>Page-level transitions, modals, drawers, accordions</td></tr>
+          <tr><td><code>complex</code></td><td>375ms</td><td>Multi-step or elaborate transitions, skeleton shimmer</td></tr>
+          <tr><td><code>enteringScreen</code></td><td>225ms</td><td>Elements entering the viewport</td></tr>
+          <tr><td><code>leavingScreen</code></td><td>195ms</td><td>Elements leaving the viewport (slightly faster than entering)</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Easing Tokens</h2>
+      <p><code>theme.transitions.easing.&lt;name&gt;</code></p>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Token</th>
+            <th>Curve</th>
+            <th>Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>easeInOut</code></td><td><code>cubic-bezier(0.4, 0, 0.2, 1)</code></td><td>Default — most transitions in the middle of a flow</td></tr>
+          <tr><td><code>easeOut</code></td><td><code>cubic-bezier(0.0, 0, 0.2, 1)</code></td><td>Elements entering the screen (starts fast, settles gently)</td></tr>
+          <tr><td><code>easeIn</code></td><td><code>cubic-bezier(0.4, 0, 1, 1)</code></td><td>Elements leaving the screen (starts slow, exits quickly)</td></tr>
+          <tr><td><code>sharp</code></td><td><code>cubic-bezier(0.4, 0, 0.6, 1)</code></td><td>Elements that may return — e.g., a collapsible drawer</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Usage Reference</h2>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Interaction</th>
+            <th>Duration</th>
+            <th>Easing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Hover / focus ring</td><td><code>shortest</code> 150ms</td><td><code>easeInOut</code></td></tr>
+          <tr><td>Toggle / switch</td><td><code>shorter</code> 200ms</td><td><code>easeInOut</code></td></tr>
+          <tr><td>Tooltip appear</td><td><code>shorter</code> 200ms</td><td><code>easeOut</code></td></tr>
+          <tr><td>Modal / dialog open</td><td><code>enteringScreen</code> 225ms</td><td><code>easeOut</code></td></tr>
+          <tr><td>Modal / dialog close</td><td><code>leavingScreen</code> 195ms</td><td><code>easeIn</code></td></tr>
+          <tr><td>Drawer open</td><td><code>enteringScreen</code> 225ms</td><td><code>easeOut</code></td></tr>
+          <tr><td>Drawer close</td><td><code>leavingScreen</code> 195ms</td><td><code>sharp</code></td></tr>
+          <tr><td>Page transition</td><td><code>standard</code> 300ms</td><td><code>easeInOut</code></td></tr>
+          <tr><td>Accordion expand/collapse</td><td><code>standard</code> 300ms</td><td><code>easeInOut</code></td></tr>
+          <tr><td>Skeleton shimmer / loading pulse</td><td><code>complex</code> 375ms</td><td><code>easeInOut</code></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Accessibility</h2>
+      <div class="warn-box">
+        <strong>Required:</strong> Wrap all transitions and animations in a <code>@media (prefers-reduced-motion: reduce)</code> block and set <code>transition: none</code> or <code>animation: none</code>. Some users experience nausea or seizures from motion — this is a WCAG 2.1 AA requirement.
+      </div>
+      <ul>
+        <li>Never rely on animation alone to communicate state — always pair with a color, text, or icon change.</li>
+        <li>Avoid content that flashes more than 3 times per second (WCAG 2.3.1).</li>
+        <li>See <a href="accessibility.html">Accessibility</a> for full guidelines.</li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Do / Don't</h2>
+      <div class="rule-grid">
+        <div class="rule-box rule-do">
+          <span class="rule-label">Do</span>
+          <ul>
+            <li>Use MUI duration and easing tokens</li>
+            <li>Apply <code>prefers-reduced-motion</code> to all animations</li>
+            <li>Use <code>transform</code> and <code>opacity</code> for smooth animations</li>
+            <li>Pair motion with a visible state change (color, icon, text)</li>
+            <li>Keep transitions under 400ms</li>
+          </ul>
+        </div>
+        <div class="rule-box rule-dont">
+          <span class="rule-label">Don't</span>
+          <ul>
+            <li>Use durations above 400ms for standard interactions</li>
+            <li>Animate layout properties like <code>width</code>, <code>height</code>, <code>top</code>, <code>left</code></li>
+            <li>Add motion to non-interactive, informational elements</li>
+            <li>Use animation as the only indicator of a state change</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>

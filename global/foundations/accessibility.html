@@ -13,6 +13,28 @@
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .checklist { list-style: none; padding: 0; margin: 0 0 16px; }
+    .checklist li { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 6px; padding: 8px 10px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; }
+    .checklist li .check-icon { color: #1a7a47; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 20px; }
+    .rule-box { padding: 12px 14px; border-radius: 8px; font-size: 12px; line-height: 1.65; }
+    .rule-do { background: #f0faf4; border-left: 2px solid #1a7a47; }
+    .rule-dont { background: #fdf0ef; border-left: 2px solid #c0392b; }
+    .rule-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .rule-do .rule-label { color: #1a7a47; }
+    .rule-dont .rule-label { color: #c0392b; }
+    .rule-box ul { margin: 0; padding-left: 16px; }
+    .rule-box ul li { margin-bottom: 3px; color: #444; padding: 0; background: none; border: none; display: list-item; }
+    .compliance-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--teal-light); border: 0.5px solid rgba(25,118,210,0.25); border-radius: 8px; padding: 10px 16px; font-size: 13px; color: var(--teal-dark); font-weight: 500; margin-bottom: 12px; }
+    .compliance-badge .ti { font-size: 18px; }
+    .kbd { display: inline-block; font-family: var(--mono); font-size: 11px; background: var(--surface); border: 0.5px solid var(--border); border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px; color: var(--text); }
   </style>
 </head>
 <body>
@@ -22,18 +44,177 @@
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
-  <nav class="sidebar">
-  </nav>
+  <nav class="sidebar"></nav>
   <main>
     <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Foundations</span><span class="breadcrumb-sep">/</span><span>Accessibility</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-layers"></i></span> Accessibility</h2>
+      <h2><span class="icon"><i class="ti ti-accessible"></i></span> Accessibility</h2>
+      <p>Accessibility is a design requirement, not a post-launch fix. All Colorkrew products must meet WCAG 2.1 AA compliance. Build for keyboard navigation, screen readers, and users with motion sensitivity from the start.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-      <blockquote class="md-quote">WCAG compliance targets, keyboard navigation, focus management, and ARIA patterns.</blockquote>
-<hr class="md-hr">
-<p><em>Content pending.</em></p>
+
+      <div class="compliance-badge">
+        <i class="ti ti-shield-check"></i>
+        Target: WCAG 2.1 Level AA — minimum standard for all products
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Color Contrast</h2>
+      <p>All text and meaningful UI elements must meet the following minimum contrast ratios against their background.</p>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>Minimum Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Normal text (below 18px regular or 14px bold)</td>
+            <td><strong>4.5:1</strong></td>
+          </tr>
+          <tr>
+            <td>Large text (18px+ regular or 14px+ bold)</td>
+            <td><strong>3:1</strong></td>
+          </tr>
+          <tr>
+            <td>UI components — input borders, icons, focus rings</td>
+            <td><strong>3:1</strong></td>
+          </tr>
+          <tr>
+            <td>Disabled elements</td>
+            <td>No requirement — but avoid making disabled states look interactive</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ul>
+        <li>Always verify contrast between <code>palette.text.primary</code> and <code>palette.background.default</code>.</li>
+        <li>Check <code>palette.text.secondary</code> on <code>palette.background.paper</code> too — this is commonly missed.</li>
+        <li>Never convey information by color alone — pair with a text label, icon, or pattern. See <a href="color-system.html">Color System</a>.</li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Keyboard Navigation</h2>
+      <p>Every interactive element must be reachable and operable without a mouse.</p>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Expected Behavior</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="kbd">Tab</span></td><td>Move forward through interactive elements in reading order (left-to-right, top-to-bottom)</td></tr>
+          <tr><td><span class="kbd">Shift</span>+<span class="kbd">Tab</span></td><td>Move backward through interactive elements</td></tr>
+          <tr><td><span class="kbd">Enter</span> / <span class="kbd">Space</span></td><td>Activate buttons, links, checkboxes, and form controls</td></tr>
+          <tr><td><span class="kbd">Escape</span></td><td>Close modals, dialogs, drawers, and popovers</td></tr>
+          <tr><td>Arrow keys</td><td>Navigate within radio groups, menus, tabs, sliders, and date pickers</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Focus Management</h2>
+      <ul>
+        <li>Focus indicators must always be visible — minimum 3:1 contrast ratio against adjacent colors.</li>
+        <li>Never remove the default browser focus outline without providing a custom visible alternative.</li>
+        <li>On modal or dialog <strong>open</strong>: move focus to the first interactive element inside the overlay.</li>
+        <li>On modal or dialog <strong>close</strong>: return focus to the element that triggered it.</li>
+        <li>Trap focus within open modals and drawers so keyboard users cannot accidentally reach content behind the overlay.</li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Screen Reader Support</h2>
+      <ul>
+        <li>Use semantic HTML elements first — <code>&lt;button&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code> — before reaching for ARIA.</li>
+        <li>All images require <code>alt</code> text. Decorative images use <code>alt=""</code>.</li>
+        <li>Every form input must have a visible or accessible label via <code>&lt;label&gt;</code>, <code>aria-label</code>, or <code>aria-labelledby</code>.</li>
+        <li>Icon-only buttons must include <code>aria-label</code>. A tooltip alone is not sufficient.</li>
+        <li>Decorative icons must have <code>aria-hidden="true"</code>. See <a href="iconography.html">Iconography</a>.</li>
+        <li>Use <code>aria-live</code> regions for dynamic content that updates without a page reload (e.g., toast notifications, inline validation).</li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Motion &amp; Animation</h2>
+      <ul>
+        <li>Respect <code>prefers-reduced-motion: reduce</code> — disable or significantly reduce all transitions and animations for users who request it.</li>
+        <li>Never rely on animation as the sole way to communicate a state change.</li>
+        <li>Avoid content that flashes more than 3 times per second (WCAG 2.3.1 — Seizure Prevention).</li>
+        <li>See <a href="motion.html">Motion</a> for duration and easing token implementation.</li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Touch Targets</h2>
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Standard</th>
+            <th>Minimum Size</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Recommended (WCAG 2.5.5)</td>
+            <td><strong>44×44px</strong></td>
+            <td>Strongly recommended — avoids mis-taps on mobile</td>
+          </tr>
+          <tr>
+            <td>Minimum (WCAG 2.5.8 AA)</td>
+            <td><strong>24×24px</strong></td>
+            <td>Only acceptable with adequate spacing between targets</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Provide adequate spacing between adjacent touch targets. Icon buttons in toolbars or action bars should use 44×44px or add transparent padding to reach that size.</p>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Language Attributes</h2>
+      <ul>
+        <li>Set the <code>lang</code> attribute on <code>&lt;html&gt;</code> for the primary page language: <code>lang="en"</code> or <code>lang="ja"</code>.</li>
+        <li>For mixed-language content, apply <code>lang</code> on the inline element: <code>&lt;span lang="ja"&gt;</code>. This helps screen readers switch pronunciation engines correctly.</li>
+        <li>See <a href="typography.html">Typography</a> for font family rules per language.</li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Do / Don't</h2>
+      <div class="rule-grid">
+        <div class="rule-box rule-do">
+          <span class="rule-label">Do</span>
+          <ul>
+            <li>Target WCAG 2.1 AA as the minimum</li>
+            <li>Verify color contrast before finalizing palette</li>
+            <li>Use semantic HTML elements first</li>
+            <li>Provide visible focus indicators</li>
+            <li>Trap focus in modals and return on close</li>
+            <li>Label all form inputs and icon-only buttons</li>
+            <li>Apply <code>prefers-reduced-motion</code></li>
+          </ul>
+        </div>
+        <div class="rule-box rule-dont">
+          <span class="rule-label">Don't</span>
+          <ul>
+            <li>Remove focus outlines without a custom replacement</li>
+            <li>Use color as the only state indicator</li>
+            <li>Add ARIA roles when a native HTML element exists</li>
+            <li>Use <code>tabindex &gt; 0</code> — it breaks natural tab order</li>
+            <li>Add decorative icons without <code>aria-hidden="true"</code></li>
+            <li>Make interactive targets smaller than 24×24px</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>

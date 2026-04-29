@@ -230,6 +230,9 @@ main { flex: 1; padding: 40px 48px; max-width: 1080px; min-width: 0; display: fl
 .page-header p {
   font-size: 13px; color: var(--muted); max-width: 640px; line-height: 1.65;
 }
+.page-header p code {
+  font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border);
+}
 .section-divider {
   height: 0.5px; background: var(--border);
   margin: 0 0 28px; border-radius: 1px;

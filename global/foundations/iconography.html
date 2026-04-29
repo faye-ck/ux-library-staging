@@ -13,6 +13,35 @@
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: middle; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .icon-demo { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; margin: 12px 0 20px; padding: 20px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; }
+    .icon-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .icon-item .icon-wrap { display: flex; align-items: center; justify-content: center; color: var(--teal); }
+    .icon-item .icon-label { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+    .style-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 20px; }
+    .style-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .style-card-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .style-card-icons { display: flex; gap: 12px; align-items: center; margin-bottom: 8px; color: var(--text); }
+    .style-card-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 20px; }
+    .rule-box { padding: 12px 14px; border-radius: 8px; font-size: 12px; line-height: 1.65; }
+    .rule-do { background: #f0faf4; border-left: 2px solid #1a7a47; }
+    .rule-dont { background: #fdf0ef; border-left: 2px solid #c0392b; }
+    .rule-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .rule-do .rule-label { color: #1a7a47; }
+    .rule-dont .rule-label { color: #c0392b; }
+    .rule-box ul { margin: 0; padding-left: 16px; }
+    .rule-box ul li { margin-bottom: 3px; color: #444; }
+    .custom-icon-box { background: var(--bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 14px 16px; font-size: 12px; color: #444; line-height: 1.65; margin: 12px 0 20px; }
+    .custom-icon-box strong { color: var(--text); }
+    .custom-icon-box ul { margin: 8px 0 0; padding-left: 18px; }
+    .custom-icon-box ul li { margin-bottom: 3px; }
   </style>
 </head>
 <body>
@@ -22,18 +51,172 @@
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
-  <nav class="sidebar">
-  </nav>
+  <nav class="sidebar"></nav>
   <main>
     <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Foundations</span><span class="breadcrumb-sep">/</span><span>Iconography</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-layers"></i></span> Iconography</h2>
+      <h2><span class="icon"><i class="ti ti-icons"></i></span> Iconography</h2>
+      <p>Tabler Icons is the primary icon library for all Colorkrew products. Icon style and stroke width are a product-level decision, but must be consistent within a product. Custom icons are allowed for Colorkrew-specific concepts that Tabler cannot represent.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-      <blockquote class="md-quote">Icon library, sizing grid, usage rules, and accessibility requirements.</blockquote>
-<hr class="md-hr">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Primary Library — Tabler Icons</h2>
+      <p>Tabler Icons provides 5000+ icons as SVG, web font, and React components. It's free, open-source, and covers most standard UI needs.</p>
+
+      <div class="icon-demo">
+        <div class="icon-item">
+          <div class="icon-wrap"><i class="ti ti-home" style="font-size:16px"></i></div>
+          <div class="icon-label">16px</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-wrap"><i class="ti ti-home" style="font-size:20px"></i></div>
+          <div class="icon-label">20px</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-wrap"><i class="ti ti-home" style="font-size:24px"></i></div>
+          <div class="icon-label">24px</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-wrap"><i class="ti ti-home" style="font-size:32px"></i></div>
+          <div class="icon-label">32px</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-wrap"><i class="ti ti-home" style="font-size:48px"></i></div>
+          <div class="icon-label">48px</div>
+        </div>
+      </div>
+
+      <p>Install via npm: <code>@tabler/icons-react</code> for React, <code>@tabler/icons-webfont</code> for web font, or use SVGs directly.</p>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Style Rules</h2>
+      <p>Each product chooses one style and applies it consistently across all icons. Do not mix styles within a product.</p>
+
+      <div class="style-cards">
+        <div class="style-card">
+          <div class="style-card-label">Outline style</div>
+          <div class="style-card-icons">
+            <i class="ti ti-bell" style="font-size:24px"></i>
+            <i class="ti ti-settings" style="font-size:24px"></i>
+            <i class="ti ti-user" style="font-size:24px"></i>
+            <i class="ti ti-search" style="font-size:24px"></i>
+          </div>
+          <div class="style-card-desc">Lighter and more neutral. Good for dense UIs with many icons.</div>
+        </div>
+        <div class="style-card">
+          <div class="style-card-label">Filled style</div>
+          <div class="style-card-icons">
+            <i class="ti ti-bell-filled" style="font-size:24px"></i>
+            <i class="ti ti-settings-filled" style="font-size:24px"></i>
+            <i class="ti ti-user-filled" style="font-size:24px"></i>
+            <i class="ti ti-search" style="font-size:24px"></i>
+          </div>
+          <div class="style-card-desc">More visual weight. Good for active states, emphasis, or consumer-facing products.</div>
+        </div>
+      </div>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Rule</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Style</td>
+            <td>Outline or filled — one style per product, chosen at the product level</td>
+          </tr>
+          <tr>
+            <td>Stroke width</td>
+            <td>1, 1.5, 2, or 2.5 — consistent within the product. Default is 2.</td>
+          </tr>
+          <tr>
+            <td>Color</td>
+            <td>Inherit from surrounding text color, or use a MUI palette token. Never hardcode hex values.</td>
+          </tr>
+          <tr>
+            <td>Size</td>
+            <td>Use standard sizes only (see below)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Standard Sizes</h2>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Size</th>
+            <th>Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>16px</td><td>Inline text icons, dense UI, table cells, compact lists</td></tr>
+          <tr><td>20px</td><td>Button icons, input adornments, navigation items</td></tr>
+          <tr><td>24px</td><td>Standalone icons, card icons, sidebar navigation</td></tr>
+          <tr><td>32px</td><td>Feature icons, empty state icons</td></tr>
+          <tr><td>48px+</td><td>Illustration-level only — onboarding screens, splash states</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Custom Icons</h2>
+      <p>Custom icons are permitted when a concept is unique to Colorkrew branding or product terminology and no suitable Tabler icon exists.</p>
+
+      <div class="custom-icon-box">
+        <strong>Custom icons must:</strong>
+        <ul>
+          <li>Match the product's chosen style (outline or filled) and stroke width</li>
+          <li>Use a clean 24×24px SVG viewBox</li>
+          <li>Be documented in the product's <code>_theme.md</code> or component spec with icon name and intended usage</li>
+          <li>Be reviewed and approved before use in production</li>
+        </ul>
+      </div>
+
+      <p><em>Examples of valid custom icon needs:</em> Colorkrew logo mark, product-specific concepts like "Biz Pass", unique workflow terminology that Tabler cannot represent adequately.</p>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Accessibility</h2>
+      <ul>
+        <li><strong>Decorative icons</strong> (next to visible label text): add <code>aria-hidden="true"</code>.</li>
+        <li><strong>Meaningful icons</strong> (no adjacent label): add <code>aria-label</code> to the icon or use a visually hidden <code>&lt;span&gt;</code>.</li>
+        <li><strong>Interactive icon-only buttons</strong>: must include a visible or accessible label — tooltip alone is not sufficient.</li>
+        <li>Minimum touch target for icon buttons: 44×44px (see <a href="accessibility.html">Accessibility</a>).</li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Do / Don't</h2>
+      <div class="rule-grid">
+        <div class="rule-box rule-do">
+          <span class="rule-label">Do</span>
+          <ul>
+            <li>Choose one style (outline or filled) per product and apply consistently</li>
+            <li>Use standard sizes: 16, 20, 24, 32, 48px</li>
+            <li>Match custom icon style and stroke width to the product</li>
+            <li>Add <code>aria-hidden="true"</code> to decorative icons</li>
+            <li>Document custom icons in <code>_theme.md</code></li>
+          </ul>
+        </div>
+        <div class="rule-box rule-dont">
+          <span class="rule-label">Don't</span>
+          <ul>
+            <li>Mix outline and filled icons within a product</li>
+            <li>Use icons smaller than 16px</li>
+            <li>Use inconsistent stroke widths within the same product</li>
+            <li>Use icons from other libraries without approval</li>
+            <li>Render icon-only buttons without an accessible label</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>
