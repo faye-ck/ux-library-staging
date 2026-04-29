@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Changelog — UX Library</title>
+  <title>Changelog — ux-library</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     /* ── CHANGELOG-SPECIFIC STYLES ── */
@@ -80,8 +80,8 @@
 <body>
 
 <header class="site-header">
-  <h1><a href="index.html"><div class="logo-dot"></div>UX Library</a></h1>
-  <span class="version-badge">v2.0</span>
+  <h1><a href="index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.2</span>
   <div class="header-spacer"></div>
 </header>
 
@@ -94,9 +94,143 @@
     </div>
     <div class="page-header">
       <h2><span class="icon"><i class="ti ti-clock-history"></i></span> Changelog</h2>
-      <p>Site-level version history for the Colorkrew UX Library. Tracks structural changes — architecture, styling, and tooling. Each product has its own changelog for content changes.</p>
+      <p>Site-level version history for the ux-library. Tracks structural changes — architecture, styling, and tooling. Each product has its own changelog for content changes.</p>
     </div>
     <div class="section-divider"></div>
+
+    <!-- ── v2.2.0 ── -->
+    <div class="cl-version-block">
+      <div class="cl-version-header">
+        <span class="cl-version-num">v2.2.0</span>
+        <span class="cl-version-date">2026-04-30</span>
+        <span class="cl-version-tag cl-tag-major">Major</span>
+      </div>
+      <div class="cl-card">
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Global — Foundations overhauled to match MUI v7</div>
+            <div class="cl-entry-desc">Added Elevation (shadow scale + z-index layers) and Breakpoints (xs–xl, mobile-first rules). Removed Notification Patterns — now covered by Snackbar, Alert, and Toast component pages. Foundations now mirrors the MUI theme token system exactly.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">global/foundations/elevation.html</span>
+              <span class="cl-file">global/foundations/breakpoints.html</span>
+              <span class="cl-file">global/foundations/notification-patterns.html removed</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Global — Components catalog expanded to full MUI v7 coverage</div>
+            <div class="cl-entry-desc">Added 10 missing MUI components: Icon Button, Rating (Inputs); Typography (Data Display); Skeleton (Feedback); Paper (Surfaces); Bottom Navigation, Speed Dial (Navigation); Box, Stack, Grid (Utilities). Removed 5 non-catalog entries: Backdrop, Input, Menubar, Number Field, Textarea Autoresize. Reorganised nav: App Bar moved to Navigation, Date Picker/Calendar/Time Picker moved to Inputs, Modal added to Utilities, Colorkrew composites grouped into a new Colorkrew sub-section.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">global/components/ +10 new pages</span>
+              <span class="cl-file">global/components/ −5 retired pages</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Prompt templates — Check and Promote section overhauled</div>
+            <div class="cl-entry-desc">Removed "Build a Figma design system" and "Generate design system rules" standalone templates — these now run automatically within other workflows. Updated Audit Figma, Cross-product Check, and Promote to Global templates with automatic skill chaining (figma-generate-library Discovery + figma-create-design-system-rules). Run Skill Tests expanded to 8 scenarios.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── v2.1.0 ── -->
+    <div class="cl-version-block">
+      <div class="cl-version-header">
+        <span class="cl-version-num">v2.1.0</span>
+        <span class="cl-version-date">2026-04-30</span>
+        <span class="cl-version-tag cl-tag-major">Major</span>
+      </div>
+      <div class="cl-card">
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Skills Library page</div>
+            <div class="cl-entry-desc">New dedicated page centralizing all Claude Code slash-command downloads in four sections: Figma Skills, Design System, Documentation, and Workflow. Skills with companion reference files or scripts are bundled as one-click install zips.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">skills-library.html</span>
+              <span class="cl-file">skills-downloads/</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">figma-generate-library — 4-phase design system builder</div>
+            <div class="cl-entry-desc">New skill that scaffolds a professional-grade Figma design system from an existing codebase. Orchestrates 20–100+ <code>use_figma</code> calls across 4 phases: Discovery (scan codebase for tokens and components), Foundations (create variable collections), File Structure (set up Figma pages), and Components (build variants with auto-layout and variable bindings). Includes 7 reference docs and 9 reusable helper scripts.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">.claude/commands/figma-generate-library.md</span>
+              <span class="cl-file">.claude/figma-generate-library/</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">figma-create-design-system-rules — project rules generator</div>
+            <div class="cl-entry-desc">New skill that analyzes a codebase and generates project-specific design system rules for Claude Code (<code>CLAUDE.md</code>), OpenAI Codex CLI (<code>AGENTS.md</code>), or Cursor (<code>.mdc</code>). Rules encode component location, styling approach, token usage, and Figma-to-code workflow.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">.claude/commands/figma-create-design-system-rules.md</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">mui-design — MUI design system foundations skill</div>
+            <div class="cl-entry-desc">New skill covering the full MUI v7 component catalog (39 components across 6 categories), theme token system, Figma→MUI token mapping, accessibility rules, component design rules, and spec-writing conventions. Loaded automatically by <code>audit-figma</code>, <code>document-feature-spec</code>, and <code>cross-product-check</code>.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">.claude/commands/mui-design.md</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Home — prompt templates and stats updated</div>
+            <div class="cl-entry-desc">Components stat updated from 9 to 39. Two new Create templates added: "Build a Figma design system" (<code>/figma-generate-library</code>) and "Generate design system rules" (<code>/figma-create-design-system-rules</code>). Run skill tests template updated to include new skills.</div>
+            <div class="cl-entry-files"><span class="cl-file">index.html</span></div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Figma Tips — moved to root and expanded with new Figma skills</div>
+            <div class="cl-entry-desc">Moved from <code>figma-tips/index.html</code> to <code>figma-tips.html</code> (root). Added new "Skills that build in Figma" section covering <code>figma-generate-library</code> and <code>figma-create-design-system-rules</code>. Footer Figma Tips link removed. Nav href updated.</div>
+            <div class="cl-entry-files"><span class="cl-file">figma-tips.html</span><span class="cl-file">nav.js</span></div>
+          </div>
+        </div>
+
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div class="cl-entry-body">
+            <div class="cl-entry-title">Global — Overview, Toast, and Nav Shell filled in</div>
+            <div class="cl-entry-desc">Global Overview now has complete introductory content. Toast documented as the Colorkrew toast pattern (Snackbar + Alert). Nav Shell documented as the application shell pattern (AppBar + Drawer). All three were previously "Content pending" stubs.</div>
+            <div class="cl-entry-files">
+              <span class="cl-file">global/_index.html</span>
+              <span class="cl-file">global/components/toast.html</span>
+              <span class="cl-file">global/components/nav-shell.html</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- ── v2.0.0 ── -->
     <div class="cl-version-block">

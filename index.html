@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Colorkrew UX Library</title>
+  <title>ux-library</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     /* ── CARDS ── */
@@ -197,8 +197,8 @@
 <body>
 
 <header class="site-header">
-  <h1><div class="logo-dot"></div>UX Library</h1>
-  <span class="version-badge">v2.0 · 2026-04-27</span>
+  <h1><div class="logo-dot"></div>ux-library</h1>
+  <span class="version-badge">v2.2 · 2026-04-30</span>
   <div class="header-spacer"></div>
 </header>
 
@@ -207,12 +207,12 @@
 
   <!-- STATS -->
   <div class="hub-intro">
-    <h2>UX Library — <em>Colorkrew</em></h2>
+    <h2>ux-library — <em>Colorkrew</em></h2>
     <p>Centralised design documentation across all Colorkrew products. Foundations and components are shared cross-product. Each product folder contains feature-level specs by platform and role.</p>
     <div class="hub-stats">
       <div class="stat"><div class="stat-n">7</div><div class="stat-l">Products</div></div>
-      <div class="stat"><div class="stat-n">10</div><div class="stat-l">Foundations</div></div>
-      <div class="stat"><div class="stat-n">9</div><div class="stat-l">Components</div></div>
+      <div class="stat"><div class="stat-n">11</div><div class="stat-l">Foundations</div></div>
+      <div class="stat"><div class="stat-n">47</div><div class="stat-l">Components</div></div>
       <div class="stat"><div class="stat-n">2</div><div class="stat-l">Languages</div></div>
     </div>
   </div>
@@ -314,7 +314,7 @@
         'Product Name': { type: 'text', hint: 'e.g. Goals' },
       },
       body:
-'Set up [Product Name] in the UX Library.\n\n' +
+'Set up [Product Name] in ux-library.\n\n' +
 'Run /setup-product — the skill will guide you through the rest interactively.\n' +
 'Have these ready before you start:\n' +
 '  · Feature names (just a list — e.g. Dashboard, Announcements, Todo)\n' +
@@ -359,14 +359,24 @@
 '5. Run /document-feature-spec to generate the full feature spec from Figma:\n' +
 '   Product: [Product Name]  ·  Feature: [Feature Name]\n' +
 '   Platform: [Platform]  ·  URL: [URL]\n\n' +
-'   The skill reads config files, extracts design context from Figma,\n' +
-'   populates feature.html in place, and updates the coverage table in _index.html.\n\n' +
+'   The skill automatically:\n' +
+'   · Runs figma-generate-library (Discovery Only) to map Figma components → MUI catalog\n' +
+'     and Figma styles → MUI tokens before writing any spec content\n' +
+'   · Reads all config files (_theme.md, _glossary.md, _guidelines.md)\n' +
+'   · Generates feature.html + feature.md with Components Used and Color Tokens pre-filled\n' +
+'   · Runs figma-create-design-system-rules to capture any custom design patterns:\n' +
+'     product-wide rules → _components.md / _guidelines.md\n' +
+'     feature-specific rules → "Design Rules" section in the spec\n' +
+'   · Updates the coverage table in _index.html\n\n' +
 '── DELTA (optional, up to 3) ────────────────────────────────\n' +
 '6. If delta platforms are needed, run /add-platform-delta once per delta.\n' +
 '   Baseline is always: [Platform]  ·  URL: [URL]\n\n' +
 '   Delta 1: [Platform B]   ·  URL: [Delta URL]\n' +
 '   Delta 2: [Platform B2]  ·  URL: [Delta URL 2]   ← leave blank to skip\n' +
 '   Delta 3: [Platform B3]  ·  URL: [Delta URL 3]   ← leave blank to skip\n\n' +
+'   Each delta run also auto-captures platform-specific design rules\n' +
+'   (touch targets, rendering constraints, layout overrides) and writes them\n' +
+'   to _guidelines.md or inline in the delta file.\n\n' +
 '   Skip this step entirely if no delta platforms are needed for this feature.'
     },
     {
@@ -381,28 +391,36 @@
 'Delta 1: [Platform B]   ·  URL: [Delta URL]\n' +
 'Delta 2: [Platform B2]  ·  URL: [Delta URL 2]   ← leave blank to skip\n' +
 'Delta 3: [Platform B3]  ·  URL: [Delta URL 3]   ← leave blank to skip\n\n' +
-'Each run will:\n' +
-'- Check if the baseline spec exists at /[product-slug]/[feature-slug]/feature.html\n' +
-'- Compare both frames across layout, interactions, copy, and platform constraints\n' +
-'- Write /[product-slug]/[feature-slug]/[delta-platform-slug].html with only what differs\n' +
-'- Skip writing the file if both platforms are identical (marks coverage table as "identical")\n' +
-'- Update the coverage table in /[product-slug]/_index.html'
+'Each run automatically:\n' +
+'- Runs figma-generate-library (Discovery Only) on the delta Figma frame to map\n' +
+'  components and tokens before comparing — no manual MUI mapping needed\n' +
+'- Checks if the baseline spec exists at /[product-slug]/[feature-slug]/feature.html\n' +
+'- Compares both frames across layout, interactions, copy, and platform constraints\n' +
+'- Writes /[product-slug]/[feature-slug]/[delta-platform-slug].html with only what differs\n' +
+'- Runs figma-create-design-system-rules to capture platform-specific design rules:\n' +
+'  platform-wide rules → _guidelines.md\n' +
+'  feature+platform rules → "Platform Design Rules" section in the delta file\n' +
+'- Skips writing the file if both platforms are identical (marks coverage table as "identical")\n' +
+'- Updates the coverage table in /[product-slug]/_index.html'
     },
     {
       section: 'Check',
       icon: 'ti-brand-figma',
       title: 'Audit Figma file against a product or feature',
-      desc: 'Compare a Figma file against the UX Library — entire product or specific feature',
+      desc: 'Compare a Figma file against ux-library — entire product or specific feature',
       body:
-'Run /audit-figma to audit the Figma file at [URL] against the UX Library for [Product Name].\n\n' +
+'Run /audit-figma to audit the Figma file at [URL] against ux-library for [Product Name].\n\n' +
 'Scope: [Scope]\n' +
-'Feature: [Feature Name]   ← only used when Scope = "Specific feature"; leave blank to skip\n\n' +
-'The skill will:\n' +
-'· Read the relevant UX Library spec for the chosen scope\n' +
-'· Extract design context from the Figma file using the figma-use protocol\n' +
-'· Compare every screen against the documented spec\n' +
-'· Output a prioritised findings report grouped by severity\n' +
-'· Flag each finding as Critical / Moderate / Minor with a recommended fix'
+'Feature: [Feature Name]   ← required when Scope = "Specific feature"; leave blank for entire product\n\n' +
+'The skill automatically:\n' +
+'· Loads figma-use + mui-design before any Figma call\n' +
+'· Runs figma-generate-library (Discovery Only) on the Figma URL to map components → MUI\n' +
+'  catalog and styles → MUI tokens — comparisons are MUI-accurate, not visually inferred\n' +
+'· Reads the relevant spec (feature.md + all platform deltas + config files)\n' +
+'· Compares every screen across: copy, states, components, platform rules, undocumented screens\n' +
+'· Outputs a prioritised report: 🔴 Critical / 🟡 Moderate / 🔵 Minor + quick wins\n\n' +
+'If undocumented screens are found (new features or redesigns not yet in the library):\n' +
+'· Offers to run /document-feature-spec on those screens to close the gap'
     },
     {
       section: 'Check',
@@ -411,31 +429,47 @@
       desc: 'Find what\'s shared, what differs, and what could go global',
       body:
 'Run /cross-product-check to compare [Pattern Name] across [Products].\n\n' +
-'The skill will:\n' +
-'· Read product indexes and targeted spec sections only — no full file reads\n' +
-'· Compare copy, components, interactions, and guideline alignment\n' +
-'· Identify global promotion candidates (identical or near-identical patterns)\n' +
-'· Surface per-product custom behaviour and flag likely conflicts\n' +
-'· List undocumented gaps with a recommended next skill to run\n\n' +
-'Output: coverage snapshot → promotion candidates → per-product differences → conflicts → recommended actions'
+'Optionally provide Figma URLs per product to enrich the comparison:\n' +
+'[Product A] URL: [URL A]   ← leave blank to use spec only\n' +
+'[Product B] URL: [URL B]   ← leave blank to use spec only\n\n' +
+'The skill automatically:\n' +
+'· Reads product indexes + targeted spec sections only (token-efficient — no full file reads)\n' +
+'· Loads mui-design to verify component names and token references are MUI-consistent\n' +
+'· If Figma URLs are provided: runs figma-generate-library (Discovery Only) per product\n' +
+'  to anchor component mapping in Figma reality, not just spec text\n' +
+'· Compares copy, components, interactions, and guideline alignment across all products\n' +
+'· Flags components appearing inline in 3+ products as 🔼 global promotion candidates\n' +
+'· Surfaces per-product custom behaviour, active conflicts, and undocumented gaps\n\n' +
+'Output: coverage snapshot → promotion candidates → per-product differences → conflicts → actions\n\n' +
+'If promotion candidates are found:\n' +
+'· Offers to hand off directly to /promote-to-global — reply with the component name to start'
     },
     {
       section: 'Promote',
       icon: 'ti-arrow-up-circle',
       title: 'Promote a component to global level',
-      desc: 'Check for conflicts, assess product impact, then promote with changelog',
+      desc: 'Pre-flight conflict check, product impact assessment, then promote with changelog',
       body:
 'Run /promote-to-global to promote [Component Name] from [Product Name] › [Feature Name] to the Global shared library.\n\n' +
-'The skill will:\n' +
-'· Locate the component in the source spec\n' +
-'· Check /global/foundations/ and /global/components/ for conflicts or duplicates\n' +
-'· Assess how many products already use or would be affected\n' +
-'· Pause for your confirmation — blocked items must be cleared first\n' +
-'· On confirmation:\n' +
-'  - Write the global spec (foundations/ or components/)\n' +
-'  - Update the source product spec to reference global — no duplication\n' +
-'  - Patch any other affected product specs with a reference note\n' +
-'  - Add a site changelog entry automatically'
+'Figma URL: [URL]   ← optional; if provided, used to verify the component definition\n\n' +
+'── PHASE 1: PRE-FLIGHT (read-only) ──────────────────────────\n' +
+'Reads first, never writes. The skill will:\n' +
+'· Locate the component definition in the source spec\n' +
+'· Scan /global/foundations/ and /global/components/ for conflicts or duplicates\n' +
+'· Assess impact across all 7 products (defines / references / unaffected)\n' +
+'· If Figma URL provided: runs figma-generate-library (Discovery Only) to verify\n' +
+'  the component definition matches what is actually in the Figma file\n' +
+'· Recommend target: foundations/ or components/\n' +
+'· Output a conflict + impact report, then wait for your confirmation\n' +
+'  🔴 Blocked items must be resolved before proceeding\n\n' +
+'── PHASE 2: PROMOTION (only after "confirm") ────────────────\n' +
+'· Writes /global/[target]/[slug].html + .md (generalised, no product-specific copy)\n' +
+'· Surgical update to source spec — inline definition → reference link, no content removed\n' +
+'· Patches all affected product specs with reference notes\n' +
+'· If Figma URL provided: runs figma-create-design-system-rules to update product\n' +
+'  config files — replaces inline rules with references to the new global component\n' +
+'· Updates /global/_index coverage table\n' +
+'· Adds entries to /global/changelog.html and /changelog.html automatically'
     },
     {
       section: 'Test',
@@ -446,10 +480,14 @@
 '⚠ Run this in the ux-library-staging repo, not ux-library-main.\n\n' +
 'Run /run-skill-tests to start an interactive skill QA session.\n\n' +
 'Available test scenarios:\n' +
-'  1. Setup Product          — /setup-product\n' +
-'  2. Document Feature Spec  — /document-feature-spec\n' +
-'  3. Add Platform Delta     — /add-platform-delta\n' +
-'  4. Audit Figma against spec — /audit-figma\n\n' +
+'  1. Setup Product                 — /setup-product\n' +
+'  2. Document Feature Spec         — /document-feature-spec\n' +
+'  3. Add Platform Delta            — /add-platform-delta\n' +
+'  4. Audit Figma against spec      — /audit-figma\n' +
+'  5. Cross-product consistency     — /cross-product-check\n' +
+'  6. Promote to global             — /promote-to-global\n' +
+'  7. Build Figma design system     — /figma-generate-library\n' +
+'  8. Generate design system rules  — /figma-create-design-system-rules\n\n' +
 'The skill will:\n' +
 '  · Ask which scenario(s) to run\n' +
 '  · Collect test variables (product name, Figma URLs, etc.)\n' +

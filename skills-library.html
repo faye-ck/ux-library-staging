@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills Library — ux-library</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .sk-section-label {
+      font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #777; margin: 28px 0 10px;
+    }
+    .sk-grid {
+      display: flex; flex-direction: column; gap: 0;
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .sk-row {
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      gap: 0 16px;
+      align-items: center;
+      padding: 12px 18px;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .sk-row:last-child { border-bottom: none; }
+    .sk-name {
+      font-family: var(--mono); font-size: 12px; font-weight: 500;
+      color: var(--teal-dark);
+    }
+    .sk-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .sk-desc code {
+      font-family: var(--mono); font-size: 11px; color: var(--teal-dark);
+      background: var(--bg); padding: 1px 4px; border-radius: 3px;
+      border: 0.5px solid var(--border);
+    }
+    .sk-actions { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+    .sk-dl {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--mono); font-size: 10px; font-weight: 500;
+      padding: 4px 10px; border-radius: 20px; text-decoration: none;
+      white-space: nowrap;
+      border: 0.5px solid;
+      transition: opacity 0.1s;
+    }
+    .sk-dl:hover { opacity: 0.75; }
+    .sk-dl-md {
+      color: var(--teal-dark); background: var(--teal-light);
+      border-color: rgba(25,118,210,0.25);
+    }
+    .sk-dl-zip {
+      color: #5a3e91; background: #f3eeff;
+      border-color: rgba(90,62,145,0.25);
+    }
+    .sk-dl i { font-size: 11px; }
+    .sk-tag {
+      font-family: var(--mono); font-size: 9px; font-weight: 600;
+      padding: 2px 6px; border-radius: 20px; text-transform: uppercase;
+      letter-spacing: 0.05em; white-space: nowrap;
+    }
+    .sk-tag-figma { background: #fdf3ff; color: #8b2fc9; border: 0.5px solid rgba(139,47,201,0.2); }
+    .sk-tag-mui   { background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid rgba(25,118,210,0.2); }
+    .sk-tag-doc   { background: #f0faf4; color: var(--green); border: 0.5px solid rgba(26,122,71,0.2); }
+    .sk-tag-util  { background: var(--bg); color: var(--muted); border: 0.5px solid var(--border); }
+    .sk-includes {
+      font-family: var(--mono); font-size: 10px; color: var(--muted-light);
+      margin-top: 3px;
+    }
+
+    /* intro description */
+    .sk-intro { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 620px; margin-bottom: 4px; }
+    .sk-intro code {
+      font-family: var(--mono); font-size: 11px; color: var(--teal-dark);
+      background: var(--bg); padding: 1px 4px; border-radius: 3px;
+      border: 0.5px solid var(--border);
+    }
+
+    @media (max-width: 760px) {
+      .sk-row { grid-template-columns: 1fr; gap: 6px; }
+      .sk-actions { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1><a href="index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+
+<div class="layout"><nav class="sidebar"></nav>
+<main>
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="breadcrumb-sep">/</span>
+    <span>Skills Library</span>
+  </div>
+  <div class="page-header">
+    <h2><span class="icon"><i class="ti ti-wand"></i></span> Skills Library</h2>
+    <p>Claude Code slash commands for ux-library workflow. Install by dropping <code>.claude/</code> contents into your project root. Skills with references or scripts are bundled as a zip — unzip directly into your project.</p>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- ── Figma Skills ── -->
+  <div class="sk-section-label">Figma Skills</div>
+  <div class="sk-grid">
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/figma-use</div>
+        <div class="sk-includes">command + 11 refs + working-with-design-systems/</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          <strong>Mandatory prerequisite</strong> — load before every <code>use_figma</code> call. Covers Plugin API rules: return pattern, page reset, color range (0–1), font loading, fill/stroke mutation, error recovery, and the full pre-flight checklist.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-figma">Figma</span>
+        <a class="sk-dl sk-dl-zip" href="skills-downloads/figma-use.zip" download>
+          <i class="ti ti-download"></i> .zip
+        </a>
+      </div>
+    </div>
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/figma-generate-library</div>
+        <div class="sk-includes">command + 7 refs + 9 scripts</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          Design system builder — orchestrates 20–100+ <code>use_figma</code> calls across 4 phases (Discovery → Foundations → File Structure → Components). Includes phase workflow, token architecture, naming conventions, and reusable helper scripts.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-figma">Figma</span>
+        <a class="sk-dl sk-dl-zip" href="skills-downloads/figma-generate-library.zip" download>
+          <i class="ti ti-download"></i> .zip
+        </a>
+      </div>
+    </div>
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/figma-create-design-system-rules</div>
+        <div class="sk-includes">command + rule-template.md</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          Generates project-specific design system rules for <code>CLAUDE.md</code>, <code>AGENTS.md</code>, or Cursor <code>.mdc</code>. Analyzes the codebase and produces rules encoding component location, styling approach, token usage, and Figma-to-code workflow.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-figma">Figma</span>
+        <a class="sk-dl sk-dl-zip" href="skills-downloads/figma-create-design-system-rules.zip" download>
+          <i class="ti ti-download"></i> .zip
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── MUI Design ── -->
+  <div class="sk-section-label">Design System</div>
+  <div class="sk-grid">
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/mui-design</div>
+        <div class="sk-includes">command only</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          MUI design system foundations — full component catalog (39 components across 6 categories), theme token system (palette, typography, spacing, shape, breakpoints, z-index, transitions, shadows), Figma-to-MUI token mapping, component design rules, and spec-writing conventions for the Global section.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-mui">MUI</span>
+        <a class="sk-dl sk-dl-md" href=".claude/commands/mui-design.md" download>
+          <i class="ti ti-download"></i> .md
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Documentation Skills ── -->
+  <div class="sk-section-label">Documentation</div>
+  <div class="sk-grid">
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/document-feature-spec</div>
+        <div class="sk-includes">command only</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          Generates a complete <code>feature.md</code> + <code>feature.html</code> spec from a Figma frame URL. Reads product config files, maps tokens and copy, documents all states and components, and updates the coverage table, changelog, and sitemap.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-doc">Docs</span>
+        <a class="sk-dl sk-dl-md" href=".claude/commands/document-feature-spec.md" download>
+          <i class="ti ti-download"></i> .md
+        </a>
+      </div>
+    </div>
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/add-platform-delta</div>
+        <div class="sk-includes">command only</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          Documents a platform-specific delta on top of an existing feature spec. Produces <code>mobile-web.md</code>, <code>mobile-app.md</code>, <code>admin-portal.md</code>, etc. with only the differences from the base feature.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-doc">Docs</span>
+        <a class="sk-dl sk-dl-md" href=".claude/commands/add-platform-delta.md" download>
+          <i class="ti ti-download"></i> .md
+        </a>
+      </div>
+    </div>
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/audit-figma</div>
+        <div class="sk-includes">command only</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          Audits a Figma file against ux-library specs. Compares copy, states, components, and platform rules. Outputs a prioritised findings report (Critical / Moderate / Minor) with actionable fix instructions.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-doc">Docs</span>
+        <a class="sk-dl sk-dl-md" href=".claude/commands/audit-figma.md" download>
+          <i class="ti ti-download"></i> .md
+        </a>
+      </div>
+    </div>
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/cross-product-check</div>
+        <div class="sk-includes">command only</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          Compares a UX pattern across two or more products. Identifies global promotion candidates, per-product differences, conflicts, and documentation gaps. Token-efficient — reads index files and targeted sections only.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-doc">Docs</span>
+        <a class="sk-dl sk-dl-md" href=".claude/commands/cross-product-check.md" download>
+          <i class="ti ti-download"></i> .md
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Workflow Skills ── -->
+  <div class="sk-section-label">Workflow</div>
+  <div class="sk-grid">
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/setup-product</div>
+        <div class="sk-includes">command only</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          Scaffolds a new product section in ux-library — creates the <code>_index</code>, <code>config/</code>, and <code>changelog</code> files, updates the nav, and adds the product to the sitemap.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-util">Util</span>
+        <a class="sk-dl sk-dl-md" href=".claude/commands/setup-product.md" download>
+          <i class="ti ti-download"></i> .md
+        </a>
+      </div>
+    </div>
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/promote-to-global</div>
+        <div class="sk-includes">command only</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          Promotes a component or pattern from a product spec to <code>/global/</code>. Validates that the pattern is used in 3+ products, creates the global page, and updates all affected product specs to reference it.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-util">Util</span>
+        <a class="sk-dl sk-dl-md" href=".claude/commands/promote-to-global.md" download>
+          <i class="ti ti-download"></i> .md
+        </a>
+      </div>
+    </div>
+
+    <div class="sk-row">
+      <div>
+        <div class="sk-name">/run-skill-tests</div>
+        <div class="sk-includes">command only</div>
+      </div>
+      <div>
+        <div class="sk-desc">
+          Runs a self-test suite against the active skills to verify they are functioning correctly. Checks that required files exist, references resolve, and the skill descriptions match their behavior.
+        </div>
+      </div>
+      <div class="sk-actions">
+        <span class="sk-tag sk-tag-util">Util</span>
+        <a class="sk-dl sk-dl-md" href=".claude/commands/run-skill-tests.md" download>
+          <i class="ti ti-download"></i> .md
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main></div>
+<script src="nav.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Number Field — Components — UX Library</title>
+  <title>Bottom Navigation — Components — ux-library</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
     .md-content { max-width: 720px; }
@@ -25,61 +25,72 @@
 </head>
 <body>
 <header class="site-header">
-  <h1><a href="../index.html"><div class="logo-dot"></div>UX Library</a></h1>
-  <span class="version-badge">v2.0</span>
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.1</span>
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
   <nav class="sidebar"></nav>
   <main>
-    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Number Field</span></div>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Bottom Navigation</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-123"></i></span> Number Field</h2>
-      <p>Numeric input with stepper controls and optional min/max/step constraints.</p>
+      <h2><span class="icon"><i class="ti ti-layout-bottombar"></i></span> Bottom Navigation</h2>
+      <p>Mobile primary navigation bar fixed to the bottom of the screen. Replaces the side drawer on small screens when there are 3–5 top-level sections.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
+      <span class="cat-badge">Navigation</span>
 
-      <span class="cat-badge">Inputs</span>
+      <div class="info-box">MUI composition: <code>BottomNavigation</code> + <code>BottomNavigationAction</code>. Each action requires a <code>label</code> and <code>icon</code>. The bar sits at <code>z-index: appBar (1100)</code> and is typically placed inside the Nav Shell on mobile breakpoints.</div>
 
       <h2 class="md-h2">Quick Reference</h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
         <div>
-          <h3 class="md-h3">Variants</h3>
-          <table class="token-table"><tbody><tr><td>Outlined</td></tr><tr><td>Filled</td></tr><tr><td>Standard</td></tr></tbody></table>
+          <h3 class="md-h3">Item Count</h3>
+          <table class="token-table">
+            <tbody>
+              <tr><td><strong>Minimum:</strong> 3 items</td></tr>
+              <tr><td><strong>Maximum:</strong> 5 items</td></tr>
+              <tr><td>2 items → use Tabs instead</td></tr>
+            </tbody>
+          </table>
         </div>
         <div>
-          <h3 class="md-h3">Sizes</h3>
-          <table class="token-table"><tbody><tr><td>Small</td></tr><tr><td>Medium</td></tr></tbody></table>
+          <h3 class="md-h3">States per Action</h3>
+          <table class="token-table">
+            <tbody>
+              <tr><td>Inactive (icon + label)</td></tr>
+              <tr><td>Active / selected (color: primary.main)</td></tr>
+              <tr><td>Disabled</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
-        <div>
-          <h3 class="md-h3">States</h3>
-          <table class="token-table"><tbody><tr><td>Default</td></tr><tr><td>Focused</td></tr><tr><td>Disabled</td></tr><tr><td>Error</td></tr></tbody></table>
-        </div>
-        <div>
-          <h3 class="md-h3">Colors</h3>
-          <table class="token-table"><tbody><tr><td>Primary</td></tr><tr><td>Secondary</td></tr></tbody></table>
-        </div>
-      </div>
-
-      <hr class="md-hr">
 
       <h2 class="md-h2">Key Options</h2>
-      <ul><li>Min / max / step constraints</li><li>Increment and decrement buttons (stepper)</li><li>Helper text and error message</li><li>Adornments — prefix unit, suffix label</li></ul>
-
-      <hr class="md-hr">
+      <table class="token-table">
+        <thead><tr><th>Prop</th><th>Values / Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>showLabels</code></td><td>Always show labels regardless of selection state (recommended)</td></tr>
+          <tr><td><code>value</code> / <code>onChange</code></td><td>Controlled selection state</td></tr>
+          <tr><td>Fixed bottom position</td><td>Use <code>position: fixed; bottom: 0</code> or MUI's BottomNavigation with Paper elevation</td></tr>
+        </tbody>
+      </table>
 
       <h2 class="md-h2">Common Use Cases</h2>
-      <ul><li>Quantity selectors</li><li>Age / year fields</li><li>Price or measurement input</li><li>Settings with numeric values</li></ul>
+      <ul>
+        <li>Mobile Web primary navigation (replaces drawer below sm breakpoint)</li>
+        <li>Mobile App primary sections (Home, Search, Notifications, Profile)</li>
+      </ul>
+
+      <h2 class="md-h2">Product Variations</h2>
+      <ul>
+        <li><strong>Mobile Web:</strong> 4 primary sections — exact labels defined in product <code>_layout.md</code></li>
+        <li><strong>Not used on desktop</strong> — drawer takes over at md breakpoint</li>
+      </ul>
 
       <hr class="md-hr">
-
-      <div class="info-box">
-        <strong>Customization:</strong> Visual styling and theme overrides belong in the product's <code>_theme.md</code>. Component-level variants and usage rules specific to a product belong in <code>_components.md</code>.
-      </div>
-
+      <div class="info-box"><strong>Customization:</strong> Visual styling and theme overrides belong in the product's <code>_theme.md</code>. Component-level variants and usage rules specific to a product belong in <code>_components.md</code>.</div>
     </div>
   </main>
 </div>

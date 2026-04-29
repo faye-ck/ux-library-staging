@@ -1,11 +1,11 @@
 ---
 name: add-platform-delta
-description: Document a platform delta for the Colorkrew UX Library by comparing a baseline platform and a delta platform, and writing only what differs. Use this skill whenever a designer says "add a platform delta", "document mobile differences", "how does this differ on mobile", "write a delta for", or provides URLs for the same feature on different platforms. Also triggers when asked to create or populate a mobile-web.html, mobile-app.html, admin-portal.html, room-signage.html, or email.html file in the UX library. Requires Figma MCP to be connected.
+description: Document a platform delta for the ux-library by comparing a baseline platform and a delta platform, and writing only what differs. Use this skill whenever a designer says "add a platform delta", "document mobile differences", "how does this differ on mobile", "write a delta for", or provides URLs for the same feature on different platforms. Also triggers when asked to create or populate a mobile-web.html, mobile-app.html, admin-portal.html, room-signage.html, or email.html file in the UX library. Requires Figma MCP to be connected.
 ---
 
 # Add Platform Delta
 
-Generates a platform delta `.md` (AI-facing) and `.html` (designer-facing) for the Colorkrew UX Library by comparing a baseline platform against a delta platform, writing only what differs. Primary source for each platform is a Figma frame; ClickUp or other spec URLs can be provided as supplementary context. If no meaningful differences exist, reports that no delta file is needed. See `CLAUDE.md` at the library root for format rules.
+Generates a platform delta `.md` (AI-facing) and `.html` (designer-facing) for the ux-library by comparing a baseline platform against a delta platform, writing only what differs. Primary source for each platform is a Figma frame; ClickUp or other spec URLs can be provided as supplementary context. If no meaningful differences exist, reports that no delta file is needed. See `CLAUDE.md` at the library root for format rules.
 
 ## Inputs required
 
@@ -28,6 +28,10 @@ Also check: does the baseline spec already exist at `/[product]/[feature-slug]/f
 ---
 
 ## Step 1 — Process provided URLs for both platforms
+
+**Load the `figma-use` skill before any Figma MCP call.** It is a mandatory prerequisite. Also load `mui-design` to map fills/styles to MUI tokens during extraction.
+
+**Run `figma-generate-library` Section 11a (ux-library Documentation Mode — Discovery Only) on the delta platform Figma URL.** This produces a structured MUI component inventory and token mapping for the delta frame. Use the output when writing the delta's "Components Used" and "Color Tokens Used" sections — only documenting components and tokens that differ from the baseline. Do not run Section 11a again on the baseline URL if the baseline spec already exists and was generated using this workflow.
 
 For each platform (baseline and delta), handle each provided URL by type:
 
@@ -108,6 +112,31 @@ Compare baseline vs delta across these dimensions:
 - Email rendering constraints (no JS, limited CSS, plain-text fallback)
 - Kiosk/display context (Room Signage — touch-only, auto-reset, minimal interaction)
 - Screen size or orientation assumptions
+
+---
+
+## Step 3.5 — Capture platform-specific design rules
+
+Run `figma-create-design-system-rules` in **ux-library Mode** on the delta platform Figma frames.
+
+Identify design patterns in the delta that either:
+- Override a global or product-wide rule specifically for this platform
+- Introduce constraints or adaptations unique to this platform (touch targets, email rendering, kiosk context, etc.)
+- Use MUI component variants or token values that differ from the baseline
+
+For each custom pattern found:
+
+- **Platform-wide rules** (e.g. "on Mobile Web, all Buttons use `size="large"` for touch targets") → write to `/[product]/config/_guidelines.md` using the rule format:
+  ```
+  ## [Component or Pattern] — [YYYY-MM-DD]
+  Context: [product] [delta-platform]
+  - [Actionable rule referencing MUI token/component names]
+    Figma source: [Figma component or frame name]
+  ```
+- **Feature + platform rules** (scoped to this feature on this platform only) → append a "Platform Design Rules" section to `[platform-slug].md` and `[platform-slug].html`.
+- **Already documented globally or in baseline** → no output needed.
+
+If no platform-specific rules are found, note "No platform-specific design rules found" in the conversation summary.
 
 ---
 

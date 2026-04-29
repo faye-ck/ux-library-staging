@@ -3,36 +3,124 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nav Shell — UX Library</title>
+  <title>Nav Shell — Components — ux-library</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
     .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
     .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
     .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .cat-badge { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid rgba(25,118,210,0.25); margin-bottom: 10px; }
+    .info-box { background: var(--bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 12px; color: #555; line-height: 1.65; margin: 12px 0 20px; }
+    .info-box code { font-family: var(--mono); background: var(--surface); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
   </style>
 </head>
 <body>
 <header class="site-header">
-  <h1><a href="../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
   <span class="version-badge">v2.0</span>
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
-  <nav class="sidebar">
-  </nav>
+  <nav class="sidebar"></nav>
   <main>
     <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Nav Shell</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-puzzle"></i></span> Nav Shell</h2>
-      <p>Top nav, sidebar, and mobile nav shell — shared structure across portals.</p>
+      <h2><span class="icon"><i class="ti ti-layout-sidebar"></i></span> Nav Shell</h2>
+      <p>The application navigation frame shared across all Colorkrew portals — composed of <code>AppBar</code> + <code>Drawer</code>. Defines where global nav, product nav, user actions, and content live at every breakpoint.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <span class="cat-badge">Navigation</span>
+
+      <div class="info-box">
+        <strong>MUI composition:</strong> Nav Shell = <code>AppBar</code> + <code>Toolbar</code> (top bar) + <code>Drawer</code> (side panel). The <code>AppBar</code> position is <code>fixed</code>; body content has top padding equal to the toolbar height. Drawer variant depends on breakpoint.
+      </div>
+
+      <h2 class="md-h2">Quick Reference</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+        <div>
+          <h3 class="md-h3">Drawer variants</h3>
+          <table class="token-table"><tbody>
+            <tr><td>Persistent (desktop — always visible)</td></tr>
+            <tr><td>Temporary (mobile — overlays content)</td></tr>
+            <tr><td>Mini (collapsed to icon-only rail)</td></tr>
+          </tbody></table>
+        </div>
+        <div>
+          <h3 class="md-h3">States</h3>
+          <table class="token-table"><tbody>
+            <tr><td>Expanded (full label + icon)</td></tr>
+            <tr><td>Collapsed / mini rail</td></tr>
+            <tr><td>Mobile drawer open</td></tr>
+            <tr><td>Mobile drawer closed</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Layout zones</h2>
+      <table class="token-table">
+        <thead><tr><th>Zone</th><th>Component</th><th>Content</th></tr></thead>
+        <tbody>
+          <tr><td>Top bar</td><td><code>AppBar</code> + <code>Toolbar</code></td><td>Product logo/wordmark, global search (optional), user avatar menu, notifications icon</td></tr>
+          <tr><td>Side nav</td><td><code>Drawer</code> + <code>List</code></td><td>Product section links, active state indicator, nested sub-items (max 2 levels)</td></tr>
+          <tr><td>Content area</td><td><code>Box</code> / <code>Container</code></td><td>Page content. Offset by drawer width on desktop, full-width on mobile.</td></tr>
+          <tr><td>Mobile toggle</td><td><code>IconButton</code> in <code>Toolbar</code></td><td>Hamburger — opens temporary Drawer on mobile</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Breakpoint behaviour</h2>
+      <table class="token-table">
+        <thead><tr><th>Breakpoint</th><th>Drawer</th><th>Top bar</th></tr></thead>
+        <tbody>
+          <tr><td><code>xs – sm</code> (&lt; 600px)</td><td>Hidden; hamburger toggles temporary overlay</td><td>Logo + hamburger + avatar</td></tr>
+          <tr><td><code>md</code> (900px+)</td><td>Persistent, collapsible to mini rail</td><td>Full toolbar with search</td></tr>
+          <tr><td><code>lg</code> (1200px+)</td><td>Persistent, expanded by default</td><td>Full toolbar</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Key Options</h2>
+      <ul>
+        <li>Drawer width — product-defined in <code>_theme.md</code> (typically 240–280px expanded, 56–72px mini)</li>
+        <li>Drawer collapse — persistent drawer can collapse to icon-rail; state persisted in <code>localStorage</code></li>
+        <li>Active nav item — use <code>selected</code> prop on <code>ListItemButton</code>; match on current route</li>
+        <li>Nested nav items — one level of collapsible sub-items allowed; second level must be a separate page nav</li>
+        <li>User avatar menu — <code>Menu</code> anchored to avatar; contains Profile, Settings, Sign out</li>
+        <li>Top bar elevation — <code>AppBar elevation={0}</code> with border-bottom is the Colorkrew default (flat style)</li>
+        <li>Mobile swipe — Drawer <code>onClose</code> handles backdrop tap and swipe-to-close on mobile</li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Product variations</h2>
+      <ul>
+        <li><strong>Biz portal</strong> — persistent left drawer with product switcher at top; mini-rail default on md</li>
+        <li><strong>Mobile Web</strong> — top bar only; bottom navigation replaces drawer for primary sections</li>
+        <li><strong>Admin Portal</strong> — full persistent drawer; secondary admin sections in a nested list</li>
+        <li><strong>CKID / Intra</strong> — same shell structure; brand color applied to AppBar via <code>_theme.md</code></li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <div class="info-box">
+        <strong>Customization:</strong> Drawer width, AppBar background color, and mini-rail behavior are product-specific and belong in <code>_theme.md</code>. Nav item structure (links, labels, nesting) belongs in <code>_layout.md</code> for each product. This page documents the shared shell pattern only.
+      </div>
+
     </div>
   </main>
 </div>

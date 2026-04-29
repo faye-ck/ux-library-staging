@@ -3,21 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Global — Overview — UX Library</title>
+  <title>Global — Overview — ux-library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
     .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
     .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
     .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table td:first-child { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); white-space: nowrap; }
   </style>
 </head>
 <body>
 <header class="site-header">
-  <h1><a href="../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <h1><a href="../index.html"><div class="logo-dot"></div>ux-library</a></h1>
   <span class="version-badge">v2.0</span>
   <div class="header-spacer"></div>
 </header>
@@ -27,11 +33,44 @@
     <div class="breadcrumb"><a href="../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Global</span></div>
     <div class="page-header">
       <h2><span class="icon"><i class="ti ti-world"></i></span> Global — Overview</h2>
-      <p>Shared foundations, components, and data conventions used across all products.</p>
+      <p>Shared foundations, components, data conventions, and layout patterns used across all Colorkrew products. Everything here is the single source of truth — product specs reference global, they do not duplicate it.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">What lives here</h2>
+      <table class="token-table">
+        <thead><tr><th>Section</th><th>Contents</th></tr></thead>
+        <tbody>
+          <tr><td>Foundations</td><td>Color system, typography, spacing, elevation, breakpoints, motion, iconography, accessibility, error patterns, empty states, loading states — 11 pages</td></tr>
+          <tr><td>Components</td><td>MUI v7 component catalog expanded to 47 components across 6 categories (Inputs, Data Display, Feedback, Surfaces, Navigation, Utilities) plus Colorkrew composite patterns (Nav Shell, Toast, Data Viz Primitives, Form Validation)</td></tr>
+          <tr><td>Data</td><td>Cross-product data type definitions and display conventions. Currently: Entity Type.</td></tr>
+          <tr><td>Layout</td><td>Grid system, breakpoints, page structure, and spacing conventions shared across portals.</td></tr>
+          <tr><td>Config</td><td>Global guidelines (<code>_guidelines.md</code>) and approved terminology (<code>_glossary.md</code>) — the baseline every product overrides from.</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Design system foundation</h2>
+      <p>Global is built on MUI v7 (Material UI). All component documentation uses MUI's token system — <code>palette.*</code>, <code>typography.*</code>, <code>spacing(n)</code>, <code>shape.borderRadius</code>, <code>shadows[n]</code> — rather than hardcoded values. Product-level overrides are documented in each product's <code>_theme.md</code> and <code>_components.md</code>, not here.</p>
+      <p>The <code>mui-design</code> Claude Code skill encodes all Global section rules for AI-assisted documentation. Load it when writing or reviewing any global page.</p>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">How products use Global</h2>
+      <ul>
+        <li><strong>Foundations</strong> — products inherit global foundations and document overrides in <code>_theme.md</code>. If a product uses a different font or brand color, it lives in <code>_theme.md</code>, not as a fork of this page.</li>
+        <li><strong>Components</strong> — product specs reference the global component page as the source. If a product customizes a component (e.g. a custom button variant), the customization is in <code>_components.md</code> and references this page for the base.</li>
+        <li><strong>Guidelines &amp; Glossary</strong> — <code>global/_guidelines.md</code> is the baseline. Each product's <code>config/_guidelines.md</code> extends or overrides it. If a product-level rule contradicts a global rule, it is intentional and must be explicitly noted.</li>
+        <li><strong>Promotion</strong> — when a pattern appears inline in 3+ product specs, run <code>/promote-to-global</code> to move it here. The skill handles the move and updates all affected product references.</li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Versioning</h2>
+      <p>Global section changes are tracked in the <a href="changelog.html" style="color:var(--teal-dark); text-decoration:none; border-bottom:0.5px solid var(--border);">Global Changelog</a>. Site-wide structural changes (nav, skills, new sections) are in the <a href="../changelog.html" style="color:var(--teal-dark); text-decoration:none; border-bottom:0.5px solid var(--border);">Site Changelog</a>.</p>
+
     </div>
   </main>
 </div>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sitemap (Test) — ux-library</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .sm-wrap { max-width: 860px; }
+    .sm-section { margin-bottom: 36px; }
+    .sm-section-title { font-family: var(--mono); font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #777; padding: 0 0 6px; border-bottom: 0.5px solid var(--border); margin-bottom: 4px; }
+    .sm-folder { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--text); padding: 10px 0 4px; }
+    .sm-folder i { color: var(--amber); font-size: 14px; }
+    .sm-folder.sm-indent1 { padding-left: 16px; }
+    .sm-rows { margin-bottom: 2px; }
+    .sm-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; padding: 3px 8px 3px 20px; border-radius: 4px; }
+    .sm-row:hover { background: var(--bg); }
+    .sm-row.sm-indent2 { padding-left: 36px; }
+    .sm-left { display: flex; align-items: center; gap: 7px; }
+    .sm-file { font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+    .sm-file a { color: var(--teal-dark); text-decoration: none; }
+    .sm-file a:hover { text-decoration: underline; }
+    .sm-file.sm-changelog a { color: var(--muted); }
+    .sm-md { font-family: var(--mono); font-size: 9px; color: var(--teal-dark); background: var(--teal-light); border: 0.5px solid rgba(25,118,210,0.2); padding: 1px 5px; border-radius: 4px; }
+    .sm-label { font-size: 11px; color: var(--muted); white-space: nowrap; text-align: right; }
+    .test-banner { background: #fffbe6; border: 0.5px solid #e6c700; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #7a5a00; margin-bottom: 24px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Sitemap (Test)</span>
+    </div>
+    <div class="page-header">
+      <h2>Sitemap — Test Sandbox</h2>
+      <p>Files generated during QA skill test runs. All paths are under <code>_test/</code>.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="sm-wrap">
+      <div class="test-banner">
+        🧪 <strong>Test sandbox sitemap.</strong> Generated on 2026-04-29 by a QA test run of <code>/document-feature-spec</code>.
+      </div>
+      <div class="sm-section">
+        <div class="sm-section-title">Workflows-Test (sandbox)</div>
+        <div class="sm-rows">
+          <div class="sm-row">
+            <div class="sm-left"><span class="sm-file"><a href="Workflows-Test/_index.html">_test/Workflows-Test/_index.html</a></span><span class="sm-md">+.md</span></div>
+            <span class="sm-label">Overview</span>
+          </div>
+          <div class="sm-row">
+            <div class="sm-left"><span class="sm-file sm-changelog"><a href="Workflows-Test/changelog.html">_test/Workflows-Test/changelog.html</a></span></div>
+            <span class="sm-label">Changelog</span>
+          </div>
+        </div>
+        <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>dashboard/</div>
+        <div class="sm-rows">
+          <div class="sm-row sm-indent2">
+            <div class="sm-left"><span class="sm-file"><a href="Workflows-Test/dashboard/feature.html">feature.html</a></span><span class="sm-md">+.md</span></div>
+            <span class="sm-label">Dashboard — Web Spec</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../nav.js"></script>
+</body>
+</html>

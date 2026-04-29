@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Icon Button — Components — ux-library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 720px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .cat-badge { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid rgba(25,118,210,0.25); margin-bottom: 10px; }
+    .info-box { background: var(--bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 12px; color: #555; line-height: 1.65; margin: 12px 0 20px; }
+    .info-box code { font-family: var(--mono); background: var(--surface); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .quick-ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 20px; }
+    .quick-ref-cell { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+    .quick-ref-cell .qr-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .quick-ref-cell .qr-value { font-size: 12px; color: #444; line-height: 1.6; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.1</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Icon Button</span></div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-square-rounded"></i></span> Icon Button</h2>
+      <p>Compact icon-only action button. Always pair with a Tooltip — the icon alone must never be the only affordance for an action.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="md-content">
+      <span class="cat-badge">Inputs</span>
+
+      <h2 class="md-h2">Quick Reference</h2>
+      <div class="quick-ref-grid">
+        <div class="quick-ref-cell">
+          <div class="qr-label">Sizes</div>
+          <div class="qr-value">Small (24px)<br>Medium (40px)<br>Large (48px)</div>
+        </div>
+        <div class="quick-ref-cell">
+          <div class="qr-label">States</div>
+          <div class="qr-value">Default<br>Hover<br>Focused<br>Disabled</div>
+        </div>
+        <div class="quick-ref-cell" style="grid-column: 1 / -1;">
+          <div class="qr-label">Colors</div>
+          <div class="qr-value">Default · Primary · Secondary · Error · Warning · Info · Success</div>
+        </div>
+      </div>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Key Options</h2>
+      <ul>
+        <li>Tooltip (required — always wrap with <code>Tooltip</code> for accessible label)</li>
+        <li>Edge prop: <code>start</code> / <code>end</code> (removes padding on that side for flush alignment)</li>
+        <li><code>disableRipple</code> (for icon-in-icon-button in custom surfaces)</li>
+      </ul>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Common Use Cases</h2>
+      <ul>
+        <li>Close / dismiss actions (Dialog, Drawer, Snackbar)</li>
+        <li>Toolbar actions (edit, delete, share)</li>
+        <li>Toggle actions (bookmark, favorite, expand)</li>
+        <li>Navigation controls (back, forward, open menu)</li>
+      </ul>
+
+      <hr class="md-hr" />
+
+      <div class="info-box">
+        Always pair with <code>&lt;Tooltip title="..."&gt;</code>. Never use an IconButton without a descriptive tooltip — icon meaning alone is insufficient for accessibility.
+      </div>
+
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid — Components — ux-library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 720px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .cat-badge { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid rgba(25,118,210,0.25); margin-bottom: 10px; }
+    .info-box { background: var(--bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 12px; color: #555; line-height: 1.65; margin: 12px 0 20px; }
+    .info-box code { font-family: var(--mono); background: var(--surface); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.1</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Grid</span></div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-layout-grid"></i></span> Grid</h2>
+      <p>12-column responsive grid for two-dimensional page layouts. Use Grid when content must respond to breakpoints with different column spans — cards, dashboards, form columns.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="md-content">
+      <span class="cat-badge">Utilities</span>
+
+      <div class="info-box"><strong>MUI composition:</strong> <code>Grid</code> v2 (MUI v7). Uses CSS flexbox with a 12-column base. Two roles: <code>container</code> (the row wrapper) and <code>item</code> (each column cell). Column spans are set per breakpoint using <code>xs</code>, <code>sm</code>, <code>md</code>, <code>lg</code>, <code>xl</code> props.</div>
+
+      <h2 class="md-h2">Column Spans</h2>
+      <table class="token-table">
+        <thead>
+          <tr><th>Pattern</th><th>xs</th><th>sm</th><th>md</th><th>lg</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Full width</td><td>12</td><td>12</td><td>12</td><td>12</td></tr>
+          <tr><td>Half / two-column</td><td>12</td><td>12</td><td>6</td><td>6</td></tr>
+          <tr><td>Third / three-column</td><td>12</td><td>6</td><td>4</td><td>4</td></tr>
+          <tr><td>Quarter / four-column</td><td>12</td><td>6</td><td>3</td><td>3</td></tr>
+          <tr><td>Sidebar + main</td><td>12</td><td>12</td><td>3+9</td><td>3+9</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="md-h2">Key Props</h2>
+      <table class="token-table">
+        <thead>
+          <tr><th>Prop</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>container</code></td><td>Marks the Grid as a row container</td></tr>
+          <tr><td><code>item</code></td><td>Marks a Grid child as a column cell</td></tr>
+          <tr><td><code>xs</code> / <code>sm</code> / <code>md</code> / <code>lg</code> / <code>xl</code></td><td>Column span at each breakpoint (1–12 or <code>"auto"</code>)</td></tr>
+          <tr><td><code>spacing</code></td><td>Gap between items (<code>theme.spacing</code> multiplier)</td></tr>
+          <tr><td><code>columns</code></td><td>Override total column count (default: 12)</td></tr>
+          <tr><td><code>direction</code></td><td><code>row</code> / <code>column</code></td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="md-h2">Common Use Cases</h2>
+      <ul>
+        <li>Dashboard card layouts (3 or 4 columns desktop, 1 mobile)</li>
+        <li>Two-column forms (side-by-side fields on md+)</li>
+        <li>Article with sidebar layout</li>
+        <li>Product / feature listing grids</li>
+      </ul>
+
+      <h2 class="md-h2">When NOT to Use</h2>
+      <ul>
+        <li>Single-direction layouts → use Stack</li>
+        <li>Simple flex alignment → use Box with <code>sx</code></li>
+      </ul>
+
+      <hr class="md-hr">
+      <div class="info-box"><strong>Customization:</strong> Visual styling and theme overrides belong in the product's <code>_theme.md</code>. Component-level variants and usage rules specific to a product belong in <code>_components.md</code>.</div>
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

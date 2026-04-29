@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Figma Tips — UX Library</title>
-  <link rel="stylesheet" href="../styles.css" />
+  <title>Figma Tips — ux-library</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
     .ft-content { max-width: 720px; }
 
@@ -81,7 +81,7 @@
 </head>
 <body>
 <header class="site-header">
-  <h1><a href="../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <h1><a href="index.html"><div class="logo-dot"></div>ux-library</a></h1>
   <span class="version-badge">v2.0</span>
   <div class="header-spacer"></div>
 </header>
@@ -89,7 +89,7 @@
   <nav class="sidebar"></nav>
   <main>
     <div class="breadcrumb">
-      <a href="../index.html">Home</a>
+      <a href="index.html">Home</a>
       <span class="breadcrumb-sep">/</span>
       <span>Figma Tips</span>
     </div>
@@ -231,12 +231,12 @@
       <hr class="ft-hr" />
 
       <!-- ── SKILL REFERENCE ── -->
-      <div class="ft-h2">Skills that read Figma</div>
+      <div class="ft-h2">Skills that use Figma</div>
       <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:6px;">
-        The three core skills below all follow the four-step protocol. Download any skill file to read its full instructions.
+        Figma skills fall into two groups: skills that <em>read</em> Figma to generate documentation, and skills that <em>build</em> in Figma to create design systems. All of them require <code>figma-use</code> as a prerequisite.
       </p>
 
-      <div class="ft-h3">Core skills</div>
+      <div class="ft-h3">Core reading skills</div>
       <div class="ft-skills">
         <a class="ft-skill-link" href="/.claude/commands/document-feature-spec.md" download>
           <i class="ti ti-file-text"></i> /document-feature-spec
@@ -249,13 +249,13 @@
         </a>
       </div>
 
-      <div class="ft-h3" style="margin-top:18px;">figma-use — the reading engine</div>
+      <div class="ft-h3" style="margin-top:18px;">figma-use — the prerequisite skill</div>
       <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:10px;">
-        <code style="font-family:var(--mono); font-size:11px; color:var(--teal-dark); background:var(--bg); padding:1px 5px; border-radius:3px; border:0.5px solid var(--border);">figma-use.md</code> is the underlying reference skill that optimises how Claude reads Figma. It includes the full Plugin API reference, variable and component patterns, text and effect style guides, working-with-design-systems documentation, and a gotchas list. The core skills load it automatically — it's not invoked directly by designers.
+        <code style="font-family:var(--mono); font-size:11px; color:var(--teal-dark); background:var(--bg); padding:1px 5px; border-radius:3px; border:0.5px solid var(--border);">figma-use</code> is the mandatory prerequisite for every Figma skill — both reading and building. It provides the full Plugin API reference, variable and component patterns, color range rules (0–1), font loading, fill/stroke mutation, and a pre-flight checklist. Never call <code>use_figma</code> without loading this skill first.
       </p>
       <div class="ft-skills">
-        <a class="ft-skill-link" href="/.claude/commands/figma-use.md" download>
-          <i class="ti ti-book"></i> figma-use.md
+        <a class="ft-skill-link" href="/skills-downloads/figma-use.zip" download>
+          <i class="ti ti-download"></i> figma-use.zip
         </a>
         <a class="ft-skill-link" href="/.claude/figma-use/references/gotchas.md" download>
           <i class="ti ti-alert-triangle"></i> gotchas.md
@@ -263,14 +263,45 @@
         <a class="ft-skill-link" href="/.claude/figma-use/references/api-reference.md" download>
           <i class="ti ti-code"></i> api-reference.md
         </a>
-        <a class="ft-skill-link" href="/.claude/figma-use/references/working-with-design-systems/wwds.md" download>
-          <i class="ti ti-vector"></i> working-with-design-systems/
+      </div>
+
+      <hr class="ft-hr" />
+
+      <!-- ── BUILD SKILLS ── -->
+      <div class="ft-h2">Skills that build in Figma</div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:14px;">
+        These skills use <code>use_figma</code> to create or modify Figma files — tokens, components, pages, and structure. Load <code>figma-use</code> before running either of them.
+      </p>
+
+      <div class="ft-h3">Design system builder</div>
+      <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:10px;">
+        <code>/figma-generate-library</code> builds a professional-grade Figma design system from a codebase. Runs 4 phases: Discovery → Foundations → File Structure → Components. Orchestrates 20–100+ <code>use_figma</code> calls and supports incremental updates to existing files. Includes 7 reference docs and 9 reusable helper scripts.
+      </p>
+      <div class="ft-skills">
+        <a class="ft-skill-link" href="/skills-downloads/figma-generate-library.zip" download>
+          <i class="ti ti-download"></i> figma-generate-library.zip
         </a>
       </div>
+
+      <div class="ft-h3" style="margin-top:18px;">Project rules generator</div>
+      <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:10px;">
+        <code>/figma-create-design-system-rules</code> analyzes a codebase and generates project-specific design system rules for Claude Code <code>CLAUDE.md</code>, OpenAI Codex <code>AGENTS.md</code>, or Cursor <code>.mdc</code> files. Rules cover component location, token usage, and the Figma-to-code workflow for the active project.
+      </p>
+      <div class="ft-skills">
+        <a class="ft-skill-link" href="/skills-downloads/figma-create-design-system-rules.zip" download>
+          <i class="ti ti-download"></i> figma-create-design-system-rules.zip
+        </a>
+      </div>
+
+      <hr class="ft-hr" />
+
+      <p style="font-size:12px; color:var(--muted); line-height:1.6;">
+        All skills — with install instructions and download links — are on the <a href="/skills-library.html" style="color:var(--teal-dark); text-decoration:none; border-bottom: 0.5px solid var(--border);">Skills Library</a> page.
+      </p>
 
     </div>
   </main>
 </div>
-<script src="../nav.js"></script>
+<script src="nav.js"></script>
 </body>
 </html>

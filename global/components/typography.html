@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menu Bar — Components — UX Library</title>
+  <title>Typography — Components — ux-library</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
     .md-content { max-width: 720px; }
@@ -25,61 +25,79 @@
 </head>
 <body>
 <header class="site-header">
-  <h1><a href="../index.html"><div class="logo-dot"></div>UX Library</a></h1>
-  <span class="version-badge">v2.0</span>
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.1</span>
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
   <nav class="sidebar"></nav>
   <main>
-    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Menu Bar</span></div>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Typography</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-menu"></i></span> Menu Bar</h2>
-      <p>Horizontal application-level menu bar with nested menus — desktop-style navigation.</p>
+      <h2><span class="icon"><i class="ti ti-typography"></i></span> Typography</h2>
+      <p>The Typography component applies MUI's type scale to any text element. Maps directly to the typography tokens defined in Foundations — use the component to render text consistently across the product.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
+      <span class="cat-badge">Data Display</span>
 
-      <span class="cat-badge">Navigation</span>
+      <div class="info-box">
+        MUI composition: <code>Typography</code> renders a semantic HTML element (<code>h1</code>–<code>h6</code>, <code>p</code>, <code>span</code>) chosen via the <code>component</code> prop, styled to a type scale variant via the <code>variant</code> prop. The visual style and the semantic tag are independent.
+      </div>
 
       <h2 class="md-h2">Quick Reference</h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
         <div>
-          <h3 class="md-h3">Variants</h3>
-          <table class="token-table"><tbody><tr><td>Default</td></tr><tr><td>With keyboard shortcut hints</td></tr><tr><td>With checkbox/radio items</td></tr></tbody></table>
-        </div>
-        <div>
-          <h3 class="md-h3">Sizes</h3>
-          <table class="token-table"><tbody><tr><td>Full-width by default</td></tr></tbody></table>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
-        <div>
-          <h3 class="md-h3">States</h3>
-          <table class="token-table"><tbody><tr><td>Default</td></tr><tr><td>Open</td></tr><tr><td>Item focused</td></tr><tr><td>Item disabled</td></tr></tbody></table>
+          <h3 class="md-h3">Variants (map to HTML)</h3>
+          <table class="token-table"><tbody>
+            <tr><td>h1–h6 → heading tags</td></tr>
+            <tr><td>subtitle1, subtitle2 → h6 / span</td></tr>
+            <tr><td>body1, body2 → p</td></tr>
+            <tr><td>caption → span</td></tr>
+            <tr><td>overline → span (uppercase)</td></tr>
+            <tr><td>button → span (button label)</td></tr>
+          </tbody></table>
         </div>
         <div>
           <h3 class="md-h3">Colors</h3>
-          <table class="token-table"><tbody><tr><td>Default (surface background)</td></tr></tbody></table>
+          <table class="token-table"><tbody>
+            <tr><td>inherit (default)</td></tr>
+            <tr><td>primary (palette.text.primary)</td></tr>
+            <tr><td>secondary (palette.text.secondary)</td></tr>
+            <tr><td>disabled (palette.text.disabled)</td></tr>
+            <tr><td>error (palette.error.main)</td></tr>
+          </tbody></table>
         </div>
       </div>
 
-      <hr class="md-hr">
+      <hr class="md-hr" />
 
       <h2 class="md-h2">Key Options</h2>
-      <ul><li>Shortcut hints — keyboard shortcut labels</li><li>Checkbox items — toggleable menu entries</li><li>Radio group items — exclusive selection</li><li>Icon menu items</li><li>Group labels via subheaders</li></ul>
+      <ul>
+        <li><code>variant</code> — the type scale token</li>
+        <li><code>component</code> — the rendered HTML element (defaults vary by variant)</li>
+        <li><code>noWrap</code> — single-line with overflow ellipsis</li>
+        <li><code>gutterBottom</code> — adds bottom margin equal to 0.35em</li>
+        <li><code>paragraph</code> — renders as <code>&lt;p&gt;</code> with paragraph spacing</li>
+      </ul>
 
-      <hr class="md-hr">
+      <hr class="md-hr" />
 
       <h2 class="md-h2">Common Use Cases</h2>
-      <ul><li>Application-level navigation</li><li>Desktop-style toolbar menus</li><li>Feature menus with keyboard shortcuts</li></ul>
+      <ul>
+        <li>Page and section headings (h1–h4)</li>
+        <li>Card titles (<code>subtitle1</code>), card descriptions (<code>body2</code>)</li>
+        <li>Helper text and captions (<code>caption</code>)</li>
+        <li>Category / status labels (<code>overline</code>)</li>
+        <li>All body copy (<code>body1</code>)</li>
+      </ul>
+      <p>See Foundations → Typography for the full token scale and font specifications.</p>
 
-      <hr class="md-hr">
+      <hr class="md-hr" />
 
       <div class="info-box">
         <strong>Customization:</strong> Visual styling and theme overrides belong in the product's <code>_theme.md</code>. Component-level variants and usage rules specific to a product belong in <code>_components.md</code>.
       </div>
-
     </div>
   </main>
 </div>

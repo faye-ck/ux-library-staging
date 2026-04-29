@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stack — Components — ux-library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 720px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .cat-badge { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid rgba(25,118,210,0.25); margin-bottom: 10px; }
+    .info-box { background: var(--bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 12px; color: #555; line-height: 1.65; margin: 12px 0 20px; }
+    .info-box code { font-family: var(--mono); background: var(--surface); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .quick-ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0 20px; }
+    .quick-ref-box { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 14px; }
+    .quick-ref-box h4 { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin: 0 0 10px; }
+    .quick-ref-box ul { margin: 0; padding-left: 16px; }
+    .quick-ref-box ul li { font-size: 12px; color: #444; line-height: 1.65; margin-bottom: 3px; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.1</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Stack</span></div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-stack"></i></span> Stack</h2>
+      <p>One-dimensional flex layout with consistent spacing between children. Use Stack when you need a row or column of elements spaced using the MUI spacing scale.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="md-content">
+      <span class="cat-badge">Utilities</span>
+
+      <div class="info-box"><strong>MUI composition:</strong> <code>Stack</code> is a thin wrapper around CSS flexbox. The <code>spacing</code> prop maps directly to <code>theme.spacing()</code> — e.g., <code>spacing={2}</code> = 16px gap. No column spans or responsive breakpoints — use Grid for that.</div>
+
+      <h2 class="md-h2">Quick Reference</h2>
+      <div class="quick-ref-grid">
+        <div class="quick-ref-box">
+          <h4>Direction</h4>
+          <ul>
+            <li><code>row</code> (horizontal)</li>
+            <li><code>row-reverse</code></li>
+            <li><code>column</code> (vertical, default)</li>
+            <li><code>column-reverse</code></li>
+          </ul>
+        </div>
+        <div class="quick-ref-box">
+          <h4>Alignment (common)</h4>
+          <ul>
+            <li><code>alignItems</code>: flex-start / center / flex-end / stretch</li>
+            <li><code>justifyContent</code>: flex-start / center / space-between / flex-end</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2 class="md-h2">Key Props</h2>
+      <table class="token-table">
+        <thead>
+          <tr><th>Prop</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>direction</code></td><td><code>row</code> / <code>column</code> (default: <code>column</code>)</td></tr>
+          <tr><td><code>spacing</code></td><td>Gap between children (<code>theme.spacing</code> multiplier)</td></tr>
+          <tr><td><code>divider</code></td><td>Insert a Divider element between children</td></tr>
+          <tr><td><code>flexWrap</code></td><td>Allow wrapping (<code>nowrap</code> by default)</td></tr>
+          <tr><td><code>useFlexGap</code></td><td>Use CSS gap instead of margin (recommended for v7)</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="md-h2">Common Use Cases</h2>
+      <ul>
+        <li>Form field stacking (<code>column</code>, <code>spacing={2}</code>)</li>
+        <li>Button groups in a row (<code>row</code>, <code>spacing={1}</code>)</li>
+        <li>Icon + label inline pairs (<code>row</code>, <code>alignItems center</code>)</li>
+        <li>Action bars with space-between layout</li>
+      </ul>
+
+      <h2 class="md-h2">When NOT to Use</h2>
+      <ul>
+        <li>Two-dimensional layouts → use Grid</li>
+        <li>Irregular item sizes needing column spans → use Grid</li>
+      </ul>
+
+      <hr class="md-hr">
+      <div class="info-box"><strong>Customization:</strong> Visual styling and theme overrides belong in the product's <code>_theme.md</code>. Component-level variants and usage rules specific to a product belong in <code>_components.md</code>.</div>
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

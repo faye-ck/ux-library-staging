@@ -5,14 +5,31 @@ description: Compare a UX pattern or concept across multiple Colorkrew products 
 
 # Cross-Product Consistency Check
 
-Compares a named pattern or concept across two or more products in the UX Library. Outputs a structured report covering: what's shared (global promotion candidates), what's product-specific (intentional or inconsistent), and gaps. Designed to be token-efficient — reads index files and targeted sections only, not full specs.
+Compares a named pattern or concept across two or more products in ux-library. Outputs a structured report covering: what's shared (global promotion candidates), what's product-specific (intentional or inconsistent), and gaps. Designed to be token-efficient — reads index files and targeted sections only, not full specs.
 
 ## Inputs required
 
 - **Pattern** — what to compare, e.g. "Empty State", "Error Handling", "Navigation", "Search", "Approval Flow", "Notification"
 - **Products** — two or more of: biz, workflows, ckid, intra, files, updates, goals
+- **Figma URLs** *(optional, one per product)* — if provided, `figma-generate-library` Section 11a runs on each to produce an MUI-accurate component and token map, enriching the comparison beyond spec text alone. If not provided, the check runs entirely from spec `.md` files.
 
-If inputs are missing, ask for them before proceeding.
+If the required inputs (Pattern + Products) are missing, ask for them before proceeding. Figma URLs are optional and can be supplied mid-session.
+
+---
+
+## Step 0 — Figma enrichment (if URLs provided)
+
+If one or more Figma URLs were provided, run the following before reading any spec files:
+
+**Load `figma-use` first** — mandatory prerequisite for all Figma MCP calls.
+
+For each product that has a Figma URL: run `figma-generate-library` **Section 11a (ux-library Documentation Mode — Discovery Only)** on that URL. This produces:
+- An MUI component inventory: which MUI components are used, which variants, which categories
+- A token map: Figma style/fill → MUI token path
+
+Store each product's inventory. In Step 3, when comparing component usage and token alignment, use this Figma-derived data rather than relying solely on spec text. This catches drift between what is in the spec and what is actually in Figma — flag any meaningful discrepancy as an Open Item.
+
+If no Figma URLs were provided, skip this step and proceed to Step 1.
 
 ---
 
@@ -72,6 +89,7 @@ Build a comparison matrix across these five dimensions:
 - Same component (from `global/components/`) used everywhere, or product-specific variants?
 - Any product using an inline component that could be promoted?
 - **For each component found inline (not already in `global/components/`): count how many products define it inline.** If the count is ≥ 3, mark it with 🔼 and note the product list — these will be surfaced as promotion candidates in Step 5.
+- Load `mui-design` to verify component names, variant semantics, and token references are MUI-consistent across products.
 
 ### C. Interaction pattern
 - How does each product handle the same trigger? (e.g. error → retry CTA vs. error → toast vs. error → inline message)

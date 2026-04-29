@@ -14,16 +14,17 @@
         { label: 'Overview',  href: '/global/_index.html' },
         {
           label: 'Foundations', children: [
-            { label: 'Color System',           href: '/global/foundations/color-system.html' },
-            { label: 'Typography',             href: '/global/foundations/typography.html' },
-            { label: 'Spacing',                href: '/global/foundations/spacing.html' },
-            { label: 'Motion',                 href: '/global/foundations/motion.html' },
-            { label: 'Iconography',            href: '/global/foundations/iconography.html' },
-            { label: 'Accessibility',          href: '/global/foundations/accessibility.html' },
-            { label: 'Error Patterns',         href: '/global/foundations/error-patterns.html' },
-            { label: 'Empty States',           href: '/global/foundations/empty-states.html' },
-            { label: 'Loading States',         href: '/global/foundations/loading-states.html' },
-            { label: 'Notification Patterns',  href: '/global/foundations/notification-patterns.html' },
+            { label: 'Color System',   href: '/global/foundations/color-system.html' },
+            { label: 'Typography',     href: '/global/foundations/typography.html' },
+            { label: 'Spacing',        href: '/global/foundations/spacing.html' },
+            { label: 'Elevation',      href: '/global/foundations/elevation.html' },
+            { label: 'Breakpoints',    href: '/global/foundations/breakpoints.html' },
+            { label: 'Motion',         href: '/global/foundations/motion.html' },
+            { label: 'Iconography',    href: '/global/foundations/iconography.html' },
+            { label: 'Accessibility',  href: '/global/foundations/accessibility.html' },
+            { label: 'Error Patterns', href: '/global/foundations/error-patterns.html' },
+            { label: 'Empty States',   href: '/global/foundations/empty-states.html' },
+            { label: 'Loading States', href: '/global/foundations/loading-states.html' },
           ]
         },
         {
@@ -34,61 +35,76 @@
                 { label: 'Button',         href: '/global/components/button.html' },
                 { label: 'Button Group',   href: '/global/components/button-group.html' },
                 { label: 'Checkbox',       href: '/global/components/checkbox.html' },
+                { label: 'Date Calendar',  href: '/global/components/date-calendar.html' },
+                { label: 'Date Picker',    href: '/global/components/date-picker.html' },
                 { label: 'FAB',            href: '/global/components/fab.html' },
-                { label: 'Number Field',   href: '/global/components/number-field.html' },
+                { label: 'Icon Button',    href: '/global/components/icon-button.html' },
                 { label: 'Radio Group',    href: '/global/components/radio-group.html' },
+                { label: 'Rating',         href: '/global/components/rating.html' },
                 { label: 'Select',         href: '/global/components/select.html' },
                 { label: 'Slider',         href: '/global/components/slider.html' },
                 { label: 'Switch',         href: '/global/components/switch.html' },
                 { label: 'Text Field',     href: '/global/components/text-field.html' },
+                { label: 'Time Picker',    href: '/global/components/time-picker.html' },
                 { label: 'Toggle Button',  href: '/global/components/toggle-button.html' },
               ]
             },
             {
               label: 'Data Display', children: [
-                { label: 'Avatar',   href: '/global/components/avatar.html' },
-                { label: 'Badge',    href: '/global/components/badge.html' },
-                { label: 'Chip',     href: '/global/components/chip.html' },
-                { label: 'Divider',  href: '/global/components/divider.html' },
-                { label: 'List',     href: '/global/components/list.html' },
-                { label: 'Table',    href: '/global/components/table.html' },
-                { label: 'Tooltip',  href: '/global/components/tooltip.html' },
+                { label: 'Avatar',      href: '/global/components/avatar.html' },
+                { label: 'Badge',       href: '/global/components/badge.html' },
+                { label: 'Chip',        href: '/global/components/chip.html' },
+                { label: 'Divider',     href: '/global/components/divider.html' },
+                { label: 'List',        href: '/global/components/list.html' },
+                { label: 'Table',       href: '/global/components/table.html' },
+                { label: 'Tooltip',     href: '/global/components/tooltip.html' },
+                { label: 'Typography',  href: '/global/components/typography.html' },
               ]
             },
             {
               label: 'Feedback', children: [
                 { label: 'Alert',     href: '/global/components/alert.html' },
-                { label: 'Backdrop',  href: '/global/components/backdrop.html' },
                 { label: 'Dialog',    href: '/global/components/dialog.html' },
                 { label: 'Progress',  href: '/global/components/progress.html' },
+                { label: 'Skeleton',  href: '/global/components/skeleton.html' },
                 { label: 'Snackbar',  href: '/global/components/snackbar.html' },
               ]
             },
             {
               label: 'Surfaces', children: [
                 { label: 'Accordion',  href: '/global/components/accordion.html' },
-                { label: 'App Bar',    href: '/global/components/app-bar.html' },
                 { label: 'Card',       href: '/global/components/card.html' },
+                { label: 'Paper',      href: '/global/components/paper.html' },
               ]
             },
             {
               label: 'Navigation', children: [
-                { label: 'Breadcrumbs',  href: '/global/components/breadcrumbs.html' },
-                { label: 'Drawer',       href: '/global/components/drawer.html' },
-                { label: 'Link',         href: '/global/components/link.html' },
-                { label: 'Menu',         href: '/global/components/menu.html' },
-                { label: 'Menubar',      href: '/global/components/menubar.html' },
-                { label: 'Pagination',   href: '/global/components/pagination.html' },
-                { label: 'Tabs',         href: '/global/components/tabs.html' },
+                { label: 'App Bar',            href: '/global/components/app-bar.html' },
+                { label: 'Bottom Navigation',  href: '/global/components/bottom-navigation.html' },
+                { label: 'Breadcrumbs',        href: '/global/components/breadcrumbs.html' },
+                { label: 'Drawer',             href: '/global/components/drawer.html' },
+                { label: 'Link',               href: '/global/components/link.html' },
+                { label: 'Menu',               href: '/global/components/menu.html' },
+                { label: 'Nav Shell',          href: '/global/components/nav-shell.html' },
+                { label: 'Pagination',         href: '/global/components/pagination.html' },
+                { label: 'Speed Dial',         href: '/global/components/speed-dial.html' },
+                { label: 'Tabs',               href: '/global/components/tabs.html' },
               ]
             },
             {
               label: 'Utilities', children: [
-                { label: 'Popover',              href: '/global/components/popover.html' },
-                { label: 'Textarea Autoresize',  href: '/global/components/textarea-autoresize.html' },
-                { label: 'Date Picker',          href: '/global/components/date-picker.html' },
-                { label: 'Date Calendar',        href: '/global/components/date-calendar.html' },
-                { label: 'Time Picker',          href: '/global/components/time-picker.html' },
+                { label: 'Box',      href: '/global/components/box.html' },
+                { label: 'Grid',     href: '/global/components/grid.html' },
+                { label: 'Modal',    href: '/global/components/modal.html' },
+                { label: 'Popover',  href: '/global/components/popover.html' },
+                { label: 'Stack',    href: '/global/components/stack.html' },
+              ]
+            },
+            {
+              label: 'Colorkrew', children: [
+                { label: 'Data Viz',         href: '/global/components/data-viz-primitives.html' },
+                { label: 'Form Validation',  href: '/global/components/form-validation.html' },
+                { label: 'Toast',            href: '/global/components/toast.html' },
               ]
             },
           ]
@@ -329,7 +345,8 @@
         { label: 'Changelog', href: '/goals/changelog.html' },
       ]
     },
-    { label: 'Figma Tips', href: '/figma-tips/index.html' },
+    { label: 'Figma Tips', href: '/figma-tips.html' },
+    { label: 'Skills Library', href: '/skills-library.html' },
   ];
 
   // ── HELPERS ───────────────────────────────────────────────────────────────
@@ -526,8 +543,6 @@
         '<a href="/changelog.html"><i class="ti ti-clock-history"></i> Site Changelog</a>' +
         '<span class="site-footer-sep">·</span>' +
         '<a href="/sitemap.html">Sitemap</a>' +
-        '<span class="site-footer-sep">·</span>' +
-        '<a href="/figma-tips/index.html">Figma Tips</a>' +
         '<span class="site-footer-version">v2.0.0 · 2026-04-27</span>';
       main.appendChild(footer);
     });

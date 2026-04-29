@@ -1,11 +1,11 @@
 ---
 name: audit-figma
-description: Audit a Figma file against the Colorkrew UX Library spec for a product or feature. Use this skill whenever a designer says "audit figma", "check my figma against the spec", "compare figma to the library", "run /audit-figma", or provides a Figma URL and asks to validate it against documented specs. Supports two scopes — entire product (all features) or a specific feature. Requires Figma MCP to be connected.
+description: Audit a Figma file against the ux-library spec for a product or feature. Use this skill whenever a designer says "audit figma", "check my figma against the spec", "compare figma to the library", "run /audit-figma", or provides a Figma URL and asks to validate it against documented specs. Supports two scopes — entire product (all features) or a specific feature. Requires Figma MCP to be connected.
 ---
 
 # Audit Figma File
 
-Compares a Figma file against UX Library documentation and outputs a prioritised, actionable findings report. Designers can fix issues directly from the report without needing to read the spec themselves.
+Compares a Figma file against ux-library documentation and outputs a prioritised, actionable findings report. Designers can fix issues directly from the report without needing to read the spec themselves.
 
 ## Inputs required
 
@@ -57,6 +57,10 @@ Build a spec map: for each feature × platform, note:
 ---
 
 ## Step 2 — Process the Figma file
+
+**Load the `figma-use` skill before any Figma call.** It is a mandatory prerequisite — never call `get_metadata`, `get_design_context`, or `get_screenshot` without it. Also load `mui-design` to cross-reference MUI component semantics and token rules when evaluating component usage and color tokens.
+
+**Run `figma-generate-library` Section 11a (ux-library Documentation Mode — Discovery Only) on the Figma URL before calling `get_design_context`.** This produces an MUI-accurate component inventory and token map for the Figma file. Use the output to anchor all comparisons against the spec — component identification comes from the MUI catalog match, not from visual inference. Do not skip this: it is what makes audit findings precise rather than approximate.
 
 Follow the figma-use protocol exactly. Do not skip steps.
 
@@ -210,6 +214,34 @@ List the easiest fixes a designer can action right now (typically Minor items wi
 - **Screens not extracted** (if `get_design_context` was truncated): list them; re-run audit on these nodes
 - **Ambiguous screens**: screens whose purpose could not be determined — designer needs to clarify
 - **Spec gaps found during audit**: states or flows that appear in Figma but are missing from the spec entirely — recommend documenting them
+
+---
+
+## Step 6 — Offer next actions for undocumented screens
+
+After outputting the report, check whether the "Undocumented screens in Figma" section contains any screens flagged as apparent real features (not intentionally removed flows).
+
+**If one or more undocumented feature screens were found**, output this block immediately after the report:
+
+---
+
+### 📥 Undocumented screens detected
+
+The following screen(s) appear to be real features not yet in the library:
+
+| Screen | Apparent feature |
+|--------|-----------------|
+| [Screen name] | [Inferred purpose] |
+
+These can be documented now. Run `/document-feature-spec` for each one — provide the Figma URL and the inferred feature name, and the skill will generate the full spec.
+
+**Would you like to document any of these now?** Reply with the screen name or "skip" to finish.
+
+---
+
+**If the designer names a screen**: run `/document-feature-spec` with the Figma URL pointed at that specific node. Pass through the component and token mapping already produced in Step 2 — the Section 11a discovery phase can be skipped for frames already processed in this audit.
+
+**If the designer replies "skip" or there are no undocumented feature screens**: end the audit session.
 
 ---
 

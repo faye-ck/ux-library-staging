@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breakpoints — Foundations — ux-library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 720px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table td:first-child { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); white-space: nowrap; }
+    .info-box { background: var(--bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 12px; color: #555; line-height: 1.65; margin: 12px 0 20px; }
+    .info-box code { font-family: var(--mono); background: var(--surface); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.1</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Foundations</span><span class="breadcrumb-sep">/</span><span>Breakpoints</span></div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-devices"></i></span> Breakpoints</h2>
+      <p>MUI uses five breakpoints for responsive layouts. Always document designs mobile-first — specify behaviour from a minimum width, not below a maximum. Use <code>theme.breakpoints</code> tokens, never hardcoded pixel values.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="md-content">
+
+      <h2 class="md-h2">Breakpoint Scale</h2>
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Min width</th>
+            <th>Typical target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>xs</td>
+            <td>0px</td>
+            <td>Small phones</td>
+          </tr>
+          <tr>
+            <td>sm</td>
+            <td>600px</td>
+            <td>Large phones, small tablets</td>
+          </tr>
+          <tr>
+            <td>md</td>
+            <td>900px</td>
+            <td>Tablets, small laptops</td>
+          </tr>
+          <tr>
+            <td>lg</td>
+            <td>1200px</td>
+            <td>Desktops, wide laptops</td>
+          </tr>
+          <tr>
+            <td>xl</td>
+            <td>1536px</td>
+            <td>Wide monitors</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Mobile-first rule</h2>
+      <div class="info-box">
+        Document breakpoints as "from sm up" (min-width), not "below sm" (max-width). MUI's breakpoint helpers all use min-width: <code>theme.breakpoints.up('sm')</code>, <code>theme.breakpoints.down('md')</code>, <code>theme.breakpoints.between('sm','lg')</code>.
+      </div>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Common Layout Patterns</h2>
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Breakpoint</th>
+            <th>Nav Shell</th>
+            <th>Content</th>
+            <th>Grid columns</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>xs–sm</td>
+            <td>Temporary drawer (hamburger)</td>
+            <td>Full-width</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td>md</td>
+            <td>Persistent mini rail</td>
+            <td>Offset by rail width</td>
+            <td>8</td>
+          </tr>
+          <tr>
+            <td>lg–xl</td>
+            <td>Persistent expanded drawer</td>
+            <td>Offset by drawer width</td>
+            <td>12</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Rules</h2>
+      <ul>
+        <li>Never document a layout using only a desktop view — always note mobile behaviour</li>
+        <li>Drawer behaviour changes at md (900px) — see Nav Shell component</li>
+        <li>Typography, spacing, and touch targets should scale across breakpoints</li>
+      </ul>
+
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

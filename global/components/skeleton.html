@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skeleton — Components — ux-library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 720px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .cat-badge { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid rgba(25,118,210,0.25); margin-bottom: 10px; }
+    .info-box { background: var(--bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 12px; color: #555; line-height: 1.65; margin: 12px 0 20px; }
+    .info-box code { font-family: var(--mono); background: var(--surface); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.1</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Skeleton</span></div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-wave-square"></i></span> Skeleton</h2>
+      <p>Content placeholder shown during loading. Prefer Skeleton over spinner for list views, cards, and content-heavy areas — it reduces perceived load time by hinting at the shape of incoming content.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="md-content">
+      <span class="cat-badge">Feedback</span>
+
+      <div class="info-box">
+        MUI composition: <code>Skeleton</code> is a standalone component. Use inside a conditional — render <code>Skeleton</code> while data is loading, replace with the actual content when loaded.
+      </div>
+
+      <h2 class="md-h2">Quick Reference</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+        <div>
+          <h3 class="md-h3">Variants</h3>
+          <table class="token-table"><tbody>
+            <tr><td>text (default, height matches font-size)</td></tr>
+            <tr><td>rectangular (fixed height, use for images and cards)</td></tr>
+            <tr><td>rounded (rectangular with border-radius)</td></tr>
+            <tr><td>circular (use for avatars)</td></tr>
+          </tbody></table>
+        </div>
+        <div>
+          <h3 class="md-h3">Animation</h3>
+          <table class="token-table"><tbody>
+            <tr><td>pulse (default — fade in/out)</td></tr>
+            <tr><td>wave (shimmer effect)</td></tr>
+            <tr><td>false (no animation — for reduced motion)</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Key Options</h2>
+      <ul>
+        <li><code>width</code> / <code>height</code> — explicit sizing (required for rectangular and circular)</li>
+        <li><code>variant</code> — shape of the placeholder</li>
+        <li><code>animation</code> — <code>pulse</code> / <code>wave</code> / <code>false</code></li>
+        <li>Match skeleton dimensions to the real content it replaces</li>
+      </ul>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Common Use Cases</h2>
+      <ul>
+        <li>List items loading (match height of each row)</li>
+        <li>Card image placeholders (rectangular)</li>
+        <li>Avatar placeholders (circular)</li>
+        <li>Text line placeholders (text variant, multiple lines)</li>
+      </ul>
+      <p><strong>What NOT to use for:</strong> action buttons or interactive elements that aren't data-dependent; use LinearProgress for indeterminate page-level operations instead.</p>
+
+      <hr class="md-hr" />
+
+      <div class="info-box">
+        <strong>Customization:</strong> Visual styling and theme overrides belong in the product's <code>_theme.md</code>. Component-level variants and usage rules specific to a product belong in <code>_components.md</code>.
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

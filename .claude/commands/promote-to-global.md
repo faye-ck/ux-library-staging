@@ -16,14 +16,21 @@ Lifts a component from a product or feature spec into the Global shared library.
 - **Component name** — e.g. "Toast", "Search Bar", "Empty State Card"
 - **Product** — which product it currently lives in (biz, workflows, ckid, intra, files, updates, goals)
 - **Feature** — which feature spec, or `_components` if it's already at product level
+- **Figma URL** *(optional)* — link to the Figma frame containing this component. If provided:
+  - Phase 1: used to verify the spec definition matches what is actually in Figma (catches stale specs)
+  - Phase 2: used to run `figma-create-design-system-rules` after promotion to update affected product config files
 
-If inputs are missing, ask for them before proceeding.
+If the required inputs (Component, Product, Feature) are missing, ask for them. Figma URL is optional.
 
 ---
 
 ## Phase 1 — Pre-flight check (read-only)
 
-### Step 1a — Locate the component in the source spec
+### Step 1a — Locate the component in the source spec (with optional Figma verification)
+
+**If a Figma URL was provided:** load `figma-use` first (mandatory prerequisite), then run `figma-generate-library` **Section 11a (ux-library Documentation Mode — Discovery Only)** on the URL before reading the spec. Extract the component's MUI mapping and token usage from Figma. When reading the source spec below, cross-check: does the spec definition match the Figma-derived inventory? If there are discrepancies (e.g. spec says `Button variant="contained"` but Figma uses `variant="outlined"`, or spec lists a token that isn't used in Figma), flag each as a "Spec drift" item in the Pre-flight report. Do not block promotion — surface it for the designer to review.
+
+**If no Figma URL was provided:** proceed directly to reading the spec.
 
 Determine the source path:
 - Feature-level: `/[product]/[feature-slug]/feature.md` (and platform delta files if relevant)
@@ -200,7 +207,27 @@ In `/global/_index.md` — add a new row to the components or foundations covera
 
 **Only add the new row. Do not reformat or reorder existing rows.**
 
-### Step 2e — Changelog entries (automatic, always runs)
+### Step 2e — Update product config files (if Figma URL was provided)
+
+**If a Figma URL was provided**, run `figma-create-design-system-rules` in **ux-library Mode** after writing the global spec.
+
+For each product that was updated in Steps 2b–2c:
+- Read the product's `_components.md` or `_guidelines.md`
+- Find any rule that describes this component inline (not as a global reference)
+- Replace the inline rule with a reference entry:
+  ```
+  ## [Component Name]
+  → Global spec: /global/[foundations or components]/[slug].md
+  [Preserve any product-specific variation here. If none, omit.]
+  ```
+
+If a product had no inline rule for this component, no config file change is needed.
+
+**If no Figma URL was provided**, skip this step. Config files can be updated manually if needed.
+
+---
+
+### Step 2f — Changelog entries (automatic, always runs)
 
 **`/global/changelog.html`** — insert inside the current version block:
 ```html

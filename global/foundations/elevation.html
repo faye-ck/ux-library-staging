@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elevation — Foundations — ux-library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 720px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table td:first-child { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); white-space: nowrap; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.1</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Foundations</span><span class="breadcrumb-sep">/</span><span>Elevation</span></div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-stack-2"></i></span> Elevation</h2>
+      <p>Controls perceived depth and layering. MUI uses a 25-step shadow scale (<code>shadows[0]</code>–<code>shadows[24]</code>) and named z-index layers. Never assign arbitrary box-shadow CSS or z-index values — always reference the scale.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="md-content">
+
+      <h2 class="md-h2">Shadow Scale</h2>
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Token</th>
+            <th>Common use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0</td>
+            <td><code>shadows[0]</code></td>
+            <td>No elevation — flat surfaces, disabled states</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td><code>shadows[1]</code></td>
+            <td>Cards at rest, text fields</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><code>shadows[2]</code></td>
+            <td>Raised cards, contained buttons</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><code>shadows[4]</code></td>
+            <td>App bar, drawer</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><code>shadows[8]</code></td>
+            <td>Menus, popovers, tooltips</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td><code>shadows[16]</code></td>
+            <td>Modals, dialogs</td>
+          </tr>
+          <tr>
+            <td>24</td>
+            <td><code>shadows[24]</code></td>
+            <td>Maximum — full-screen overlays</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Z-Index Layers</h2>
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Value</th>
+            <th>Component</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>mobileStepper</td>
+            <td>1000</td>
+            <td>MobileStepper</td>
+          </tr>
+          <tr>
+            <td>speedDial</td>
+            <td>1050</td>
+            <td>SpeedDial</td>
+          </tr>
+          <tr>
+            <td>appBar</td>
+            <td>1100</td>
+            <td>AppBar</td>
+          </tr>
+          <tr>
+            <td>drawer</td>
+            <td>1200</td>
+            <td>Drawer</td>
+          </tr>
+          <tr>
+            <td>modal</td>
+            <td>1300</td>
+            <td>Dialog, Modal</td>
+          </tr>
+          <tr>
+            <td>snackbar</td>
+            <td>1400</td>
+            <td>Snackbar</td>
+          </tr>
+          <tr>
+            <td>tooltip</td>
+            <td>1500</td>
+            <td>Tooltip</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Rules</h2>
+      <ul>
+        <li>Use elevation to convey interaction depth — interactive surfaces lift on hover</li>
+        <li>Modals sit above drawers; drawers sit above the app bar</li>
+        <li>Never assign a custom z-index — reference the layer token</li>
+        <li>Product themes may reduce shadow intensity for flat/minimal styles — document in <code>_theme.md</code></li>
+      </ul>
+
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Textarea Autosize — Components — UX Library</title>
+  <title>Speed Dial — Components — ux-library</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
     .md-content { max-width: 720px; }
@@ -25,61 +25,76 @@
 </head>
 <body>
 <header class="site-header">
-  <h1><a href="../index.html"><div class="logo-dot"></div>UX Library</a></h1>
-  <span class="version-badge">v2.0</span>
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.1</span>
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
   <nav class="sidebar"></nav>
   <main>
-    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Textarea Autosize</span></div>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Speed Dial</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-text-resize"></i></span> Textarea Autosize</h2>
-      <p>Textarea that automatically grows in height as content increases.</p>
+      <h2><span class="icon"><i class="ti ti-speeddial"></i></span> Speed Dial</h2>
+      <p>Expandable FAB that reveals a set of related actions. Use when a single FAB isn't sufficient and actions share a common context — typically 2–6 related actions.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
+      <span class="cat-badge">Navigation</span>
 
-      <span class="cat-badge">Utilities</span>
+      <div class="info-box">MUI composition: <code>SpeedDial</code> + <code>SpeedDialAction</code>. Built on <code>Fab</code>. Opens on hover (desktop) or click/tap (mobile). Each action requires a <code>name</code> (tooltip) and <code>icon</code>. Z-index: <code>speedDial (1050)</code> — below AppBar.</div>
 
       <h2 class="md-h2">Quick Reference</h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
         <div>
-          <h3 class="md-h3">Variants</h3>
-          <table class="token-table"><tbody><tr><td>Standalone</td></tr><tr><td>Integrated inside Text Field (multiline prop)</td></tr></tbody></table>
+          <h3 class="md-h3">Directions</h3>
+          <table class="token-table">
+            <tbody>
+              <tr><td><strong>up</strong> (default)</td></tr>
+              <tr><td><strong>down</strong></td></tr>
+              <tr><td><strong>left</strong></td></tr>
+              <tr><td><strong>right</strong></td></tr>
+            </tbody>
+          </table>
         </div>
-        <div>
-          <h3 class="md-h3">Sizes</h3>
-          <table class="token-table"><tbody><tr><td>minRows · maxRows configurable</td></tr></tbody></table>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
         <div>
           <h3 class="md-h3">States</h3>
-          <table class="token-table"><tbody><tr><td>Default</td></tr><tr><td>Focused</td></tr><tr><td>Disabled</td></tr></tbody></table>
-        </div>
-        <div>
-          <h3 class="md-h3">Colors</h3>
-          <table class="token-table"><tbody><tr><td>Inherits from Text Field or custom</td></tr></tbody></table>
+          <table class="token-table">
+            <tbody>
+              <tr><td>Closed (shows main FAB)</td></tr>
+              <tr><td>Open (actions visible)</td></tr>
+              <tr><td>Action hover</td></tr>
+              <tr><td>Action disabled</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-
-      <hr class="md-hr">
 
       <h2 class="md-h2">Key Options</h2>
-      <ul><li>minRows — minimum visible rows</li><li>maxRows — caps height growth</li><li>Full-width — stretch to container</li><li>Used inside TextField with multiline prop</li></ul>
-
-      <hr class="md-hr">
+      <table class="token-table">
+        <thead><tr><th>Prop</th><th>Values / Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>direction</code></td><td>Where actions expand: up / down / left / right</td></tr>
+          <tr><td><code>open</code> / <code>onOpen</code> / <code>onClose</code></td><td>Controlled state</td></tr>
+          <tr><td><code>hidden</code></td><td>Hides the entire SpeedDial (use for scroll-based show/hide)</td></tr>
+          <tr><td><code>SpeedDialAction: tooltipTitle</code></td><td>Required. Also accepts <code>icon</code> and <code>onClick</code></td></tr>
+        </tbody>
+      </table>
 
       <h2 class="md-h2">Common Use Cases</h2>
-      <ul><li>Comments</li><li>Message composition</li><li>Notes fields</li><li>Description inputs</li></ul>
+      <ul>
+        <li>Create actions (new task, new event, new message)</li>
+        <li>Context-specific quick actions</li>
+        <li>Mobile-primary workflows where screen space is limited</li>
+      </ul>
+
+      <h2 class="md-h2">What NOT to Use For</h2>
+      <ul>
+        <li>Primary page-level actions that should always be visible — use a regular button instead</li>
+        <li>Actions that apply destructive changes without confirmation</li>
+      </ul>
 
       <hr class="md-hr">
-
-      <div class="info-box">
-        <strong>Customization:</strong> Visual styling and theme overrides belong in the product's <code>_theme.md</code>. Component-level variants and usage rules specific to a product belong in <code>_components.md</code>.
-      </div>
-
+      <div class="info-box"><strong>Customization:</strong> Visual styling and theme overrides belong in the product's <code>_theme.md</code>. Component-level variants and usage rules specific to a product belong in <code>_components.md</code>.</div>
     </div>
   </main>
 </div>

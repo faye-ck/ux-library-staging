@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Global — Changelog — UX Library</title>
+  <title>Global — Changelog — ux-library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
     .cl-version-block { margin-bottom: 36px; }
@@ -51,7 +51,7 @@
 <body>
 
 <header class="site-header">
-  <h1><a href="../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <h1><a href="../index.html"><div class="logo-dot"></div>ux-library</a></h1>
   <span class="version-badge">v2.0</span>
   <div class="header-spacer"></div>
 </header>
@@ -68,6 +68,179 @@
     <p>Version history for shared Foundations and Components. Tracks design token updates, new components, and cross-product changes.</p>
   </div>
   <div class="section-divider"></div>
+
+  <!-- ── v0.6.0 ── -->
+  <div class="cl-version-block">
+    <div class="cl-version-header">
+      <span class="cl-version-num">v0.6.0</span>
+      <span class="cl-version-date">2026-04-30</span>
+      <span class="cl-version-tag cl-tag-minor">Minor</span>
+    </div>
+    <div class="cl-card">
+      <div class="cl-section-label">Foundations</div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">Elevation — shadow scale and z-index layers</div>
+          <div class="cl-entry-desc">New foundation page covering <code>shadows[0]–shadows[24]</code> and all seven named MUI z-index layers (mobileStepper through tooltip). Includes usage rules for elevation-based depth and stacking order.</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">Breakpoints — responsive layout scale</div>
+          <div class="cl-entry-desc">New foundation page covering MUI's five breakpoints (xs 0px → xl 1536px), mobile-first documentation rules, and common layout patterns per breakpoint (drawer behaviour, grid columns, content offset).</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-removed">Removed</span>
+        <div>
+          <div class="cl-entry-title">Notification Patterns — retired</div>
+          <div class="cl-entry-desc">Replaced by the Toast (Colorkrew composite) and Snackbar / Alert component pages, which cover all notification patterns with MUI-accurate documentation.</div>
+        </div>
+      </div>
+      <div class="cl-section-label">Components — Added</div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">Icon Button, Rating — new Input components</div>
+          <div class="cl-entry-desc">Icon Button: compact icon-only action with required Tooltip pairing rule. Rating: star-based evaluation input with precision, readOnly, and accessibility label options.</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">Typography — new Data Display component page</div>
+          <div class="cl-entry-desc">Documents the <code>Typography</code> component (variant + component prop decoupling, color tokens, use cases). Companion to the Foundations → Typography token page.</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">Skeleton — new Feedback component</div>
+          <div class="cl-entry-desc">Content placeholder during loading. Covers text, rectangular, rounded, and circular variants; pulse/wave/false animation modes; sizing rules and when to prefer over LinearProgress.</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">Paper — new Surfaces component</div>
+          <div class="cl-entry-desc">Base elevated surface underlying most MUI containers. Documents elevation 0–24, outlined variant, and the requirement to wrap Table in <code>TableContainer component={Paper}</code>.</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">Bottom Navigation, Speed Dial — new Navigation components</div>
+          <div class="cl-entry-desc">Bottom Navigation: mobile primary nav (3–5 items, replaces drawer at xs–sm). Speed Dial: expandable FAB for 2–6 related actions. Both include product variation notes and do/don't guidance.</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">Box, Stack, Grid — new Utilities layout components</div>
+          <div class="cl-entry-desc">Box: generic sx-prop container. Stack: one-dimensional flex layout with theme-spaced gaps. Grid: 12-column responsive grid with per-breakpoint column spans. All three include when-to-use-vs-each-other guidance.</div>
+        </div>
+      </div>
+      <div class="cl-section-label">Components — Reorganised</div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-changed">Changed</span>
+        <div>
+          <div class="cl-entry-title">Nav structure fully aligned with MUI v7 catalog</div>
+          <div class="cl-entry-desc">App Bar moved from Surfaces → Navigation. Date Picker, Date Calendar, Time Picker moved from Utilities → Inputs. Modal added to Utilities nav. Nav Shell, Toast, Data Viz Primitives, and Form Validation grouped under a new Colorkrew sub-section.</div>
+        </div>
+      </div>
+      <div class="cl-section-label">Components — Removed</div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-removed">Removed</span>
+        <div>
+          <div class="cl-entry-title">Backdrop, Input, Menubar, Number Field, Textarea Autoresize — retired</div>
+          <div class="cl-entry-desc">Backdrop and Input are internal MUI primitives not used directly in design. Menubar and Textarea Autoresize are MUI Base UI components not in the MUI v7 standard catalog. Number Field is MUI Base UI only. All replaced by or subsumed into their parent components.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── v0.5.0 ── -->
+  <div class="cl-version-block">
+    <div class="cl-version-header">
+      <span class="cl-version-num">v0.5.0</span>
+      <span class="cl-version-date">2026-04-30</span>
+      <span class="cl-version-tag cl-tag-minor">Minor</span>
+    </div>
+    <div class="cl-card">
+      <div class="cl-section-label">Overview</div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-changed">Changed</span>
+        <div>
+          <div class="cl-entry-title">Global Overview page — full content</div>
+          <div class="cl-entry-desc">Replaced "Content pending" stub with a complete overview covering the four Global sub-sections (Foundations, Components, Data, Layout), the MUI v7 design system foundation, how products reference and extend global, and versioning guidance.</div>
+        </div>
+      </div>
+      <div class="cl-section-label">Components</div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-changed">Changed</span>
+        <div>
+          <div class="cl-entry-title">Toast — fully documented</div>
+          <div class="cl-entry-desc">Replaced "Content pending" stub with complete documentation of the Colorkrew toast pattern (Snackbar + Alert). Covers variants, severity levels, position anchors, timing table (4–8 s by severity), bilingual rules, common use cases, and what not to use Toast for.</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-changed">Changed</span>
+        <div>
+          <div class="cl-entry-title">Nav Shell — fully documented</div>
+          <div class="cl-entry-desc">Replaced "Content pending" stub with complete documentation of the application shell pattern (AppBar + Drawer). Covers layout zones, drawer variants, breakpoint behaviour, key options (mini rail, collapse persistence, nested nav, mobile swipe), and per-product variation notes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── v0.4.0 ── -->
+  <div class="cl-version-block">
+    <div class="cl-version-header">
+      <span class="cl-version-num">v0.4.0</span>
+      <span class="cl-version-date">2026-04-30</span>
+      <span class="cl-version-tag cl-tag-minor">Minor</span>
+    </div>
+    <div class="cl-card">
+      <div class="cl-section-label">Skills</div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-changed">Changed</span>
+        <div>
+          <div class="cl-entry-title">figma-use — updated cross-reference and index filename</div>
+          <div class="cl-entry-desc">Cross-reference updated from <code>figma-generate-design</code> to <code>figma-generate-library</code> to match the installed skill name. Fixed <code>plugin-api-standalone.index.md</code> filename (was <code>plugin-api-standalone_index.md</code>).</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">figma-generate-library — design system builder skill</div>
+          <div class="cl-entry-desc">New skill for building and updating professional-grade design systems in Figma. Orchestrates 20–100+ <code>use_figma</code> calls across 4 phases (Discovery → Foundations → File Structure → Components). Includes 7 reference docs and 9 reusable helper scripts. Works alongside <code>figma-use</code>.</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">figma-create-design-system-rules — project rules generator</div>
+          <div class="cl-entry-desc">New skill that generates project-specific design system rules for Claude Code, Codex CLI, or Cursor. Analyzes the codebase and produces rules that encode component organization, styling conventions, design token usage, and Figma-to-code workflow for the active project.</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-added">Added</span>
+        <div>
+          <div class="cl-entry-title">mui-design — MUI design system foundations skill</div>
+          <div class="cl-entry-desc">New skill synthesized from the MUI v7 and MUI Base UI packages. Covers the full component catalog (39 components across 6 categories), theme token system (palette, typography, spacing, shape, breakpoints, z-index, transitions, shadows), component design rules, Figma-to-MUI token mapping, accessibility requirements, and spec-writing conventions. Serves as the design-layer foundation for Global section documentation.</div>
+        </div>
+      </div>
+      <div class="cl-entry">
+        <span class="cl-entry-type cl-type-changed">Changed</span>
+        <div>
+          <div class="cl-entry-title">audit-figma, document-feature-spec, cross-product-check — skill references added</div>
+          <div class="cl-entry-desc">All three skills now explicitly reference loading <code>figma-use</code> before Figma MCP calls, and <code>mui-design</code> for component and token validation. Reduces repeated prompting and ensures consistent Figma protocol adherence.</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ── v0.3.0 ── -->
   <div class="cl-version-block">

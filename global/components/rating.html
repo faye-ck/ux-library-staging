@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Backdrop — Components — UX Library</title>
+  <title>Rating — Components — ux-library</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
     .md-content { max-width: 720px; }
@@ -25,61 +25,71 @@
 </head>
 <body>
 <header class="site-header">
-  <h1><a href="../index.html"><div class="logo-dot"></div>UX Library</a></h1>
-  <span class="version-badge">v2.0</span>
+  <h1><a href="../../index.html"><div class="logo-dot"></div>ux-library</a></h1>
+  <span class="version-badge">v2.1</span>
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
   <nav class="sidebar"></nav>
   <main>
-    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Backdrop</span></div>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Components</span><span class="breadcrumb-sep">/</span><span>Rating</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-square"></i></span> Backdrop</h2>
-      <p>Full-screen dimmed overlay indicating a blocking UI state such as loading.</p>
+      <h2><span class="icon"><i class="ti ti-star"></i></span> Rating</h2>
+      <p>Star-based evaluation input. Allows users to rate something on a 1–5 (or custom) scale.</p>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-
-      <span class="cat-badge">Feedback</span>
+      <span class="cat-badge">Inputs</span>
 
       <h2 class="md-h2">Quick Reference</h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
         <div>
-          <h3 class="md-h3">Variants</h3>
-          <table class="token-table"><tbody><tr><td>Default (semi-transparent dark)</td></tr></tbody></table>
-        </div>
-        <div>
           <h3 class="md-h3">Sizes</h3>
-          <table class="token-table"><tbody><tr><td>Full viewport</td></tr></tbody></table>
+          <table class="token-table"><tbody>
+            <tr><td>Small</td></tr>
+            <tr><td>Medium</td></tr>
+            <tr><td>Large</td></tr>
+          </tbody></table>
         </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
         <div>
           <h3 class="md-h3">States</h3>
-          <table class="token-table"><tbody><tr><td>Open</td></tr><tr><td>Closed</td></tr></tbody></table>
-        </div>
-        <div>
-          <h3 class="md-h3">Colors</h3>
-          <table class="token-table"><tbody><tr><td>Customizable via sx</td></tr></tbody></table>
+          <table class="token-table"><tbody>
+            <tr><td>Default</td></tr>
+            <tr><td>Hover (shows preview)</td></tr>
+            <tr><td>Readonly</td></tr>
+            <tr><td>Disabled</td></tr>
+            <tr><td>Empty</td></tr>
+          </tbody></table>
         </div>
       </div>
 
-      <hr class="md-hr">
+      <hr class="md-hr" />
 
       <h2 class="md-h2">Key Options</h2>
-      <ul><li>Click-to-close handler</li><li>Z-index control for stacking</li><li>Nested content — spinner or loading indicator</li><li>Fade transition</li></ul>
+      <ul>
+        <li><code>max</code> — default 5 stars; can be any integer</li>
+        <li><code>precision</code> — <code>0.5</code> for half-star ratings</li>
+        <li><code>readOnly</code> — display-only, no interaction</li>
+        <li><code>emptyIcon</code> / <code>icon</code> — custom icon shape</li>
+        <li><code>getLabelText</code> — accessible label per value (required for screen readers)</li>
+      </ul>
 
-      <hr class="md-hr">
+      <hr class="md-hr" />
 
       <h2 class="md-h2">Common Use Cases</h2>
-      <ul><li>Loading overlay</li><li>Focus narrowing behind dialog</li><li>Blocking action in progress</li></ul>
+      <ul>
+        <li>Product/service feedback forms</li>
+        <li>Content quality ratings</li>
+        <li>User satisfaction surveys</li>
+        <li>Display-only score indicators (with <code>readOnly</code>)</li>
+      </ul>
+      <p><strong>What NOT to use for:</strong> rankings where order matters (use a ranked list instead); binary yes/no (use Switch or Checkbox instead).</p>
 
-      <hr class="md-hr">
+      <hr class="md-hr" />
 
       <div class="info-box">
         <strong>Customization:</strong> Visual styling and theme overrides belong in the product's <code>_theme.md</code>. Component-level variants and usage rules specific to a product belong in <code>_components.md</code>.
       </div>
-
     </div>
   </main>
 </div>
