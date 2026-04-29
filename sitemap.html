@@ -88,6 +88,14 @@
     .sm-section-title { cursor: pointer; user-select: none; display: flex !important; justify-content: space-between; align-items: center; }
     .sm-section-chev { font-size: 10px; color: var(--muted-light); flex-shrink: 0; transition: transform 0.15s ease; }
     .sm-section--closed .sm-section-chev { transform: rotate(-90deg); }
+
+    /* Component category labels (Inputs, Feedback, etc.) — label style, no folder icon */
+    .sm-folder.sm-cat-label {
+      font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #777; padding-left: 20px; gap: 4px;
+    }
+    .sm-folder.sm-cat-label:hover { color: #555; }
+    .sm-folder.sm-cat-label i:not(.sm-chev) { display: none; }
   </style>
 </head>
 <body>
@@ -304,7 +312,7 @@
       <!-- global/components/ -->
       <div class="sm-folder"><i class="ti ti-folder-open"></i>global/components/</div>
 
-      <div class="sm-folder sm-indent1" style="padding-top:6px"><i class="ti ti-folder-open"></i>Inputs</div>
+      <div class="sm-folder sm-indent1 sm-cat-label">Inputs</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent3">
           <div class="sm-left"><span class="sm-file"><a href="global/components/autocomplete.html">autocomplete.html</a></span><span class="sm-md">+.md</span></div>
@@ -356,7 +364,7 @@
         </div>
       </div>
 
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>Data Display</div>
+      <div class="sm-folder sm-indent1 sm-cat-label">Data Display</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent3">
           <div class="sm-left"><span class="sm-file"><a href="global/components/avatar.html">avatar.html</a></span><span class="sm-md">+.md</span></div>
@@ -388,7 +396,7 @@
         </div>
       </div>
 
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>Feedback</div>
+      <div class="sm-folder sm-indent1 sm-cat-label">Feedback</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent3">
           <div class="sm-left"><span class="sm-file"><a href="global/components/alert.html">alert.html</a></span><span class="sm-md">+.md</span></div>
@@ -412,7 +420,7 @@
         </div>
       </div>
 
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>Surfaces</div>
+      <div class="sm-folder sm-indent1 sm-cat-label">Surfaces</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent3">
           <div class="sm-left"><span class="sm-file"><a href="global/components/accordion.html">accordion.html</a></span><span class="sm-md">+.md</span></div>
@@ -428,7 +436,7 @@
         </div>
       </div>
 
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>Navigation</div>
+      <div class="sm-folder sm-indent1 sm-cat-label">Navigation</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent3">
           <div class="sm-left"><span class="sm-file"><a href="global/components/breadcrumbs.html">breadcrumbs.html</a></span><span class="sm-md">+.md</span></div>
@@ -460,7 +468,7 @@
         </div>
       </div>
 
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>Utilities</div>
+      <div class="sm-folder sm-indent1 sm-cat-label">Utilities</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent3">
           <div class="sm-left"><span class="sm-file"><a href="global/components/popover.html">popover.html</a></span><span class="sm-md">+.md</span></div>
@@ -524,7 +532,7 @@
           <span class="sm-label">Changelog</span>
         </div>
       </div>
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
+      <div class="sm-folder"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
           <div class="sm-left"><span class="sm-file"><a href="biz/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
@@ -686,7 +694,7 @@
           <span class="sm-label">Changelog</span>
         </div>
       </div>
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
+      <div class="sm-folder"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
           <div class="sm-left"><span class="sm-file"><a href="workflows/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
@@ -733,7 +741,7 @@
           <span class="sm-label">Changelog</span>
         </div>
       </div>
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
+      <div class="sm-folder"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
           <div class="sm-left"><span class="sm-file"><a href="ckid/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
@@ -807,7 +815,7 @@
           <span class="sm-label">Changelog</span>
         </div>
       </div>
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
+      <div class="sm-folder"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
           <div class="sm-left"><span class="sm-file"><a href="intra/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
@@ -878,7 +886,7 @@
           <span class="sm-label">Changelog</span>
         </div>
       </div>
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
+      <div class="sm-folder"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
           <div class="sm-left"><span class="sm-file"><a href="files/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
@@ -928,7 +936,7 @@
           <span class="sm-label">Changelog</span>
         </div>
       </div>
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
+      <div class="sm-folder"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
           <div class="sm-left"><span class="sm-file"><a href="updates/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
@@ -978,7 +986,7 @@
           <span class="sm-label">Changelog</span>
         </div>
       </div>
-      <div class="sm-folder sm-indent1"><i class="ti ti-folder-open"></i>config/</div>
+      <div class="sm-folder"><i class="ti ti-folder-open"></i>config/</div>
       <div class="sm-rows">
         <div class="sm-row sm-indent2">
           <div class="sm-left"><span class="sm-file"><a href="goals/_theme.html">_theme.html</a></span><span class="sm-md">+.md</span></div>
