@@ -285,8 +285,9 @@
     'Platform B':   { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Platform B2':  { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
     'Platform B3':  { type: 'select', options: ['User Portal', 'Admin Portal', 'Mobile Web', 'Mobile App', 'Email', 'Room Signage'] },
-    'Scope':        { type: 'select', options: ['Entire product', 'Specific feature'] },
-    'Pattern Name': { type: 'text',   hint: 'e.g. Empty State' },
+    'Scope':          { type: 'select', options: ['Entire product', 'Specific feature'] },
+    'Component Name': { type: 'text',   hint: 'e.g. Toast, Search Bar, Empty State' },
+    'Pattern Name':   { type: 'text',   hint: 'e.g. Empty State' },
     'Products':     { type: 'multi',  options: ['Biz', 'Workflows', 'CKID', 'Intra', 'Files', 'Updates', 'Goals'] },
     'URL':          { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
     'Baseline URL': { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
@@ -424,15 +425,17 @@
       title: 'Promote a component to global level',
       desc: 'Check for conflicts, assess product impact, then promote with changelog',
       body:
-'Run /promote-to-global to promote [Component Name] to the Global shared library.\n\n' +
-'Source: /[product-slug]/[feature-slug]/[platform].html  (feature-level)\n' +
-'     or /[product-slug]/_components.html               (product-level)\n\n' +
+'Run /promote-to-global to promote [Component Name] from [Product Name] › [Feature Name] to the Global shared library.\n\n' +
 'The skill will:\n' +
-'· Check global/foundations/ and global/components/ for conflicts or duplicates\n' +
-'· Assess how many products already use or would be affected by this component\n' +
-'· Pause for your confirmation and require all conflicts to be cleared first\n' +
-'· Promote to /global/foundations/ or /global/components/ once confirmed\n' +
-'· Automatically add a site changelog entry on successful promotion'
+'· Locate the component in the source spec\n' +
+'· Check /global/foundations/ and /global/components/ for conflicts or duplicates\n' +
+'· Assess how many products already use or would be affected\n' +
+'· Pause for your confirmation — blocked items must be cleared first\n' +
+'· On confirmation:\n' +
+'  - Write the global spec (foundations/ or components/)\n' +
+'  - Update the source product spec to reference global — no duplication\n' +
+'  - Patch any other affected product specs with a reference note\n' +
+'  - Add a site changelog entry automatically'
     },
     {
       section: 'Test',
