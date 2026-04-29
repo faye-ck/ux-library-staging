@@ -71,6 +71,7 @@ Build a comparison matrix across these five dimensions:
 ### B. Component usage
 - Same component (from `global/components/`) used everywhere, or product-specific variants?
 - Any product using an inline component that could be promoted?
+- **For each component found inline (not already in `global/components/`): count how many products define it inline.** If the count is ≥ 3, mark it with 🔼 and note the product list — these will be surfaced as promotion candidates in Step 5.
 
 ### C. Interaction pattern
 - How does each product handle the same trigger? (e.g. error → retry CTA vs. error → toast vs. error → inline message)
@@ -158,6 +159,43 @@ Numbered list, most impactful first:
 2. **Resolve conflict: [X]** — [which products, what to align on]
 3. **Document gap: [Product › Feature]** — run `/document-feature-spec`
 4. **Flag for designer review: [X]** — ambiguous whether difference is intentional
+
+---
+
+## Step 5 — Promotion offer (conditional)
+
+After outputting the full report, check whether any components were marked 🔼 in Step 3B (inline in ≥ 3 products and not already global).
+
+**If one or more exist**, output this block immediately after the report — do not skip it:
+
+---
+
+### 🔼 Promotion candidates detected
+
+The following component(s) appear inline (not referenced from global) in 3 or more products:
+
+| Component | Found in | Products |
+|-----------|----------|---------|
+| [Name] | [N] products | Biz, CKID, Intra, … |
+
+These are strong candidates for global promotion. Promoting would:
+- Eliminate duplication across [N] product specs
+- Create a single source of truth in `/global/components/` or `/global/foundations/`
+- Trigger surgical reference updates in all affected product specs (no content lost)
+
+**Would you like to promote any of these to global?**
+Reply with the component name (e.g. "promote Toast") to start `/promote-to-global`, or "skip" to finish.
+
+---
+
+**If the designer replies with a component name:**
+Run `/promote-to-global` for that component, using the product and feature source identified during Step 3B as the starting point. Pass through what was already learned about the component's definition in each product — the pre-flight check in Phase 1 of `/promote-to-global` can use this context rather than re-reading the same files.
+
+**If the designer replies "skip" or asks about something else:**
+End the cross-product check without promoting anything.
+
+**If no components met the threshold:**
+Skip Step 5 entirely — do not mention it.
 
 ---
 
