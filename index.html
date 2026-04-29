@@ -420,36 +420,19 @@
     },
     {
       section: 'Promote',
-      icon: 'ti-arrow-up-right',
-      title: 'Promote a component to product level',
-      desc: 'Lift a feature-level component into the shared product Components page',
-      body:
-'Promote the [Component Name] component from [Product Name] › [Feature Name] to the [Product Name] shared component library.\n\n' +
-'Source: /[product-slug]/[feature-slug]/[platform].html\n\n' +
-'Steps:\n' +
-'1. Read the source page and extract the component definition\n' +
-'2. Generalise it — remove feature-specific copy, keep it applicable across all features in [Product Name]\n' +
-'3. Add it to /[product-slug]/_components.html\n' +
-'4. Update the source page to reference the product component instead of duplicating it\n' +
-'5. Note the promotion in /[product-slug]/changelog.html as an Added entry\n\n' +
-'Flag any feature-specific variations that should remain as deltas on the source page.'
-    },
-    {
-      section: 'Promote',
       icon: 'ti-arrow-up-circle',
       title: 'Promote a component to global level',
-      desc: 'Lift a feature or product component into shared Global Foundations or Components',
+      desc: 'Check for conflicts, assess product impact, then promote with changelog',
       body:
-'Promote the [Component Name] component to the Global shared library.\n\n' +
+'Run /promote-to-global to promote [Component Name] to the Global shared library.\n\n' +
 'Source: /[product-slug]/[feature-slug]/[platform].html  (feature-level)\n' +
 '     or /[product-slug]/_components.html               (product-level)\n\n' +
-'Steps:\n' +
-'1. Read the source page and extract the component definition\n' +
-'2. Generalise it — remove product- and feature-specific copy, make it platform-agnostic\n' +
-'3. Add it to /global/foundations/[slug].html or /global/components/[slug].html as appropriate\n' +
-'4. Update the source page to reference the global component instead of duplicating it\n' +
-'5. Note the promotion in /global/changelog.html as an Added entry\n\n' +
-'Flag any product- or feature-specific variations that should remain as deltas on the source page.'
+'The skill will:\n' +
+'· Check global/foundations/ and global/components/ for conflicts or duplicates\n' +
+'· Assess how many products already use or would be affected by this component\n' +
+'· Pause for your confirmation and require all conflicts to be cleared first\n' +
+'· Promote to /global/foundations/ or /global/components/ once confirmed\n' +
+'· Automatically add a site changelog entry on successful promotion'
     },
     {
       section: 'Test',
