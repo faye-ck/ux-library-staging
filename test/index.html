@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Skill Test Lab · ux-library</title>
+  <title>Skill Test Lab · UX Library</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -232,7 +232,7 @@
 <!-- HEADER -->
 <header class="lab-header">
   <div>
-    <div class="lab-header-title">ux-library · Skill Test Lab</div>
+    <div class="lab-header-title">UX Library · Skill Test Lab</div>
     <div class="lab-header-sub">End-to-end testing for setup-product · document-feature-spec · add-platform-delta</div>
   </div>
   <div class="lab-tabs">
@@ -263,7 +263,7 @@
       icon: '📦',
       desc: 'Create a new product with config files, feature stubs, and coverage table.',
       promptFn: function (v) {
-        return 'Set up my product in ux-library. Product name: ' + (v.productName || 'TestProduct') + '. Features: ' + (v.features || 'Dashboard, Notifications, Settings') + '. Platforms: Main portal, Mobile web. Roles: Admin, Standard user. Brand colors: ' + (v.brandColor || '#2563EB') + ' as primary, #F59E0B as accent. No logo yet.';
+        return 'Set up my product in the UX Library. Product name: ' + (v.productName || 'TestProduct') + '. Features: ' + (v.features || 'Dashboard, Notifications, Settings') + '. Platforms: Main portal, Mobile web. Roles: Admin, Standard user. Brand colors: ' + (v.brandColor || '#2563EB') + ' as primary, #F59E0B as accent. No logo yet.';
       },
       checks: [
         'Created _index.md and _index.html',
@@ -281,7 +281,7 @@
       icon: '📄',
       desc: 'Extract a feature spec from a Figma frame and write feature.md + feature.html.',
       promptFn: function (v) {
-        return 'Document a feature spec for ux-library. Product: ' + (v.productName || 'TestProduct') + '. Feature: ' + (v.featureName || 'Dashboard') + '. Platform: User Portal. Figma URL: ' + (v.figmaUrl || '[paste your Figma URL here]') + '.';
+        return 'Document a feature spec for the UX Library. Product: ' + (v.productName || 'TestProduct') + '. Feature: ' + (v.featureName || 'Dashboard') + '. Platform: User Portal. Figma URL: ' + (v.figmaUrl || '[paste your Figma URL here]') + '.';
       },
       checks: [
         'Extracted design context from Figma',
@@ -301,7 +301,7 @@
       icon: '🔀',
       desc: 'Compare two Figma frames and document only what differs on the delta platform.',
       promptFn: function (v) {
-        return 'Add a platform delta for ux-library. Product: ' + (v.productName || 'TestProduct') + '. Feature: ' + (v.featureName || 'Dashboard') + '. Baseline: User Portal — Figma URL: ' + (v.figmaUrl || '[paste baseline Figma URL]') + '. Delta platform: Mobile Web — Figma URL: ' + (v.deltaFigmaUrl || '[paste mobile Figma URL]') + '.';
+        return 'Add a platform delta for the UX Library. Product: ' + (v.productName || 'TestProduct') + '. Feature: ' + (v.featureName || 'Dashboard') + '. Baseline: User Portal — Figma URL: ' + (v.figmaUrl || '[paste baseline Figma URL]') + '. Delta platform: Mobile Web — Figma URL: ' + (v.deltaFigmaUrl || '[paste mobile Figma URL]') + '.';
       },
       checks: [
         'Called get_design_context on both URLs',
@@ -319,7 +319,7 @@
       icon: '🔍',
       desc: 'Re-run spec on a revised Figma URL and check for inconsistencies with config files.',
       promptFn: function (v) {
-        return 'Document a feature spec for ux-library. Product: ' + (v.productName || 'TestProduct') + '. Feature: ' + (v.featureName2 || 'Settings') + '. Platform: User Portal. Figma URL: ' + (v.figmaUrl2 || '[paste your second Figma URL]') + '. Note: intentionally use a frame that has hex values not in the theme, to test inconsistency detection.';
+        return 'Document a feature spec for the UX Library. Product: ' + (v.productName || 'TestProduct') + '. Feature: ' + (v.featureName2 || 'Settings') + '. Platform: User Portal. Figma URL: ' + (v.figmaUrl2 || '[paste your second Figma URL]') + '. Note: intentionally use a frame that has hex values not in the theme, to test inconsistency detection.';
       },
       checks: [
         'Flagged hex values not in _theme.md',
@@ -900,7 +900,7 @@
     exportBtn.style.marginTop = '4px';
     exportBtn.textContent = '⬇ Export results as .txt';
     exportBtn.addEventListener('click', function () {
-      var lines = ['# ux-library Skill Test Results', '', new Date().toLocaleDateString(), ''];
+      var lines = ['# UX Library Skill Test Results', '', new Date().toLocaleDateString(), ''];
       rows.forEach(function (r) {
         lines.push('## ' + r.s.label);
         lines.push('Checklist: ' + r.checked + '/' + r.total);

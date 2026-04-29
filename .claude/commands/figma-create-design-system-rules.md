@@ -1,13 +1,13 @@
 ---
 name: figma-create-design-system-rules
-description: "Two modes: (1) CODEBASE MODE — generates custom design system rules (CLAUDE.md / AGENTS.md / Cursor .mdc) for a developer's codebase. Use when user says 'create design system rules', 'generate rules for my project', or wants Figma-to-code conventions. (2) UX LIBRARY MODE — when called from document-feature-spec or add-platform-delta, captures product-specific or feature-specific design deltas from Figma and writes them to ux-library product config files (_components.md, _guidelines.md). Requires Figma MCP server connection."
+description: "Two modes: (1) CODEBASE MODE — generates custom design system rules (CLAUDE.md / AGENTS.md / Cursor .mdc) for a developer's codebase. Use when user says 'create design system rules', 'generate rules for my project', or wants Figma-to-code conventions. (2) UX LIBRARY MODE — when called from document-feature-spec or add-platform-delta, captures product-specific or feature-specific design deltas from Figma and writes them to UX Library product config files (_components.md, _guidelines.md). Requires Figma MCP server connection."
 ---
 
 # Create Design System Rules
 
-## ux-library Mode
+## UX Library Mode
 
-When invoked from `document-feature-spec`, `add-platform-delta`, or any ux-library documentation skill, operate in **ux-library mode** — skip CLAUDE.md/AGENTS.md/Cursor output entirely. Instead, identify design patterns in the Figma that deviate from the MUI global baseline and write them to ux-library product config files.
+When invoked from `document-feature-spec`, `add-platform-delta`, or any UX Library documentation skill, operate in **UX Library mode** — skip CLAUDE.md/AGENTS.md/Cursor output entirely. Instead, identify design patterns in the Figma that deviate from the MUI global baseline and write them to UX Library product config files.
 
 **Trigger:** Called automatically at the end of `document-feature-spec` Step 4.5 or `add-platform-delta` Step 3.5. The MUI inventory from `figma-generate-library` Discovery-Only mode (Section 11a) must already be produced before this step runs.
 
@@ -22,7 +22,7 @@ A rule belongs in the product config when the Figma reveals a design decision th
 
 Do NOT write rules for things already documented in `global/_guidelines.md` or `global/components/`. Reference global instead.
 
-### Output targets in ux-library mode
+### Output targets in UX Library mode
 
 | Scope | Output target |
 |-------|--------------|
@@ -31,7 +31,7 @@ Do NOT write rules for things already documented in `global/_guidelines.md` or `
 | Applies only to one delta platform | Inline **Design Rules** section in `[platform-slug].md` and `.html` |
 | Already in global | No output — cross-reference global page only |
 
-### Steps in ux-library mode
+### Steps in UX Library mode
 
 1. **Scan the MUI inventory** (output of figma-generate-library Section 11a) for components and tokens marked as "defined here" or "no token match" — these are candidate custom rules
 2. **Check existing product config** — read `[product]/config/_components.md` and `_guidelines.md` to avoid duplicating already-documented rules

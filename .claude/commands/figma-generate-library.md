@@ -295,11 +295,11 @@ Load on demand — each reference is authoritative for its phase:
 
 ---
 
-## 11a. ux-library Documentation Mode
+## 11a. UX Library Documentation Mode
 
-When invoked from `document-feature-spec`, `add-platform-delta`, or any ux-library documentation skill, run in **Discovery-Only mode** — no `use_figma` writes. This mode uses the figma-use reading protocol to produce a structured MUI-aligned inventory of the Figma design, directly feeding the spec tables.
+When invoked from `document-feature-spec`, `add-platform-delta`, or any UX Library documentation skill, run in **Discovery-Only mode** — no `use_figma` writes. This mode uses the figma-use reading protocol to produce a structured MUI-aligned inventory of the Figma design, directly feeding the spec tables.
 
-**Trigger phrase:** Any context where a designer says "document this feature", "write a spec", or provides a Figma URL for ux-library documentation.
+**Trigger phrase:** Any context where a designer says "document this feature", "write a spec", or provides a Figma URL for UX Library documentation.
 
 **No `use_figma` calls in this mode.** All reading is done via `get_metadata` → `get_design_context` → `get_screenshot` as per figma-use.
 

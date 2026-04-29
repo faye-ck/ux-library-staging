@@ -5,7 +5,7 @@ description: Compare a UX pattern or concept across multiple Colorkrew products 
 
 # Cross-Product Consistency Check
 
-Compares a named pattern or concept across two or more products in ux-library. Outputs a structured report covering: what's shared (global promotion candidates), what's product-specific (intentional or inconsistent), and gaps. Designed to be token-efficient — reads index files and targeted sections only, not full specs.
+Compares a named pattern or concept across two or more products in the UX Library. Outputs a structured report covering: what's shared (global promotion candidates), what's product-specific (intentional or inconsistent), and gaps. Designed to be token-efficient — reads index files and targeted sections only, not full specs.
 
 ## Inputs required
 
@@ -23,7 +23,7 @@ If one or more Figma URLs were provided, run the following before reading any sp
 
 **Load `figma-use` first** — mandatory prerequisite for all Figma MCP calls.
 
-For each product that has a Figma URL: run `figma-generate-library` **Section 11a (ux-library Documentation Mode — Discovery Only)** on that URL. This produces:
+For each product that has a Figma URL: run `figma-generate-library` **Section 11a (UX Library Documentation Mode — Discovery Only)** on that URL. This produces:
 - An MUI component inventory: which MUI components are used, which variants, which categories
 - A token map: Figma style/fill → MUI token path
 

@@ -1,11 +1,11 @@
 ---
 name: run-skill-tests
-description: Run an interactive QA test session for ux-library skills. Use this skill whenever someone says "run skill tests", "test the skills", "QA the library skills", "run the test lab", or "run-skill-tests". Opens the test lab and walks through each scenario.
+description: Run an interactive QA test session for UX Library skills. Use this skill whenever someone says "run skill tests", "test the skills", "QA the library skills", "run the test lab", or "run-skill-tests". Opens the test lab and walks through each scenario.
 ---
 
 # Run Skill Tests
 
-Runs a structured QA session for the three core ux-library skills — `setup-product`, `document-feature-spec`, and `add-platform-delta`. The tester picks a scenario, runs the corresponding skill in a sandbox product, and scores the output against a quality checklist. Results are logged to the relevant product changelog with a `[Test]` badge.
+Runs a structured QA session for the three core UX Library skills — `setup-product`, `document-feature-spec`, and `add-platform-delta`. The tester picks a scenario, runs the corresponding skill in a sandbox product, and scores the output against a quality checklist. Results are logged to the relevant product changelog with a `[Test]` badge.
 
 ## Sandbox mode (ALWAYS active — read before anything else)
 
@@ -39,7 +39,7 @@ When collecting the product name from the tester, use it as-is — do not rename
 Show the tester this menu:
 
 ```
-ux-library Skill Test Lab
+UX Library Skill Test Lab
 ─────────────────────────
 1. Setup Product          → tests /setup-product
 2. Document Feature Spec  → tests /document-feature-spec
@@ -166,7 +166,7 @@ Only delete if the tester confirms. Never auto-delete.
 
 Remind the tester:
 
-> "You can track results visually at `/test/index.html` in ux-library. Copy your test variables and checklist scores there to compare across runs."
+> "You can track results visually at `/test/index.html` in the UX Library. Copy your test variables and checklist scores there to compare across runs."
 
 ---
 

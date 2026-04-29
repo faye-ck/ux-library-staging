@@ -1,4 +1,4 @@
-# ux-library — AI Instructions
+# Colorkrew UX Library — AI Instructions
 
 This file is always read first. Rules here apply globally across all skills and tasks in this library.
 

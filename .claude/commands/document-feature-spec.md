@@ -1,11 +1,11 @@
 ---
 name: document-feature-spec
-description: Document a UX feature spec for the ux-library by extracting design context from a Figma frame URL and any supplementary spec URLs. Use this skill whenever a designer says "document a feature", "write a spec for", "generate a feature spec", "spec out", or provides a URL and asks to create library documentation. Also triggers when asked to populate a feature.html file in the UX library. Requires Figma MCP to be connected.
+description: Document a UX feature spec for the Colorkrew UX Library by extracting design context from a Figma frame URL and any supplementary spec URLs. Use this skill whenever a designer says "document a feature", "write a spec for", "generate a feature spec", "spec out", or provides a URL and asks to create library documentation. Also triggers when asked to populate a feature.html file in the UX library. Requires Figma MCP to be connected.
 ---
 
 # Document Feature Spec
 
-Generates a complete `feature.md` (AI-facing) and `feature.html` (designer-facing) spec for the ux-library. Primary source is a Figma frame; ClickUp or other spec URLs can be provided as supplementary context. See `CLAUDE.md` at the library root for format rules for each file type.
+Generates a complete `feature.md` (AI-facing) and `feature.html` (designer-facing) spec for the Colorkrew UX Library. Primary source is a Figma frame; ClickUp or other spec URLs can be provided as supplementary context. See `CLAUDE.md` at the library root for format rules for each file type.
 
 ## Inputs required
 
@@ -27,7 +27,7 @@ If no URLs at all are provided, ask for them before proceeding.
 
 **Load the `figma-use` skill before any Figma MCP call.** It is a mandatory prerequisite for `get_metadata`, `get_design_context`, and `get_screenshot`. Also load `mui-design` to map Figma fills/styles to MUI tokens and to identify which MUI components are used in the design.
 
-**Run `figma-generate-library` Section 11a (ux-library Documentation Mode — Discovery Only) on every Figma URL before writing the spec.** This is a read-only phase that produces a structured MUI component inventory and token mapping directly from the Figma frames. The output feeds the "Components Used" and "Color Tokens Used" spec tables without requiring manual mapping. Do not skip this — it is what makes the spec MUI-accurate rather than inferred.
+**Run `figma-generate-library` Section 11a (UX Library Documentation Mode — Discovery Only) on every Figma URL before writing the spec.** This is a read-only phase that produces a structured MUI component inventory and token mapping directly from the Figma frames. The output feeds the "Components Used" and "Color Tokens Used" spec tables without requiring manual mapping. Do not skip this — it is what makes the spec MUI-accurate rather than inferred.
 
 Handle each provided URL by type:
 
@@ -163,7 +163,7 @@ If there are no open items in a bucket, write "None."
 
 ## Step 4.5 — Capture design rules
 
-Run `figma-create-design-system-rules` in **ux-library Mode** on the Figma frames for this feature.
+Run `figma-create-design-system-rules` in **UX Library Mode** on the Figma frames for this feature.
 
 Identify design patterns that deviate from MUI global defaults or add product-specific behavior not already in the config files. For each custom pattern found:
 

@@ -1,11 +1,11 @@
 ---
 name: setup-product
-description: Set up all config files for a new product in the ux-library. Use when a designer says "set up my product", "create the config files for", "I want to start documenting [product]", or "add [product] to the library". Guides non-technical designers through providing brand colors, features, platforms, and roles, then generates all required files automatically. No prior library knowledge required.
+description: Set up all config files for a new product in the Colorkrew UX Library. Use when a designer says "set up my product", "create the config files for", "I want to start documenting [product]", or "add [product] to the library". Guides non-technical designers through providing brand colors, features, platforms, and roles, then generates all required files automatically. No prior library knowledge required.
 ---
 
 # Set Up Product
 
-Sets up all the required config files for a new product in the ux-library. Designed for designers who are new to the library — asks simple questions, does all the file generation automatically.
+Sets up all the required config files for a new product in the Colorkrew UX Library. Designed for designers who are new to the library — asks simple questions, does all the file generation automatically.
 
 ## What this skill creates
 
@@ -209,7 +209,7 @@ Next steps:
 2. When you're ready to document a feature, share its Figma frame URL and use /document-feature-spec — it will find the existing stub and fill it in
 3. If your product has platform differences, use /add-platform-delta after each feature
 
-Questions? Reach out to [Faye] who manages ux-library.
+Questions? Reach out to [Faye] who manages UX Library.
 ```
 
 ---

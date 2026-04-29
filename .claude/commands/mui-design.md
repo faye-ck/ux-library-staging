@@ -1,11 +1,11 @@
 ---
 name: mui-design
-description: "MUI design system foundations for the ux-library. Use when auditing Figma designs against MUI conventions, documenting components in the Global section, reviewing design tokens, checking theme consistency, or generating spec content that references MUI. This is the design-layer counterpart to the mui and mui-base skills — focused on UX/UI rules, not React implementation."
+description: "MUI design system foundations for the UX Library. Use when auditing Figma designs against MUI conventions, documenting components in the Global section, reviewing design tokens, checking theme consistency, or generating spec content that references MUI. This is the design-layer counterpart to the mui and mui-base skills — focused on UX/UI rules, not React implementation."
 ---
 
-# MUI Design System — ux-library Foundations
+# MUI Design System — UX Library Foundations
 
-This skill captures MUI's design system rules from the perspective of a UX designer and spec author. It defines how components, tokens, and theme decisions are documented in the ux-library. Load this skill when:
+This skill captures MUI's design system rules from the perspective of a UX designer and spec author. It defines how components, tokens, and theme decisions are documented in the UX Library. Load this skill when:
 
 - Writing or reviewing Global section pages (components, foundations)
 - Auditing a Figma file for MUI compliance

@@ -1,11 +1,11 @@
-Promote all files from ux-library-staging to ux-library (production).
+Promote all files from ux-library-staging to UX Library (production).
 
 Steps:
 1. Run the following rsync command to copy all files from staging to production, excluding .git and .DS_Store:
-   rsync -av --delete --exclude='.git' --exclude='.DS_Store' /Users/faye.cheah/Documents/GitHub/ux-library-staging/ /Users/faye.cheah/Documents/GitHub/ux-library/
+   rsync -av --delete --exclude='.git' --exclude='.DS_Store' /Users/faye.cheah/Documents/GitHub/ux-library-staging/ /Users/faye.cheah/Documents/GitHub/UX Library/
 
-2. Go into the ux-library directory and check what changed:
-   cd /Users/faye.cheah/Documents/GitHub/ux-library && git status && git diff --stat
+2. Go into the UX Library directory and check what changed:
+   cd /Users/faye.cheah/Documents/GitHub/UX Library && git status && git diff --stat
 
 3. Stage all changes:
    git add .

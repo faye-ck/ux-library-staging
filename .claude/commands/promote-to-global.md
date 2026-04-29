@@ -28,7 +28,7 @@ If the required inputs (Component, Product, Feature) are missing, ask for them. 
 
 ### Step 1a — Locate the component in the source spec (with optional Figma verification)
 
-**If a Figma URL was provided:** load `figma-use` first (mandatory prerequisite), then run `figma-generate-library` **Section 11a (ux-library Documentation Mode — Discovery Only)** on the URL before reading the spec. Extract the component's MUI mapping and token usage from Figma. When reading the source spec below, cross-check: does the spec definition match the Figma-derived inventory? If there are discrepancies (e.g. spec says `Button variant="contained"` but Figma uses `variant="outlined"`, or spec lists a token that isn't used in Figma), flag each as a "Spec drift" item in the Pre-flight report. Do not block promotion — surface it for the designer to review.
+**If a Figma URL was provided:** load `figma-use` first (mandatory prerequisite), then run `figma-generate-library` **Section 11a (UX Library Documentation Mode — Discovery Only)** on the URL before reading the spec. Extract the component's MUI mapping and token usage from Figma. When reading the source spec below, cross-check: does the spec definition match the Figma-derived inventory? If there are discrepancies (e.g. spec says `Button variant="contained"` but Figma uses `variant="outlined"`, or spec lists a token that isn't used in Figma), flag each as a "Spec drift" item in the Pre-flight report. Do not block promotion — surface it for the designer to review.
 
 **If no Figma URL was provided:** proceed directly to reading the spec.
 
@@ -209,7 +209,7 @@ In `/global/_index.md` — add a new row to the components or foundations covera
 
 ### Step 2e — Update product config files (if Figma URL was provided)
 
-**If a Figma URL was provided**, run `figma-create-design-system-rules` in **ux-library Mode** after writing the global spec.
+**If a Figma URL was provided**, run `figma-create-design-system-rules` in **UX Library Mode** after writing the global spec.
 
 For each product that was updated in Steps 2b–2c:
 - Read the product's `_components.md` or `_guidelines.md`
