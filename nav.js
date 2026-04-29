@@ -133,25 +133,6 @@
             { label: 'Glossary',    href: '/workflows/_glossary.html' },
           ]
         },
-        {
-          label: 'Submit', children: [
-            { label: 'Feature',     href: '/workflows/submit/feature.html' },
-            { label: 'Mobile Web',  href: '/workflows/submit/mobile-web.html' },
-            { label: 'Email',       href: '/workflows/submit/email.html' },
-          ]
-        },
-        {
-          label: 'Approve', children: [
-            { label: 'Feature',     href: '/workflows/approve/feature.html' },
-            { label: 'Mobile Web',  href: '/workflows/approve/mobile-web.html' },
-            { label: 'Email',       href: '/workflows/approve/email.html' },
-          ]
-        },
-        {
-          label: 'Template', children: [
-            { label: 'Feature',  href: '/workflows/template/feature.html' },
-          ]
-        },
         { label: 'Changelog', href: '/workflows/changelog.html' },
       ]
     },
@@ -284,12 +265,6 @@
           label: 'Goals & OKRs', children: [
             { label: 'Feature',     href: '/goals/goals-okrs/feature.html' },
             { label: 'Mobile Web',  href: '/goals/goals-okrs/mobile-web.html' },
-          ]
-        },
-        {
-          label: 'Performance Analytics', children: [
-            { label: 'Feature',     href: '/goals/performance-analytics/feature.html' },
-            { label: 'Mobile Web',  href: '/goals/performance-analytics/mobile-web.html' },
           ]
         },
         { label: 'Changelog', href: '/goals/changelog.html' },
