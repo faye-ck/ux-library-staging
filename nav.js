@@ -379,10 +379,10 @@
         var a = document.createElement('a');
         a.href = node.href;
         a.style.paddingLeft = paddingLeft + 'px';
-        // Depth-0 flat links: match vertical spacing of product group buttons
+        // Depth-0 flat links: consistent vertical spacing
         if (depth === 0) {
-          a.style.paddingTop = '12px';
-          a.style.paddingBottom = '5px';
+          a.style.paddingTop = '6px';
+          a.style.paddingBottom = '6px';
         }
 
         var linkInner = '';

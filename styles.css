@@ -116,7 +116,7 @@ body {
 /* Depth-0 groups: bold product/layer titles, normal case */
 .nav-group--product > .nav-group-btn {
   font-size: 13px; font-weight: 600; font-family: var(--font);
-  color: var(--text); padding-top: 12px; padding-bottom: 5px;
+  color: var(--text); padding-top: 6px; padding-bottom: 6px;
   letter-spacing: -0.1px; border-left: none;
 }
 .nav-group--product > .nav-group-btn .nav-icon { font-size: 15px; opacity: 0.85; }
