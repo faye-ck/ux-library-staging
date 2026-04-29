@@ -9,7 +9,6 @@
   // no icon unless they have an explicit icon property.
   var NAV = [
     { label: 'Home', href: '/index.html' },
-    { label: 'Figma Tips', href: '/figma-tips/index.html' },
     {
       label: 'Global', children: [
         { label: 'Overview',  href: '/global/_index.html' },
@@ -296,6 +295,7 @@
         { label: 'Changelog', href: '/goals/changelog.html' },
       ]
     },
+    { label: 'Figma Tips', href: '/figma-tips/index.html' },
   ];
 
   // ── HELPERS ───────────────────────────────────────────────────────────────
