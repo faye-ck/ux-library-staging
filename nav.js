@@ -187,6 +187,11 @@
             { label: 'Glossary',    href: '/workflows/_glossary.html' },
           ]
         },
+        {
+          label: 'Dashboard', children: [
+            { label: 'Feature',  href: '/workflows/dashboard/feature.html' },
+          ]
+        },
         { label: 'Changelog', href: '/workflows/changelog.html' },
       ]
     },

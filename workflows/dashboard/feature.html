@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Web Spec — Workflows — UX Library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .spec-body { max-width: 860px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; }
+    th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); color: var(--text); font-size: 12px; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    .flag-confirm { background: #fffbe6; border: 0.5px solid #e6c700; color: #7a5a00; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-family: var(--mono); font-weight: 500; }
+    .flag-inferred { background: var(--bg); border: 0.5px solid var(--border); color: var(--muted); padding: 2px 7px; border-radius: 4px; font-size: 10px; font-family: var(--mono); font-weight: 500; }
+    .flag-missing { background: #fff0f0; border: 0.5px solid #ffc0c0; color: #c00; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-family: var(--mono); font-weight: 500; }
+    .confirm-banner { background: #fffbe6; border: 0.5px solid #e6c700; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #7a5a00; margin: 10px 0 16px; line-height: 1.6; }
+    .missing-banner { background: #fff0f0; border: 0.5px solid #ffc0c0; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #c00; margin: 10px 0 16px; line-height: 1.6; }
+    .inferred-banner { background: var(--bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: var(--muted); margin: 10px 0 16px; line-height: 1.6; }
+    .spec-section { margin: 28px 0 0; }
+    .spec-section h3 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-family: var(--mono); margin-bottom: 10px; padding-bottom: 5px; border-bottom: 0.5px solid var(--border); }
+    .spec-section h4 { font-size: 13px; font-weight: 500; color: var(--text); margin: 18px 0 6px; }
+    .flow-step { display: flex; gap: 10px; margin-bottom: 5px; font-size: 12px; color: var(--text); line-height: 1.6; }
+    .flow-num { font-family: var(--mono); font-size: 10px; color: var(--muted); background: var(--bg); border: 0.5px solid var(--border); border-radius: 4px; padding: 1px 6px; min-width: 20px; text-align: center; height: 18px; margin-top: 2px; flex-shrink: 0; }
+    .bp-row { display: flex; gap: 8px; align-items: baseline; font-size: 12px; padding: 5px 0; border-bottom: 0.5px solid var(--border); }
+    .bp-label { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--teal-dark); background: var(--teal-light); padding: 1px 6px; border-radius: 4px; min-width: 28px; text-align: center; }
+    .bp-range { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 100px; }
+    .bp-desc { font-size: 12px; color: var(--text); }
+    .open-item { padding: 8px 12px; border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--text); line-height: 1.6; display: flex; gap: 10px; align-items: flex-start; }
+    .open-num { font-family: var(--mono); font-size: 10px; color: var(--muted); min-width: 22px; padding-top: 2px; }
+    .open-items-card { border: 0.5px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 10px; }
+    .open-section-header { background: var(--bg); padding: 8px 14px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-family: var(--mono); border-bottom: 0.5px solid var(--border); }
+    .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-family: var(--mono); font-weight: 500; padding: 2px 8px; border-radius: 20px; border: 0.5px solid; }
+    .status-draft { background: #fffbe6; color: #7a5a00; border-color: #e6c700; }
+    code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 0.5px solid rgba(0,0,0,0.12); vertical-align: middle; margin-right: 5px; }
+    .coverage-full { background: #e8f5e9; color: #1a7a47; font-size: 10px; font-family: var(--mono); padding: 2px 7px; border-radius: 20px; border: 0.5px solid rgba(26,122,71,0.25); }
+    .figma-link { font-size: 11px; color: var(--teal-dark); text-decoration: none; font-family: var(--mono); }
+    .figma-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="../_index.html">Workflows</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Dashboard</span>
+    </div>
+    <div class="page-header">
+      <h2>Dashboard — Web Spec</h2>
+      <p>Home page for Colorkrew Workflows. Entry point for all submitters and approvers.</p>
+    </div>
+
+    <div style="display:flex; gap:10px; align-items:center; margin-bottom:20px; flex-wrap:wrap;">
+      <span class="status-badge status-draft">⬤ Draft</span>
+      <span style="font-size:11px; color:var(--muted);">Last updated: 2026-04-29</span>
+      <span style="font-size:11px; color:#7a5a00; background:#fffbe6; padding:2px 8px; border-radius:20px; border:0.5px solid #e6c700; font-family:var(--mono);">20 confirms needed</span>
+      <a class="figma-link" href="https://www.figma.com/design/zRdvOjETHyehzZpEUEoQEZ/Workflows-Renewal?node-id=70-15685" target="_blank">↗ Figma: Home</a>
+      <a class="figma-link" href="https://www.figma.com/design/zRdvOjETHyehzZpEUEoQEZ/Workflows-Renewal?node-id=94-15478" target="_blank">↗ Figma: Details modal</a>
+    </div>
+
+    <div class="confirm-banner">
+      ⚠ <strong>Config files are stubs.</strong> All color token names, copy strings, and JA translations in this spec carry CONFIRM flags. This spec cannot reach "reviewed" status until <code>_theme.md</code>, <code>_glossary.md</code>, and <code>_guidelines.md</code> are populated.
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="spec-body">
+
+      <!-- LAYOUT -->
+      <div class="spec-section">
+        <h3>Layout</h3>
+        <table>
+          <thead><tr><th>Breakpoint</th><th>Width</th><th>Behavior</th></tr></thead>
+          <tbody>
+            <tr><td><span class="bp-label">XL</span></td><td>≥1320px</td><td>Full layout: left menu (260px) + content (max 960px) + right panel (330px)</td></tr>
+            <tr><td><span class="bp-label">L</span></td><td>1180–1319px</td><td>Right panel floats (not fixed column)</td></tr>
+            <tr><td><span class="bp-label">M-L</span></td><td>920–1179px</td><td>Right panel floats</td></tr>
+            <tr><td><span class="bp-label">M</span></td><td>664–919px</td><td>Right panel hidden; card grid 3→2 col at 849px</td></tr>
+            <tr><td><span class="bp-label">S</span></td><td>520–663px</td><td>1-col card grid; min table width 550px (h-scroll below)</td></tr>
+            <tr><td><span class="bp-label">XS</span></td><td>360–519px</td><td>Mobile menu; grid only; 16px margin; floating create button</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- CORE FLOWS -->
+      <div class="spec-section">
+        <h3>Core Flows</h3>
+
+        <h4>Flow 1 — Submitter reviews own submissions</h4>
+        <div class="flow-step"><span class="flow-num">1</span><span>Lands on Dashboard (Home active in left nav)</span></div>
+        <div class="flow-step"><span class="flow-num">2</span><span>Greeting: "Welcome back [First Name]!" + "You have [N] actionable items and [N] pending submissions"</span></div>
+        <div class="flow-step"><span class="flow-num">3</span><span>Default tab: "To approve" shown first</span></div>
+        <div class="flow-step"><span class="flow-num">4</span><span>User reads table or card list; can sort by column in table view</span></div>
+        <div class="flow-step"><span class="flow-num">5</span><span>User clicks row or card → Details modal opens (overlay)</span></div>
+
+        <h4>Flow 2 — Approver acts on pending approval</h4>
+        <div class="flow-step"><span class="flow-num">1</span><span>Lands on Dashboard; "To approve [N]" tab shows count</span></div>
+        <div class="flow-step"><span class="flow-num">2</span><span>Clicks a workflow row/card → Details modal opens</span></div>
+        <div class="flow-step"><span class="flow-num">3</span><span>Reviews form sections and right-panel Approval timeline</span></div>
+        <div class="flow-step"><span class="flow-num">4</span><span>Clicks <strong>Approve</strong> (green) or <strong>Reject</strong> (red dropdown) in Action Footer</span></div>
+        <div class="flow-step"><span class="flow-num">5</span><span>Item transitions out of "To approve" → appears in "Recently actioned"</span></div>
+
+        <h4>Flow 3 — User filters by tab</h4>
+        <div class="flow-step"><span class="flow-num">1</span><span>User clicks any tab: To approve / Recently actioned / Need revision / Pending / On hold / Approved / Draft</span></div>
+        <div class="flow-step"><span class="flow-num">2</span><span>List refreshes; active tab shows underline indicator and updated count badge</span></div>
+
+        <h4>Flow 4 — Toggle table ↔ card view</h4>
+        <div class="flow-step"><span class="flow-num">1</span><span>User clicks view-toggle icons (top-right of content area)</span></div>
+        <div class="flow-step"><span class="flow-num">2</span><span><strong>Table view:</strong> MUI Data table, sortable columns (no standalone Sort dropdown), pagination</span></div>
+        <div class="flow-step"><span class="flow-num">3</span><span><strong>Card view:</strong> Grid of cards, infinite scroll (20–30 initial, loads next on scroll-to-bottom)</span></div>
+        <div class="flow-step"><span class="flow-num">4</span><span>On XS (≤519px): only card view available, toggle hidden</span></div>
+
+        <h4>Flow 5 — Manage right panel mentions</h4>
+        <div class="flow-step"><span class="flow-num">1</span><span>Right panel shows "Mentioned [N]" with count badge</span></div>
+        <div class="flow-step"><span class="flow-num">2</span><span>Unread items shown <strong>bold</strong> with red dot</span></div>
+        <div class="flow-step"><span class="flow-num">3</span><span>Hover item → "clear" icon overlaps right edge → click removes item (not deleted; revisit via Inbox)</span></div>
+        <div class="flow-step"><span class="flow-num">4</span><span>"Mark all as read" link → marks all read. "Clear list" link → clears all.</span></div>
+        <div class="flow-step"><span class="flow-num">5</span><span>Click item body → navigates to referenced workflow</span></div>
+
+        <h4>Flow 6 — Admin view</h4>
+        <div class="flow-step"><span class="flow-num">1</span><span>Admin sees CTA "+ Create / Manage" instead of "+ Create"</span></div>
+        <div class="flow-step"><span class="flow-num">2</span><span>Extra "To update [N]" tab when proxy user assignment is pending</span></div>
+
+        <h4>Flow 7 — Mobile web (XS, ≤519px)</h4>
+        <div class="flow-step"><span class="flow-num">1</span><span>No sidebar; hamburger opens nav drawer; "Left sidebar" icon → "burger menu" icon</span></div>
+        <div class="flow-step"><span class="flow-num">2</span><span>Grid view only; no view toggle; floating "+ Create" button bottom-right</span></div>
+        <div class="flow-step"><span class="flow-num">3</span><span>Tabs become sticky (float at top as user scrolls); 16px horizontal margin</span></div>
+      </div>
+
+      <!-- STATES -->
+      <div class="spec-section">
+        <h3>States</h3>
+
+        <h4>Empty State</h4>
+        <p style="font-size:12px; color:var(--muted); line-height:1.65;">Empty State component (254px height) shown when selected tab has no workflows. Appears inside a container frame ("Frame 17") at 960px width. Two empty-state frames exist, suggesting per-section empty states when multiple tabs are empty simultaneously.</p>
+
+        <h4>Loading State</h4>
+        <div class="missing-banner">⬤ <strong>MISSING</strong> — No loading/skeleton state shown in any Figma frame. Expected: skeleton rows (table) or skeleton cards (grid) while data loads. Needs design before production.</div>
+
+        <h4>Error States</h4>
+        <div class="missing-banner">⬤ <strong>MISSING</strong> — No error states in Figma. Placeholder table below needs designer input.</div>
+        <table>
+          <thead><tr><th>Error</th><th>Trigger</th><th>EN Message</th><th>JA Message</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Load failure</td><td>API timeout / network error</td><td><span class="flag-confirm">CONFIRM</span></td><td><span class="flag-confirm">CONFIRM</span></td><td>Retry button</td></tr>
+            <tr><td>Action failure</td><td>Approve/Reject request fails</td><td><span class="flag-confirm">CONFIRM</span></td><td><span class="flag-confirm">CONFIRM</span></td><td>Retry / contact support</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Success / Confirmation</h4>
+        <p style="font-size:12px; color:var(--muted); line-height:1.65;"><span class="flag-inferred">INFERRED</span> After Approve/Reject: workflow transitions out of active tab, appears in "Recently actioned". No explicit toast or animation shown in Figma.</p>
+        <p style="font-size:12px; color:var(--text); line-height:1.65;">Proxy approver assignment: "Select proxy approvers" dialog (Basic Dialog, 550px) confirms selection via Action Footer within dialog.</p>
+
+        <h4>Edge Cases</h4>
+        <table>
+          <thead><tr><th>Case</th><th>Behaviour</th></tr></thead>
+          <tbody>
+            <tr><td>Infinite scroll end</td><td>"Show last message" indicator below last card</td></tr>
+            <tr><td>Infinite scroll loading</td><td>Next batch loads automatically on scroll-to-bottom</td></tr>
+            <tr><td>Sort reset</td><td>Changing sort column resets list to top</td></tr>
+            <tr><td>Table below min width</td><td>Table scrolls horizontally; min-width = 550px enforced</td></tr>
+            <tr><td>Long subject title</td><td>Truncated with ellipsis; grid card height fixed at 2-row max</td></tr>
+            <tr><td>Long remarks (modal)</td><td>Multi-line, break-line supported</td></tr>
+            <tr><td>Right panel hover item</td><td>"Clear" icon button overlaps on right; removes from list (not deleted)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- COMPONENTS -->
+      <div class="spec-section">
+        <h3>Components Used</h3>
+        <table>
+          <thead><tr><th>Component</th><th>Source</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Left menu</td><td><code>global/components/nav-shell</code></td><td>260px; Home active; Inbox badge</td></tr>
+            <tr><td>Top bar</td><td><code>global/components/nav-shell</code></td><td>Hamburger toggle, Search, User avatar</td></tr>
+            <tr><td>Title</td><td>Defined here</td><td>Greeting + subtitle, max 960px</td></tr>
+            <tr><td>Tabs</td><td><span class="flag-confirm">CONFIRM source</span></td><td>Count badges, active underline, sticky on mobile scroll</td></tr>
+            <tr><td>Table header</td><td><code>global/components/table</code></td><td>Sortable columns; no separate Sort dropdown</td></tr>
+            <tr><td>Table body</td><td><code>global/components/table</code></td><td>48px row height; Submitter col hidden on personal tabs</td></tr>
+            <tr><td>Table pagination</td><td><code>global/components/pagination</code></td><td>MUI-style; rows per page; "X–Y of Z"</td></tr>
+            <tr><td>Card</td><td>Defined in Workflows <span class="flag-confirm">CONFIRM — promote if reused</span></td><td>107px height; workflow summary</td></tr>
+            <tr><td>Workflow section</td><td>Defined in Workflows <span class="flag-confirm">CONFIRM — promote if reused</span></td><td>Section header + card grid</td></tr>
+            <tr><td>Empty State</td><td><span class="flag-confirm">CONFIRM source</span></td><td>254px; centered in 960px content area</td></tr>
+            <tr><td>Right panel (Mentioned)</td><td>Defined here</td><td>330px; collapsible to 68px icon strip</td></tr>
+            <tr><td>Details modal</td><td>Defined here</td><td>1400px default / full screen variant</td></tr>
+            <tr><td>Details header</td><td>Defined here</td><td>56px; breadcrumb + link/expand/close</td></tr>
+            <tr><td>Left section (modal)</td><td>Defined here</td><td>1070px; scrollable content + sticky Action Footer</td></tr>
+            <tr><td>Right section (modal)</td><td>Defined here</td><td>330px; Approval/History/Comments tabs</td></tr>
+            <tr><td>Action Footer</td><td><span class="flag-confirm">CONFIRM source</span></td><td>60px; sticky bottom; Withdraw / Reject / Approve</td></tr>
+            <tr><td>Alert</td><td><span class="flag-confirm">CONFIRM source</span></td><td>Inline banners in modal left section</td></tr>
+            <tr><td>Basic Dialog</td><td><code>global/components/modal</code></td><td>550px; used for proxy approver selection</td></tr>
+            <tr><td>Load more</td><td>Defined here</td><td>48px strip; end of infinite scroll card list</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- COPY PATTERNS -->
+      <div class="spec-section">
+        <h3>Copy Patterns</h3>
+        <div class="confirm-banner">⚠ All EN strings and JA translations carry CONFIRM flags — <code>_glossary.md</code> is a stub.</div>
+        <table>
+          <thead><tr><th>Element</th><th>EN</th><th>JA</th></tr></thead>
+          <tbody>
+            <tr><td>Page title</td><td>"Welcome back [First Name]!"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Page subtitle</td><td>"You have [N] actionable items and [N] pending submissions"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>CTA (regular)</td><td>"+ Create"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>CTA (admin)</td><td>"+ Create / Manage"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Tab labels</td><td>To approve · Recently actioned · Need revision · Pending · On hold · Approved · Draft · To update (admin)</td><td><span class="flag-confirm">CONFIRM all</span></td></tr>
+            <tr><td>Table columns</td><td>Last updated · Submitter · Subject · Template · Category · Ref. No. · Step · Status</td><td><span class="flag-confirm">CONFIRM all</span></td></tr>
+            <tr><td>Pagination</td><td>"Rows per page: [N] ▼" · "[X]–[Y] of [Z]"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Right panel header</td><td>"Mentioned [N]"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Right panel actions</td><td>"Mark all as read" · "Clear list"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Mention text</td><td>"[User] mentioned you:"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Infinite scroll end</td><td><span class="flag-inferred">INFERRED</span> "No more items" or similar</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Modal breadcrumb</td><td>"Home / [Tab name] / [Ref. No.]"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Modal footer</td><td>"Withdraw workflow" · "Reject" · "Approve"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Step indicator</td><td>"Step [N]/[total]"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Left nav items</td><td>Home · Inbox · Lookup · Templates · Master list · Settings</td><td><span class="flag-confirm">CONFIRM all</span></td></tr>
+            <tr><td>Proxy dialog title</td><td>"Select proxy approvers"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Proxy dialog body</td><td>"Select one or more users as proxy approvers to review this specific application. The application will be returned to the applicant if rejected by a proxy approver."</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Proxy: no assignee</td><td>"No approver assigned yet"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- COLOR TOKENS -->
+      <div class="spec-section">
+        <h3>Color Tokens Used</h3>
+        <div class="confirm-banner">⚠ Token format: <code>palette.&lt;role&gt;.&lt;variant&gt;</code> per <code>global/foundations/color-system.md</code>. All hex values unresolved — <code>_theme.md</code> is a stub.</div>
+        <table>
+          <thead><tr><th>Visual element</th><th>MUI palette token</th></tr></thead>
+          <tbody>
+            <tr><td>CTA "+ Create" button fill</td><td><code>palette.primary.main</code> <span class="flag-confirm">CONFIRM</span> (or <code>palette.brand.main</code> if brand token defined)</td></tr>
+            <tr><td>Active tab underline</td><td><code>palette.primary.main</code> <span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>"Approve" button fill</td><td><code>palette.success.main</code> <span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>"Reject" button fill</td><td><code>palette.error.main</code> <span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Inbox badge fill</td><td><code>palette.error.main</code> <span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Mention unread dot</td><td><code>palette.error.main</code> <span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Modal overlay</td><td><code>palette.action.disabledBackground</code> or custom <span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>"Withdraw workflow" text link</td><td><code>palette.error.main</code> <span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Alert info banner</td><td><code>palette.info.main</code> <span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Alert warning banner</td><td><code>palette.warning.main</code> <span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Alert error banner</td><td><code>palette.error.main</code> <span class="flag-confirm">CONFIRM</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GUIDELINES -->
+      <div class="spec-section">
+        <h3>Guidelines Applied</h3>
+        <table>
+          <thead><tr><th>Guideline</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><td>Max content width 960px; <code>spacing(3)</code> padding (XS: <code>spacing(2)</code>)</td><td><span class="flag-confirm">CONFIRM: workflows/_guidelines.md (stub)</span></td></tr>
+            <tr><td>Never use raw hex values — always MUI palette tokens</td><td><code>global/foundations/color-system.md</code></td></tr>
+            <tr><td>Use <code>theme.spacing()</code> — never hardcode px for padding/margin</td><td><code>global/foundations/spacing.md</code></td></tr>
+            <tr><td>Tabler Icons; one style and stroke width per product</td><td><code>global/foundations/iconography.md</code></td></tr>
+            <tr><td>MUI transition tokens; respect <code>prefers-reduced-motion</code></td><td><code>global/foundations/motion.md</code></td></tr>
+            <tr><td>WCAG 2.1 AA; 44×44px touch targets</td><td><code>global/foundations/accessibility.md</code></td></tr>
+            <tr><td>Inter for EN; Noto Sans JP scoped to JA content via <code>lang</code></td><td><code>global/foundations/typography.md</code></td></tr>
+            <tr><td>Table columns sortable — no standalone "Sort by" dropdown</td><td>Figma annotation + <span class="flag-confirm">CONFIRM: global/_guidelines.md (stub)</span></td></tr>
+            <tr><td>"Submitter" column hidden on personal tabs</td><td>Figma annotation</td></tr>
+            <tr><td>Infinite scroll: 20–30 initial batch; load next on scroll-to-bottom</td><td>Figma annotation node 70:9945</td></tr>
+            <tr><td>Grid height fixed for 2 rows (card title truncation)</td><td>Figma annotation</td></tr>
+            <tr><td>Right panel (timeline) collapsed by default at ≤919px</td><td>Figma annotation node 83:18486</td></tr>
+            <tr><td>Mobile ≤519px: mobile menu, floating CTA, grid only, 16px margin</td><td>Figma annotation node 70:9163</td></tr>
+            <tr><td>Tabs sticky-on-scroll on mobile</td><td>Figma annotation node 70:11002</td></tr>
+            <tr><td>Min table width = 550px; horizontal scroll below</td><td>Figma annotation node 70:9162</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TYPOGRAPHY -->
+      <div class="spec-section">
+        <h3>Typography</h3>
+        <div class="confirm-banner">⚠ Token format: <code>typography.&lt;variant&gt;</code> per <code>global/foundations/typography.md</code>. All variant mappings are inferred — no <code>_theme.md</code> overrides confirmed yet.</div>
+        <table>
+          <thead><tr><th>Element</th><th>MUI variant</th><th>Font</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Page title "Welcome back…"</td><td><code>typography.h6</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td>Personalized greeting</td></tr>
+            <tr><td>Page subtitle (count summary)</td><td><code>typography.body2</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td>Muted style</td></tr>
+            <tr><td>Tab labels</td><td><code>typography.button</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td>May be overridden to sentence case in theme</td></tr>
+            <tr><td>Table column headers</td><td><code>typography.overline</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td>Uppercase, letter-spaced</td></tr>
+            <tr><td>Table body rows</td><td><code>typography.body2</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td></td></tr>
+            <tr><td>Pagination label</td><td><code>typography.caption</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td></td></tr>
+            <tr><td>Right panel header "Mentioned"</td><td><code>typography.subtitle2</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td></td></tr>
+            <tr><td>Mention item — unread</td><td><code>typography.body2</code> bold <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td>Bold + red dot</td></tr>
+            <tr><td>Modal workflow title</td><td><code>typography.h5</code> or <code>typography.h6</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td>Subject line, prominent</td></tr>
+            <tr><td>Modal section headers</td><td><code>typography.subtitle2</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td>Collapsible section labels</td></tr>
+            <tr><td>Modal form field labels</td><td><code>typography.caption</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td>Muted</td></tr>
+            <tr><td>Modal form field values</td><td><code>typography.body2</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td></td></tr>
+            <tr><td>Action Footer buttons</td><td><code>typography.button</code> <span class="flag-confirm">CONFIRM</span></td><td>Inter</td><td></td></tr>
+            <tr><td>All Japanese text strings</td><td>corresponding variant</td><td>Noto Sans JP</td><td>Apply via <code>lang="ja"</code> wrapper</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ICONOGRAPHY -->
+      <div class="spec-section">
+        <h3>Iconography</h3>
+        <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:10px;">Library: <strong>Tabler Icons</strong> (<code>@tabler/icons-react</code> / <code>@tabler/icons-webfont</code>) per <code>global/foundations/iconography.md</code>. Style and stroke width: <span class="flag-confirm">CONFIRM</span> — <code>_theme.md</code> is a stub.</p>
+        <table>
+          <thead><tr><th>Usage</th><th>Size</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Left nav items</td><td>24px</td><td>Home, Inbox, Lookup, Templates, Master list, Settings</td></tr>
+            <tr><td>Top bar actions</td><td>20px</td><td>Hamburger/sidebar toggle</td></tr>
+            <tr><td>Table view toggle</td><td>20px</td><td>Grid / list view icons</td></tr>
+            <tr><td>Modal header actions</td><td>20px</td><td>Link, expand, close icons — all need <code>aria-label</code></td></tr>
+            <tr><td>Right panel clear icon (hover)</td><td>16px</td><td>Appears on hover over mention item — needs <code>aria-label</code></td></tr>
+            <tr><td>Empty state illustration</td><td>32px</td><td><code>aria-hidden="true"</code> if decorative</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MOTION -->
+      <div class="spec-section">
+        <h3>Motion</h3>
+        <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:10px;">Tokens per <code>global/foundations/motion.md</code>. All animations must include <code>@media (prefers-reduced-motion: reduce)</code>. Use <code>transform</code> and <code>opacity</code> only — never animate <code>width</code>, <code>height</code>, <code>top</code>, or <code>left</code>.</p>
+        <table>
+          <thead><tr><th>Interaction</th><th>Duration token</th><th>Easing token</th></tr></thead>
+          <tbody>
+            <tr><td>Details modal open</td><td><code>enteringScreen</code> 225ms</td><td><code>easeOut</code></td></tr>
+            <tr><td>Details modal close</td><td><code>leavingScreen</code> 195ms</td><td><code>easeIn</code></td></tr>
+            <tr><td>Right panel collapse</td><td><code>leavingScreen</code> 195ms</td><td><code>sharp</code></td></tr>
+            <tr><td>Right panel expand</td><td><code>enteringScreen</code> 225ms</td><td><code>easeOut</code></td></tr>
+            <tr><td>Table row hover</td><td><code>shortest</code> 150ms</td><td><code>easeInOut</code></td></tr>
+            <tr><td>Tab switch</td><td><code>shorter</code> 200ms</td><td><code>easeInOut</code></td></tr>
+            <tr><td>Mention item hover</td><td><code>shortest</code> 150ms</td><td><code>easeInOut</code></td></tr>
+            <tr><td>Loading skeleton pulse</td><td><code>complex</code> 375ms</td><td><code>easeInOut</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ACCESSIBILITY -->
+      <div class="spec-section">
+        <h3>Accessibility</h3>
+        <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:12px;">Target: <strong>WCAG 2.1 Level AA</strong> per <code>global/foundations/accessibility.md</code>.</p>
+
+        <h4>Touch targets</h4>
+        <table>
+          <thead><tr><th>Element</th><th>Size</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Table rows</td><td>48px height</td><td>✅ Passes (≥44px)</td></tr>
+            <tr><td>Floating "+ Create" button (XS)</td><td>min 44×44px</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Nav icon wrappers</td><td>40×40px (Figma metadata)</td><td><span class="flag-missing">MISSING — below 44px recommended</span></td></tr>
+          </tbody>
+        </table>
+
+        <h4>Focus management (modal)</h4>
+        <ul style="font-size:12px; color:var(--text); line-height:1.8; padding-left:18px; margin:6px 0 14px;">
+          <li>Open: move focus to first interactive element (close button or workflow title)</li>
+          <li>Close: return focus to the triggering row or card</li>
+          <li>While open: trap focus inside modal</li>
+          <li><code>Escape</code> must close the modal</li>
+        </ul>
+
+        <h4>Keyboard navigation</h4>
+        <table>
+          <thead><tr><th>Element</th><th>Keys</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Table rows</td><td><kbd>Tab</kbd> / <kbd>Enter</kbd></td><td>Navigate rows / open workflow detail</td></tr>
+            <tr><td>Tabs</td><td><kbd>←</kbd> <kbd>→</kbd></td><td>Switch tabs</td></tr>
+            <tr><td>Modal right panel tabs</td><td><kbd>←</kbd> <kbd>→</kbd></td><td>Switch Approval/History/Comments</td></tr>
+            <tr><td>Dropdown (Reject chevron)</td><td><kbd>Enter</kbd>/<kbd>Space</kbd> / <kbd>↑↓</kbd> / <kbd>Esc</kbd></td><td>Open / navigate / close</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Screen reader requirements</h4>
+        <ul style="font-size:12px; color:var(--text); line-height:1.8; padding-left:18px; margin:6px 0 0;">
+          <li>Icon-only buttons (modal close, link copy, expand, view toggle, mention clear): must have <code>aria-label</code></li>
+          <li>Decorative icons: <code>aria-hidden="true"</code></li>
+          <li>All Japanese text: <code>lang="ja"</code> wrapper; <code>lang="en"</code> on <code>&lt;html&gt;</code></li>
+          <li>Dynamic badge counts (tab counts, inbox): <code>aria-live</code> region — <span class="flag-confirm">CONFIRM implementation with engineering</span></li>
+        </ul>
+      </div>
+
+      <!-- OPEN ITEMS -->
+      <div class="spec-section">
+        <h3>Open Items</h3>
+        <div class="open-items-card">
+          <div class="open-section-header">Inconsistencies with config files</div>
+          <div class="open-item"><span class="open-num">1</span><span><code>_theme.md</code> is a stub — <code>palette.*</code> hex values unresolved; all color mappings carry CONFIRM flags.</span></div>
+          <div class="open-item"><span class="open-num">2</span><span><code>_glossary.md</code> is a stub — all EN copy strings and JA translations unverified.</span></div>
+          <div class="open-item"><span class="open-num">3</span><span><code>workflows/_guidelines.md</code> and <code>global/_guidelines.md</code> are stubs — product layout rules inferred from Figma annotations only.</span></div>
+          <div class="open-item"><span class="open-num">4</span><span>Global component stubs: Tabs, Empty State, Action Footer, Alert, Nav Shell, Modal, Table, Pagination — component contracts unverifiable.</span></div>
+          <div class="open-item"><span class="open-num">5</span><span>Typography variant assignments are inferred — no <code>_theme.md</code> overrides to check against.</span></div>
+          <div class="open-item"><span class="open-num">6</span><span>Icon style (outline vs filled) and stroke width unconfirmed — verify against <code>global/foundations/iconography.md</code> once <code>_theme.md</code> is populated.</span></div>
+          <div class="open-item"><span class="open-num">7</span><span><strong>Touch target:</strong> Nav icon wrappers are 40×40px in Figma — below the 44px recommended per <code>global/foundations/accessibility.md</code>. Confirm if intentional.</span></div>
+
+          <div class="open-section-header">Missing states or flows</div>
+          <div class="open-item"><span class="open-num">8</span><span><strong>Loading/skeleton state</strong> — not in any Figma frame. Required before production.</span></div>
+          <div class="open-item"><span class="open-num">9</span><span><strong>Error states</strong> — not in Figma. Placeholder table needs designer input; check <code>global/foundations/error-patterns.md</code> when populated.</span></div>
+          <div class="open-item"><span class="open-num">10</span><span><strong>Right panel empty state</strong> — no frame showing "Mentioned" panel with zero items.</span></div>
+          <div class="open-item"><span class="open-num">11</span><span><strong>Post-action feedback</strong> — no explicit success state after Approve/Reject (toast, redirect, or animation not shown).</span></div>
+          <div class="open-item"><span class="open-num">12</span><span><strong>Table row hover state</strong> — referenced in annotations (nodes 310:63790, 310:63831) but not fully captured. Dropdown behaviour partially unknown.</span></div>
+          <div class="open-item"><span class="open-num">13</span><span><strong>Right panel detail (node 82:12032)</strong> — Figma API timed out. Approval/History/Comments tab content documented from screenshot only.</span></div>
+
+          <div class="open-section-header">Decisions needed</div>
+          <div class="open-item"><span class="open-num">14</span><span><strong>JA translations</strong> for all copy strings — requires localisation input.</span></div>
+          <div class="open-item"><span class="open-num">15</span><span><strong>Step indicator</strong> — Figma shows "Step 0/5" for "Just created". Confirm whether 0 is correct or should show 1.</span></div>
+          <div class="open-item"><span class="open-num">16</span><span><strong>Card component</strong> — not in <code>_components.md</code> (stub). Define fields and variants before spec is production-ready.</span></div>
+          <div class="open-item"><span class="open-num">17</span><span><strong>Workflow section component</strong> — card group with section header. Define in product config or promote to global.</span></div>
+          <div class="open-item"><span class="open-num">18</span><span><strong>Right panel on XS</strong> — confirm: slide-in drawer or entirely absent at ≤519px?</span></div>
+          <div class="open-item"><span class="open-num">19</span><span><strong>"To update" admin tab</strong> — exact trigger condition for proxy assignment pending; clarify with product team.</span></div>
+          <div class="open-item"><span class="open-num">20</span><span><strong><code>aria-live</code> for dynamic counts</strong> — confirm implementation approach for tab badges and inbox count with engineering.</span></div>
+        </div>
+      </div>
+
+    </div><!-- /.spec-body -->
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>
