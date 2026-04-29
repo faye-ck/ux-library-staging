@@ -407,16 +407,16 @@
       section: 'Check',
       icon: 'ti-arrows-exchange',
       title: 'Check cross-product consistency',
-      desc: 'Compare the same pattern across products',
+      desc: 'Find what\'s shared, what differs, and what could go global',
       body:
-'Check cross-product consistency for [Pattern Name] across [Products].\n\n' +
-'Compare:\n' +
-'- Copy and tone\n' +
-'- Visual treatment (icon, colour, layout)\n' +
-'- Interaction behaviour (dismiss, retry, redirect)\n' +
-'- Whether each product uses the shared Foundations rule or deviates\n\n' +
-'Output a comparison table: Product | Platform | Approach | Deviates from standard?\n' +
-'Flag deviations and suggest whether they should be normalised or documented as intentional.'
+'Run /cross-product-check to compare [Pattern Name] across [Products].\n\n' +
+'The skill will:\n' +
+'· Read product indexes and targeted spec sections only — no full file reads\n' +
+'· Compare copy, components, interactions, and guideline alignment\n' +
+'· Identify global promotion candidates (identical or near-identical patterns)\n' +
+'· Surface per-product custom behaviour and flag likely conflicts\n' +
+'· List undocumented gaps with a recommended next skill to run\n\n' +
+'Output: coverage snapshot → promotion candidates → per-product differences → conflicts → recommended actions'
     },
     {
       section: 'Promote',

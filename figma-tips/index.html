@@ -104,8 +104,11 @@
 
       <!-- ── HOW CLAUDE READS FIGMA ── -->
       <div class="ft-h2">How Claude reads Figma</div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:10px;">
+        Every skill that reads Figma follows the same four-step protocol, powered by the <code style="font-family:var(--mono); font-size:11px; color:var(--teal-dark); background:var(--bg); padding:1px 5px; border-radius:3px; border:0.5px solid var(--border);">figma-use</code> skill. Understanding this helps you structure your files so skills extract accurate, complete information the first time.
+      </p>
       <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:16px;">
-        Every skill that reads Figma follows the same four-step protocol. Understanding this helps you structure your files so skills extract accurate, complete information the first time.
+        The <code style="font-family:var(--mono); font-size:11px; color:var(--teal-dark); background:var(--bg); padding:1px 5px; border-radius:3px; border:0.5px solid var(--border);">figma-use</code> skill is a reference library installed in <code style="font-family:var(--mono); font-size:11px; color:var(--teal-dark); background:var(--bg); padding:1px 5px; border-radius:3px; border:0.5px solid var(--border);">.claude/commands/</code> that provides Claude with the full Figma Plugin API reference, common patterns, gotchas, and design system guides. It is not invoked directly — it shapes how Claude reads and interprets Figma data in every skill that uses a Figma URL.
       </p>
 
       <div class="ft-steps">
@@ -229,10 +232,11 @@
 
       <!-- ── SKILL REFERENCE ── -->
       <div class="ft-h2">Skills that read Figma</div>
-      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:14px;">
-        All three core skills use the same four-step Figma reading protocol. Download the skill files to read the full instructions.
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:6px;">
+        The three core skills below all follow the four-step protocol. Download any skill file to read its full instructions.
       </p>
 
+      <div class="ft-h3">Core skills</div>
       <div class="ft-skills">
         <a class="ft-skill-link" href="/.claude/commands/document-feature-spec.md" download>
           <i class="ti ti-file-text"></i> /document-feature-spec
@@ -243,8 +247,24 @@
         <a class="ft-skill-link" href="/.claude/commands/audit-figma.md" download>
           <i class="ti ti-brand-figma"></i> /audit-figma
         </a>
+      </div>
+
+      <div class="ft-h3" style="margin-top:18px;">figma-use — the reading engine</div>
+      <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:10px;">
+        <code style="font-family:var(--mono); font-size:11px; color:var(--teal-dark); background:var(--bg); padding:1px 5px; border-radius:3px; border:0.5px solid var(--border);">figma-use.md</code> is the underlying reference skill that optimises how Claude reads Figma. It includes the full Plugin API reference, variable and component patterns, text and effect style guides, working-with-design-systems documentation, and a gotchas list. The core skills load it automatically — it's not invoked directly by designers.
+      </p>
+      <div class="ft-skills">
         <a class="ft-skill-link" href="/.claude/commands/figma-use.md" download>
-          <i class="ti ti-book"></i> figma-use (reference)
+          <i class="ti ti-book"></i> figma-use.md
+        </a>
+        <a class="ft-skill-link" href="/.claude/figma-use/references/gotchas.md" download>
+          <i class="ti ti-alert-triangle"></i> gotchas.md
+        </a>
+        <a class="ft-skill-link" href="/.claude/figma-use/references/api-reference.md" download>
+          <i class="ti ti-code"></i> api-reference.md
+        </a>
+        <a class="ft-skill-link" href="/.claude/figma-use/references/working-with-design-systems/wwds.md" download>
+          <i class="ti ti-vector"></i> working-with-design-systems/
         </a>
       </div>
 
