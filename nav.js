@@ -178,6 +178,11 @@
             { label: 'Admin Portal',  href: '/biz/analytics/admin-portal.html' },
           ]
         },
+        {
+          label: 'Custom assets management', children: [
+            { label: 'Feature', href: '/biz/custom-assets-management/feature.html' },
+          ]
+        },
         { label: 'Changelog',   href: '/biz/changelog.html' },
       ]
     },

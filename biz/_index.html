@@ -6,13 +6,18 @@
   <title>Biz — Overview — UX Library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
-    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-content { max-width: 760px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 10px; letter-spacing: -0.2px; }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
-    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .cov-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0; }
+    .cov-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 6px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    .cov-table td { padding: 7px 10px; border-bottom: 0.5px solid var(--border); color: var(--muted); vertical-align: middle; }
+    .cov-table tr:last-child td { border-bottom: none; }
+    .cov-table td:first-child { font-weight: 500; color: var(--text); }
+    .cov-full { display: inline-block; background: #f0faf4; color: var(--green, #1a7a47); border: 0.5px solid rgba(26,122,71,0.25); font-family: var(--mono); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 20px; }
+    .cov-partial { display: inline-block; background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid rgba(0,169,167,0.3); font-family: var(--mono); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 20px; }
+    .cov-na { color: var(--muted-light); font-family: var(--mono); font-size: 11px; }
   </style>
 </head>
 <body>
@@ -32,7 +37,86 @@
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+      <div class="md-h2">Feature coverage</div>
+      <p>Status per feature and platform. <span style="font-family:var(--mono);font-size:11px;background:#f0faf4;color:var(--green,#1a7a47);padding:1px 6px;border-radius:10px;border:0.5px solid rgba(26,122,71,0.25)">full</span> = baseline spec documented · <span style="font-family:var(--mono);font-size:11px;background:var(--teal-light);color:var(--teal-dark);padding:1px 6px;border-radius:10px;border:0.5px solid rgba(0,169,167,0.3)">partial</span> = files exist, spec pending · — = not in scope</p>
+      <table class="cov-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>User Portal</th>
+            <th>Admin Portal</th>
+            <th>Mobile Web</th>
+            <th>Mobile App</th>
+            <th>Room Signage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Office Map</td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+          </tr>
+          <tr>
+            <td>Reception</td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-na">—</span></td>
+            <td><span class="cov-na">—</span></td>
+          </tr>
+          <tr>
+            <td>Scheduler</td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-na">—</span></td>
+          </tr>
+          <tr>
+            <td>Inventory</td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-na">—</span></td>
+            <td><span class="cov-na">—</span></td>
+          </tr>
+          <tr>
+            <td>Locker</td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-na">—</span></td>
+            <td><span class="cov-na">—</span></td>
+          </tr>
+          <tr>
+            <td>Post</td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-na">—</span></td>
+            <td><span class="cov-na">—</span></td>
+          </tr>
+          <tr>
+            <td>Analytics</td>
+            <td><span class="cov-na">—</span></td>
+            <td><span class="cov-partial">partial</span></td>
+            <td><span class="cov-na">—</span></td>
+            <td><span class="cov-na">—</span></td>
+            <td><span class="cov-na">—</span></td>
+          </tr>
+          <tr>
+            <td><a href="custom-assets-management/feature.html">Custom Assets Management</a></td>
+            <td><span class="cov-full">full</span></td>
+            <td><span class="cov-na">—</span></td>
+            <td><span class="cov-na">—</span></td>
+            <td><span class="cov-na">—</span></td>
+            <td><span class="cov-na">—</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </main>
 </div>
