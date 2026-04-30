@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ant Design — Global — UX Library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 780px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ul { margin: 0 0 12px 0; padding-left: 20px; }
+    .md-content ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table td:first-child { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); white-space: nowrap; }
+    .status-draft { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 20px; background: #fff8e1; color: #9a6700; border: 0.5px solid rgba(154,103,0,0.25); text-transform: uppercase; letter-spacing: 0.05em; margin-left: 10px; vertical-align: middle; }
+    .antd-tag { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 20px; background: #fff2e8; color: #d4380d; border: 0.5px solid rgba(212,56,13,0.2); text-transform: uppercase; letter-spacing: 0.05em; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="../_index.html">Global</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Ant Design</span>
+    </div>
+    <div class="page-header">
+      <h2>
+        <span class="icon"><i class="ti ti-layout-grid"></i></span>
+        Ant Design
+        <span class="status-draft">🟡 Draft</span>
+      </h2>
+      <p>Reference documentation for Ant Design (antd) React component conventions used across Colorkrew products. This section is the single source of truth for products adopting antd — it runs in parallel with the MUI-based Global catalog, not as a replacement.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="md-content">
+
+      <h2 class="md-h2">Inputs</h2>
+      <table class="token-table">
+        <thead><tr><th>Component</th><th>antd name</th><th>When to use</th></tr></thead>
+        <tbody>
+          <tr><td>Button</td><td><code>Button</code></td><td>Primary/secondary/destructive actions. Types: <code>primary</code>, <code>default</code>, <code>dashed</code>, <code>text</code>, <code>link</code>.</td></tr>
+          <tr><td>Input</td><td><code>Input</code> / <code>Input.TextArea</code></td><td>Single-line or multi-line text entry.</td></tr>
+          <tr><td>Select</td><td><code>Select</code></td><td>Dropdown choice from a fixed set. Use <code>mode="multiple"</code> for multi-select.</td></tr>
+          <tr><td>Checkbox</td><td><code>Checkbox</code> / <code>Checkbox.Group</code></td><td>Boolean or multi-select options.</td></tr>
+          <tr><td>Radio</td><td><code>Radio</code> / <code>Radio.Group</code></td><td>Single-select from a small set (≤ 6 options).</td></tr>
+          <tr><td>Switch</td><td><code>Switch</code></td><td>Immediate Boolean toggle.</td></tr>
+          <tr><td>Slider</td><td><code>Slider</code></td><td>Continuous value or range selection.</td></tr>
+          <tr><td>DatePicker</td><td><code>DatePicker</code> / <code>RangePicker</code></td><td>Calendar date or date range input.</td></tr>
+          <tr><td>TimePicker</td><td><code>TimePicker</code></td><td>Time-only input.</td></tr>
+          <tr><td>Upload</td><td><code>Upload</code></td><td>File upload with drag-and-drop support.</td></tr>
+          <tr><td>Form</td><td><code>Form</code> + <code>Form.Item</code></td><td>Validated form wrapper. Always use <code>Form.useForm()</code> for the instance.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="md-h2">Data Display</h2>
+      <table class="token-table">
+        <thead><tr><th>Component</th><th>antd name</th><th>When to use</th></tr></thead>
+        <tbody>
+          <tr><td>Table</td><td><code>Table</code></td><td>Structured rows with sorting, filtering, pagination.</td></tr>
+          <tr><td>List</td><td><code>List</code></td><td>Sequential items, optionally with actions.</td></tr>
+          <tr><td>Typography</td><td><code>Typography.Text</code> / <code>Title</code> / <code>Paragraph</code></td><td>All text rendering.</td></tr>
+          <tr><td>Tag</td><td><code>Tag</code></td><td>Compact label or status indicator.</td></tr>
+          <tr><td>Badge</td><td><code>Badge</code></td><td>Numeric count or status dot overlaid on an element.</td></tr>
+          <tr><td>Avatar</td><td><code>Avatar</code></td><td>User image or initials.</td></tr>
+          <tr><td>Card</td><td><code>Card</code></td><td>Contained content unit.</td></tr>
+          <tr><td>Statistic</td><td><code>Statistic</code></td><td>Highlighted numeric value with label.</td></tr>
+          <tr><td>Descriptions</td><td><code>Descriptions</code></td><td>Key-value detail list.</td></tr>
+          <tr><td>Tooltip</td><td><code>Tooltip</code></td><td>Hover hint. Required for icon-only controls.</td></tr>
+          <tr><td>Popover</td><td><code>Popover</code></td><td>Rich hover/click panel with title and content.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="md-h2">Feedback</h2>
+      <table class="token-table">
+        <thead><tr><th>Component</th><th>antd name</th><th>When to use</th></tr></thead>
+        <tbody>
+          <tr><td>Alert</td><td><code>Alert</code></td><td>Inline status banner (success, info, warning, error).</td></tr>
+          <tr><td>Modal</td><td><code>Modal</code></td><td>Confirmation dialog or form overlay. Use <code>Modal.confirm()</code> for simple prompts.</td></tr>
+          <tr><td>Message</td><td><code>message</code></td><td>Transient global toast (top-center). Use <code>message.success/error/info</code>.</td></tr>
+          <tr><td>Notification</td><td><code>notification</code></td><td>Persistent toast with title + body (top-right default).</td></tr>
+          <tr><td>Progress</td><td><code>Progress</code></td><td>Line or circle progress indicator.</td></tr>
+          <tr><td>Spin</td><td><code>Spin</code></td><td>Loading spinner. Wrap loading content or use as full-page overlay.</td></tr>
+          <tr><td>Skeleton</td><td><code>Skeleton</code></td><td>Content placeholder during load. Prefer over spinner for lists and cards.</td></tr>
+          <tr><td>Result</td><td><code>Result</code></td><td>Full-page success, error, or empty state.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="md-h2">Navigation</h2>
+      <table class="token-table">
+        <thead><tr><th>Component</th><th>antd name</th><th>When to use</th></tr></thead>
+        <tbody>
+          <tr><td>Menu</td><td><code>Menu</code></td><td>Sidebar or top navigation. Modes: <code>inline</code>, <code>horizontal</code>, <code>vertical</code>.</td></tr>
+          <tr><td>Breadcrumb</td><td><code>Breadcrumb</code></td><td>Location trail within a hierarchy.</td></tr>
+          <tr><td>Tabs</td><td><code>Tabs</code></td><td>In-page section switching.</td></tr>
+          <tr><td>Pagination</td><td><code>Pagination</code></td><td>Page navigation for long lists or tables.</td></tr>
+          <tr><td>Steps</td><td><code>Steps</code></td><td>Multi-step process indicator.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="md-h2">Layout</h2>
+      <table class="token-table">
+        <thead><tr><th>Component</th><th>antd name</th><th>When to use</th></tr></thead>
+        <tbody>
+          <tr><td>Layout</td><td><code>Layout</code> / <code>Header</code> / <code>Sider</code> / <code>Content</code> / <code>Footer</code></td><td>Full-page shell structure.</td></tr>
+          <tr><td>Grid</td><td><code>Row</code> / <code>Col</code></td><td>24-column responsive grid.</td></tr>
+          <tr><td>Space</td><td><code>Space</code></td><td>Inline spacing between elements.</td></tr>
+          <tr><td>Divider</td><td><code>Divider</code></td><td>Horizontal or vertical separator.</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Design tokens</h2>
+      <p>Ant Design uses a token system applied via <code>ConfigProvider</code>. Key categories:</p>
+      <table class="token-table">
+        <thead><tr><th>Category</th><th>Token prefix</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Color</td><td><code>colorPrimary</code>, <code>colorBgBase</code></td><td>Brand and surface colors</td></tr>
+          <tr><td>Typography</td><td><code>fontFamily</code>, <code>fontSize</code>, <code>fontWeightStrong</code></td><td>Text sizing and weight</td></tr>
+          <tr><td>Spacing</td><td><code>padding</code>, <code>margin</code>, <code>borderRadius</code></td><td>Component internal spacing</td></tr>
+          <tr><td>Elevation</td><td><code>boxShadow</code> variants</td><td>Surface depth</td></tr>
+          <tr><td>Motion</td><td><code>motionDurationMid</code>, <code>motionEaseInOut</code></td><td>Animation timing</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Related skills</h2>
+      <ul>
+        <li><strong><code>ant-design-react</code></strong> — Component examples, API reference, and React templates for building with antd. <a href="../../skills-library.html" style="color:var(--teal-dark);text-decoration:none;border-bottom:0.5px solid var(--border);">Download from Skills Library</a>.</li>
+        <li><strong><code>/ant-design-spec</code></strong> — Converts an existing product spec into a parallel antd mapping page. Never modifies the original spec.</li>
+      </ul>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Resources</h2>
+      <ul>
+        <li><a href="https://ant.design/components/overview" target="_blank" style="color:var(--teal-dark);text-decoration:none;border-bottom:0.5px solid var(--border);">Official component docs</a></li>
+        <li><a href="https://ant.design/docs/react/customize-theme" target="_blank" style="color:var(--teal-dark);text-decoration:none;border-bottom:0.5px solid var(--border);">Design token customization</a></li>
+        <li><a href="https://github.com/ant-design/ant-design" target="_blank" style="color:var(--teal-dark);text-decoration:none;border-bottom:0.5px solid var(--border);">GitHub repository</a></li>
+      </ul>
+
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>
