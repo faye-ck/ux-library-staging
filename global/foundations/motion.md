@@ -57,3 +57,56 @@
 - Use durations above 400ms for standard UI transitions
 - Animate layout properties (width, height, top, left) — prefer `transform` and `opacity` for performance
 - Add motion to non-interactive, purely informational elements
+
+---
+
+## Anime.js — Complex Animations
+
+Use **Anime.js** for interactions that go beyond MUI's built-in transitions: multi-step sequences, staggered entrances, SVG animation, and physics-based motion. Load `/anime-js` skill before writing any Anime.js code.
+
+### When to use
+
+| Scenario | Approach |
+|----------|----------|
+| MUI component transitions (modal, drawer, tooltip) | MUI tokens — `theme.transitions` |
+| Multi-step or chained animation sequences | Anime.js `timeline()` |
+| Staggered list or grid entrances | Anime.js `stagger()` |
+| SVG path following, line drawing, morphing | Anime.js SVG API |
+| High-frequency updates (cursor, scroll tracking) | Anime.js `Animatable` |
+
+### MUI easing → Anime.js mapping
+
+When building custom animations, use these `cubicBezier` values to stay consistent with MUI motion tokens.
+
+| MUI token | Anime.js equivalent | Use |
+|-----------|---------------------|-----|
+| `easeInOut` | `cubicBezier(0.4, 0, 0.2, 1)` | Default transitions |
+| `easeOut` | `cubicBezier(0.0, 0, 0.2, 1)` | Entering elements |
+| `easeIn` | `cubicBezier(0.4, 0, 1, 1)` | Exiting elements |
+| `sharp` | `cubicBezier(0.4, 0, 0.6, 1)` | Toggle / returning elements |
+
+### Accessibility
+
+Always gate Anime.js animations behind the reduced-motion check:
+
+```javascript
+const prefersReducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+).matches;
+
+anime({
+  targets: '.element',
+  translateY: [30, 0],
+  opacity: [0, 1],
+  duration: prefersReducedMotion ? 0 : 300,
+  easing: prefersReducedMotion ? 'linear' : 'cubicBezier(0.0, 0, 0.2, 1)'
+});
+```
+
+### Rules
+- Use `transform` and `opacity` only — never animate `width`, `height`, `top`, `left`
+- Import only what you need: `import { animate, timeline, stagger } from 'animejs'`
+- Clean up on unmount: return `animation.pause()` from `useEffect`
+- Use `Animatable` for high-frequency updates — never call `anime()` inside a `mousemove` handler
+- Duration baseline: align with MUI tokens — `standard` (300ms) for most custom sequences
+- Load `/anime-js` skill before writing any Anime.js code

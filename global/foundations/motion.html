@@ -36,6 +36,10 @@
     .rule-box ul li { margin-bottom: 3px; color: #444; }
     .warn-box { background: #fef9ec; border: 0.5px solid rgba(176,123,30,0.25); border-left: 2px solid #b07b1e; border-radius: 8px; padding: 12px 14px; font-size: 12px; color: #444; line-height: 1.65; margin: 12px 0 20px; }
     .warn-box strong { color: #7a5210; }
+    .anime-badge { display: inline-flex; align-items: center; gap: 5px; background: #fdf4ff; border: 0.5px solid #d8b4fe; border-radius: 6px; padding: 3px 9px; font-family: var(--mono); font-size: 11px; color: #7c3aed; font-weight: 500; margin-left: 8px; vertical-align: middle; }
+    pre.code-block { background: #1e1e2e; border-radius: 10px; padding: 14px 16px; overflow-x: auto; margin: 10px 0 20px; }
+    pre.code-block code { font-family: var(--mono); font-size: 11.5px; color: #cdd6f4; background: none; border: none; padding: 0; line-height: 1.65; white-space: pre; }
+    .when-table-wrap { margin: 12px 0 20px; }
   </style>
 </head>
 <body>
@@ -186,6 +190,63 @@
           </ul>
         </div>
       </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Anime.js — Complex Animations <span class="anime-badge"><i class="ti ti-sparkles"></i>/anime-js</span></h2>
+      <p>Use <strong>Anime.js</strong> for interactions that go beyond MUI's built-in transitions — multi-step sequences, staggered entrances, SVG animation, and physics-based motion. Load <code>/anime-js</code> skill before writing any Anime.js code.</p>
+
+      <h3 class="md-h3">When to use</h3>
+      <table class="token-table">
+        <thead>
+          <tr><th>Scenario</th><th>Approach</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>MUI component transitions (modal, drawer, tooltip)</td><td>MUI tokens — <code>theme.transitions</code></td></tr>
+          <tr><td>Multi-step or chained animation sequences</td><td>Anime.js <code>timeline()</code></td></tr>
+          <tr><td>Staggered list or grid entrances</td><td>Anime.js <code>stagger()</code></td></tr>
+          <tr><td>SVG path following, line drawing, morphing</td><td>Anime.js SVG API</td></tr>
+          <tr><td>High-frequency updates (cursor, scroll tracking)</td><td>Anime.js <code>Animatable</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">MUI easing → Anime.js mapping</h3>
+      <p>When building custom animations, use these <code>cubicBezier</code> values to stay consistent with MUI motion tokens.</p>
+      <table class="token-table">
+        <thead>
+          <tr><th>MUI token</th><th>Anime.js equivalent</th><th>Use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>easeInOut</code></td><td><code>cubicBezier(0.4, 0, 0.2, 1)</code></td><td>Default transitions</td></tr>
+          <tr><td><code>easeOut</code></td><td><code>cubicBezier(0.0, 0, 0.2, 1)</code></td><td>Entering elements</td></tr>
+          <tr><td><code>easeIn</code></td><td><code>cubicBezier(0.4, 0, 1, 1)</code></td><td>Exiting elements</td></tr>
+          <tr><td><code>sharp</code></td><td><code>cubicBezier(0.4, 0, 0.6, 1)</code></td><td>Toggle / returning elements</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Accessibility</h3>
+      <p>Always gate Anime.js animations behind the reduced-motion check:</p>
+      <pre class="code-block"><code>const prefersReducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+).matches;
+
+anime({
+  targets: '.element',
+  translateY: [30, 0],
+  opacity: [0, 1],
+  duration: prefersReducedMotion ? 0 : 300,
+  easing: prefersReducedMotion ? 'linear' : 'cubicBezier(0.0, 0, 0.2, 1)'
+});</code></pre>
+
+      <h3 class="md-h3">Rules</h3>
+      <ul>
+        <li>Use <code>transform</code> and <code>opacity</code> only — never animate <code>width</code>, <code>height</code>, <code>top</code>, <code>left</code></li>
+        <li>Import only what you need: <code>import { animate, timeline, stagger } from 'animejs'</code></li>
+        <li>Clean up on unmount: return <code>animation.pause()</code> from <code>useEffect</code></li>
+        <li>Use <code>Animatable</code> for high-frequency updates — never call <code>anime()</code> inside a <code>mousemove</code> handler</li>
+        <li>Duration baseline: align with MUI tokens — <code>standard</code> (300ms) for most custom sequences</li>
+        <li>Load <code>/anime-js</code> skill before writing any Anime.js code</li>
+      </ul>
 
     </div>
   </main>

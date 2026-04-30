@@ -152,16 +152,29 @@
 
     /* ── URL LIST DROPDOWN ── */
     .dd-url-row {
-      display: flex; align-items: center; gap: 6px;
-      padding: 6px 10px;
+      display: flex; flex-direction: column; gap: 0;
+      padding: 7px 10px;
+      border-bottom: 0.5px solid var(--border);
     }
-    .dd-url-row input {
+    .dd-url-row:last-of-type { border-bottom: none; }
+    .dd-url-top { display: flex; align-items: center; gap: 5px; }
+    .dd-url-desc {
+      width: 120px; flex-shrink: 0;
+      border: 0.5px solid var(--border); border-radius: 6px;
+      padding: 6px 10px; font-size: 12px; font-family: var(--font);
+      outline: none; background: var(--bg); color: var(--text); min-width: 0;
+    }
+    .dd-url-desc:focus { border-color: var(--teal); }
+    .dd-url-sep {
+      font-size: 12px; color: var(--muted-light); flex-shrink: 0; user-select: none;
+    }
+    .dd-url-input {
       flex: 1; border: 0.5px solid var(--border); border-radius: 6px;
       padding: 6px 10px; font-size: 12px; font-family: var(--mono);
       outline: none; background: var(--bg); color: var(--text); min-width: 0;
     }
-    .dd-url-row input:focus { border-color: var(--teal); }
-    .dd-url-row input::placeholder { color: var(--muted-light); }
+    .dd-url-input:focus { border-color: var(--teal); }
+    .dd-url-input::placeholder { color: var(--muted-light); }
     .dd-url-remove {
       background: none; border: none; cursor: pointer; font-size: 11px;
       color: var(--muted-light); padding: 2px 4px; border-radius: 4px;
@@ -372,7 +385,7 @@
 '   · Updates the coverage table in _index.html\n\n' +
 '── DELTA (optional, up to 3) ────────────────────────────────\n' +
 '6. If delta platforms are needed, run /add-platform-delta once per delta.\n' +
-'   Baseline is always: [Platform]  ·  URL: [URL]\n\n' +
+'   Baseline: [Platform]  ·  URL: [URL]\n\n' +
 '   Delta 1: [Platform B]   ·  URL: [Delta URL]\n' +
 '   Delta 2: [Platform B2]  ·  URL: [Delta URL 2]   ← leave blank to skip\n' +
 '   Delta 3: [Platform B3]  ·  URL: [Delta URL 3]   ← leave blank to skip\n\n' +
@@ -788,18 +801,19 @@
   }
 
   // ── URL LIST HELPERS ─────────────────────────────────────────────────────
-  // Each entry stored as "figma|url" or "clickup|url", newline-separated
+  // Each entry stored as "figma|url|desc" (desc optional), newline-separated
   function parseUrlEntries(str) {
     if (!str) return [];
     return str.split('\n').map(function (line) {
-      var pipe = line.indexOf('|');
-      if (pipe === -1) return { type: 'figma', url: line.trim() }; // legacy
-      return { type: line.slice(0, pipe), url: line.slice(pipe + 1).trim() };
+      var parts = line.split('|');
+      if (parts.length === 1) return { type: 'figma', url: parts[0].trim(), desc: '' }; // legacy plain URL
+      if (parts.length === 2) return { type: parts[0], url: parts[1].trim(), desc: '' }; // old format
+      return { type: parts[0], url: parts[1].trim(), desc: parts.slice(2).join('|').trim() };
     }).filter(function (e) { return e.url; });
   }
   function serializeEntries(entries) {
     return entries.filter(function (e) { return e.url.trim(); })
-      .map(function (e) { return e.type + '|' + e.url; }).join('\n');
+      .map(function (e) { return 'figma|' + e.url + (e.desc ? '|' + e.desc : ''); }).join('\n');
   }
   function getNonEmptyUrls(str) {
     if (!str) return [];
@@ -823,12 +837,14 @@
     var def = activeDefs[key] || DEFS[key];
     var MAX = (def && def.max) || 5;
 
-    // Working draft: plain URL strings — includes in-progress empty rows
-    var draft = getNonEmptyUrls(state[key] || '');
-    if (draft.length === 0) draft = [''];
+    // Working draft: array of {url, desc} objects
+    var parsed = parseUrlEntries(state[key] || '');
+    var draft = parsed.length
+      ? parsed.map(function (e) { return { url: e.url, desc: e.desc }; })
+      : [{ url: '', desc: '' }];
 
     function saveDraft() {
-      state[key] = draft.filter(function (u) { return u.trim(); }).join('\n');
+      state[key] = serializeEntries(draft);
       modalBody.querySelectorAll('.p-chip[data-key="' + key + '"]').forEach(function (c) {
         updateChipDisplay(c, key);
       });
@@ -836,26 +852,50 @@
 
     function buildRows() {
       dropdown.innerHTML = '';
-      draft.forEach(function (url, i) {
+      draft.forEach(function (entry, i) {
         var row = document.createElement('div');
         row.className = 'dd-url-row';
 
-        var inp = document.createElement('input');
-        inp.type = 'text';
-        inp.placeholder = i === 0 ? ((def && def.hint) || 'Add URL…') : 'Add another URL…';
-        inp.value = url;
-        inp.addEventListener('input', function () {
-          draft[i] = inp.value;
+        // Top row: description input + URL input + remove button
+        var top = document.createElement('div');
+        top.className = 'dd-url-top';
+
+        var descInp = document.createElement('input');
+        descInp.type = 'text';
+        descInp.className = 'dd-url-desc';
+        descInp.placeholder = '';
+        descInp.value = entry.desc || '';
+        descInp.addEventListener('input', function () {
+          draft[i].desc = descInp.value;
+          saveDraft();
+        });
+        descInp.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === 'Escape') { e.preventDefault(); closeDropdown(); }
+        });
+        top.appendChild(descInp);
+
+        var sep = document.createElement('span');
+        sep.className = 'dd-url-sep';
+        sep.textContent = ':';
+        top.appendChild(sep);
+
+        var urlInp = document.createElement('input');
+        urlInp.type = 'text';
+        urlInp.className = 'dd-url-input';
+        urlInp.placeholder = i === 0 ? ((def && def.hint) || 'Add URL…') : 'Add another URL…';
+        urlInp.value = entry.url;
+        urlInp.addEventListener('input', function () {
+          draft[i].url = urlInp.value;
           saveDraft();
           updateAddBtn();
         });
-        inp.addEventListener('keydown', function (e) {
+        urlInp.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === 'Escape') { e.preventDefault(); closeDropdown(); }
         });
-        row.appendChild(inp);
+        top.appendChild(urlInp);
 
         // Remove button: show when >1 row or this row has content
-        if (draft.length > 1 || url.trim()) {
+        if (draft.length > 1 || entry.url.trim()) {
           var rm = document.createElement('button');
           rm.className = 'dd-url-remove';
           rm.textContent = '✕';
@@ -863,13 +903,15 @@
           rm.addEventListener('click', function (e) {
             e.stopPropagation();
             draft.splice(i, 1);
-            if (draft.length === 0) draft = [''];
+            if (draft.length === 0) draft = [{ url: '', desc: '' }];
             saveDraft();
             buildRows();
             positionDropdown(chipEl);
           });
-          row.appendChild(rm);
+          top.appendChild(rm);
         }
+        row.appendChild(top);
+
         dropdown.appendChild(row);
       });
 
@@ -877,38 +919,39 @@
       var addBtn = document.createElement('button');
       addBtn.className = 'dd-url-add';
       addBtn.textContent = '+ Add URL';
-      var filled = draft.filter(function (u) { return u.trim(); }).length;
+      var filled = draft.filter(function (e) { return e.url.trim(); }).length;
       addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
       addBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         if (draft.length < MAX) {
-          draft.push('');
+          draft.push({ url: '', desc: '' });
           buildRows();
           positionDropdown(chipEl);
-          var inputs = dropdown.querySelectorAll('.dd-url-row input');
-          if (inputs.length) inputs[inputs.length - 1].focus();
+          var descs = dropdown.querySelectorAll('.dd-url-desc');
+          if (descs.length) descs[descs.length - 1].focus();
         }
       });
       dropdown.appendChild(addBtn);
 
-      // Focus first empty input
+      // Focus first empty description input
       setTimeout(function () {
-        var inputs = dropdown.querySelectorAll('.dd-url-row input');
-        for (var j = 0; j < inputs.length; j++) {
-          if (!inputs[j].value) { inputs[j].focus(); return; }
+        var descs = dropdown.querySelectorAll('.dd-url-desc');
+        for (var j = 0; j < descs.length; j++) {
+          if (!descs[j].value) { descs[j].focus(); return; }
         }
-        if (inputs.length) inputs[0].focus();
+        var urls = dropdown.querySelectorAll('.dd-url-input');
+        if (urls.length) urls[0].focus();
       }, 30);
     }
 
     function updateAddBtn() {
       var addBtn = dropdown.querySelector('.dd-url-add');
       if (!addBtn) return;
-      var filled = draft.filter(function (u) { return u.trim(); }).length;
+      var filled = draft.filter(function (e) { return e.url.trim(); }).length;
       addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
     }
 
-    dropdown.style.minWidth = '420px';
+    dropdown.style.minWidth = '440px';
     buildRows();
     dropdown.style.display = 'block';
     positionDropdown(chipEl);
@@ -1159,9 +1202,11 @@
   function getValForCopy(key) {
     var def = activeDefs[key] || DEFS[key];
     if (def && def.type === 'url-list') {
-      var urls = getNonEmptyUrls(state[key] || '');
-      if (urls.length === 0) return '[' + key + ']';
-      return urls.join('\n');
+      var entries = parseUrlEntries(state[key] || '');
+      if (entries.length === 0) return '[' + key + ']';
+      return entries.map(function (e) {
+        return e.desc ? e.desc + ': ' + e.url : e.url;
+      }).join('\n');
     }
     var val = getVal(key);
     return val || '[' + key + ']';

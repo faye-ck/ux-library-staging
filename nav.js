@@ -22,9 +22,6 @@
             { label: 'Motion',         href: '/global/foundations/motion.html' },
             { label: 'Iconography',    href: '/global/foundations/iconography.html' },
             { label: 'Accessibility',  href: '/global/foundations/accessibility.html' },
-            { label: 'Error Patterns', href: '/global/foundations/error-patterns.html' },
-            { label: 'Empty States',   href: '/global/foundations/empty-states.html' },
-            { label: 'Loading States', href: '/global/foundations/loading-states.html' },
           ]
         },
         {
@@ -98,13 +95,6 @@
                 { label: 'Modal',    href: '/global/components/modal.html' },
                 { label: 'Popover',  href: '/global/components/popover.html' },
                 { label: 'Stack',    href: '/global/components/stack.html' },
-              ]
-            },
-            {
-              label: 'Colorkrew', children: [
-                { label: 'Data Viz',         href: '/global/components/data-viz-primitives.html' },
-                { label: 'Form Validation',  href: '/global/components/form-validation.html' },
-                { label: 'Toast',            href: '/global/components/toast.html' },
               ]
             },
           ]
