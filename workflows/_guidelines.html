@@ -6,13 +6,19 @@
   <title>Workflows — Guidelines — UX Library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
-    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
-    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content { max-width: 860px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 8px; letter-spacing: -0.2px; }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .md-content th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    .md-content td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); font-size: 12px; vertical-align: middle; }
+    .md-content tr:last-child td { border-bottom: none; }
+    .md-content td:first-child { font-weight: 500; color: var(--text); width: 40%; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .status-green { color: #1a7a47; font-weight: 600; }
+    .status-amber { color: #b45309; font-weight: 600; }
+    .status-red { color: #c0392b; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -31,7 +37,89 @@
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Visual &amp; Token Rules</h2>
+      <table>
+        <thead><tr><th>Rule</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Never use raw hex values — always MUI palette token names</td><td><code>global/foundations/color-system.md</code></td></tr>
+          <tr><td>Use <code>theme.spacing()</code> — never hardcode px for padding/margin</td><td><code>global/foundations/spacing.md</code></td></tr>
+          <tr><td>Max content width: 960px inside canvas and modals</td><td>Figma annotation</td></tr>
+          <tr><td><code>spacing(3)</code> (24px) horizontal padding; <code>spacing(2)</code> (16px) on XS</td><td>Figma annotation</td></tr>
+          <tr><td>Tabler Icons — one style and stroke width per product</td><td><code>global/foundations/iconography.md</code></td></tr>
+          <tr><td>Inter for English text; Noto Sans JP scoped to Japanese content via <code>lang="ja"</code></td><td><code>global/foundations/typography.md</code></td></tr>
+          <tr><td>MUI transition tokens; always include <code>prefers-reduced-motion</code> override</td><td><code>global/foundations/motion.md</code></td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Accessibility</h2>
+      <table>
+        <thead><tr><th>Rule</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>WCAG 2.1 Level AA minimum</td><td><code>global/foundations/accessibility.md</code></td></tr>
+          <tr><td>Minimum 44×44px touch targets</td><td><code>global/foundations/accessibility.md</code></td></tr>
+          <tr><td>Focus trapped inside modals and dialogs while open</td><td>Accessibility requirement</td></tr>
+          <tr><td>Focus returns to trigger element on modal close</td><td>Accessibility requirement</td></tr>
+          <tr><td>All icon buttons require <code>aria-label</code></td><td><code>global/foundations/accessibility.md</code></td></tr>
+          <tr><td><code>Escape</code> closes Phase 1 dialog</td><td>Keyboard navigation standard</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Form Behaviour</h2>
+      <table>
+        <thead><tr><th>Rule</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Required field markers: asterisk (*) on labels</td><td>Figma annotations</td></tr>
+          <tr><td>Subject/title auto-generated from up to 3 designated required fields</td><td>Template Layout spec</td></tr>
+          <tr><td>"Next" / "Publish" disabled until required fields are complete</td><td>Figma frame observations</td></tr>
+          <tr><td>"Save as Draft" always enabled during form editing</td><td>Figma frame observations</td></tr>
+          <tr><td>Approval flow recalculation disables all footer action buttons</td><td>Figma frame 348:53940</td></tr>
+          <tr><td>Multi-entry max cap enforced by disabling "Add entry" button</td><td>Figma annotation ("Max. 5 entries")</td></tr>
+          <tr><td>Delete section requires confirmation dialog — cannot be undone</td><td>Template Layout spec</td></tr>
+          <tr><td>Exit with unsaved changes requires confirmation dialog</td><td>Template Layout spec</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Template Creation</h2>
+      <table>
+        <thead><tr><th>Rule</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Approval required toggle defaults to ON</td><td>Figma: default view</td></tr>
+          <tr><td>Allow self-approval checkbox defaults to checked</td><td>Figma: create approval flow modal</td></tr>
+          <tr><td>Last step in approval flow defaults to "Final approver" type</td><td>Figma: step 2 shows "Final approver" as default</td></tr>
+          <tr><td>New approval flows auto-name as "New approval flow N" (auto-numbered)</td><td>Figma frame observation</td></tr>
+          <tr><td>Dropdown open state: drop shadow <code>0px 4px 10px rgba(0,0,0,0.15)</code></td><td>Figma token</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Conditional Flow</h2>
+      <table>
+        <thead><tr><th>Rule</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Condition evaluation: top-to-bottom, first-match wins</td><td>Conditional Flow spec</td></tr>
+          <tr><td>Mixed AND/OR logic within a group is prohibited — all conditions share one operator</td><td>Conditional Flow spec</td></tr>
+          <tr><td>Reused approval flow nodes positioned lowest in chart diagram</td><td>Conditional Flow spec</td></tr>
+          <tr><td>AND/OR toggle only appears at 2+ conditions or groups</td><td>Conditional Flow spec (inferred)</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Status Labels</h2>
+      <table>
+        <thead><tr><th>Status</th><th>Japanese</th><th>Colour intent</th></tr></thead>
+        <tbody>
+          <tr><td><span class="status-amber">Pending Approval</span></td><td>承認待ち</td><td>Amber / warning</td></tr>
+          <tr><td><span class="status-green">Approval Complete</span></td><td>承認完了</td><td>Green / success</td></tr>
+          <tr><td><span class="status-red">Withdrawn</span></td><td>取下げ</td><td>Red / error</td></tr>
+          <tr><td>Published</td><td>公開</td><td>Default / neutral</td></tr>
+          <tr><td style="color:var(--muted);">Archived</td><td>アーカイブ済み</td><td>Muted</td></tr>
+        </tbody>
+      </table>
+
     </div>
   </main>
 </div>

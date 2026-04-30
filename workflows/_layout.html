@@ -6,12 +6,16 @@
   <title>Workflows — Layout — UX Library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
-    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
-    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content { max-width: 860px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 8px; letter-spacing: -0.2px; }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .md-content th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    .md-content td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); font-size: 12px; vertical-align: middle; }
+    .md-content tr:last-child td { border-bottom: none; }
+    .md-content td:first-child { font-weight: 500; color: var(--text); font-size: 12px; width: 32%; }
+    .sz { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); background: var(--teal-light); padding: 1px 5px; border-radius: 3px; white-space: nowrap; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
   </style>
 </head>
@@ -31,7 +35,100 @@
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Global Shell</h2>
+      <table>
+        <thead><tr><th>Element</th><th>Size</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Left navigation</td><td><span class="sz">260px</span> fixed</td><td>Persistent across all views</td></tr>
+          <tr><td>Top bar</td><td><span class="sz">56px</span></td><td>Hamburger · Search · User avatar</td></tr>
+          <tr><td>Main content area</td><td>max-width <span class="sz">960px</span></td><td>Centered; <code>spacing(3)</code> = 24px horizontal; <code>spacing(2)</code> = 16px on XS</td></tr>
+          <tr><td>Right panel (Dashboard)</td><td><span class="sz">330px</span> fixed</td><td>Collapses to 68px icon strip at ≤919px; hidden at ≤519px</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Responsive Breakpoints (Dashboard)</h2>
+      <table>
+        <thead><tr><th>Breakpoint</th><th>Width</th><th>Behavior</th></tr></thead>
+        <tbody>
+          <tr><td>XL</td><td>≥1320px</td><td>Full layout, right panel visible</td></tr>
+          <tr><td>L</td><td>1180–1319px</td><td>Right panel floats (not in fixed column)</td></tr>
+          <tr><td>M-L</td><td>920–1179px</td><td>Right panel floats</td></tr>
+          <tr><td>M</td><td>664–919px</td><td>No right panel; 3-col card grid → 2-col at 849px</td></tr>
+          <tr><td>S</td><td>520–663px</td><td>1-col card grid; min table width 550px (scroll below)</td></tr>
+          <tr><td>XS</td><td>360–519px</td><td>Mobile menu + floating create button; 16px margin</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Details Modal</h2>
+      <table>
+        <thead><tr><th>Element</th><th>Size</th></tr></thead>
+        <tbody>
+          <tr><td>Modal width</td><td><span class="sz">1400px</span></td></tr>
+          <tr><td>Modal offset</td><td>72px top / 100px left from viewport</td></tr>
+          <tr><td>Modal height</td><td><span class="sz">1056px</span></td></tr>
+          <tr><td>Left section (form)</td><td><span class="sz">1070px</span> scrollable</td></tr>
+          <tr><td>Right section (Approval Flow)</td><td><span class="sz">330px</span> fixed</td></tr>
+          <tr><td>Action footer (sticky)</td><td><span class="sz">60px</span></td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Template Creation Wizard</h2>
+      <table>
+        <thead><tr><th>Element</th><th>Size</th></tr></thead>
+        <tbody>
+          <tr><td>Total frame</td><td><span class="sz">1600px</span></td></tr>
+          <tr><td>Left panel</td><td><span class="sz">330px</span> fixed — stepper + form picker + element palette</td></tr>
+          <tr><td>Main canvas</td><td><span class="sz">940px</span> scrollable</td></tr>
+          <tr><td>Right settings panel</td><td><span class="sz">330px</span> fixed</td></tr>
+          <tr><td>Top bar</td><td><span class="sz">1270px</span> — breadcrumbs left + action buttons right</td></tr>
+          <tr><td>Max canvas content width</td><td><span class="sz">960px</span> (24px padding each side)</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Approval Flow Setup</h2>
+      <table>
+        <thead><tr><th>Element</th><th>Size</th></tr></thead>
+        <tbody>
+          <tr><td>Total frame</td><td><span class="sz">1600px</span></td></tr>
+          <tr><td>Left panel (AF config)</td><td><span class="sz">330px</span> fixed — stepper + approval flow section</td></tr>
+          <tr><td>Right section</td><td><span class="sz">1270px</span></td></tr>
+          <tr><td>Top bar</td><td><span class="sz">56px</span></td></tr>
+          <tr><td>Condition Setup right panel</td><td><span class="sz">330px</span></td></tr>
+          <tr><td>Starting canvas</td><td><span class="sz">940px</span> centred</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Create New Workflow Modal</h2>
+      <table>
+        <thead><tr><th>Element</th><th>Size</th></tr></thead>
+        <tbody>
+          <tr><td>Phase 1 dialog (template selection)</td><td><span class="sz">600px</span> centered</td></tr>
+          <tr><td>Details modal</td><td><span class="sz">1400px</span> wide</td></tr>
+          <tr><td>Left section (form)</td><td><span class="sz">1070px</span> scrollable</td></tr>
+          <tr><td>Right section (Approval Flow)</td><td><span class="sz">330px</span> fixed</td></tr>
+          <tr><td>Action footer</td><td><span class="sz">60px</span> sticky</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Rules</h2>
+      <table>
+        <thead><tr><th>Rule</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Max content width</td><td>960px inside canvas and modals</td></tr>
+          <tr><td>Padding</td><td><code>theme.spacing(3)</code> = 24px horizontal; <code>theme.spacing(2)</code> = 16px on XS — never hardcode px</td></tr>
+          <tr><td>Modal backdrop</td><td>Modals overlay Dashboard with a dimmed backdrop</td></tr>
+          <tr><td>Scroll preservation</td><td>Dashboard scroll position preserved when modal closes</td></tr>
+          <tr><td>XS card-only</td><td>Card view only at XS; view toggle hidden; left menu switches to mobile overlay</td></tr>
+        </tbody>
+      </table>
+
     </div>
   </main>
 </div>

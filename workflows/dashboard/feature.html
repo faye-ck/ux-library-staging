@@ -60,14 +60,14 @@
     <div style="display:flex; gap:10px; align-items:center; margin-bottom:20px; flex-wrap:wrap;">
       <span class="status-badge status-draft">⬤ Draft</span>
       <span style="font-size:11px; color:var(--muted);">Last updated: 2026-04-30</span>
-      <span style="font-size:11px; color:#7a5a00; background:#fffbe6; padding:2px 8px; border-radius:20px; border:0.5px solid #e6c700; font-family:var(--mono);">20 confirms needed</span>
+      <span style="font-size:11px; color:#7a5a00; background:#fffbe6; padding:2px 8px; border-radius:20px; border:0.5px solid #e6c700; font-family:var(--mono);">14 confirms needed</span>
       <a class="figma-link" href="https://www.figma.com/design/zRdvOjETHyehzZpEUEoQEZ/Workflows-Renewal?node-id=70-15685" target="_blank">↗ Figma: Home</a>
       <a class="figma-link" href="https://www.figma.com/design/zRdvOjETHyehzZpEUEoQEZ/Workflows-Renewal?node-id=94-15478" target="_blank">↗ Figma: Details modal</a>
       <a class="figma-link" href="https://www.figma.com/design/zRdvOjETHyehzZpEUEoQEZ/Workflows-Renewal?node-id=82-12032" target="_blank">↗ Figma: Right panel</a>
     </div>
 
-    <div class="confirm-banner">
-      ⚠ <strong>Config files are stubs.</strong> All color token names, copy strings, and JA translations in this spec carry CONFIRM flags. This spec cannot reach "reviewed" status until <code>_theme.md</code>, <code>_glossary.md</code>, and <code>_guidelines.md</code> are populated.
+    <div class="inferred-banner">
+      ℹ Config files updated 2026-04-30. Color tokens → <code><a href="../_theme.html" style="color:var(--teal-dark);">_theme.html</a></code> · Glossary → <code><a href="../_glossary.html" style="color:var(--teal-dark);">_glossary.html</a></code> · Guidelines → <code><a href="../_guidelines.html" style="color:var(--teal-dark);">_guidelines.html</a></code>. Remaining CONFIRM flags require localisation or engineering input.
     </div>
 
     <div class="section-divider"></div>
@@ -213,31 +213,31 @@
       <!-- COPY PATTERNS -->
       <div class="spec-section">
         <h3>Copy Patterns</h3>
-        <div class="confirm-banner">⚠ All EN strings and JA translations carry CONFIRM flags — <code>_glossary.md</code> is a stub.</div>
+        <p style="font-size:12px; color:var(--muted); margin-bottom:8px;">JA sourced from <code><a href="../_glossary.html" style="color:var(--teal-dark);">_glossary.html</a></code>. Remaining <span class="flag-confirm">CONFIRM</span> flags need localisation input.</p>
         <table>
           <thead><tr><th>Element</th><th>EN</th><th>JA</th></tr></thead>
           <tbody>
-            <tr><td>Page title</td><td>"Welcome back [First Name]!"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Page title</td><td>"Welcome back [First Name]!"</td><td lang="ja">お帰りなさい {name}さん</td></tr>
             <tr><td>Page subtitle</td><td>"You have [N] actionable items and [N] pending submissions"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
-            <tr><td>CTA (regular)</td><td>"+ Create"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>CTA (regular)</td><td>"+ Create"</td><td lang="ja">+ 作成</td></tr>
             <tr><td>CTA (admin)</td><td>"+ Create / Manage"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
-            <tr><td>Tab labels</td><td>To approve · Recently actioned · Need revision · Pending · On hold · Approved · Draft · To update (admin)</td><td><span class="flag-confirm">CONFIRM all</span></td></tr>
-            <tr><td>Table columns</td><td>Last updated · Submitter · Subject · Template · Category · Ref. No. · Step · Status</td><td><span class="flag-confirm">CONFIRM all</span></td></tr>
-            <tr><td>Pagination</td><td>"Rows per page: [N] ▼" · "[X]–[Y] of [Z]"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
-            <tr><td>Right panel header</td><td>"Mentioned [N]"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Tab labels</td><td>To approve · Recently actioned · Need revision · Pending · On hold · Approved · Draft · To update (admin)</td><td><span class="flag-confirm">CONFIRM</span> (possibly <span lang="ja">承認待ち · 承認済み</span> for To approve / Approved)</td></tr>
+            <tr><td>Table columns</td><td>Last updated · Submitter · Subject · Template · Category · Ref. No. · Step · Status</td><td lang="ja">最終更新日 · 提出者 · 件名 · テンプレート · カテゴリー · 申請番号 · 承認ステップ · ステータス</td></tr>
+            <tr><td>Pagination</td><td>"Rows per page: [N] ▼" · "[X]–[Y] of [Z]"</td><td lang="ja">ページごとの行数: [N] ▼ <span class="flag-confirm">CONFIRM format</span></td></tr>
+            <tr><td>Right panel header</td><td>"Mentioned [N]"</td><td lang="ja">メンションされたコメント</td></tr>
             <tr><td>Right panel actions</td><td>"Mark all as read" · "Clear list"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
             <tr><td>Mention text</td><td>"[User] mentioned you:"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
             <tr><td>Infinite scroll end</td><td><span class="flag-inferred">INFERRED</span> "No more items" or similar</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
             <tr><td>Modal breadcrumb</td><td>"Home / [Tab name] / [Ref. No.]"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
-            <tr><td>Modal footer</td><td>"Withdraw workflow" · "Reject" · "Approve"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
-            <tr><td>Step indicator</td><td>"Step [N]/[total]"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
-            <tr><td>Left nav items</td><td>Home · Inbox · Lookup · Templates · Master list · Settings</td><td><span class="flag-confirm">CONFIRM all</span></td></tr>
+            <tr><td>Modal footer</td><td>"Withdraw workflow" · "Reject" · "Approve"</td><td><span class="flag-confirm">CONFIRM</span> (Approve = <span lang="ja">承認</span>)</td></tr>
+            <tr><td>Step indicator</td><td>"Step [N]/[total]"</td><td lang="ja">ステップ [N]/[total] <span class="flag-confirm">CONFIRM format</span></td></tr>
+            <tr><td>Left nav items</td><td>Home · Inbox · Lookup · Templates · Master list · Settings</td><td lang="ja">ホーム · <span class="flag-confirm">CONFIRM</span> · <span class="flag-confirm">CONFIRM</span> · テンプレート · <span class="flag-confirm">CONFIRM</span> · 設定</td></tr>
             <tr><td>Proxy dialog title</td><td>"Select proxy approvers"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
             <tr><td>Proxy dialog body</td><td>"Select one or more users as proxy approvers to review this specific application. The application will be returned to the applicant if rejected by a proxy approver."</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
-            <tr><td>Proxy: no assignee</td><td>"No approver assigned yet"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
-            <tr><td>Empty state title</td><td>"You don't have any workflows yet"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
-            <tr><td>Empty state subtitle</td><td>"You'll see them listed once there's something to submit or review"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
-            <tr><td>Right panel empty</td><td>"No mentions yet" · "When someone mentions you, it will show up here"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Proxy: no assignee</td><td>"No approver assigned yet"</td><td lang="ja">まだ承認者が割り当てられていません</td></tr>
+            <tr><td>Empty state title</td><td>"You don't have any workflows yet"</td><td lang="ja">まだ申請がありません。</td></tr>
+            <tr><td>Empty state subtitle</td><td>"You'll see them listed once there's something to submit or review"</td><td lang="ja">申請もしくは承認が必要なものがあれば表示されます。</td></tr>
+            <tr><td>Right panel empty</td><td>"No mentions yet" · "When someone mentions you, it will show up here"</td><td lang="ja">まだメンションされていません。 · あなたがメンションされた際、ここに表示されます。</td></tr>
           </tbody>
         </table>
       </div>
@@ -245,7 +245,7 @@
       <!-- COLOR TOKENS -->
       <div class="spec-section">
         <h3>Color Tokens Used</h3>
-        <div class="confirm-banner">⚠ Token format: <code>palette.&lt;role&gt;.&lt;variant&gt;</code> per <code>global/foundations/color-system.md</code>. All hex values unresolved — <code>_theme.md</code> is a stub.</div>
+        <p style="font-size:12px; color:var(--muted); margin-bottom:8px;">Token format: <code>palette.&lt;role&gt;.&lt;variant&gt;</code> per <code>global/foundations/color-system.md</code>. Hex values now confirmed in <code><a href="../_theme.html" style="color:var(--teal-dark);">_theme.html</a></code>. Token-to-element assignments below are inferred from visual appearance — confirm with engineering.</p>
         <table>
           <thead><tr><th>Visual element</th><th>MUI palette token</th></tr></thead>
           <tbody>
@@ -270,14 +270,14 @@
         <table>
           <thead><tr><th>Guideline</th><th>Source</th></tr></thead>
           <tbody>
-            <tr><td>Max content width 960px; <code>spacing(3)</code> padding (XS: <code>spacing(2)</code>)</td><td><span class="flag-confirm">CONFIRM: workflows/_guidelines.md (stub)</span></td></tr>
+            <tr><td>Max content width 960px; <code>spacing(3)</code> padding (XS: <code>spacing(2)</code>)</td><td><code><a href="../_guidelines.html" style="color:var(--teal-dark);">workflows/_guidelines.md</a></code></td></tr>
             <tr><td>Never use raw hex values — always MUI palette tokens</td><td><code>global/foundations/color-system.md</code></td></tr>
             <tr><td>Use <code>theme.spacing()</code> — never hardcode px for padding/margin</td><td><code>global/foundations/spacing.md</code></td></tr>
             <tr><td>Tabler Icons; one style and stroke width per product</td><td><code>global/foundations/iconography.md</code></td></tr>
             <tr><td>MUI transition tokens; respect <code>prefers-reduced-motion</code></td><td><code>global/foundations/motion.md</code></td></tr>
             <tr><td>WCAG 2.1 AA; 44×44px touch targets</td><td><code>global/foundations/accessibility.md</code></td></tr>
             <tr><td>Inter for EN; Noto Sans JP scoped to JA content via <code>lang</code></td><td><code>global/foundations/typography.md</code></td></tr>
-            <tr><td>Table columns sortable — no standalone "Sort by" dropdown</td><td>Figma annotation + <span class="flag-confirm">CONFIRM: global/_guidelines.md (stub)</span></td></tr>
+            <tr><td>Table columns sortable — no standalone "Sort by" dropdown</td><td>Figma annotation</td></tr>
             <tr><td>"Submitter" column hidden on personal tabs</td><td>Figma annotation</td></tr>
             <tr><td>Infinite scroll: 20–30 initial batch; load next on scroll-to-bottom</td><td>Figma annotation node 70:9945</td></tr>
             <tr><td>Grid height fixed for 2 rows (card title truncation)</td><td>Figma annotation</td></tr>
@@ -292,7 +292,7 @@
       <!-- TYPOGRAPHY -->
       <div class="spec-section">
         <h3>Typography</h3>
-        <div class="confirm-banner">⚠ Token format: <code>typography.&lt;variant&gt;</code> per <code>global/foundations/typography.md</code>. All variant mappings are inferred — no <code>_theme.md</code> overrides confirmed yet.</div>
+        <p style="font-size:12px; color:var(--muted); margin-bottom:8px;">Token format: <code>typography.&lt;variant&gt;</code> per <code>global/foundations/typography.md</code>. Font assignments (Inter / Noto Sans JP) confirmed from <code><a href="../_theme.html" style="color:var(--teal-dark);">_theme.html</a></code>. MUI variant assignments below are inferred — confirm once product theme overrides are defined.</p>
         <table>
           <thead><tr><th>Element</th><th>MUI variant</th><th>Font</th><th>Notes</th></tr></thead>
           <tbody>
@@ -317,7 +317,7 @@
       <!-- ICONOGRAPHY -->
       <div class="spec-section">
         <h3>Iconography</h3>
-        <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:10px;">Library: <strong>Tabler Icons</strong> per <code>global/foundations/iconography.md</code>. Style and stroke width: <span class="flag-confirm">CONFIRM</span> — <code>_theme.md</code> is a stub.</p>
+        <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:10px;">Library: <strong>Tabler Icons</strong> per <code>global/foundations/iconography.md</code> and <code><a href="../_theme.html" style="color:var(--teal-dark);">_theme.html</a></code>. Icon sizes confirmed. Style (outline/filled) and stroke width: <span class="flag-confirm">CONFIRM</span> — verify against <code>global/foundations/iconography.md</code>.</p>
         <table>
           <thead><tr><th>Usage</th><th>Size</th><th>Notes</th></tr></thead>
           <tbody>
@@ -397,30 +397,32 @@
       <div class="spec-section">
         <h3>Open Items</h3>
         <div class="open-items-card">
-          <div class="open-section-header">Inconsistencies with config files</div>
-          <div class="open-item"><span class="open-num">1</span><span><code>_theme.md</code> is a stub — <code>palette.*</code> hex values unresolved; all color mappings carry CONFIRM flags.</span></div>
-          <div class="open-item"><span class="open-num">2</span><span><code>_glossary.md</code> is a stub — all EN copy strings and JA translations unverified.</span></div>
-          <div class="open-item"><span class="open-num">3</span><span><code>workflows/_guidelines.md</code> and <code>global/_guidelines.md</code> are stubs — product layout rules inferred from Figma annotations only.</span></div>
-          <div class="open-item"><span class="open-num">4</span><span>Global component stubs: Tabs, Empty State, Action Footer, Alert, Nav Shell, Modal, Table, Pagination — component contracts unverifiable.</span></div>
-          <div class="open-item"><span class="open-num">5</span><span>Typography variant assignments are inferred — no <code>_theme.md</code> overrides to check against.</span></div>
-          <div class="open-item"><span class="open-num">6</span><span>Icon style (outline vs filled) and stroke width unconfirmed — verify against <code>global/foundations/iconography.md</code> once <code>_theme.md</code> is populated.</span></div>
+          <div class="open-section-header">Resolved (2026-04-30)</div>
+          <div class="open-item" style="color:var(--muted);"><span class="open-num">✅</span><span><code>_theme.md</code> populated — palette tokens and hex values now at <a href="../_theme.html" style="color:var(--teal-dark);">workflows/_theme.html</a>.</span></div>
+          <div class="open-item" style="color:var(--muted);"><span class="open-num">✅</span><span><code>_glossary.md</code> populated — confirmed JA for navigation, columns, status values, and common copy at <a href="../_glossary.html" style="color:var(--teal-dark);">workflows/_glossary.html</a>.</span></div>
+          <div class="open-item" style="color:var(--muted);"><span class="open-num">✅</span><span><code>workflows/_guidelines.md</code> populated — max-width, padding, and layout rules confirmed.</span></div>
+
+          <div class="open-section-header">Still open — Config</div>
+          <div class="open-item"><span class="open-num">4</span><span>Global component stubs: Tabs, Empty State, Action Footer, Alert, Nav Shell, Modal, Table, Pagination — component contracts unverifiable until populated.</span></div>
+          <div class="open-item"><span class="open-num">5</span><span>Typography MUI variant assignments are inferred — verify once product theme overrides are defined in <code>_theme.md</code>.</span></div>
+          <div class="open-item"><span class="open-num">6</span><span>Icon style (outline vs filled) and stroke width unconfirmed — verify against <code>global/foundations/iconography.md</code>.</span></div>
           <div class="open-item"><span class="open-num">7</span><span><strong>Touch target:</strong> Nav icon wrappers are 40×40px in Figma — below the 44px recommended per <code>global/foundations/accessibility.md</code>. Confirm if intentional.</span></div>
 
           <div class="open-section-header">Missing states or flows</div>
           <div class="open-item"><span class="open-num">8</span><span><strong>Loading/skeleton state</strong> — not in any Figma frame. Required before production.</span></div>
-          <div class="open-item"><span class="open-num">9</span><span><strong>Error states</strong> — not in Figma. Placeholder table needs designer input; check <code>global/foundations/error-patterns.md</code> when populated.</span></div>
+          <div class="open-item"><span class="open-num">9</span><span><strong>Error states</strong> — not in Figma. Placeholder table needs designer input.</span></div>
           <div class="open-item"><span class="open-num">10</span><span><strong>Right panel empty state</strong> — "No mentions yet" copy captured from screenshot; frame not independently indexed in Figma.</span></div>
-          <div class="open-item"><span class="open-num">11</span><span><strong>Post-action feedback</strong> — no explicit success state after Approve/Reject (toast, redirect, or animation not shown).</span></div>
-          <div class="open-item"><span class="open-num">12</span><span><strong>Table row hover state</strong> — referenced in annotations (nodes 310:63790, 310:63831) but not fully captured. Dropdown behaviour partially unknown.</span></div>
+          <div class="open-item"><span class="open-num">11</span><span><strong>Post-action feedback</strong> — no explicit success state after Approve/Reject (toast, redirect, or animation not shown in Figma).</span></div>
+          <div class="open-item"><span class="open-num">12</span><span><strong>Table row hover state</strong> — referenced in annotations (nodes 310:63790, 310:63831) but not fully captured. Context menu/dropdown behaviour unclear.</span></div>
           <div class="open-item"><span class="open-num">13</span><span><strong>Right panel detail (node 82:12032)</strong> — Figma API timed out. Approval/History/Comments tab content documented from screenshot only.</span></div>
 
           <div class="open-section-header">Decisions needed</div>
-          <div class="open-item"><span class="open-num">14</span><span><strong>JA translations</strong> for all copy strings — requires localisation input.</span></div>
+          <div class="open-item"><span class="open-num">14</span><span><strong>JA translations outstanding:</strong> page subtitle, CTA admin, tab labels (except To approve / Approved), right panel actions (mark read / clear list), modal breadcrumb, modal footer Withdraw/Reject, proxy dialog, left nav Inbox/Lookup/Master list.</span></div>
           <div class="open-item"><span class="open-num">15</span><span><strong>Step indicator</strong> — Figma shows "Step 0/5" for "Just created". Confirm whether 0 is correct or should show 1.</span></div>
-          <div class="open-item"><span class="open-num">16</span><span><strong>Card component</strong> — not in <code>_components.md</code> (stub). Define fields and variants before spec is production-ready.</span></div>
+          <div class="open-item"><span class="open-num">16</span><span><strong>Card component</strong> — not formally defined in <code>_components.md</code>. Define fields and variants before production.</span></div>
           <div class="open-item"><span class="open-num">17</span><span><strong>Workflow section component</strong> — card group with section header. Define in product config or promote to global.</span></div>
           <div class="open-item"><span class="open-num">18</span><span><strong>Right panel on XS</strong> — confirm: slide-in drawer or entirely absent at ≤519px?</span></div>
-          <div class="open-item"><span class="open-num">19</span><span><strong>"To update" admin tab</strong> — exact trigger condition for proxy assignment pending; clarify with product team.</span></div>
+          <div class="open-item"><span class="open-num">19</span><span><strong>"To update" admin tab</strong> — exact trigger condition for proxy assignment pending; clarify with product.</span></div>
           <div class="open-item"><span class="open-num">20</span><span><strong><code>aria-live</code> for dynamic counts</strong> — confirm implementation approach for tab badges and inbox count with engineering.</span></div>
         </div>
       </div>

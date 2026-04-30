@@ -6,12 +6,18 @@
   <title>Workflows — Theme — UX Library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
-    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
-    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content { max-width: 860px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .md-content th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    .md-content td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); font-size: 12px; vertical-align: middle; }
+    .md-content tr:last-child td { border-bottom: none; }
+    .md-content td:first-child { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); width: 30%; }
+    .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; border: 0.5px solid var(--border); margin-right: 6px; vertical-align: middle; }
+    .confirm-tag { font-size: 10px; color: var(--muted-light); font-style: italic; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
   </style>
 </head>
@@ -32,7 +38,92 @@
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+      <p>All hex values extracted from Figma. Token names inferred — confirm once theme is fully populated.</p>
+
+      <h2 class="md-h2">Color Tokens</h2>
+      <h3 class="md-h3">Primary</h3>
+      <table>
+        <thead><tr><th>Token</th><th>Raw hex</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>palette.primary.main</td><td><span class="swatch" style="background:#057aff;"></span>#057aff</td><td>Primary blue — buttons, toggle ON, active step badge, links</td></tr>
+          <tr><td>palette.primary.light</td><td><span class="confirm-tag">INFERRED</span></td><td>Active step row background (tinted blue)</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Background</h3>
+      <table>
+        <thead><tr><th>Token</th><th>Raw hex</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>palette.background.paper</td><td><span class="swatch" style="background:#ffffff; border:0.5px solid #ddd;"></span>#ffffff</td><td>Page background, left panel, modals</td></tr>
+          <tr><td>palette.action.hover</td><td><span class="swatch" style="background:#f5f7fa;"></span>#f5f7fa</td><td>Dropdown list selected row highlight</td></tr>
+          <tr><td>palette.action.disabledBackground</td><td><span class="swatch" style="background:#edeef2;"></span>#edeef2</td><td>Disabled button background; AND/OR toggle background</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Text</h3>
+      <table>
+        <thead><tr><th>Token</th><th>Raw hex</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>palette.text.primary</td><td><span class="swatch" style="background:#1c1c1c;"></span>#1c1c1c</td><td>High — primary body text</td></tr>
+          <tr><td>palette.text.secondary</td><td><span class="swatch" style="background:#535d6e;"></span>#535d6e</td><td>Mid — secondary text, breadcrumbs</td></tr>
+          <tr><td>palette.text.disabled</td><td><span class="swatch" style="background:#728096;"></span>#728096</td><td>Low — completed step label</td></tr>
+          <tr><td>palette.text.disabled (placeholder)</td><td><span class="swatch" style="background:#a4adb9;"></span>#a4adb9</td><td>Placeholder / muted text, empty states</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Border</h3>
+      <table>
+        <thead><tr><th>Token</th><th>Raw hex</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>palette.divider</td><td><span class="swatch" style="background:#edeef2;"></span>#edeef2</td><td>Light dividers, section borders</td></tr>
+          <tr><td>border/mid</td><td><span class="swatch" style="background:#d4d9e1;"></span>#d4d9e1</td><td>Input default border</td></tr>
+          <tr><td>border/mid-hover</td><td><span class="swatch" style="background:#b9c0cc;"></span>#b9c0cc</td><td>Input hover border</td></tr>
+          <tr><td>border/active</td><td><span class="swatch" style="background:#99a5b8;"></span>#99a5b8</td><td>Input open / active border</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Status</h3>
+      <table>
+        <thead><tr><th>Token</th><th>Usage</th><th>Status label</th></tr></thead>
+        <tbody>
+          <tr><td>palette.success.main</td><td>Green — approval complete</td><td>承認完了</td></tr>
+          <tr><td>palette.warning.main</td><td>Amber — pending approval</td><td>承認待ち</td></tr>
+          <tr><td>palette.error.main</td><td>Red — withdrawn; destructive actions</td><td>取下げ</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Shadows</h3>
+      <table>
+        <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>shadows[2]</td><td><code>0px 4px 10px rgba(0,0,0,0.15)</code></td><td>Dropdown list shadow</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Typography</h2>
+      <p>All variant mappings inferred — CONFIRM once theme is populated.</p>
+      <table>
+        <thead><tr><th>Element</th><th>MUI variant</th><th>Font</th></tr></thead>
+        <tbody>
+          <tr><td>Modal title</td><td>h5 or h6</td><td>Inter</td></tr>
+          <tr><td>Section header</td><td>subtitle2</td><td>Inter</td></tr>
+          <tr><td>Field label</td><td>caption</td><td>Inter</td></tr>
+          <tr><td>Field value (read-only)</td><td>body2</td><td>Inter</td></tr>
+          <tr><td>Breadcrumb / meta</td><td>caption</td><td>Inter</td></tr>
+          <tr><td>Button labels</td><td>button</td><td>Inter</td></tr>
+          <tr><td>All Japanese text</td><td>corresponding variant</td><td>Noto Sans JP (via <code>lang="ja"</code>)</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Icons</h2>
+      <p>Library: <strong>Tabler Icons</strong> — one style and stroke width per product (CONFIRM stroke width).</p>
+      <table>
+        <thead><tr><th>Usage</th><th>Size</th></tr></thead>
+        <tbody>
+          <tr><td>Left nav items</td><td>24px</td></tr>
+          <tr><td>Top bar / modal header actions</td><td>20px</td></tr>
+          <tr><td>Section controls (collapse, delete, pin)</td><td>16px</td></tr>
+          <tr><td>Dropdown chevron</td><td>16px</td></tr>
+        </tbody>
+      </table>
+
     </div>
   </main>
 </div>

@@ -4,7 +4,7 @@ feature: dashboard
 platform: web
 status: draft
 last_updated: 2026-04-30
-confirms_needed: 20
+confirms_needed: 14
 ---
 
 # Dashboard — Web Spec
@@ -164,14 +164,14 @@ MISSING: No error states shown. Expected states to define:
 
 | Guideline | Source |
 |---|---|
-| Max content width 960px; `spacing(3)` padding (XS: `spacing(2)`) | CONFIRM: `workflows/_guidelines.md` (stub) |
+| Max content width 960px; `spacing(3)` padding (XS: `spacing(2)`) | `workflows/_guidelines.md` |
 | Never use raw hex values — always MUI palette tokens | `global/foundations/color-system.md` |
 | Use `theme.spacing()` — never hardcode px for padding/margin | `global/foundations/spacing.md` |
 | Tabler Icons; one style and stroke width per product | `global/foundations/iconography.md` |
 | MUI transition tokens; respect `prefers-reduced-motion` | `global/foundations/motion.md` |
 | WCAG 2.1 AA; 44×44px touch targets | `global/foundations/accessibility.md` |
 | Inter for EN; Noto Sans JP scoped to JA content via `lang` | `global/foundations/typography.md` |
-| Sortable table — no standalone "Sort by" dropdown | Figma annotation + CONFIRM: `global/_guidelines.md` (stub) |
+| Sortable table — no standalone "Sort by" dropdown | Figma annotation |
 | "Submitter" column hidden on personal tabs | Figma annotation: "not required for my submissions, pending, on hold and draft" |
 | Infinite scroll: 20–30 initial batch, load next on scroll-to-bottom | Figma annotation node 70:9945 |
 | Grid height fixed for 2 rows (card title truncation) | Figma annotation |
@@ -184,8 +184,7 @@ MISSING: No error states shown. Expected states to define:
 
 ## Typography
 
-Token format: `typography.<variant>` per `global/foundations/typography.md`.
-CONFIRM: All variant mappings are inferred — product `_theme.md` overrides not yet defined.
+Token format: `typography.<variant>` per `global/foundations/typography.md`. Font assignments (Inter / Noto Sans JP) confirmed from `workflows/_theme.md`. MUI variant assignments below are inferred — confirm once product theme overrides are defined.
 
 | Element | MUI variant | Font | Notes |
 |---|---|---|---|
@@ -209,7 +208,7 @@ CONFIRM: All variant mappings are inferred — product `_theme.md` overrides not
 
 ## Iconography
 
-Library: **Tabler Icons** per `global/foundations/iconography.md`. Style (outline/filled) and stroke width: CONFIRM: — `_theme.md` is a stub.
+Library: **Tabler Icons** per `global/foundations/iconography.md` and `workflows/_theme.md`. Icon sizes confirmed from `_theme.md`. Style (outline/filled) and stroke width: CONFIRM: — verify against `global/foundations/iconography.md`.
 
 | Usage | Size | Notes |
 |---|---|---|
@@ -275,59 +274,60 @@ Target: **WCAG 2.1 Level AA** per `global/foundations/accessibility.md`.
 
 ## Copy Patterns
 
+JA translations sourced from `workflows/_glossary.md` (extracted from stg-app.colorkrew-workflows.com). Remaining CONFIRM flags need localisation input.
+
 | Element | EN | JA |
 |---|---|---|
-| Page title | "Welcome back [First Name]!" | CONFIRM: |
+| Page title | "Welcome back [First Name]!" | お帰りなさい {name}さん |
 | Page subtitle | "You have [N] actionable items and [N] pending submissions" | CONFIRM: |
-| CTA button (regular) | "+ Create" | CONFIRM: |
+| CTA button (regular) | "+ Create" | + 作成 |
 | CTA button (admin) | "+ Create / Manage" | CONFIRM: |
-| Tab: to approve | "To approve [N]" | CONFIRM: |
+| Tab: to approve | "To approve [N]" | CONFIRM: (possibly 承認待ち) |
 | Tab: recently actioned | "Recently actioned [N]" | CONFIRM: |
 | Tab: need revision | "Need revision [N]" | CONFIRM: |
 | Tab: pending | "Pending [N]" | CONFIRM: |
 | Tab: on hold | "On hold [N]" | CONFIRM: |
-| Tab: approved | "Approved [N]" | CONFIRM: |
+| Tab: approved | "Approved [N]" | CONFIRM: (possibly 承認済み) |
 | Tab: draft | "Draft [N]" | CONFIRM: |
 | Tab: to update (admin) | "To update [N]" | CONFIRM: |
-| Column: last updated | "Last updated" | CONFIRM: |
-| Column: submitter | "Submitter" | CONFIRM: |
-| Column: subject | "Subject" | CONFIRM: |
-| Column: template | "Template" | CONFIRM: |
-| Column: category | "Category" | CONFIRM: |
-| Column: ref no | "Ref. No." | CONFIRM: |
-| Column: step | "Step" | CONFIRM: |
-| Column: status | "Status" | CONFIRM: |
-| Pagination | "Rows per page: [N] ▼" · "[X]–[Y] of [Z]" | CONFIRM: |
-| Right panel header | "Mentioned [N]" | CONFIRM: |
+| Column: last updated | "Last updated" | 最終更新日 |
+| Column: submitter | "Submitter" | 提出者 |
+| Column: subject | "Subject" | 件名 |
+| Column: template | "Template" | テンプレート |
+| Column: category | "Category" | カテゴリー |
+| Column: ref no | "Ref. No." | 申請番号 |
+| Column: step | "Step" | 承認ステップ |
+| Column: status | "Status" | ステータス |
+| Pagination | "Rows per page: [N] ▼" · "[X]–[Y] of [Z]" | ページごとの行数: [N] ▼ · CONFIRM format |
+| Right panel header | "Mentioned [N]" | メンションされたコメント |
 | Right panel action: read | "Mark all as read" | CONFIRM: |
 | Right panel action: clear | "Clear list" | CONFIRM: |
 | Mention text | "[User] mentioned you:" | CONFIRM: |
-| Infinite scroll end | INFERRED: "No more items" or similar last-message text | CONFIRM: |
+| Infinite scroll end | INFERRED: "No more items" or similar | CONFIRM: |
 | Modal breadcrumb | "Home / [Tab name] / [Ref. No.]" | CONFIRM: |
 | Modal footer: withdraw | "Withdraw workflow" | CONFIRM: |
 | Modal footer: reject | "Reject" | CONFIRM: |
-| Modal footer: approve | "Approve" | CONFIRM: |
-| Step indicator | "Step [N]/[total]" | CONFIRM: |
-| Left nav: home | "Home" | CONFIRM: |
+| Modal footer: approve | "Approve" | 承認 |
+| Step indicator | "Step [N]/[total]" | ステップ [N]/[total] (CONFIRM format) |
+| Left nav: home | "Home" | ホーム |
 | Left nav: inbox | "Inbox" | CONFIRM: |
 | Left nav: lookup | "Lookup" | CONFIRM: |
-| Left nav: templates | "Templates" | CONFIRM: |
+| Left nav: templates | "Templates" | テンプレート |
 | Left nav: master list | "Master list" | CONFIRM: |
-| Left nav: settings | "Settings" | CONFIRM: |
+| Left nav: settings | "Settings" | 設定 |
 | Proxy dialog title | "Select proxy approvers" | CONFIRM: |
 | Proxy dialog body | "Select one or more users as proxy approvers to review this specific application. The application will be returned to the applicant if rejected by a proxy approver." | CONFIRM: |
-| Proxy: no approver | "No approver assigned yet" | CONFIRM: |
-| Empty state title | "You don't have any workflows yet" | CONFIRM: |
-| Empty state subtitle | "You'll see them listed once there's something to submit or review" | CONFIRM: |
-| Right panel empty | "No mentions yet" | CONFIRM: |
-| Right panel empty sub | "When someone mentions you, it will show up here" | CONFIRM: |
+| Proxy: no approver | "No approver assigned yet" | まだ承認者が割り当てられていません |
+| Empty state title | "You don't have any workflows yet" | まだ申請がありません。 |
+| Empty state subtitle | "You'll see them listed once there's something to submit or review" | 申請もしくは承認が必要なものがあれば表示されます。 |
+| Right panel empty | "No mentions yet" | まだメンションされていません。 |
+| Right panel empty sub | "When someone mentions you, it will show up here" | あなたがメンションされた際、ここに表示されます。 |
 
 ---
 
 ## Color Tokens Used
 
-Token format: `palette.<role>.<variant>` per `global/foundations/color-system.md`.
-CONFIRM: All mappings below are inferred from visual appearance — `_theme.md` is a stub, no confirmed hex values.
+Token format: `palette.<role>.<variant>` per `global/foundations/color-system.md`. Hex values and token names now available in `workflows/_theme.md`. Token-to-element assignments below are still inferred from visual appearance — confirm with engineering.
 
 | Visual element | MUI palette token |
 |---|---|
@@ -348,28 +348,30 @@ CONFIRM: All mappings below are inferred from visual appearance — `_theme.md` 
 
 ## Open Items
 
-### Inconsistencies with config files
-1. `_theme.md` is a stub — `palette.*` token hex values unresolved; all color mappings are CONFIRM flags. Must be populated before spec reaches `reviewed`.
-2. `_glossary.md` is a stub — all EN copy strings and JA translations unverified.
-3. `workflows/_guidelines.md` and `global/_guidelines.md` are stubs — product layout rules (max-width, column behavior) inferred from Figma annotations only.
-4. `global/components/` stubs: Tabs, Empty State, Action Footer, Alert, Nav Shell, Modal, Table, Pagination — component contracts unverifiable.
-5. Typography variant assignments are inferred — no `_theme.md` overrides to check against.
-6. Icon style (outline vs filled) and stroke width unconfirmed — check against `global/foundations/iconography.md` once `_theme.md` is populated.
-7. Nav icon wrapper is 40×40px in Figma metadata — below the 44px recommended touch target per `global/foundations/accessibility.md`. Confirm whether intentional.
+### Resolved (2026-04-30)
+1. ✅ `_theme.md` populated — palette tokens and hex values now at `workflows/_theme.md`.
+2. ✅ `_glossary.md` populated — confirmed JA for navigation, column headers, status values, and common copy strings now at `workflows/_glossary.md`.
+3. ✅ `workflows/_guidelines.md` populated — max-width, padding, and layout rules confirmed.
+
+### Still open — Config
+4. Global component stubs: Tabs, Empty State, Action Footer, Alert, Nav Shell, Modal, Table, Pagination — component contracts unverifiable until populated.
+5. Typography MUI variant assignments are inferred — verify once product theme overrides are defined in `_theme.md`.
+6. Icon style (outline vs filled) and stroke width unconfirmed — verify against `global/foundations/iconography.md`.
+7. Nav icon wrappers are 40×40px in Figma metadata — below the 44px recommended touch target per `global/foundations/accessibility.md`. Confirm whether intentional.
 
 ### Missing states or flows
-8. No loading/skeleton state in any Figma frame — required before production per `global/foundations/loading-states.md` (stub; add when populated).
-9. No explicit error states for API failure or action failure — error table in spec is a placeholder; check `global/foundations/error-patterns.md` when populated.
-10. No empty state for the right "Mentioned" panel (when no mentions exist) — screenshot captured (cactus + "No mentions yet") but frame not independently indexed.
-11. No explicit success feedback after Approve/Reject — toast, redirect, or inline confirmation needed.
-12. Table row hover state referenced in Figma annotations (nodes 310:63790, 310:63831) but not fully captured — context menu/dropdown behavior partially unknown.
+8. No loading/skeleton state in any Figma frame — required before production.
+9. No explicit error states for API failure or action failure — error table in spec is a placeholder; needs designer input.
+10. Right panel empty state documented from screenshot only (cactus + "No mentions yet") — frame not independently indexed in Figma.
+11. No explicit success feedback after Approve/Reject — toast, redirect, or inline confirmation not shown in Figma.
+12. Table row hover state referenced in Figma annotations (nodes 310:63790, 310:63831) but not fully captured — context menu/dropdown behavior unclear.
 13. Details modal right panel (node 82:12032) timed out during extraction — Approval/History/Comments tab content documented from screenshot only.
 
 ### Decisions needed
-14. JA translations for all copy strings — requires content/localisation input.
+14. JA translations outstanding: page subtitle, CTA admin, all tab labels (except approvals), right panel actions (mark read / clear list), modal breadcrumb, modal footer Withdraw/Reject, proxy dialog, left nav Inbox/Lookup/Master list.
 15. Step indicator: Figma shows "Step 0/5" in "Just created" state — confirm whether 0 is correct or should show 1.
-16. Card component definition — not in `_components.md` (stub). Define fields and variants before spec is production-ready.
+16. Card component definition — not formally defined in `_components.md`. Define fields and variants before production.
 17. Workflow section component — card group with section header. Define in product config or promote to global.
-18. Right panel on XS (≤519px) — confirm whether it becomes a slide-in drawer or is entirely absent.
-19. "To update" admin tab — exact trigger condition for proxy assignment pending; clarify with product team.
-20. `aria-live` region for dynamic badge counts (tab counts, inbox badge) — confirm implementation approach with engineering.
+18. Right panel on XS (≤519px) — confirm: slide-in drawer or entirely absent?
+19. "To update" admin tab — exact trigger condition for proxy assignment pending; clarify with product.
+20. `aria-live` region for dynamic badge counts (tab badges, inbox count) — confirm implementation approach with engineering.

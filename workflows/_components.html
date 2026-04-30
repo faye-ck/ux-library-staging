@@ -6,12 +6,18 @@
   <title>Workflows — Components — UX Library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
-    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
-    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content { max-width: 920px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .md-content th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    .md-content td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); font-size: 12px; vertical-align: middle; }
+    .md-content tr:last-child td { border-bottom: none; }
+    .md-content td:first-child { font-weight: 500; color: var(--text); width: 28%; }
+    .tag-here { font-size: 10px; background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid rgba(0,169,167,0.3); padding: 1px 6px; border-radius: 20px; font-family: var(--mono); white-space: nowrap; }
+    .tag-global { font-size: 10px; background: var(--bg); color: var(--muted); border: 0.5px solid var(--border); padding: 1px 6px; border-radius: 20px; font-family: var(--mono); white-space: nowrap; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
   </style>
 </head>
@@ -31,7 +37,84 @@
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+      <p>Components marked <span class="tag-here">defined here</span> are Workflows-specific. Components marked <span class="tag-global">global</span> are shared from the global component library.</p>
+
+      <h2 class="md-h2">Workflow-Specific Components</h2>
+      <table>
+        <thead><tr><th>Component</th><th>Used by</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Details modal</td><td>Dashboard, Create New</td><td>1400px overlay; breadcrumb header + close/expand/link icons</td></tr>
+          <tr><td>Details header</td><td>Dashboard, Create New</td><td>56px; breadcrumb + icon actions</td></tr>
+          <tr><td>Left section (form area)</td><td>Dashboard, Create New</td><td>1070px scrollable + sticky 60px footer</td></tr>
+          <tr><td>Right section — Approval Flow panel</td><td>Dashboard, Create New</td><td>330px; numbered approval steps; collapsible</td></tr>
+          <tr><td>Approval step row</td><td>Create New, Approval Flow</td><td>Number badge + label + approver name or group dropdown</td></tr>
+          <tr><td>Approver group dropdown</td><td>Create New</td><td>"Any of N approvers"; individual list; multi-dept variant</td></tr>
+          <tr><td>Action Footer</td><td>Create New, Template Layout</td><td>60px sticky; Cancel + Save as Draft/Changes + Next/Submit/Publish</td></tr>
+          <tr><td>Status chip — Draft</td><td>Create New, Template Layout</td><td>Inline badge near title; grey/muted style</td></tr>
+          <tr><td>Status chip — Unsaved changes</td><td>Create New, Template Layout</td><td>Inline badge; amber/warning style (INFERRED)</td></tr>
+          <tr><td>Multi-entry section</td><td>Create New, Template Layout</td><td>Repeating rows; Item/Price/Description; Add entry; delete per row; Max badge</td></tr>
+          <tr><td>Template info section</td><td>Dashboard details modal</td><td>Read-only tab: Name, Category, Description, Last Updated, Version</td></tr>
+          <tr><td>Section container</td><td>Template Layout</td><td>Expandable/collapsible; drag handle; header controls; 2-col inner grid</td></tr>
+          <tr><td>Multi-entry section container</td><td>Template Layout</td><td>Section variant with Max. entries control in header</td></tr>
+          <tr><td>Section element (2-col row)</td><td>Template Layout</td><td>Form element rendered inside section; 2-col layout</td></tr>
+          <tr><td>Form Elements Palette</td><td>Template Layout</td><td>2-col draggable tile grid in left panel</td></tr>
+          <tr><td>Layout tiles</td><td>Template Layout</td><td>Section tile, Multi-entry tile in left panel</td></tr>
+          <tr><td>Select with Chips</td><td>Template Layout</td><td>Subject fields multi-select at canvas top; max 3 fields</td></tr>
+          <tr><td>AF Left panel</td><td>Approval Flow</td><td>330px fixed; stepper + approval flow config section</td></tr>
+          <tr><td>Approval flow select row</td><td>Approval Flow</td><td>Select dropdown (282px) + pencil/edit icon</td></tr>
+          <tr><td>Starting canvas</td><td>Approval Flow</td><td>940px centred; "Start condition flow" button</td></tr>
+          <tr><td>Condition Setup right panel</td><td>Conditional Flow</td><td>Full-height side panel; all condition flow blocks</td></tr>
+          <tr><td>Condition flow section</td><td>Conditional Flow</td><td>Grip · label · duplicate / trash / chevron icons</td></tr>
+          <tr><td>Condition row</td><td>Conditional Flow</td><td>Operator dropdown + value input</td></tr>
+          <tr><td>AND/OR toggle</td><td>Conditional Flow</td><td>Two-option inline toggle; bg <code>#edeef2</code>; active = white</td></tr>
+          <tr><td>Group box</td><td>Conditional Flow</td><td><code>border-radius: 8px</code>; groups condition rows</td></tr>
+          <tr><td>THEN approval flow selector</td><td>Conditional Flow</td><td>Dropdown + edit icon; "THEN" label above</td></tr>
+          <tr><td>Approval flow chart</td><td>Conditional Flow</td><td>Reactive diagram; re-renders when conditions change</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Global Components Used</h2>
+      <table>
+        <thead><tr><th>Component</th><th>Global path</th><th>Used by</th></tr></thead>
+        <tbody>
+          <tr><td>Horizontal Stepper</td><td><code>global/components/</code></td><td>Template Layout, Approval Flow</td></tr>
+          <tr><td>Switch / Toggle</td><td><code>global/components/switch.md</code></td><td>Approval Flow (Approval required), Template Layout (Required field)</td></tr>
+          <tr><td>Select dropdown</td><td><code>global/components/select.md</code></td><td>All features</td></tr>
+          <tr><td>Text Field</td><td><code>global/components/text-field.md</code></td><td>All features</td></tr>
+          <tr><td>Checkbox</td><td><code>global/components/checkbox.md</code></td><td>Create New, Approval Flow, Template Layout</td></tr>
+          <tr><td>Radio Group</td><td><code>global/components/radio-group.md</code></td><td>Approval Flow (Approver type: User / Department)</td></tr>
+          <tr><td>Tabs</td><td><code>global/components/tabs.md</code></td><td>Dashboard review panel (Approval / History / Comments); Approval Flow step settings (Fixed / Auto)</td></tr>
+          <tr><td>Avatar</td><td><code>global/components/avatar.md</code></td><td>Approval step rows, approver lists</td></tr>
+          <tr><td>Basic Dialog</td><td><code>global/components/dialog.md</code></td><td>Template Layout (delete section, exit without saving); Conditional Flow (remove all)</td></tr>
+          <tr><td>Snackbar</td><td><code>global/components/</code></td><td>Conditional Flow (add/remove/duplicate feedback)</td></tr>
+          <tr><td>Date Time Picker</td><td><code>global/components/date-picker.html</code></td><td>Create New workflow form</td></tr>
+          <tr><td>Left navigation</td><td><code>global/components/nav-shell.md</code></td><td>All views</td></tr>
+          <tr><td>Top bar</td><td><code>global/components/nav-shell.md</code></td><td>All views</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Form Field Types (Template Layout palette)</h2>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>文字列</td><td>Text (Single-line)</td></tr>
+          <tr><td>文字列（複数行）</td><td>Text (Multi-line)</td></tr>
+          <tr><td>メールアドレス</td><td>Email Address</td></tr>
+          <tr><td>URL</td><td>URL</td></tr>
+          <tr><td>数値</td><td>Number</td></tr>
+          <tr><td>通貨</td><td>Currency</td></tr>
+          <tr><td>日時 / 期間</td><td>Date &amp; Time / Duration</td></tr>
+          <tr><td>時間</td><td>Time</td></tr>
+          <tr><td>選択メニュー</td><td>Dropdown / Select Menu</td></tr>
+          <tr><td>単一回答</td><td>Single Answer (Radio)</td></tr>
+          <tr><td>複数回答</td><td>Multiple Answers (Checkbox)</td></tr>
+          <tr><td>チェックボックス</td><td>Checkbox</td></tr>
+          <tr><td>ファイルアップロード</td><td>File Upload</td></tr>
+        </tbody>
+      </table>
+
     </div>
   </main>
 </div>

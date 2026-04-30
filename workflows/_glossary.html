@@ -6,13 +6,41 @@
   <title>Workflows — Glossary — UX Library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
-    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
-    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content { max-width: 860px; }
+    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0 20px; line-height: 1.65; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
-    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* Table styles */
+    .md-content table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .md-content th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    .md-content td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); vertical-align: middle; }
+    .md-content tr:last-child td { border-bottom: none; }
+    .md-content td:first-child { font-size: 13px; color: var(--text); width: 46%; }
+    .md-content td:last-child { font-size: 12px; color: var(--muted); }
+    .md-content td.note { font-size: 11px; color: var(--muted-light); font-style: italic; }
+
+    /* Search */
+    .glossary-search-wrap { margin-bottom: 24px; }
+    .glossary-search-wrap input {
+      width: 100%;
+      max-width: 360px;
+      padding: 7px 12px;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: var(--mono);
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+    }
+    .glossary-search-wrap input:focus { border-color: var(--teal); }
+    .row-hidden { display: none; }
+
+    /* Meta badge */
+    .glossary-meta { font-size: 11px; color: var(--muted-light); font-family: var(--mono); margin-bottom: 20px; }
   </style>
 </head>
 <body>
@@ -31,10 +59,330 @@
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
-    </div>
+
+      <p class="glossary-meta">10 screenshots processed &nbsp;·&nbsp; Last updated: 2026-04-30</p>
+
+      <div class="glossary-search-wrap">
+        <input type="text" id="glossary-search" placeholder="Search terms…" oninput="filterGlossary(this.value)" />
+      </div>
+
+      <!-- Navigation -->
+      <h2 class="md-h2">Navigation</h2>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>ホーム</td><td>Home</td></tr>
+          <tr><td>申請一覧</td><td>Request List</td></tr>
+          <tr><td>テンプレート</td><td>Templates</td></tr>
+          <tr><td>設定</td><td>Settings</td></tr>
+          <tr><td>+ 作成</td><td>+ Create</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Home Page -->
+      <h2 class="md-h2">Home Page</h2>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>お帰りなさい {name}さん</td><td>Welcome back, {name}</td></tr>
+          <tr><td>承認待ちの申請はありません。</td><td>No pending approval requests.</td></tr>
+          <tr><td>承認待ち</td><td>Pending Approval</td></tr>
+          <tr><td>承認済み</td><td>Approved</td></tr>
+          <tr><td>メンションされたコメント</td><td>Mentioned Comments</td></tr>
+          <tr><td>まだメンションされていません。</td><td>Not mentioned yet.</td></tr>
+          <tr><td>あなたがメンションされた際、ここに表示されます。</td><td>When you are mentioned, it will appear here.</td></tr>
+          <tr><td>まだ申請がありません。</td><td>No requests yet.</td></tr>
+          <tr><td>申請もしくは承認が必要なものがあれば表示されます。</td><td>Items requiring submission or approval will appear here.</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Request List -->
+      <h2 class="md-h2">Request List (申請一覧)</h2>
+      <h3 class="md-h3">Column Headers</h3>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>最終更新日 / 最終更新日時</td><td>Last Updated / Last Updated Date &amp; Time</td></tr>
+          <tr><td>件名</td><td>Subject / Title</td></tr>
+          <tr><td>テンプレート</td><td>Template</td></tr>
+          <tr><td>カテゴリー</td><td>Category</td></tr>
+          <tr><td>申請番号</td><td>Request Number</td></tr>
+          <tr><td>承認ステップ</td><td>Approval Steps</td></tr>
+          <tr><td>ステータス</td><td>Status</td></tr>
+          <tr><td>提出者</td><td>Submitter</td></tr>
+          <tr><td>ページごとの行数</td><td>Rows per page</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Filter Chips</h3>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>ステータス</td><td>Status</td></tr>
+          <tr><td>最終更新日時</td><td>Last Updated</td></tr>
+          <tr><td>カテゴリー</td><td>Category</td></tr>
+          <tr><td>90日以内に更新あり</td><td>Updated within 90 days</td></tr>
+          <tr><td>自分のテンプレート</td><td>My Templates</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Status Values -->
+      <h2 class="md-h2">Status Values</h2>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>承認待ち</td><td>Pending Approval</td></tr>
+          <tr><td>承認完了</td><td>Approval Complete</td></tr>
+          <tr><td>取下げ</td><td>Withdrawn</td></tr>
+          <tr><td>公開</td><td>Published</td></tr>
+          <tr><td>アーカイブ済み</td><td>Archived</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Request Detail -->
+      <h2 class="md-h2">Request Detail Modal</h2>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>新規申請作成</td><td>New Request Creation</td></tr>
+          <tr><td>提出日時</td><td>Submission Date &amp; Time</td></tr>
+          <tr><td>カテゴリーなし</td><td>No Category / Uncategorized</td></tr>
+          <tr><td>承認</td><td>Approve</td></tr>
+          <tr><td>履歴</td><td>History</td></tr>
+          <tr><td>コメント</td><td>Comment</td></tr>
+          <tr><td>コメントを入力してください</td><td>Please enter a comment</td></tr>
+          <tr><td>申請が作成されました</td><td>Request was created</td></tr>
+          <tr><td>{name}さんが申請を提出しました</td><td>{name} submitted the request</td></tr>
+          <tr><td>{name}さんがこの申請を最終承認しました</td><td>{name} finally approved this request</td></tr>
+          <tr><td>不明なユーザー</td><td>Unknown user</td></tr>
+          <tr><td>更新者</td><td>Updated by</td></tr>
+          <tr><td>バージョン</td><td>Version</td></tr>
+          <tr><td>テンプレート名</td><td>Template Name</td></tr>
+          <tr><td>概要</td><td>Description / Summary</td></tr>
+          <tr><td>最終更新日時</td><td>Last Updated</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Info Banner — Colorkrew Biz Integration</h3>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Colorkrew Biz 備品予約: これは、Colorkrew Biz 備品予約機能と連携しているため、承認もしくは却下後に、Workflows側で編集を行うことはできません。</td>
+            <td>Colorkrew Biz Equipment Reservation: Since this is linked to the Colorkrew Biz equipment reservation function, editing on the Workflows side is not possible after approval or rejection.</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Template Selection -->
+      <h2 class="md-h2">Template Selection Modal</h2>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>テンプレート選択</td><td>Template Selection</td></tr>
+          <tr><td>全てのテンプレート</td><td>All Templates</td></tr>
+          <tr><td>お気に入り</td><td>Favorites</td></tr>
+          <tr><td>テンプレート検索</td><td>Search Templates</td></tr>
+          <tr><td>最近使用したテンプレート</td><td>Recently Used Templates</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Template Management -->
+      <h2 class="md-h2">Template Management (テンプレート管理)</h2>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>テンプレート管理</td><td>Template Management</td></tr>
+          <tr><td>申請テンプレートを管理</td><td>Manage request templates</td></tr>
+          <tr><td>テンプレートを作成</td><td>Create Template</td></tr>
+          <tr><td>テンプレート名</td><td>Template Name</td></tr>
+          <tr><td>作成日時</td><td>Created Date &amp; Time</td></tr>
+          <tr><td>作成者</td><td>Created By</td></tr>
+          <tr><td>使用回数</td><td>Usage Count</td></tr>
+          <tr><td>最終更新日</td><td>Last Updated</td></tr>
+          <tr><td>アクション</td><td>Actions</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Template Creation -->
+      <h2 class="md-h2">Template Creation — Step Indicator &amp; Actions</h2>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>①レイアウト</td><td>Step 1: Layout</td></tr>
+          <tr><td>②承認フロー</td><td>Step 2: Approval Flow</td></tr>
+          <tr><td>③基本設定</td><td>Step 3: Basic Settings</td></tr>
+          <tr><td>新規テンプレート作成 / レイアウト設定</td><td>New Template Creation / Layout Settings</td></tr>
+          <tr><td>新規テンプレート作成 / 承認フロー設定</td><td>New Template Creation / Approval Flow Settings</td></tr>
+          <tr><td>キャンセル</td><td>Cancel</td></tr>
+          <tr><td>下書き保存</td><td>Save as Draft</td></tr>
+          <tr><td>公開</td><td>Publish</td></tr>
+          <tr><td>保存</td><td>Save</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Layout Editor -->
+      <h2 class="md-h2">Template Creation — Layout Editor</h2>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>フォーム</td><td>Form</td></tr>
+          <tr><td>カスタムフォーム</td><td>Custom Form</td></tr>
+          <tr><td>レイアウト</td><td>Layout</td></tr>
+          <tr><td>セクション</td><td>Section</td></tr>
+          <tr><td>複製可能セクション</td><td>Duplicatable Section</td></tr>
+          <tr><td>フォーム項目</td><td>Form Fields</td></tr>
+          <tr><td>項目を追加</td><td>Add Item</td></tr>
+          <tr><td>セクション名を入力*</td><td>Enter section name*</td></tr>
+          <tr><td>概要を入力（任意）</td><td>Enter description (optional)</td></tr>
+          <tr><td>セクションまたは項目をここにドラッグ&amp;ドロップ</td><td>Drag &amp; drop sections or items here</td></tr>
+          <tr><td>フォーム項目を選択し編集してください</td><td>Please select and edit a form item</td></tr>
+          <tr><td>必須項目を最低1つ以上最大3つまで選択することで件名が自動生成されます。</td><td>The subject will be auto-generated by selecting at least 1 and up to 3 required fields.</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Form Field Types</h3>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>文字列</td><td>Text (Single-line)</td></tr>
+          <tr><td>文字列（複数行）</td><td>Text (Multi-line)</td></tr>
+          <tr><td>メールアドレス</td><td>Email Address</td></tr>
+          <tr><td>URL</td><td>URL</td></tr>
+          <tr><td>数値</td><td>Number</td></tr>
+          <tr><td>通貨</td><td>Currency</td></tr>
+          <tr><td>日時 / 期間</td><td>Date &amp; Time / Duration</td></tr>
+          <tr><td>時間</td><td>Time</td></tr>
+          <tr><td>選択メニュー</td><td>Dropdown / Select Menu</td></tr>
+          <tr><td>単一回答</td><td>Single Answer (Radio)</td></tr>
+          <tr><td>複数回答</td><td>Multiple Answers (Checkbox)</td></tr>
+          <tr><td>チェックボックス</td><td>Checkbox</td></tr>
+          <tr><td>ファイルアップロード</td><td>File Upload</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Approval Flow -->
+      <h2 class="md-h2">Template Creation — Approval Flow Editor</h2>
+      <h3 class="md-h3">Flow Settings</h3>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>デフォルト承認フロー</td><td>Default Approval Flow</td></tr>
+          <tr><td>承認が必要</td><td>Approval required (toggle)</td></tr>
+          <tr><td>+ 新規承認フロー作成</td><td>+ Create New Approval Flow</td></tr>
+          <tr><td>既存のフローを選択</td><td>Select Existing Flow</td></tr>
+          <tr><td>承認フローを選択</td><td>Select Approval Flow</td></tr>
+          <tr><td>このテンプレートは回答収集を目的に使用します</td><td>This template is used for the purpose of collecting responses</td></tr>
+          <tr><td>条件がありません</td><td>No conditions</td></tr>
+          <tr><td>条件分岐を開始</td><td>Start Conditional Branch</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Create / Edit Flow Modal</h3>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>新規テンプレート作成 / 承認フローを作成</td><td>New Template Creation / Create Approval Flow</td></tr>
+          <tr><td>タイトル*</td><td>Title*</td></tr>
+          <tr><td>新規の承認フローを作成</td><td>Create new approval flow (placeholder)</td></tr>
+          <tr><td>例）予算申請</td><td>e.g., Budget Request (placeholder)</td></tr>
+          <tr><td>自己承認の許可</td><td>Allow self-approval</td></tr>
+          <tr><td>ステップ{n} 最終承認者</td><td>Step {n} — Final Approver</td></tr>
+          <tr><td>1件以上の承認が必要</td><td>At least 1 approval required</td></tr>
+          <tr><td>承認ステップを追加</td><td>Add Approval Step</td></tr>
+          <tr><td>申請者の所属部署</td><td>Applicant's Department</td></tr>
+          <tr><td>申請作成時に承認者が確定します</td><td>Approver is determined when the request is created</td></tr>
+          <tr><td>まだ承認者が割り当てられていません</td><td>No approver assigned yet</td></tr>
+          <tr><td>名前またはEメールで追加</td><td>Add by name or email</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Step Settings (right panel)</h3>
+      <table>
+        <thead><tr><th>Japanese</th><th>English</th></tr></thead>
+        <tbody>
+          <tr><td>ステップ{n}</td><td>Step {n}</td></tr>
+          <tr><td>固定</td><td>Fixed</td></tr>
+          <tr><td>自動</td><td>Auto</td></tr>
+          <tr><td>承認待ち</td><td>Required Approvals (count)</td></tr>
+          <tr><td>却下された場合</td><td>When Rejected</td></tr>
+          <tr><td>却下時に承認者が選択</td><td>Approver selected at rejection</td></tr>
+          <tr><td>申請者が承認者を選択可能</td><td>Applicant can select approver</td></tr>
+          <tr><td>承認者の種類</td><td>Approver Type</td></tr>
+          <tr><td>ユーザー</td><td>User</td></tr>
+          <tr><td>部署</td><td>Department</td></tr>
+          <tr><td>申請者の</td><td>Applicant's…</td></tr>
+          <tr><td>所属部署のリーダー</td><td>Leader of applicant's department</td></tr>
+          <tr><td>上位部署</td><td>Parent department</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Categories -->
+      <h2 class="md-h2">Categories</h2>
+      <table>
+        <thead><tr><th>Label</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>【束議】Approval docu…</td><td class="note">Internal board approval documents</td></tr>
+          <tr><td>Accounting&amp;Finance</td><td></td></tr>
+          <tr><td>Corporate Engineering</td><td></td></tr>
+          <tr><td>Engineering</td><td></td></tr>
+          <tr><td>General Affairs</td><td></td></tr>
+          <tr><td>HR</td><td></td></tr>
+          <tr><td>ISMS/PMS</td><td></td></tr>
+          <tr><td>Legal</td><td></td></tr>
+          <tr><td>QAA</td><td></td></tr>
+          <tr><td>SaaS</td><td></td></tr>
+          <tr><td>Sales</td><td></td></tr>
+          <tr><td>Skillous</td><td></td></tr>
+          <tr><td>Uncategorized</td><td class="note">English label used in some places</td></tr>
+          <tr><td>カテゴリーなし</td><td class="note">No Category / Uncategorized (Japanese label)</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Departments -->
+      <h2 class="md-h2">Submitter Department Labels</h2>
+      <table>
+        <thead><tr><th>Label</th></tr></thead>
+        <tbody>
+          <tr><td>Sales&amp;Marketing</td></tr>
+          <tr><td>Clerical</td></tr>
+          <tr><td>Corporate</td></tr>
+          <tr><td>Product Management</td></tr>
+          <tr><td>Engineer</td></tr>
+        </tbody>
+      </table>
+      <hr class="md-hr" />
+
+      <!-- Booking Fields -->
+      <h2 class="md-h2">Booking Information Fields (備品用 template)</h2>
+      <table>
+        <thead><tr><th>Label</th></tr></thead>
+        <tbody>
+          <tr><td>Item UUID</td></tr>
+          <tr><td>Booking Time</td></tr>
+          <tr><td>Remark</td></tr>
+          <tr><td>Item Name</td></tr>
+          <tr><td>Item Custom ID</td></tr>
+        </tbody>
+      </table>
+
+    </div><!-- /.md-content -->
   </main>
 </div>
 <script src="../nav.js"></script>
+<script>
+  function filterGlossary(q) {
+    q = q.toLowerCase().trim();
+    document.querySelectorAll('.md-content tbody tr').forEach(row => {
+      row.classList.toggle('row-hidden', q !== '' && !row.textContent.toLowerCase().includes(q));
+    });
+  }
+</script>
 </body>
 </html>
