@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Department Deck — Feature — UX Library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 720px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 10px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 11px; font-weight: 500; color: var(--muted); margin: 22px 0 8px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* Flags */
+    .flag-confirm {
+      background: #fffbe6; border: 0.5px solid #f0c040; border-radius: 10px;
+      padding: 10px 14px; margin: 12px 0; font-size: 12px; color: #7a5c00; line-height: 1.6;
+    }
+    .flag-confirm::before { content: "⚠ CONFIRM: "; font-weight: 600; }
+    .flag-missing {
+      background: #fff0f0; border: 0.5px solid #e06060; border-radius: 10px;
+      padding: 10px 14px; margin: 12px 0; font-size: 12px; color: #900; line-height: 1.6;
+    }
+    .flag-missing::before { content: "✕ MISSING: "; font-weight: 600; }
+    .flag-inferred {
+      display: inline-block; background: var(--bg); border: 0.5px solid var(--border);
+      border-radius: 4px; padding: 1px 7px; font-size: 10px; color: var(--muted);
+      font-family: var(--mono); vertical-align: middle; margin-left: 4px;
+    }
+
+    /* Tables */
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; }
+    .spec-table th { text-align: left; font-size: 10px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 0.5px solid var(--border); padding: 6px 10px; background: var(--bg); }
+    .spec-table td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); color: var(--text); line-height: 1.5; vertical-align: top; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table code { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); background: var(--bg); padding: 1px 4px; border-radius: 3px; border: 0.5px solid var(--border); }
+
+    /* Status chips */
+    .chip { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 20px; border: 0.5px solid; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.04em; }
+    .chip-success { background: #f0faf4; color: var(--green); border-color: rgba(26,122,71,0.25); }
+    .chip-warning { background: #fff8ec; color: #a05a00; border-color: rgba(160,90,0,0.25); }
+    .chip-error { background: #fff0f0; color: #900; border-color: rgba(144,0,0,0.25); }
+    .chip-info { background: var(--teal-light); color: var(--teal-dark); border-color: rgba(0,169,167,0.3); }
+    .chip-neutral { background: var(--bg); color: var(--muted); border-color: var(--border); }
+
+    /* Color swatch */
+    .token-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 0.5px solid var(--border); font-size: 12px; }
+    .token-row:last-child { border-bottom: none; }
+    .token-swatch { width: 20px; height: 20px; border-radius: 4px; border: 0.5px solid var(--border); flex-shrink: 0; }
+    .token-name { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); }
+    .token-use { color: var(--muted); font-size: 11px; }
+
+    /* Open items */
+    .oi-section { margin-bottom: 20px; }
+    .oi-title { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; font-family: var(--mono); }
+    .oi-list { list-style: none; padding: 0; margin: 0; }
+    .oi-list li { font-size: 12px; color: var(--text); padding: 6px 0; border-bottom: 0.5px solid var(--border); display: flex; gap: 8px; align-items: baseline; line-height: 1.5; }
+    .oi-list li:last-child { border-bottom: none; }
+    .oi-num { font-family: var(--mono); font-size: 10px; color: var(--muted); flex-shrink: 0; min-width: 18px; }
+
+    /* Flow steps */
+    .flow-step { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 0.5px solid var(--border); font-size: 13px; }
+    .flow-step:last-child { border-bottom: none; }
+    .flow-num { font-family: var(--mono); font-size: 11px; color: var(--muted); flex-shrink: 0; width: 22px; }
+    .flow-text { color: var(--text); line-height: 1.55; }
+    .flow-text strong { color: var(--text); font-weight: 500; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span>
+      <a href="../_index.html">Goals</a><span class="breadcrumb-sep">/</span>
+      <span>Department Deck</span><span class="breadcrumb-sep">/</span>
+      <span>Feature</span>
+    </div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-layout-dashboard"></i></span> Department Deck — Feature</h2>
+      <p>Department-level OKR and KPI summary page — User Portal baseline. <span class="flag-inferred">inferred</span></p>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="md-content">
+
+      <div class="flag-missing">Figma MCP tools (<code>get_metadata</code>, <code>get_design_context</code>, <code>get_screenshot</code>) were not available when this spec was generated. The Figma frame at <code>node-id=2863-204934</code> could not be inspected. All spec content is inferred from feature name and product context. A Figma review session is required to validate every section. <a href="https://www.figma.com/design/BykoJ6SQ8gHB9Er1fWmSgm/-Library--Goals?node-id=2863-204934&t=YNsj1zzxMMCSyqCf-4" target="_blank">Open in Figma →</a></div>
+
+      <!-- ── CORE FLOWS ── -->
+      <h2 class="md-h2">Core Flows</h2>
+      <div class="flag-confirm">Verify role differentiation — does the deck render differently for managers vs. members vs. admin?</div>
+      <div>
+        <div class="flow-step"><span class="flow-num">1</span><span class="flow-text"><strong>Manager views department deck</strong> — Lands on department overview. Sees all OKRs and KPIs owned by the department with progress indicators, status chips, and period filter. Can navigate to individual objectives. <span class="flag-inferred">inferred</span></span></div>
+        <div class="flow-step"><span class="flow-num">2</span><span class="flow-text"><strong>Member views department deck</strong> — Deck scoped to their team or sub-department, with own contribution highlighted. <span class="flag-inferred">inferred</span></span></div>
+        <div class="flow-step"><span class="flow-num">3</span><span class="flow-text"><strong>User filters by period</strong> — Period selector updates all progress data inline without full page reload. <span class="flag-inferred">inferred</span></span></div>
+        <div class="flow-step"><span class="flow-num">4</span><span class="flow-text"><strong>User drills into an objective</strong> — Clicks an OKR row or card to navigate to the objective detail page. <span class="flag-inferred">inferred</span></span></div>
+      </div>
+
+      <hr class="md-hr" />
+
+      <!-- ── STATES ── -->
+      <h2 class="md-h2">States</h2>
+
+      <h3 class="md-h3">Empty State</h3>
+      <div class="flag-confirm">Verify exact empty state design and copy in Figma.</div>
+      <table class="spec-table">
+        <thead><tr><th>Element</th><th>EN</th><th>JA</th></tr></thead>
+        <tbody>
+          <tr><td>Message</td><td>No goals have been set for this period.</td><td><span class="chip chip-warning">CONFIRM</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Loading State</h3>
+      <div class="flag-confirm">Verify loading pattern — MUI <code>Skeleton</code> per card/row, or full-page spinner?</div>
+      <p>INFERRED: <code>Skeleton</code> placeholders render for each card or table row while data fetches. No full-page spinner.</p>
+
+      <h3 class="md-h3">Error States</h3>
+      <table class="spec-table">
+        <thead><tr><th>Error</th><th>Trigger</th><th>Message (EN)</th><th>Message (JA)</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Data fetch failure</td>
+            <td>API timeout or 5xx</td>
+            <td>Could not load department data. Please try again.</td>
+            <td><span class="chip chip-warning">CONFIRM</span></td>
+            <td>Retry button</td>
+          </tr>
+          <tr>
+            <td>Permission error</td>
+            <td>User lacks access to requested department</td>
+            <td>You don't have access to this department.</td>
+            <td><span class="chip chip-warning">CONFIRM</span></td>
+            <td>Back to home</td>
+          </tr>
+          <tr>
+            <td>Empty filter result</td>
+            <td>Active filters return zero results</td>
+            <td>No results match your filters.</td>
+            <td><span class="chip chip-warning">CONFIRM</span></td>
+            <td>Clear filters link</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Edge Cases</h3>
+      <table class="spec-table">
+        <thead><tr><th>Case</th><th>Behavior</th></tr></thead>
+        <tbody>
+          <tr><td>Single objective</td><td>Deck renders one card/row without breaking layout. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td>Very long department name</td><td>Truncated with ellipsis in header. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td>100% completion</td><td>Progress bar fills; status chip shows "Completed" state. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td>Unassigned objective</td><td><span class="chip chip-warning">CONFIRM</span> How is an OKR with no owner rendered?</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- ── COMPONENTS ── -->
+      <h2 class="md-h2">Components Used</h2>
+      <div class="flag-confirm">All component mappings are inferred from feature type. Must be validated against Figma frames once MCP tools are available.</div>
+      <table class="spec-table">
+        <thead><tr><th>Component</th><th>Source</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>Card</code> + <code>CardContent</code></td><td>MUI global</td><td>Department overview container; one per OKR or aggregate. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td><code>Typography</code> (h4, body1, body2, caption)</td><td>MUI global</td><td>Page title, section headings, body text, helper text. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td><code>LinearProgress</code></td><td>MUI global</td><td>OKR completion % bar. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td><code>Chip</code></td><td>MUI global</td><td>Status badges: <span class="chip chip-success">On Track</span> <span class="chip chip-warning">At Risk</span> <span class="chip chip-error">Behind</span> <span class="chip chip-info">Completed</span>. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td><code>Select</code> + <code>MenuItem</code></td><td>MUI global</td><td>Period filter control. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td><code>Table</code> / <code>TableRow</code> / <code>TableCell</code></td><td>MUI global</td><td>INFERRED: if OKRs are listed in tabular form rather than cards. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td><code>Skeleton</code></td><td>MUI global</td><td>Loading placeholder. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td><code>Avatar</code> / <code>AvatarGroup</code></td><td>MUI global</td><td>Owner / team member display on each OKR. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td><code>IconButton</code></td><td>MUI global</td><td>Per-row actions (expand, navigate to detail). <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td><code>Alert</code></td><td>MUI global</td><td>Error state banners. <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td><code>Divider</code></td><td>MUI global</td><td>Section separators. <span class="flag-inferred">inferred</span></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- ── GUIDELINES ── -->
+      <h2 class="md-h2">Guidelines Applied</h2>
+      <p style="font-size:12px;color:var(--muted);">Product and global guidelines files are pending — only the color-system rules below can be cross-referenced at this time.</p>
+      <table class="spec-table">
+        <thead><tr><th>Guideline</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Never use raw hex values — always reference token names</td><td><code>global/foundations/color-system.md</code></td></tr>
+          <tr><td>Contrast must pass WCAG 2.1 AA</td><td><code>global/foundations/color-system.md</code></td></tr>
+          <tr><td><code>palette.primary.main</code> for interactive elements only; not decorative</td><td><code>global/foundations/color-system.md</code></td></tr>
+          <tr><td>All palette roles must be declared in <code>_theme.md</code> before use in specs</td><td><code>global/foundations/color-system.md</code></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- ── COPY PATTERNS ── -->
+      <h2 class="md-h2">Copy Patterns</h2>
+      <div class="flag-confirm">All JA translations are missing — <code>_glossary.md</code> is a stub. Replace placeholder translations with glossary-approved terms once populated.</div>
+      <table class="spec-table">
+        <thead><tr><th>Element</th><th>EN</th><th>JA</th></tr></thead>
+        <tbody>
+          <tr><td>Page title</td><td>Department Deck</td><td>部門デッキ <span class="chip chip-warning">CONFIRM</span></td></tr>
+          <tr><td>Period filter label</td><td>Period</td><td>期間 <span class="chip chip-warning">CONFIRM</span></td></tr>
+          <tr><td>Status: On Track</td><td>On Track</td><td>順調 <span class="chip chip-warning">CONFIRM</span></td></tr>
+          <tr><td>Status: At Risk</td><td>At Risk</td><td>リスクあり <span class="chip chip-warning">CONFIRM</span></td></tr>
+          <tr><td>Status: Behind</td><td>Behind</td><td>遅延 <span class="chip chip-warning">CONFIRM</span></td></tr>
+          <tr><td>Status: Completed</td><td>Completed</td><td>完了 <span class="chip chip-warning">CONFIRM</span></td></tr>
+          <tr><td>Empty state</td><td>No goals have been set for this period.</td><td><span class="chip chip-warning">CONFIRM</span></td></tr>
+          <tr><td>Error: data fetch</td><td>Could not load department data. Please try again.</td><td><span class="chip chip-warning">CONFIRM</span></td></tr>
+          <tr><td>Error: permission</td><td>You don't have access to this department.</td><td><span class="chip chip-warning">CONFIRM</span></td></tr>
+          <tr><td>Retry CTA</td><td>Try again</td><td>再試行 <span class="chip chip-warning">CONFIRM</span></td></tr>
+          <tr><td>Progress label</td><td>% complete</td><td>% 達成 <span class="chip chip-warning">CONFIRM</span></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- ── COLOR TOKENS ── -->
+      <h2 class="md-h2">Color Tokens Used</h2>
+      <div class="flag-confirm">Goals <code>_theme.md</code> is a stub — no product palette is defined. All tokens below are inferred from the MUI global schema and must be confirmed against actual Figma fills.</div>
+      <div style="border:0.5px solid var(--border);border-radius:12px;padding:12px 16px;margin-top:8px;">
+        <div class="token-row"><div class="token-swatch" style="background:var(--teal);"></div><span class="token-name">palette.primary.main</span><span class="token-use">— Primary interactive elements, links, active state</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:var(--teal-light);border-color:rgba(0,169,167,0.3);"></div><span class="token-name">palette.primary.light</span><span class="token-use">— Hover / light accent</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:#2e7d32;"></div><span class="token-name">palette.success.main</span><span class="token-use">— "On Track" status chip</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:#ed6c02;"></div><span class="token-name">palette.warning.main</span><span class="token-use">— "At Risk" status chip</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:#d32f2f;"></div><span class="token-name">palette.error.main</span><span class="token-use">— "Behind" status chip, error alerts</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:#212121;"></div><span class="token-name">palette.text.primary</span><span class="token-use">— Body text, headings</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:#757575;"></div><span class="token-name">palette.text.secondary</span><span class="token-use">— Helper text, captions</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:#bdbdbd;"></div><span class="token-name">palette.text.disabled</span><span class="token-use">— Disabled / inactive labels</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:#ffffff;"></div><span class="token-name">palette.background.paper</span><span class="token-use">— Card / surface backgrounds</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:#f5f5f5;"></div><span class="token-name">palette.background.default</span><span class="token-use">— Page background</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:#e0e0e0;"></div><span class="token-name">palette.divider</span><span class="token-use">— Dividers and borders</span><span class="flag-inferred">inferred</span></div>
+        <div class="token-row"><div class="token-swatch" style="background:rgba(0,0,0,0.04);"></div><span class="token-name">palette.action.hover</span><span class="token-use">— Row hover state</span><span class="flag-inferred">inferred</span></div>
+      </div>
+
+      <hr class="md-hr" />
+
+      <!-- ── OPEN ITEMS ── -->
+      <h2 class="md-h2">Open Items</h2>
+
+      <div class="oi-section">
+        <div class="oi-title">Inconsistencies with config files</div>
+        <ul class="oi-list">
+          <li><span class="oi-num">1</span>Goals <code>_theme.md</code> is a stub — no product palette tokens defined. All color assignments are inferred from MUI defaults and must be verified once the palette is populated.</li>
+          <li><span class="oi-num">2</span>Goals <code>_glossary.md</code> is a stub — all JA copy in the Copy Patterns table is a placeholder and must be replaced with glossary-approved translations.</li>
+          <li><span class="oi-num">3</span>Goals <code>_guidelines.md</code> is a stub — product-specific UX rules could not be cross-referenced.</li>
+        </ul>
+      </div>
+
+      <div class="oi-section">
+        <div class="oi-title">Missing states or flows</div>
+        <ul class="oi-list">
+          <li><span class="oi-num">4</span>Figma frame could not be inspected — MCP tools unavailable. All spec content is inferred. <a href="https://www.figma.com/design/BykoJ6SQ8gHB9Er1fWmSgm/-Library--Goals?node-id=2863-204934&t=YNsj1zzxMMCSyqCf-4" target="_blank">Open Figma →</a></li>
+          <li><span class="oi-num">5</span>Exact screen layout unknown — card grid, list, or hybrid? Inferred as card-based.</li>
+          <li><span class="oi-num">6</span>Role-based view differences — manager vs. member vs. executive behavior not confirmed.</li>
+          <li><span class="oi-num">7</span>Navigation pattern — breadcrumb, back button, or tab-based within Goals?</li>
+          <li><span class="oi-num">8</span>Interaction on progress bar — clickable or display-only?</li>
+          <li><span class="oi-num">9</span>Designer annotations in Figma frame not captured.</li>
+        </ul>
+      </div>
+
+      <div class="oi-section">
+        <div class="oi-title">Decisions needed</div>
+        <ul class="oi-list">
+          <li><span class="oi-num">10</span>Does "Department Deck" show a single department or allow switching between departments?</li>
+          <li><span class="oi-num">11</span>Is the period filter a <code>Select</code> dropdown or a <code>ToggleButtonGroup</code>?</li>
+          <li><span class="oi-num">12</span>Are status chips editable inline or read-only display?</li>
+          <li><span class="oi-num">13</span>What is the unassigned owner state for an OKR row?</li>
+          <li><span class="oi-num">14</span>Should this spec also cover an Admin Portal variant, or is this User Portal only?</li>
+        </ul>
+      </div>
+
+    </div><!-- /.md-content -->
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

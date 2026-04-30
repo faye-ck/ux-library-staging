@@ -354,6 +354,11 @@
             { label: 'Mobile Web',  href: '/goals/goals-okrs/mobile-web.html' },
           ]
         },
+        {
+          label: 'Department Deck', children: [
+            { label: 'Feature',     href: '/goals/department-deck/feature.html' },
+          ]
+        },
         { label: 'Changelog', href: '/goals/changelog.html' },
       ]
     },
