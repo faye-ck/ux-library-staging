@@ -205,7 +205,29 @@
         },
         {
           label: 'Dashboard', children: [
-            { label: 'Feature',  href: '/workflows/dashboard/feature.html' },
+            { label: 'Feature',     href: '/workflows/dashboard/feature.html' },
+            { label: 'Mobile Web',  href: '/workflows/dashboard/mobile-web.html' },
+          ]
+        },
+        {
+          label: 'Create New Workflows', children: [
+            { label: 'Feature', href: '/workflows/create-new-workflows/feature.html' },
+          ]
+        },
+        {
+          label: 'Template Layout', children: [
+            { label: 'Feature',     href: '/workflows/template-layout/feature.html' },
+            { label: 'Mobile Web',  href: '/workflows/template-layout/mobile-web.html' },
+          ]
+        },
+        {
+          label: 'Approval Flow', children: [
+            { label: 'Feature', href: '/workflows/approval-flow/feature.html' },
+          ]
+        },
+        {
+          label: 'Conditional Flow', children: [
+            { label: 'Feature', href: '/workflows/conditional-flow/feature.html' },
           ]
         },
         { label: 'Changelog', href: '/workflows/changelog.html' },

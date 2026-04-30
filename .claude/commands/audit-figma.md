@@ -5,6 +5,8 @@ description: Audit a Figma file against the UX Library spec for a product or fea
 
 # Audit Figma File
 
+> ⚠️ **Always work in `ux-library-staging` only.** If documentation gaps are found and you document them, write to `ux-library-staging` — never to `ux-library` directly.
+
 Compares a Figma file against the UX Library documentation and outputs a prioritised, actionable findings report. Designers can fix issues directly from the report without needing to read the spec themselves.
 
 ## Inputs required

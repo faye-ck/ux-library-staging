@@ -5,6 +5,8 @@ description: Set up all config files for a new product in the Colorkrew UX Libra
 
 # Set Up Product
 
+> ⚠️ **Always write to `ux-library-staging` only.** Never write to `ux-library` directly. Do not commit to production or push to the `ux-library` repo as part of this skill.
+
 Sets up all the required config files for a new product in the Colorkrew UX Library. Designed for designers who are new to the library — asks simple questions, does all the file generation automatically.
 
 ## What this skill creates

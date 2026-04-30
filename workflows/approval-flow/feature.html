@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Approval Flow — Feature — UX Library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 860px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 36px 0 10px; letter-spacing: -0.2px; padding-bottom: 6px; border-bottom: 0.5px solid var(--border); }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 24px 0 8px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
+    p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* Tables */
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .spec-table th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    .spec-table td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); color: var(--text); vertical-align: top; line-height: 1.55; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table td:first-child { font-weight: 500; white-space: nowrap; }
+    .spec-table code { font-size: 10.5px; }
+
+    /* Flag chips */
+    .flag-confirm { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; background: #fffbe6; color: #a16207; border: 0.5px solid #fbbf24; padding: 1px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; vertical-align: middle; margin-left: 4px; }
+    .flag-inferred { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; background: var(--bg); color: var(--muted); border: 0.5px solid var(--border); padding: 1px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; vertical-align: middle; margin-left: 4px; }
+    .flag-missing { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; background: #fff1f2; color: #be123c; border: 0.5px solid #fda4af; padding: 1px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; vertical-align: middle; margin-left: 4px; }
+
+    /* Flow steps */
+    .flow-steps { list-style: none; padding: 0; margin: 0 0 16px; }
+    .flow-steps li { font-size: 12.5px; color: var(--text); padding: 5px 0 5px 28px; border-bottom: 0.5px solid var(--border); position: relative; line-height: 1.55; }
+    .flow-steps li:last-child { border-bottom: none; }
+    .flow-steps li::before { content: attr(data-n); position: absolute; left: 0; top: 5px; font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--teal-dark); background: var(--teal-light); border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; }
+
+    /* State cards */
+    .state-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 12px; }
+    .state-card-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .state-card p { margin-bottom: 6px; font-size: 12px; }
+    .state-card ul { margin: 0; padding-left: 16px; font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+    /* Color token swatches */
+    .token-row { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-bottom: 0.5px solid var(--border); font-size: 12px; }
+    .token-row:last-child { border-bottom: none; }
+    .token-swatch { width: 20px; height: 20px; border-radius: 4px; border: 0.5px solid var(--border); flex-shrink: 0; }
+    .token-name { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); flex: 1; }
+    .token-label { font-size: 12px; color: var(--muted); }
+
+    /* Open items */
+    .open-items-group { margin-bottom: 20px; }
+    .open-items-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-family: var(--mono); margin-bottom: 8px; }
+    .open-items-list { list-style: none; padding: 0; margin: 0; }
+    .open-items-list li { font-size: 12px; color: var(--text); padding: 6px 0 6px 20px; border-bottom: 0.5px solid var(--border); position: relative; line-height: 1.55; }
+    .open-items-list li:last-child { border-bottom: none; }
+    .open-items-list li::before { content: attr(data-n); position: absolute; left: 0; font-family: var(--mono); font-size: 10px; color: var(--muted-light); }
+
+    /* Layout diagram */
+    .layout-diagram { background: var(--bg); border: 0.5px solid var(--border); border-radius: 10px; padding: 16px; font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .layout-diagram strong { color: var(--text); }
+
+    /* Context notice */
+    .context-notice { background: #fffbe6; border: 0.5px solid #fbbf24; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 12px; color: #92400e; line-height: 1.6; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><a href="../_index.html">Workflows</a><span class="breadcrumb-sep">/</span><span>Approval Flow</span><span class="breadcrumb-sep">/</span><span>Feature</span></div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-checklist"></i></span> Approval Flow — Feature</h2>
+      <p>Step 2 of 3 in the Template Creation wizard (Layout → Approvals → Preview). Template creators configure whether approval is required and select or create the approval flow to attach to the template.</p>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="md-content">
+
+      <div class="context-notice">
+        <strong>Context:</strong> This screen is accessed by <strong>template creators</strong> (admin role) via "Create New Template". Figma breadcrumb: <code>Create New Template / Approval Flow Setup</code>. <span class="flag-confirm">Confirm</span> whether this spec belongs under admin-portal or user-portal.
+      </div>
+
+      <!-- ── LAYOUT ── -->
+      <div class="md-h2">Layout</div>
+      <div class="layout-diagram">
+        <strong>Approval Flow Setup page</strong><br>
+        ├── AF Right panel (330px, fixed, white) — right border<br>
+        │&nbsp;&nbsp;&nbsp;├── Horizontal Stepper (40px) — Layout ✓ · Approvals [active] · Preview<br>
+        │&nbsp;&nbsp;&nbsp;└── Default approval flow section (collapsible)<br>
+        │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Section header: "Default approval flow" + chevron<br>
+        │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Switch: "Approval required"<br>
+        │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── [when ON] Select dropdown (282px) + pencil edit icon<br>
+        └── Right section (1270px)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;├── Top bar (56px) — breadcrumb + Cancel / Save as Draft / Publish<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;└── Bottom section<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Starting canvas (940px) — centred, max-width 960px<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;"Start condition flow" button (centred, outlined)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Condition right panel (330px) — "No condition set"<br>
+        <br>
+        <strong>Create Approval Flow modal (overlay)</strong><br>
+        ├── Overlay (1600×1200px dimmed)<br>
+        └── Modal (1400×996px, 99px left / 72px top offset)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;├── AF header (56px) — breadcrumb + Cancel + Save ▼<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;└── Wrapper (1400×940px)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Left section Edit (900px) — form content, scrollable<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── AF content header: Title* + Description + Allow self-approval<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Step rows (one per approval step)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── "Add approval step" button<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Step settings (500px) — right panel, per-step config<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fixed / Dynamic tabs · Required approvals · If rejected<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Allow submitters checkbox · Approvers (User/Dept/Group)
+        <br><br>
+        Responsive: <span style="color:#be123c">MISSING</span> — no responsive frames found.
+      </div>
+
+      <!-- ── CORE FLOWS ── -->
+      <div class="md-h2">Core Flows</div>
+
+      <div class="md-h3">Flow 1 — Select an existing approval flow</div>
+      <ol class="flow-steps">
+        <li data-n="1">Template creator lands on Approvals step (stepper: Layout ✓, Approvals active)</li>
+        <li data-n="2">Left panel shows "Default approval flow" section; toggle "Approval required" is ON by default</li>
+        <li data-n="3">Creator clicks "Select approval flow" dropdown → list expands with existing templates</li>
+        <li data-n="4">Creator selects a template (e.g., "Finance department") → dropdown closes, selection shown</li>
+        <li data-n="5">Creator clicks "Save as Draft" or "Publish" to proceed <span class="flag-confirm">Confirm</span> Publish enabled state</li>
+      </ol>
+
+      <div class="md-h3">Flow 2 — Approval not required</div>
+      <ol class="flow-steps">
+        <li data-n="1">Creator toggles "Approval required" switch to OFF</li>
+        <li data-n="2">Select dropdown and pencil icon disappear</li>
+        <li data-n="3">Empty state shows: "This workflow will simply collect responses"</li>
+        <li data-n="4">Creator proceeds to "Publish" <span class="flag-confirm">Confirm</span></li>
+      </ol>
+
+      <div class="md-h3">Flow 3 — Create a new approval flow</div>
+      <ol class="flow-steps">
+        <li data-n="1">Creator clicks pencil/edit icon next to "Select approval flow" dropdown</li>
+        <li data-n="2">Background dims; "Create approval flow" modal opens (1400px wide)</li>
+        <li data-n="3">Modal breadcrumb: <code>Create New Template / Create approval flow</code></li>
+        <li data-n="4">Title* field shows auto-name: "New approval flow 1"</li>
+        <li data-n="5">Creator fills optional Description field</li>
+        <li data-n="6">"Allow self-approval" is pre-checked — creator may uncheck</li>
+        <li data-n="7">Step 1 row shown; right panel "Step 1" settings open with Fixed tab active</li>
+        <li data-n="8">Creator selects approver type (User / Department / Assigned group) and searches for approvers</li>
+        <li data-n="9">Added approvers shown in list: avatar + name + email + × remove</li>
+        <li data-n="10">Creator clicks "Add approval step" → Step 2 added (type defaults to "Final approver")</li>
+        <li data-n="11">Creator configures Step 2 in right panel</li>
+        <li data-n="12">Creator clicks "Save" → modal closes; new AF saved and auto-selected in main dropdown</li>
+      </ol>
+
+      <div class="md-h3">Flow 4 — Change step approver type</div>
+      <ol class="flow-steps">
+        <li data-n="1">Creator clicks step type label dropdown (e.g., "Approver ▼") on a step row</li>
+        <li data-n="2">Dropdown shows available types — at minimum: "Approver", "Final approver" <span class="flag-confirm">Confirm full list</span></li>
+        <li data-n="3">Creator selects new type → step row and right panel update</li>
+      </ol>
+
+      <div class="md-h3">Flow 5 — Reorder or remove steps</div>
+      <ol class="flow-steps">
+        <li data-n="1">Each step row shows: duplicate icon, delete (trash) icon, collapse chevron</li>
+        <li data-n="2">Duplicate: clones step below current <span class="flag-inferred">Inferred</span></li>
+        <li data-n="3">Delete: removes step; confirmation if last step <span class="flag-confirm">Confirm</span></li>
+        <li data-n="4">Collapse chevron: collapses step row to show header only</li>
+      </ol>
+
+      <!-- ── STATES ── -->
+      <div class="md-h2">States</div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-toggle-right" style="color:var(--teal)"></i> Default — Approval Required ON, no selection</div>
+        <ul>
+          <li>Toggle: ON (blue, <code>primary/primary</code>)</li>
+          <li>"Select approval flow" dropdown shows placeholder; border <code>border/mid-light-hover</code></li>
+          <li>Pencil edit icon visible next to dropdown</li>
+          <li>Condition panel: "No condition set" (italic, muted)</li>
+          <li>Canvas: "Start condition flow" outlined button centred</li>
+          <li>Publish button: INFERRED disabled until flow selected <span class="flag-confirm">Confirm</span></li>
+        </ul>
+      </div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-chevron-down" style="color:var(--muted)"></i> Dropdown Open — Select Approval Flow</div>
+        <ul>
+          <li>Dropdown open; input border: <code>border/high-default-hover</code> (#99a5b8), dropdown arrow flipped</li>
+          <li>List: "Value" (first row, highlighted bg <code>secondary/background</code>), then named templates</li>
+          <li>Example entries: "Approval flow template 1", "Approval flow template 2", "Approval flow template 3", "Finance department", "Finance dept. + CEO"</li>
+          <li>List shadow: 0px 4px 10px <code>rgba(0,0,0,0.15)</code> <span class="flag-confirm">Confirm token</span></li>
+        </ul>
+      </div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-toggle-left" style="color:var(--muted)"></i> Approval Not Required — Toggle OFF</div>
+        <ul>
+          <li>Toggle: OFF (grey)</li>
+          <li>Dropdown + pencil icon hidden</li>
+          <li>Empty state: <em>"This workflow will simply collect responses"</em> (italic, 12px, <code>#a4adb9</code>)</li>
+        </ul>
+      </div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-plus" style="color:var(--muted)"></i> Create Modal — Initial (1 step)</div>
+        <ul>
+          <li>Title*: "New approval flow 1" (required, pre-filled)</li>
+          <li>Description: empty with placeholder</li>
+          <li>"Allow self-approval" checkbox: checked (default)</li>
+          <li>Step 1 row expanded; right panel shows Step 1 settings</li>
+          <li>Fixed tab active; Required approvals = 1; If rejected = "Let approver choose at point of rejection"</li>
+          <li>Save button: enabled (primary blue) with split dropdown arrow</li>
+        </ul>
+      </div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-list-check" style="color:var(--teal)"></i> Create Modal — Multi-step (2+ steps)</div>
+        <ul>
+          <li>Active step row highlighted: light blue bg, primary border</li>
+          <li>Step 2 type defaults to "Final approver"</li>
+          <li>Right panel updates to show "Step 2" settings</li>
+        </ul>
+      </div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-alert-circle" style="color:#be123c"></i> Error States <span class="flag-missing">Missing</span></div>
+        <table class="spec-table" style="margin-top:8px">
+          <thead><tr><th>Error</th><th>Trigger</th><th>EN</th><th>JA</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Title required</td><td>Save without title</td><td><span class="flag-confirm">Confirm</span></td><td><span class="flag-confirm">Confirm</span></td><td>Highlight field</td></tr>
+            <tr><td>No approvers added</td><td>Save step with empty list</td><td><span class="flag-confirm">Confirm</span></td><td><span class="flag-confirm">Confirm</span></td><td>Highlight section</td></tr>
+            <tr><td>Save failure</td><td>API error on Save</td><td><span class="flag-confirm">Confirm</span></td><td><span class="flag-confirm">Confirm</span></td><td>Retry</td></tr>
+            <tr><td>Draft save failure</td><td>API error on Save as Draft</td><td><span class="flag-confirm">Confirm</span></td><td><span class="flag-confirm">Confirm</span></td><td>Retry</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="md-h3">Edge Cases</div>
+      <table class="spec-table">
+        <thead><tr><th>Case</th><th>Behavior</th></tr></thead>
+        <tbody>
+          <tr><td>Auto-numbered title</td><td>"New approval flow N" — increment logic <span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Single step delete</td><td>Confirm if allowed or blocked <span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Dynamic tab content</td><td>Content not shown in any frame <span class="flag-missing">Missing</span></td></tr>
+          <tr><td>Save split button</td><td>Dropdown options not shown <span class="flag-missing">Missing</span></td></tr>
+          <tr><td>Start condition flow</td><td>Canvas button behavior not documented <span class="flag-missing">Missing</span></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <!-- ── COMPONENTS ── -->
+      <div class="md-h2">Components Used</div>
+      <table class="spec-table">
+        <thead><tr><th>Component</th><th>Source</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Horizontal Stepper</td><td><code>global/components/</code> <span class="flag-confirm">Confirm</span></td><td>3 steps; step 1 completed (filled check badge), step 2 active (number + underline), step 3 pending</td></tr>
+          <tr><td>Switch</td><td><code>global/components/switch.md</code></td><td>"Approval required" toggle; 27.2px × 16px; ON = <code>primary/primary</code></td></tr>
+          <tr><td>Select dropdown</td><td><code>global/components/select.md</code></td><td>"Select approval flow" 282px wide; with chevron icon</td></tr>
+          <tr><td>Text Field</td><td><code>global/components/text-field.md</code></td><td>Title* (required), Description (textarea) in create modal</td></tr>
+          <tr><td>Checkbox</td><td><code>global/components/checkbox.md</code></td><td>"Allow self-approval", "Allow submitters to select approvers"</td></tr>
+          <tr><td>Radio Group</td><td><code>global/components/radio-group.md</code></td><td>User / Department / Assigned group in step settings</td></tr>
+          <tr><td>Tabs</td><td><code>global/components/tabs.md</code></td><td>Fixed / Dynamic in step settings right panel</td></tr>
+          <tr><td>Avatar</td><td><code>global/components/avatar.md</code></td><td>Approver avatars in step rows and settings list</td></tr>
+          <tr><td>AF Right panel</td><td>defined in workflows</td><td>330px fixed; stepper + approval flow section</td></tr>
+          <tr><td>Approval flow select row</td><td>defined in workflows</td><td>Inline row: 282px dropdown + pencil icon</td></tr>
+          <tr><td>Starting canvas</td><td>defined in workflows</td><td>940px canvas area; "Start condition flow" button; promote if reused</td></tr>
+          <tr><td>Condition right panel</td><td>defined in workflows</td><td>330px; "No condition set" empty state</td></tr>
+          <tr><td>Create approval flow modal</td><td>defined here</td><td>1400×996px overlay; breadcrumb header + Cancel/Save; promote if reused</td></tr>
+          <tr><td>AF content header</td><td>defined in workflows</td><td>Title + Description + Allow self-approval; 868px wide in modal</td></tr>
+          <tr><td>Step row</td><td>defined in workflows</td><td>Numbered step: type dropdown + count + avatars + duplicate/delete/collapse</td></tr>
+          <tr><td>Step settings panel</td><td>defined here</td><td>500px right panel; Fixed/Dynamic · Required approvals · If rejected · Approvers config; promote if reused</td></tr>
+          <tr><td>Action footer (top bar)</td><td><code>global/components/</code> <span class="flag-confirm">Confirm</span></td><td>Cancel (text) + Save as Draft (primary, 128px) + Publish (disabled); right-aligned in 540px container</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <!-- ── GUIDELINES ── -->
+      <div class="md-h2">Guidelines Applied</div>
+      <table class="spec-table">
+        <thead><tr><th>Guideline</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Never use raw hex — always token names</td><td><code>global/foundations/color-system.md</code></td></tr>
+          <tr><td>Inter (EN) / Noto Sans JP (JA via lang attr)</td><td><code>global/foundations/typography.md</code></td></tr>
+          <tr><td>Tabler Icons; one style per product</td><td><code>global/foundations/iconography.md</code></td></tr>
+          <tr><td>WCAG 2.1 AA; 44×44px touch targets</td><td><code>global/foundations/accessibility.md</code></td></tr>
+          <tr><td>MUI transition tokens; prefers-reduced-motion</td><td><code>global/foundations/motion.md</code></td></tr>
+          <tr><td>Max content width 960px</td><td>Figma annotation: "Max width: 960px" node on starting canvas</td></tr>
+          <tr><td>Approval required toggle defaults to ON</td><td>Figma: default view shows toggle ON state</td></tr>
+          <tr><td>Allow self-approval checked by default</td><td>Figma: checkbox shown checked in create modal</td></tr>
+          <tr><td>New steps default type: "Final approver" for last step</td><td>Figma: step 2 default shows "Final approver"</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <!-- ── COPY PATTERNS ── -->
+      <div class="md-h2">Copy Patterns</div>
+      <table class="spec-table">
+        <thead><tr><th>Element</th><th>EN</th><th>JA</th></tr></thead>
+        <tbody>
+          <tr><td>Step 1 label</td><td>"Layout"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Step 2 label</td><td>"Approvals"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Step 3 label</td><td>"Preview"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Breadcrumb part 1</td><td>"Create New Template"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Breadcrumb part 2</td><td>"Approval Flow Setup"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Section title</td><td>"Default approval flow"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Toggle label</td><td>"Approval required"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Dropdown placeholder</td><td>"Select approval flow"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Empty state — no approval</td><td>"This workflow will simply collect responses"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Empty state — condition panel</td><td>"No condition set"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Canvas button</td><td>"Start condition flow"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Action: Cancel</td><td>"Cancel"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Action: Save as Draft</td><td>"Save as Draft"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Action: Publish</td><td>"Publish"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Modal breadcrumb part 2</td><td>"Create approval flow"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Modal: Title field</td><td>"Title*"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Modal: Description field</td><td>"Description"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Modal: Description placeholder</td><td>"e.g. For approving budget allocation request"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Modal: Self-approval checkbox</td><td>"Allow self-approval"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Auto-generated title</td><td>"New approval flow N"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Step type: regular</td><td>"Approver"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Step type: final</td><td>"Final approver"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Step count label</td><td>"N approval required"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Add step button</td><td>"Add approval step"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Step settings: Fixed tab</td><td>"Fixed"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Step settings: Dynamic tab</td><td>"Dynamic"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Required approvals</td><td>"Required approvals"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>If rejected label</td><td>"If rejected"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>If rejected value</td><td>"Let approver choose at point of rejection"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Allow submitters checkbox</td><td>"Allow submitters to select approvers"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Approvers section header</td><td>"Approvers"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Radio: User</td><td>"User"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Radio: Department</td><td>"Department"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Radio: Assigned group</td><td>"Assigned group"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Search placeholder</td><td>"Add by name or email"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Modal actions: Cancel</td><td>"Cancel"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Modal actions: Save</td><td>"Save"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <!-- ── COLOR TOKENS ── -->
+      <div class="md-h2">Color Tokens Used</div>
+      <p>All mappings are inferred — <code>_theme.md</code> is a stub. Raw hex values from Figma recorded for reference. <span class="flag-confirm">Confirm all</span></p>
+      <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;">
+        <div class="token-row">
+          <div class="token-swatch" style="background:#057aff"></div>
+          <span class="token-name">palette.primary.main</span>
+          <span class="token-label">Toggle ON, Save button, step completed badge, active step border</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#ffffff;"></div>
+          <span class="token-name">palette.background.paper</span>
+          <span class="token-label">Page bg, left panel bg, modal bg</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#edeef2"></div>
+          <span class="token-name">palette.divider</span>
+          <span class="token-label">Light borders, dividers, disabled button bg</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#d4d9e1"></div>
+          <span class="token-name">palette.action.focus (CONFIRM)</span>
+          <span class="token-label">Input default border</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#b9c0cc"></div>
+          <span class="token-name">palette.action.active (CONFIRM)</span>
+          <span class="token-label">Input hover border, canvas outlined button border</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#99a5b8"></div>
+          <span class="token-name">palette.action.selected (CONFIRM)</span>
+          <span class="token-label">Input open/active border</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#1c1c1c"></div>
+          <span class="token-name">palette.text.primary</span>
+          <span class="token-label">Primary text, section titles, step labels</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#535d6e"></div>
+          <span class="token-name">palette.text.secondary</span>
+          <span class="token-label">Breadcrumb text, Cancel link</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#a4adb9"></div>
+          <span class="token-name">palette.text.disabled</span>
+          <span class="token-label">Placeholder text, empty state text, pending step labels, disabled button label</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#f5f7fa"></div>
+          <span class="token-name">palette.action.hover (CONFIRM)</span>
+          <span class="token-label">Dropdown selected row bg (secondary/background)</span>
+        </div>
+      </div>
+
+      <hr class="md-hr">
+
+      <!-- ── OPEN ITEMS ── -->
+      <div class="md-h2">Open Items</div>
+
+      <div class="open-items-group">
+        <div class="open-items-title">Inconsistencies with config files</div>
+        <ul class="open-items-list">
+          <li data-n="1.">&nbsp;<code>_theme.md</code> is a stub — all hex values unresolved; every color mapping flagged CONFIRM.</li>
+          <li data-n="2.">&nbsp;<code>_glossary.md</code> is a stub — all 36 EN copy strings and JA translations unverified.</li>
+          <li data-n="3.">&nbsp;<code>workflows/_guidelines.md</code> and <code>global/_guidelines.md</code> are stubs — layout rules inferred from Figma only.</li>
+          <li data-n="4.">&nbsp;<code>global/components/</code> stubs: Horizontal Stepper, Switch, Action Footer — component contracts unverifiable.</li>
+        </ul>
+      </div>
+
+      <div class="open-items-group">
+        <div class="open-items-title">Missing states or flows</div>
+        <ul class="open-items-list">
+          <li data-n="5.">&nbsp;"Start condition flow" button — behavior MISSING; the canvas area may be a separate Conditional Flow feature.</li>
+          <li data-n="6.">&nbsp;"Dynamic" step settings tab — content MISSING; no frame shows Dynamic variant.</li>
+          <li data-n="7.">&nbsp;Split Save button dropdown options — MISSING.</li>
+          <li data-n="8.">&nbsp;Error states for create modal (title required, empty approvers, save failure) — MISSING.</li>
+          <li data-n="9.">&nbsp;Publish success state / transition to Preview — MISSING.</li>
+          <li data-n="10.">&nbsp;Step type full option list — only "Approver" and "Final approver" observed; full list MISSING.</li>
+          <li data-n="11.">&nbsp;No responsive / mobile spec frames — MISSING.</li>
+          <li data-n="12.">&nbsp;Loading states (saving draft, publishing) — MISSING.</li>
+        </ul>
+      </div>
+
+      <div class="open-items-group">
+        <div class="open-items-title">Decisions needed</div>
+        <ul class="open-items-list">
+          <li data-n="13.">&nbsp;CONFIRM: Platform — breadcrumb shows "Create New Template"; confirm admin-portal vs user-portal spec placement.</li>
+          <li data-n="14.">&nbsp;CONFIRM: "Start condition flow" — separate Conditional Flow feature or part of Approval Flow Setup?</li>
+          <li data-n="15.">&nbsp;CONFIRM: Pencil icon action — opens "Create approval flow" modal or an "Edit" variant?</li>
+          <li data-n="16.">&nbsp;CONFIRM: Publish button enabled/disabled logic — when does it unlock?</li>
+          <li data-n="17.">&nbsp;CONFIRM: Auto-increment logic for "New approval flow N" — session-scoped or global?</li>
+          <li data-n="18.">&nbsp;CONFIRM: Info icon tooltip text for "Allow self-approval" and "Allow submitters to select approvers".</li>
+          <li data-n="19.">&nbsp;CONFIRM: Delete last step — blocked or allowed?</li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

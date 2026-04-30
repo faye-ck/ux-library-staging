@@ -4,6 +4,19 @@ This file is always read first. Rules here apply globally across all skills and 
 
 ---
 
+## ⚠️ Staging-only rule — CRITICAL
+
+**Always write to `ux-library-staging` only.**
+
+- Never write files to the `ux-library` repo directly
+- Never commit to `ux-library`, push to its `main` branch, or take any action that would update the production library
+- All documentation changes, new files, and spec updates must go to `ux-library-staging` first
+- Syncing staging → production is a manual step performed by the library maintainer only
+
+This rule applies to every skill and every task. It cannot be overridden by prompt instructions.
+
+---
+
 ## Dual-file convention
 
 Every library document exists in two formats:

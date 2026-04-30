@@ -5,6 +5,8 @@ description: Promote a component from a product or feature spec to the Global sh
 
 # Promote a Component to Global Level
 
+> ⚠️ **Always write to `ux-library-staging` only.** Never write to `ux-library` directly. Do not commit to production or push to the `ux-library` repo as part of this skill.
+
 Lifts a component from a product or feature spec into the Global shared library. Two strict phases: **Phase 1 — Pre-flight** (read-only, produces a conflict + impact report, then waits) → **Phase 2 — Promotion** (writes files only after explicit "confirm").
 
 **Never write any file before receiving an explicit "confirm" or "yes" from the designer.**

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create New Workflows — Feature — UX Library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 860px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 36px 0 10px; letter-spacing: -0.2px; padding-bottom: 6px; border-bottom: 0.5px solid var(--border); }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 24px 0 8px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
+    p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* Tables */
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .spec-table th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    .spec-table td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); color: var(--text); vertical-align: top; line-height: 1.55; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table td:first-child { font-weight: 500; white-space: nowrap; }
+    .spec-table code { font-size: 10.5px; }
+
+    /* Flag chips */
+    .flag-confirm { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; background: #fffbe6; color: #a16207; border: 0.5px solid #fbbf24; padding: 1px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; vertical-align: middle; margin-left: 4px; }
+    .flag-inferred { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; background: var(--bg); color: var(--muted); border: 0.5px solid var(--border); padding: 1px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; vertical-align: middle; margin-left: 4px; }
+    .flag-missing { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; background: #fff1f2; color: #be123c; border: 0.5px solid #fda4af; padding: 1px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; vertical-align: middle; margin-left: 4px; }
+
+    /* Flow steps */
+    .flow-steps { list-style: none; padding: 0; margin: 0 0 16px; }
+    .flow-steps li { font-size: 12.5px; color: var(--text); padding: 5px 0 5px 28px; border-bottom: 0.5px solid var(--border); position: relative; line-height: 1.55; }
+    .flow-steps li:last-child { border-bottom: none; }
+    .flow-steps li::before { content: attr(data-n); position: absolute; left: 0; top: 5px; font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--teal-dark); background: var(--teal-light); border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; }
+
+    /* State cards */
+    .state-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 12px; }
+    .state-card-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .state-card p { margin-bottom: 6px; font-size: 12px; }
+    .state-card ul { margin: 0; padding-left: 16px; font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+    /* Color token swatches */
+    .token-row { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-bottom: 0.5px solid var(--border); font-size: 12px; }
+    .token-row:last-child { border-bottom: none; }
+    .token-swatch { width: 20px; height: 20px; border-radius: 4px; border: 0.5px solid var(--border); flex-shrink: 0; background: var(--bg); }
+    .token-name { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); flex: 1; }
+    .token-label { font-size: 12px; color: var(--muted); }
+
+    /* Open items */
+    .open-items-group { margin-bottom: 20px; }
+    .open-items-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-family: var(--mono); margin-bottom: 8px; }
+    .open-items-list { list-style: none; padding: 0; margin: 0; }
+    .open-items-list li { font-size: 12px; color: var(--text); padding: 6px 0 6px 20px; border-bottom: 0.5px solid var(--border); position: relative; line-height: 1.55; }
+    .open-items-list li:last-child { border-bottom: none; }
+    .open-items-list li::before { content: attr(data-n); position: absolute; left: 0; font-family: var(--mono); font-size: 10px; color: var(--muted-light); }
+
+    /* Layout diagram */
+    .layout-diagram { background: var(--bg); border: 0.5px solid var(--border); border-radius: 10px; padding: 16px; font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .layout-diagram strong { color: var(--text); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><a href="../_index.html">Workflows</a><span class="breadcrumb-sep">/</span><span>Create New Workflows</span><span class="breadcrumb-sep">/</span><span>Feature</span></div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-circle-plus"></i></span> Create New Workflows — Feature</h2>
+      <p>Entry point for submitters to initiate a new workflow. Two-phase flow: template selection dialog, then a full-screen form modal with dynamic approval flow panel, multi-section form, draft saving, and a review step before submission.</p>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="md-content">
+
+      <!-- ── LAYOUT ── -->
+      <div class="md-h2">Layout</div>
+      <div class="layout-diagram">
+        <strong>Phase 1 — Template selection dialog</strong><br>
+        &nbsp;&nbsp;Basic Dialog: 600px centered · dimmed backdrop over Dashboard<br>
+        &nbsp;&nbsp;Category dropdown + Template dropdown + Cancel / Continue<br>
+        <br>
+        <strong>Phase 2 — Details modal (1400px overlay)</strong><br>
+        &nbsp;&nbsp;├── Details header (56px) — breadcrumb + link / expand / close<br>
+        &nbsp;&nbsp;├── Left section (1070px) — scrollable form + sticky Action Footer (60px)<br>
+        &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Title (dynamic: Product : Environment : Feature)<br>
+        &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Submitting as dropdown<br>
+        &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Form sections (collapsible): Release Description · Security Check<br>
+        &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Multi-entry section (template-dependent)<br>
+        &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── Template info tab (read-only)<br>
+        &nbsp;&nbsp;└── Right section (330px) — Approval Flow panel (collapsible)<br>
+        <br>
+        Responsive: <span style="color:#be123c">MISSING</span> — no responsive frames in section. Inferred: follows Dashboard modal patterns.
+      </div>
+
+      <!-- ── CORE FLOWS ── -->
+      <div class="md-h2">Core Flows</div>
+
+      <div class="md-h3">Flow 1 — Create new workflow (full happy path)</div>
+      <ol class="flow-steps">
+        <li data-n="1">User clicks "+ Create" button on Dashboard</li>
+        <li data-n="2">"Create a new workflow" dialog opens over Dashboard with dimmed backdrop</li>
+        <li data-n="3">User selects workflow category (optional filter) and template (required)</li>
+        <li data-n="4">User clicks "Continue" → dialog closes; Details modal opens (1400px)</li>
+        <li data-n="5">Modal breadcrumb: <code>Home / Create New Workflow</code></li>
+        <li data-n="6">Title shows placeholder: <code>Product Name* : Environment* : Features</code></li>
+        <li data-n="7">User selects "Submitting as" (org path + person; defaults to current user)</li>
+        <li data-n="8">User fills required fields (Product Name*, Environment*) → title updates dynamically</li>
+        <li data-n="9">User fills optional fields: Date and Time, Features, Remarks, Security Check</li>
+        <li data-n="10">Approval Flow panel populates from template configuration</li>
+        <li data-n="11">User clicks "Next" → review screen; right panel switches to Approval / History / Comments tabs</li>
+        <li data-n="12">User clicks "Submit Workflow" → workflow submitted <span class="flag-inferred">Inferred</span></li>
+      </ol>
+
+      <div class="md-h3">Flow 2 — Save as draft then resume</div>
+      <ol class="flow-steps">
+        <li data-n="1">User partially fills form and clicks "Save as Draft"</li>
+        <li data-n="2">"Draft" chip appears near modal title; footer button changes to "Save Changes"</li>
+        <li data-n="3">User exits modal → draft preserved in Dashboard Draft tab</li>
+        <li data-n="4">User re-opens draft; "Draft" badge visible; form fields editable</li>
+        <li data-n="5">User edits → "Unsaved changes" chip appears; "Save Changes" enabled</li>
+        <li data-n="6">User clicks "Save Changes" → changes persisted; "Unsaved changes" chip clears</li>
+      </ol>
+
+      <div class="md-h3">Flow 3 — Conditional approver selection (single department)</div>
+      <ol class="flow-steps">
+        <li data-n="1">Template has an approval step requiring a choice from a named group</li>
+        <li data-n="2">Right panel shows step with dropdown: <code>[Group Name] / Any of N approvers</code></li>
+        <li data-n="3">User opens dropdown → sees group members listed</li>
+        <li data-n="4">User selects specific approver (or keeps "Any of N approvers" default)</li>
+        <li data-n="5">Selection triggers loading: "Updating approval flow..." spinner; all footer buttons disabled</li>
+        <li data-n="6">Once resolved, right panel shows chosen approver; buttons re-enable</li>
+      </ol>
+
+      <div class="md-h3">Flow 4 — Conditional approver selection (multi-department)</div>
+      <ol class="flow-steps">
+        <li data-n="1">Same as Flow 3 but approval step spans multiple departments</li>
+        <li data-n="2">Dropdown shows department sections (Department A, Department B) each with member list</li>
+        <li data-n="3">"Any of N approvers" option at top; pre-selected with checkmark (default)</li>
+        <li data-n="4">User selects a specific department member → approval flow updates</li>
+      </ol>
+
+      <div class="md-h3">Flow 5 — Multi-entry section</div>
+      <ol class="flow-steps">
+        <li data-n="1">Template includes a multi-entry section (repeating row group)</li>
+        <li data-n="2">Section header shows "Max. N entries" badge; description text in teal color</li>
+        <li data-n="3">Each entry row: Item* (required text) + Price (¥ + number) + Description (textarea)</li>
+        <li data-n="4">User clicks "Add entry" → new empty row appended; button disabled at max</li>
+        <li data-n="5">User clicks delete icon on a row → row removed</li>
+      </ol>
+
+      <!-- ── STATES ── -->
+      <div class="md-h2">States</div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-forms" style="color:var(--muted)"></i> Empty / Initial</div>
+        <ul>
+          <li>Phase 1: both dropdowns empty; Continue button disabled <span class="flag-inferred">Inferred</span></li>
+          <li>Details modal: title shows full placeholder text; "Next" disabled; "Save as Draft" enabled</li>
+          <li>Approval Flow: some steps may show empty avatar circle (unresolved approver)</li>
+        </ul>
+      </div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-loader" style="color:var(--muted)"></i> Loading — Updating Approval Flow</div>
+        <ul>
+          <li>Right panel replaced by spinner + "Updating approval flow..." text</li>
+          <li>All footer buttons (Cancel, Save as Draft / Save Changes, Next) disabled</li>
+          <li>Triggered by: conditional approver selection, certain field changes</li>
+        </ul>
+      </div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-file" style="color:var(--muted)"></i> Draft</div>
+        <ul>
+          <li>"Draft" chip inline near modal title</li>
+          <li>Footer: "Save as Draft" → "Save Changes" (grayed out until edits made)</li>
+          <li>All form fields remain editable</li>
+        </ul>
+      </div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-file-pencil" style="color:var(--amber)"></i> Draft + Unsaved Changes</div>
+        <ul>
+          <li>"Unsaved changes" chip + "Draft" chip both visible near title</li>
+          <li>"Save Changes" button enabled</li>
+          <li>"Next" enabled if required fields complete</li>
+        </ul>
+      </div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-eye" style="color:var(--muted)"></i> Review (Details Edit — Next)</div>
+        <ul>
+          <li>Step counter "Step 0/N" top-right of left section</li>
+          <li>Form fields rendered read-only (label + value pairs)</li>
+          <li>"Submitting as" shows full name + email (read-only)</li>
+          <li>Right panel tabs: Approval | History | Comments</li>
+          <li>Approval tab shows timeline: creation event + submission timestamp</li>
+          <li>Footer: "Back" | "Submit Workflow"</li>
+        </ul>
+      </div>
+
+      <div class="state-card">
+        <div class="state-card-title"><i class="ti ti-alert-circle" style="color:#be123c"></i> Error States <span class="flag-missing">Missing</span></div>
+        <p style="color:var(--muted);margin-bottom:8px;">No error states shown in Figma. Expected:</p>
+        <table class="spec-table">
+          <thead><tr><th>Error</th><th>Trigger</th><th>EN</th><th>JA</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Template load failure</td><td>API error in Phase 1</td><td><span class="flag-confirm">Confirm</span></td><td><span class="flag-confirm">Confirm</span></td><td>Retry</td></tr>
+            <tr><td>Form submit failure</td><td>Submit Workflow API error</td><td><span class="flag-confirm">Confirm</span></td><td><span class="flag-confirm">Confirm</span></td><td>Retry / support</td></tr>
+            <tr><td>Draft save failure</td><td>Save as Draft / Save Changes error</td><td><span class="flag-confirm">Confirm</span></td><td><span class="flag-confirm">Confirm</span></td><td>Retry</td></tr>
+            <tr><td>Approval flow error</td><td>Approval step resolution failure</td><td><span class="flag-confirm">Confirm</span></td><td><span class="flag-confirm">Confirm</span></td><td>Retry or proceed</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="md-h3">Edge Cases</div>
+      <table class="spec-table">
+        <thead><tr><th>Case</th><th>Behavior</th></tr></thead>
+        <tbody>
+          <tr><td>Title truncation</td><td>Long subject truncates after 2 lines <span class="flag-inferred">Inferred</span></td></tr>
+          <tr><td>Multi-line Remarks</td><td>Textarea expands with content; break lines supported</td></tr>
+          <tr><td>Max entries reached</td><td>"Add entry" button disabled; tooltip INFERRED</td></tr>
+          <tr><td>All required fields empty</td><td>"Next" disabled; "Save as Draft" enabled</td></tr>
+          <tr><td>Approval step unresolved</td><td>Empty avatar circle shown on step row</td></tr>
+          <tr><td>Section collapse</td><td>Chevron rotates; section content hides; state INFERRED persists in session</td></tr>
+          <tr><td>Cancel with unsaved content</td><td>Discard confirmation INFERRED needed <span class="flag-missing">Missing</span></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <!-- ── COMPONENTS ── -->
+      <div class="md-h2">Components Used</div>
+      <table class="spec-table">
+        <thead><tr><th>Component</th><th>Source</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Left menu</td><td><code>global/components/nav-shell.md</code></td><td>260px fixed</td></tr>
+          <tr><td>Top bar</td><td><code>global/components/nav-shell.md</code></td><td>Hamburger, Search, Avatar</td></tr>
+          <tr><td>Basic Dialog — Phase 1</td><td><code>global/components/dialog.md</code></td><td>600px; category + template dropdowns; Cancel + Continue</td></tr>
+          <tr><td>Select dropdown</td><td><code>global/components/select.md</code></td><td>Category, Template (Phase 1); Product Name*, Environment*, Submitting as, approver</td></tr>
+          <tr><td>Text Field</td><td><code>global/components/text-field.md</code></td><td>Features, Remarks, Security Remarks (multiline); Item (multi-entry)</td></tr>
+          <tr><td>Date Time Picker</td><td><code>global/components/date-picker.html</code></td><td>Format: yyyy/mm/dd, hh:mm</td></tr>
+          <tr><td>Checkbox</td><td><code>global/components/checkbox.md</code></td><td>Security Checklist; External security check</td></tr>
+          <tr><td>Number input with prefix</td><td>defined in workflows <span class="flag-confirm">Confirm</span></td><td>Price field: ¥ prefix + numeric input; promote if reused</td></tr>
+          <tr><td>Tabs</td><td><code>global/components/tabs.md</code></td><td>Right panel on review step: Approval, History, Comments</td></tr>
+          <tr><td>Details modal</td><td>defined in workflows</td><td>1400px overlay; shared with Dashboard details</td></tr>
+          <tr><td>Details header</td><td>defined in workflows</td><td>56px; breadcrumb + link / expand / close icons</td></tr>
+          <tr><td>Left section</td><td>defined in workflows</td><td>1070px scrollable + sticky footer</td></tr>
+          <tr><td>Right section — Approval Flow</td><td>defined in workflows</td><td>330px; numbered steps; collapsible</td></tr>
+          <tr><td>Approval step row</td><td>defined in workflows</td><td>Number badge + label + approver name or group dropdown</td></tr>
+          <tr><td>Approver group dropdown</td><td>defined in workflows <span class="flag-confirm">Confirm</span></td><td>Group name + "Any of N approvers" + member list; multi-dept variant; promote if reused</td></tr>
+          <tr><td>Action Footer</td><td><code>global/components/</code> <span class="flag-confirm">Confirm</span></td><td>60px sticky; evolves per state (see States)</td></tr>
+          <tr><td>Multi-entry section</td><td>defined here <span class="flag-confirm">Confirm</span></td><td>Repeating rows: Item*/Price/Description; Add entry; delete per row; Max badge; promote if reused</td></tr>
+          <tr><td>Template info section</td><td>defined in workflows</td><td>Read-only tab: Name, Category, Description, Last Updated, Version</td></tr>
+          <tr><td>Status chip — Draft</td><td>defined in workflows <span class="flag-confirm">Confirm</span></td><td>Inline near title; promote if reused</td></tr>
+          <tr><td>Status chip — Unsaved changes</td><td>defined in workflows <span class="flag-confirm">Confirm</span></td><td>Inline near title; amber/warning style inferred; promote if reused</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <!-- ── GUIDELINES ── -->
+      <div class="md-h2">Guidelines Applied</div>
+      <table class="spec-table">
+        <thead><tr><th>Guideline</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Max content width 960px; spacing(3) padding</td><td><code>workflows/_guidelines.md</code> <span class="flag-confirm">Confirm</span> (stub)</td></tr>
+          <tr><td>Token-only colors — never raw hex</td><td><code>global/foundations/color-system.md</code></td></tr>
+          <tr><td>theme.spacing() — never hardcode px</td><td><code>global/foundations/spacing.md</code> <span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Tabler Icons; one style per product</td><td><code>global/foundations/iconography.md</code></td></tr>
+          <tr><td>MUI transition tokens; prefers-reduced-motion</td><td><code>global/foundations/motion.md</code></td></tr>
+          <tr><td>WCAG 2.1 AA; 44×44px touch targets</td><td><code>global/foundations/accessibility.md</code></td></tr>
+          <tr><td>Inter (EN) / Noto Sans JP (JA via lang attr)</td><td><code>global/foundations/typography.md</code></td></tr>
+          <tr><td>Required field markers (*) on labels</td><td>Figma annotation</td></tr>
+          <tr><td>All footer buttons disabled during approval flow update</td><td>Figma frame 348:53940</td></tr>
+          <tr><td>Draft saving persists partial submissions</td><td>Figma annotation</td></tr>
+          <tr><td>Multi-entry Add entry disabled at cap</td><td>Figma annotation: "Max. N entries"</td></tr>
+          <tr><td>Form title dynamically composed from required field values</td><td>Figma annotation</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <!-- ── COPY PATTERNS ── -->
+      <div class="md-h2">Copy Patterns</div>
+      <table class="spec-table">
+        <thead><tr><th>Element</th><th>EN</th><th>JA</th></tr></thead>
+        <tbody>
+          <tr><td>Phase 1 dialog title</td><td>"Create a new workflow"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Phase 1 subtitle</td><td>"Select the workflows template that suits your needs"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Category dropdown placeholder</td><td>"All workflow categories"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Template dropdown placeholder</td><td>"Workflow template"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Phase 1: Cancel / Continue</td><td>"Cancel" / "Continue"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Modal breadcrumb</td><td>"Home / Create New Workflow"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Title placeholder</td><td>"Product Name* : Environment* : Features"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Submitting as</td><td>"Submitting as"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Section: Release Description</td><td>"Release Description"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Section: Security Check (edit)</td><td>"Security Check"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Section: Security Check (review) <span class="flag-confirm">Confirm</span></td><td>"Security Checklist" <em style="font-size:11px;color:var(--muted)">(inconsistency with edit label)</em></td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Field labels</td><td>"Product Name*" · "Environment*" · "Date and Time" · "Features" · "Remarks" · "External"</td><td><span class="flag-confirm">Confirm all</span></td></tr>
+          <tr><td>Security checkboxes</td><td>"Check the code dependencies" · "Detailed code check" · "External security check"</td><td><span class="flag-confirm">Confirm all</span></td></tr>
+          <tr><td>Template tab + info labels</td><td>"Template" · "Template Name" · "Category" · "Description" · "Last Updated" · "Version"</td><td><span class="flag-confirm">Confirm all</span></td></tr>
+          <tr><td>Approval Flow header</td><td>"Approval Flow"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Approval step labels</td><td>"Approval required from:" · "Final approval required from:" · "X approvals required from:" · "An approval required from:"</td><td><span class="flag-confirm">Confirm all</span></td></tr>
+          <tr><td>Approver group link</td><td>"Any of N approvers"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Approval loading</td><td>"Updating approval flow..."</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Multi-entry max badge</td><td>"Max. N entries"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Multi-entry fields</td><td>"Item*" · "Price" · "Add entry"</td><td><span class="flag-confirm">Confirm all</span></td></tr>
+          <tr><td>Status chips</td><td>"Draft" · "Unsaved changes"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Step indicator</td><td>"Step 0/N"</td><td><span class="flag-confirm">Confirm</span></td></tr>
+          <tr><td>Footer buttons</td><td>"Cancel" · "Save as Draft" · "Save Changes" · "Next" · "Back" · "Submit Workflow"</td><td><span class="flag-confirm">Confirm all</span></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <!-- ── COLOR TOKENS ── -->
+      <div class="md-h2">Color Tokens Used</div>
+      <p>All mappings are inferred — <code>_theme.md</code> is a stub. No raw hex values. <span class="flag-confirm">Confirm all</span></p>
+      <table class="spec-table">
+        <thead><tr><th>Visual element</th><th>MUI palette token</th></tr></thead>
+        <tbody>
+          <tr><td>"Continue" / "Submit Workflow" / "Next" button fill</td><td><code>palette.primary.main</code></td></tr>
+          <tr><td>"Save as Draft" / "Save Changes" button</td><td><code>palette.primary.main</code> outline variant</td></tr>
+          <tr><td>"Back" / "Cancel" button</td><td><code>palette.text.secondary</code> or action variant</td></tr>
+          <tr><td>Overlay / backdrop</td><td><code>palette.action.disabledBackground</code> or custom</td></tr>
+          <tr><td>Modal surface</td><td><code>palette.background.paper</code></td></tr>
+          <tr><td>Section description text (teal)</td><td><code>palette.info.main</code> or <code>palette.primary.main</code></td></tr>
+          <tr><td>Active tab underline (Approval / History / Comments)</td><td><code>palette.primary.main</code></td></tr>
+          <tr><td>Required field asterisk (*)</td><td><code>palette.error.main</code></td></tr>
+          <tr><td>"Unsaved changes" chip</td><td><code>palette.warning.main</code> background</td></tr>
+          <tr><td>Draft chip</td><td><code>palette.grey.200</code> or <code>palette.action.selected</code></td></tr>
+          <tr><td>Approval step badge — unresolved</td><td><code>palette.grey.300</code></td></tr>
+          <tr><td>Approval step badge — resolved</td><td><code>palette.primary.main</code> or <code>palette.success.main</code></td></tr>
+          <tr><td>Approver group link ("Any of N approvers")</td><td><code>palette.primary.main</code></td></tr>
+          <tr><td>Delete icon (multi-entry)</td><td><code>palette.action.active</code></td></tr>
+          <tr><td>"Max. N entries" badge</td><td><code>palette.info.light</code> background</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <!-- ── OPEN ITEMS ── -->
+      <div class="md-h2">Open Items</div>
+
+      <div class="open-items-group">
+        <div class="open-items-title">Inconsistencies with config files</div>
+        <ul class="open-items-list">
+          <li data-n="1.">&nbsp;<code>_theme.md</code> is a stub — all <code>palette.*</code> hex values unresolved; every color mapping is flagged CONFIRM.</li>
+          <li data-n="2.">&nbsp;<code>_glossary.md</code> is a stub — all 37 EN copy strings and JA translations unverified.</li>
+          <li data-n="3.">&nbsp;<code>workflows/_guidelines.md</code> and <code>global/_guidelines.md</code> are stubs — layout rules inferred from Figma only.</li>
+          <li data-n="4.">&nbsp;<code>global/components/</code> stubs: Dialog, Select, Date Picker, Checkbox, Action Footer, Tabs, Text Field — component contracts unverifiable.</li>
+          <li data-n="5.">&nbsp;Section label inconsistency: "Security Check" in edit state vs. "Security Checklist" in review state — needs resolution.</li>
+          <li data-n="6.">&nbsp;Icon style (outline vs filled) and stroke width unconfirmed — pending <code>_theme.md</code>.</li>
+        </ul>
+      </div>
+
+      <div class="open-items-group">
+        <div class="open-items-title">Missing states or flows</div>
+        <ul class="open-items-list">
+          <li data-n="7.">&nbsp;No responsive / mobile spec frames — XS/S breakpoint behavior for Details modal is MISSING.</li>
+          <li data-n="8.">&nbsp;No error states for template load failure, form submit failure, draft save failure, or approval flow resolution failure.</li>
+          <li data-n="9.">&nbsp;No empty state for Phase 1 when no templates exist in the selected category.</li>
+          <li data-n="10.">&nbsp;No explicit loading state for Phase 1 (template dropdown populating from API).</li>
+          <li data-n="11.">&nbsp;Phase 1 "Continue" enabled/disabled logic not shown — INFERRED disabled until template selected.</li>
+          <li data-n="12.">&nbsp;Cancel confirmation dialog not shown — INFERRED needed when form has unsaved content.</li>
+          <li data-n="13.">&nbsp;Submission confirmation / success state not shown — INFERRED: redirects to Dashboard.</li>
+          <li data-n="14.">&nbsp;Full-screen expand behavior (expand icon in modal header) not shown.</li>
+        </ul>
+      </div>
+
+      <div class="open-items-group">
+        <div class="open-items-title">Decisions needed</div>
+        <ul class="open-items-list">
+          <li data-n="15.">&nbsp;JA translations for all 37 copy strings — requires content / localisation input.</li>
+          <li data-n="16.">&nbsp;Confirm whether section header labels (e.g. "Release Description", "Multi-entry section") are always template-defined or if some are fixed UI labels.</li>
+          <li data-n="17.">&nbsp;"Features" in the title composition — confirm whether this is always the third field or varies by template.</li>
+          <li data-n="18.">&nbsp;Escape key behavior on Details modal — close without confirmation, or trigger "Discard changes?" dialog?</li>
+          <li data-n="19.">&nbsp;Draft / "Unsaved changes" chip — confirm exact style tokens (background, border, text color).</li>
+          <li data-n="20.">&nbsp;"Step 0/N" counter — confirm whether step 0 is intentional on "just created" state or should start at 1.</li>
+          <li data-n="21.">&nbsp;Multi-entry fields ("Item", "Price", "Description") — confirm whether labels are template-defined or fixed UI labels.</li>
+          <li data-n="22.">&nbsp;Approver group dropdown default ("Any of N approvers" pre-selected) — confirm this is always the default.</li>
+          <li data-n="23.">&nbsp;"Price" number input with ¥ prefix — confirm whether this is a new component or Text Field with adornment variant.</li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

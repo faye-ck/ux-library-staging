@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conditional Flow — Feature — Workflows — UX Library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    /* ── Layout ── */
+    .spec-body { max-width: 820px; }
+    .spec-section { margin-bottom: 40px; }
+    .spec-h2 {
+      font-size: 15px; font-weight: 600; color: var(--text);
+      margin: 0 0 14px; letter-spacing: -0.2px;
+      padding-bottom: 8px; border-bottom: 0.5px solid var(--border);
+    }
+    .spec-h3 {
+      font-size: 10px; font-weight: 600; color: var(--muted);
+      margin: 20px 0 8px; text-transform: uppercase;
+      letter-spacing: 0.07em; font-family: var(--mono);
+    }
+    .spec-p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .spec-ol { padding-left: 20px; margin: 0 0 10px; }
+    .spec-ol li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+    .spec-ul { padding-left: 18px; margin: 0 0 10px; }
+    .spec-ul li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+
+    /* ── Flags ── */
+    .flag-confirm {
+      display: inline-block; background: #fffbea; border: 0.5px solid #e6c84a;
+      color: #7a5f00; font-size: 10px; font-family: var(--mono); font-weight: 600;
+      padding: 1px 6px; border-radius: 4px; letter-spacing: 0.03em;
+      vertical-align: middle; margin-left: 4px;
+    }
+    .flag-inferred {
+      display: inline-block; background: var(--bg); border: 0.5px solid var(--border);
+      color: var(--muted-light); font-size: 10px; font-family: var(--mono); font-weight: 600;
+      padding: 1px 6px; border-radius: 4px; letter-spacing: 0.03em;
+      vertical-align: middle; margin-left: 4px;
+    }
+    .flag-missing {
+      display: inline-block; background: #fff0f0; border: 0.5px solid #f0a0a0;
+      color: #c0392b; font-size: 10px; font-family: var(--mono); font-weight: 600;
+      padding: 1px 6px; border-radius: 4px; letter-spacing: 0.03em;
+      vertical-align: middle; margin-left: 4px;
+    }
+
+    /* ── Banner flags ── */
+    .banner-confirm {
+      background: #fffbea; border: 0.5px solid #e6c84a; border-left: 3px solid #e6c84a;
+      color: #7a5f00; font-size: 12px; padding: 8px 12px; border-radius: 6px;
+      margin: 8px 0; line-height: 1.6;
+    }
+    .banner-missing {
+      background: #fff0f0; border: 0.5px solid #f0a0a0; border-left: 3px solid #e74c3c;
+      color: #c0392b; font-size: 12px; padding: 8px 12px; border-radius: 6px;
+      margin: 8px 0; line-height: 1.6;
+    }
+    .banner-inferred {
+      background: var(--bg); border: 0.5px solid var(--border); border-left: 3px solid var(--muted-light);
+      color: var(--muted); font-size: 12px; padding: 8px 12px; border-radius: 6px;
+      margin: 8px 0; line-height: 1.6;
+    }
+
+    /* ── Tables ── */
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 8px 0 20px; }
+    .spec-table th {
+      background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px;
+      border-bottom: 0.5px solid var(--border); text-align: left;
+    }
+    .spec-table td {
+      padding: 8px 10px; border-bottom: 0.5px solid var(--border);
+      font-size: 12px; vertical-align: top; color: var(--muted); line-height: 1.6;
+    }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
+    code {
+      font-family: var(--mono); background: var(--bg); padding: 1px 5px;
+      border-radius: 3px; font-size: 11px; color: var(--teal-dark);
+      border: 0.5px solid var(--border);
+    }
+
+    /* ── Flow blocks ── */
+    .flow-block {
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-radius: 12px; margin-bottom: 12px; overflow: hidden;
+    }
+    .flow-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px; border-bottom: 0.5px solid var(--border);
+      background: var(--bg);
+    }
+    .flow-num {
+      font-family: var(--mono); font-size: 10px; font-weight: 600;
+      background: var(--teal); color: var(--surface);
+      padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+    }
+    .flow-title { font-size: 13px; font-weight: 500; color: var(--text); }
+    .flow-body { padding: 12px 16px; }
+    .flow-body ol { padding-left: 18px; margin: 0; }
+    .flow-body li { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 3px; }
+
+    /* ── Color swatches ── */
+    .token-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .swatch { width: 20px; height: 20px; border-radius: 4px; border: 0.5px solid var(--border); flex-shrink: 0; }
+    .token-name { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); }
+    .token-desc { font-size: 12px; color: var(--muted); }
+
+    /* ── Open items ── */
+    .oi-bucket {
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-radius: 10px; margin-bottom: 12px; overflow: hidden;
+    }
+    .oi-bucket-header {
+      padding: 9px 14px; font-size: 11px; font-weight: 600;
+      font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.05em;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .oi-bucket-header.warn { background: #fffbea; color: #7a5f00; }
+    .oi-bucket-header.miss { background: #fff0f0; color: #c0392b; }
+    .oi-bucket-header.decide { background: var(--teal-light); color: var(--teal-dark); }
+    .oi-list { padding: 10px 14px; }
+    .oi-item {
+      display: flex; gap: 10px; padding: 5px 0;
+      border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--muted); line-height: 1.6;
+    }
+    .oi-item:last-child { border-bottom: none; }
+    .oi-num { font-family: var(--mono); font-size: 10px; color: var(--muted-light); min-width: 18px; padding-top: 1px; }
+
+    /* ── Operator grid ── */
+    .op-pill {
+      display: inline-block; background: var(--bg); border: 0.5px solid var(--border);
+      font-family: var(--mono); font-size: 10px; color: var(--muted);
+      padding: 1px 6px; border-radius: 4px; margin: 2px 2px 2px 0;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="../_index.html">Workflows</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Conditional Flow</span>
+      <span class="breadcrumb-sep">/</span>
+      <span>Feature</span>
+    </div>
+
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-git-branch"></i></span> Conditional Flow — Feature</h2>
+      <p>User Portal baseline (Web desktop) · IF/THEN routing rules that determine which approval flow activates based on form field values.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="spec-body">
+
+      <div class="banner-confirm">
+        <strong>Config files are stubs.</strong> All color token names, copy terms, and guideline references are marked CONFIRM throughout this spec. Populate <code>workflows/config/_theme.md</code>, <code>_glossary.md</code>, and <code>_guidelines.md</code> to resolve them.
+      </div>
+
+      <!-- ── Overview ── -->
+      <div class="spec-section">
+        <h3 class="spec-h2">Overview</h3>
+        <p class="spec-p">Conditional Flow is a template-level configuration nested inside the Approval Flow Setup page (step 2 of 3 in template creation). An admin defines one or more IF/THEN condition flows. When a submitter fills in a workflow form, the system evaluates conditions top-to-bottom — the first matching flow's approval chain activates. If no condition matches, the default approval flow applies.</p>
+        <p class="spec-p">All configuration happens in the "Condition Setup" right panel. The approval flow chart in the canvas updates reactively as condition flows are added, reordered, or removed.</p>
+      </div>
+
+      <!-- ── Core Flows ── -->
+      <div class="spec-section">
+        <h3 class="spec-h2">Core Flows</h3>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 1</span><span class="flow-title">Access Condition Setup</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin reaches step 2 (Approval Flow Setup) in template creation wizard.</li>
+            <li>Admin activates the Conditional Flow configuration. <span class="flag-confirm">CONFIRM</span> exact trigger — button or toggle in main canvas.</li>
+            <li>"Condition Setup" right panel opens.</li>
+            <li>If no conditions exist: empty state — "No condition set" (italic, muted text). <span class="flag-confirm">CONFIRM</span></li>
+            <li>"Add condition flow" outlined button visible at panel bottom.</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 2</span><span class="flow-title">Add a Condition Flow (first)</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin clicks "Add condition flow" button.</li>
+            <li>"Condition flow 1" section appears with: section header (grip · label · duplicate · trash · chevron) · IF field selector · one empty group box · "Add condition" link · "Add group" link · THEN approval flow selector with edit icon.</li>
+            <li>Admin selects a field from the IF field selector.</li>
+            <li>A condition row (operator dropdown + value input) appears inside the group.</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 3</span><span class="flow-title">Add More Conditions (AND/OR within a group)</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin clicks "Add condition" inside a group.</li>
+            <li>New condition row appended. AND/OR toggle appears between conditions.</li>
+            <li>Toggle default: AND. <span class="flag-inferred">INFERRED</span></li>
+            <li>All conditions in the group share the same AND/OR logic — mixed logic (e.g. A+B/C without grouping) is intentionally prohibited to avoid ambiguity about operator precedence.</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 4</span><span class="flow-title">Add a Group</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin clicks "Add group" link below the existing group box.</li>
+            <li>New group box appended. AND/OR toggle appears between groups.</li>
+            <li>All groups in the condition flow share the same top-level AND/OR toggle (same constraint as within-group logic).</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 5</span><span class="flow-title">Change AND/OR Toggle</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin clicks the inactive option on an AND/OR toggle.</li>
+            <li>Toggle updates; all rows/groups in scope switch to the new logic.</li>
+            <li>Any second AND/OR toggle in the same scope automatically follows the first.</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 6</span><span class="flow-title">Add Additional Condition Flows</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin clicks "Add condition flow" below all existing flows.</li>
+            <li>New "Condition flow N" section appended. Evaluation order: top-to-bottom, first-match wins.</li>
+            <li>Approval flow chart re-renders to reflect the new flow.</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 7</span><span class="flow-title">Duplicate a Condition Flow</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin clicks the duplicate icon in a section header.</li>
+            <li>Copy created below original with same IF conditions and THEN approval flow.</li>
+            <li>Section label auto-increments to "Condition flow N+1". <span class="flag-inferred">INFERRED</span></li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 8</span><span class="flow-title">Reorder Condition Flows (Drag and Drop)</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin grabs grip icon in a section header and drags to new position.</li>
+            <li>On drop, evaluation order updates. Flow chart re-renders to reflect new order.</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 9</span><span class="flow-title">Remove a Condition or Group</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin clicks trash icon on a condition row. Row removed immediately.</li>
+            <li><span class="flag-confirm">CONFIRM</span> Does group box also have a remove control? Does an empty group auto-remove or persist?</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 10</span><span class="flow-title">Remove a Condition Flow</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin clicks trash icon in a condition flow section header.</li>
+            <li>Entire IF/THEN block removed. Remaining flows renumber. <span class="flag-inferred">INFERRED</span></li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 11</span><span class="flow-title">Remove All Conditions</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin triggers "Remove all". <span class="flag-confirm">CONFIRM</span> exact location (overflow menu or panel header control).</li>
+            <li>Basic Dialog confirmation appears. Copy: <span class="flag-missing">MISSING</span></li>
+            <li>Admin confirms → all flows cleared, panel returns to empty state.</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 12</span><span class="flow-title">Expand / Collapse Condition Flow Sections</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin clicks chevron icon in section header → section collapses to header-only.</li>
+            <li>Admin clicks collapsed header → section expands.</li>
+            <li>Multiple sections can be independently expanded/collapsed.</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 13</span><span class="flow-title">Conditional Approval Flows Reflected in Left Panel</span></div>
+          <div class="flow-body"><ol>
+            <li>With only the default approval flow: no "CONDITION APPROVAL FLOW" section visible in the Approval Flow Setup left panel.</li>
+            <li>When at least one conditional flow has a THEN approval flow assigned: "CONDITION APPROVAL FLOW" section appears.</li>
+            <li>Each conditional AF shown as a collapsible section: section header · description · Self-approval toggle · Steps with User list.</li>
+            <li>Multiple conditional AFs can be independently expanded/collapsed.</li>
+            <li>Scroll indicator appears on right side when content overflows.</li>
+          </ol></div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-header"><span class="flow-num">Flow 14</span><span class="flow-title">Maximum Limit Reached</span></div>
+          <div class="flow-body"><ol>
+            <li>Admin reaches the maximum number of conditions or condition flows.</li>
+            <li>"Add condition" / "Add condition flow" controls become disabled or hidden. <span class="flag-confirm">CONFIRM</span> exact behavior and limits.</li>
+          </ol></div>
+        </div>
+      </div>
+
+      <!-- ── States ── -->
+      <div class="spec-section">
+        <h3 class="spec-h2">States</h3>
+
+        <div class="spec-h3">Empty State</div>
+        <p class="spec-p">Shown when no condition flows have been added. Displays "No condition set" in italic muted text (<span class="flag-confirm">CONFIRM</span> exact token — <code>#a4adb9</code> observed but not mapped). "Add condition flow" button visible and active.</p>
+
+        <div class="spec-h3">Default State</div>
+        <p class="spec-p">One or more condition flows with collapsible section headers and IF/THEN content. Approval flow chart updates reactively.</p>
+
+        <div class="spec-h3">Collapsed Section</div>
+        <p class="spec-p">Section header visible (label + icons). IF/THEN content hidden.</p>
+
+        <div class="spec-h3">Loading State</div>
+        <div class="banner-inferred">INFERRED — No loading state shown in Figma. Assumed panel opens synchronously. CONFIRM.</div>
+
+        <div class="spec-h3">Error States</div>
+        <table class="spec-table">
+          <thead><tr><th>Error</th><th>Trigger</th><th>Message (EN)</th><th>Message (JA)</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Incomplete condition</td>
+              <td><span class="flag-confirm">CONFIRM</span> save/submit with empty condition row</td>
+              <td><span class="flag-missing">MISSING</span></td>
+              <td><span class="flag-missing">MISSING</span></td>
+              <td><span class="flag-confirm">CONFIRM</span></td>
+            </tr>
+            <tr>
+              <td>Invalid value</td>
+              <td><span class="flag-confirm">CONFIRM</span> value does not match field type</td>
+              <td><span class="flag-missing">MISSING</span></td>
+              <td><span class="flag-missing">MISSING</span></td>
+              <td><span class="flag-confirm">CONFIRM</span></td>
+            </tr>
+            <tr>
+              <td>Max conditions reached</td>
+              <td>Adding a condition beyond the limit</td>
+              <td><span class="flag-missing">MISSING</span></td>
+              <td><span class="flag-missing">MISSING</span></td>
+              <td>Disable "Add condition"</td>
+            </tr>
+            <tr>
+              <td>Max flows reached</td>
+              <td>Adding a flow beyond the limit</td>
+              <td><span class="flag-missing">MISSING</span></td>
+              <td><span class="flag-missing">MISSING</span></td>
+              <td>Disable "Add condition flow"</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="spec-h3">Success / Confirmation</div>
+        <p class="spec-p">Snackbar notifications for add, duplicate, and remove condition flow actions. Copy: <span class="flag-missing">MISSING</span>. "Remove all" shows a Basic Dialog confirmation → on confirm → panel clears to empty state.</p>
+
+        <div class="spec-h3">Edge Cases</div>
+        <ul class="spec-ul">
+          <li>Single condition in a group: AND/OR toggle not shown. <span class="flag-inferred">INFERRED</span> — toggle only appears at 2+ conditions or groups.</li>
+          <li>Reused approval flow nodes in chart: positioned lowest so all conditional paths can reach them. Forward-arrow loops never occur (first-come-first-display rule).</li>
+          <li>All conditions removed: panel reverts to empty state.</li>
+        </ul>
+      </div>
+
+      <!-- ── Components ── -->
+      <div class="spec-section">
+        <h3 class="spec-h2">Components Used</h3>
+        <table class="spec-table">
+          <thead><tr><th>Component</th><th>Source</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Condition Setup right panel</td><td>Defined here</td><td>Full-height side panel housing all condition flow blocks</td></tr>
+            <tr><td>Condition flow section header</td><td>Defined here</td><td>Grip icon · "Condition flow N" label · duplicate icon · trash icon · chevron icon</td></tr>
+            <tr><td>IF field selector</td><td>Defined here</td><td>Dropdown; "IF" label above in EN/body2, <code>var(--text/low)</code></td></tr>
+            <tr><td>Condition row</td><td>Defined here</td><td>Operator dropdown + value input; one per condition</td></tr>
+            <tr><td>AND/OR toggle</td><td>Defined here</td><td>Two-option pill toggle; bg <code>var(--secondary/secondary)</code>; active = white bg; inactive = gray text</td></tr>
+            <tr><td>Group box</td><td>Defined here</td><td><code>border-radius: 8px</code>; border <code>var(--border/mid-light-hover)</code>; contains condition rows</td></tr>
+            <tr><td>"Add condition" link</td><td>Defined here</td><td>EN/body2; <code>var(--primary/primary)</code>; inside group box footer</td></tr>
+            <tr><td>"Add group" link</td><td>Defined here</td><td>EN/body2; <code>var(--primary/primary)</code>; below group box</td></tr>
+            <tr><td>THEN approval flow selector</td><td>Defined here</td><td>Dropdown; "THEN" label above in EN/body2, <code>var(--text/low)</code>; edit icon attached</td></tr>
+            <tr><td>"Add condition flow" button</td><td>Defined here</td><td>Outlined; EN/button2 12px; <code>var(--text/high-default)</code>; border <code>var(--border/default-mid-hover)</code></td></tr>
+            <tr><td>Basic Dialog</td><td><code>global/components/</code> <span class="flag-confirm">CONFIRM path</span></td><td>Used for "Remove all" confirmation</td></tr>
+            <tr><td>Snackbar</td><td><code>global/components/</code> <span class="flag-confirm">CONFIRM path</span></td><td>Used for action feedback</td></tr>
+            <tr><td>Approval flow chart</td><td><code>workflows/approval-flow/feature.html</code></td><td>Reactive — re-renders when condition flows change</td></tr>
+            <tr><td>CONDITION APPROVAL FLOW section</td><td><code>workflows/approval-flow/feature.html</code></td><td>Appears in Approval Flow Setup left panel when conditional AFs exist</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── Operator Sets ── -->
+      <div class="spec-section">
+        <h3 class="spec-h2">Operator Sets by Field Type</h3>
+        <table class="spec-table">
+          <thead><tr><th style="width:150px;">Field Type</th><th>Operators</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Short Text</td>
+              <td>
+                <span class="op-pill">contains</span><span class="op-pill">does not contain</span><span class="op-pill">is empty</span><span class="op-pill">is not empty</span><span class="op-pill">is equal to</span><span class="op-pill">is not equal to</span>
+                <span class="flag-inferred">validation operators</span>
+              </td>
+            </tr>
+            <tr><td>Text Area</td><td>Same as Short Text</td></tr>
+            <tr><td>Email</td><td>Same as Short Text</td></tr>
+            <tr><td>URL</td><td>Same as Short Text</td></tr>
+            <tr>
+              <td>Number</td>
+              <td>
+                <span class="op-pill">is equal to</span><span class="op-pill">is not equal to</span><span class="op-pill">is greater than</span><span class="op-pill">is less than</span><span class="op-pill">is between</span><span class="op-pill">is not between</span>
+                + decimal variants
+              </td>
+            </tr>
+            <tr><td>Currency</td><td>Same as Number + currency dropdown</td></tr>
+            <tr>
+              <td>Date</td>
+              <td>
+                <span class="op-pill">is equal to</span><span class="op-pill">is not equal to</span><span class="op-pill">is before</span><span class="op-pill">is after</span><span class="op-pill">is today</span><span class="op-pill">is between</span>
+                + with-time variants · date range / end date variants
+              </td>
+            </tr>
+            <tr>
+              <td>Time</td>
+              <td>
+                <span class="op-pill">is equal to</span><span class="op-pill">is not equal to</span><span class="op-pill">is before</span><span class="op-pill">is after</span><span class="op-pill">is between</span>
+                + end-time variants
+              </td>
+            </tr>
+            <tr>
+              <td>Dropdown</td>
+              <td>
+                <span class="op-pill">is equal to</span><span class="op-pill">is not equal to</span>
+                + follow-up question variant
+              </td>
+            </tr>
+            <tr><td>Single Choice</td><td><span class="op-pill">is equal to</span><span class="op-pill">is not equal to</span></td></tr>
+            <tr><td>Multiple Choice</td><td><span class="op-pill">is equal to (multiple values)</span><span class="op-pill">is not equal to (multiple values)</span></td></tr>
+            <tr><td>Yes/No Check</td><td><span class="op-pill">is checked</span><span class="op-pill">is unchecked</span></td></tr>
+            <tr>
+              <td>File Upload</td>
+              <td>
+                <span class="op-pill">file type is</span><span class="op-pill">file size is greater than</span><span class="op-pill">file size is less than</span><span class="op-pill">number of files is [operator]</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── Flow Chart Display Rules ── -->
+      <div class="spec-section">
+        <h3 class="spec-h2">Approval Flow Chart — Display Rules</h3>
+        <p class="spec-p">Source: Figma node <code>3542-234440</code> (authoritative). The chart renders in the Approval Flow Setup main canvas and updates reactively as condition flows change.</p>
+        <ul class="spec-ul">
+          <li>Evaluation order: top-to-bottom, first-match wins.</li>
+          <li>Forward arrows (skipping to a later node) never occur — condition order determines activation.</li>
+          <li>When an approval flow is reused across multiple condition flows, the reused AF node is positioned lowest in the chart so it remains reachable from all paths referencing it.</li>
+          <li>Ordering rule: earliest reused AF node → lowest position; later reused AF nodes → progressively higher up to their original; last reused and non-reused AF nodes stay at their original positions.</li>
+        </ul>
+      </div>
+
+      <!-- ── Guidelines ── -->
+      <div class="spec-section">
+        <h3 class="spec-h2">Guidelines Applied</h3>
+        <div class="banner-confirm">
+          <strong>CONFIRM:</strong> All product and global guideline files are stubs. No guidelines can be cross-referenced until <code>workflows/config/_guidelines.md</code> and <code>global/_guidelines.md</code> are populated.
+        </div>
+      </div>
+
+      <!-- ── Copy Patterns ── -->
+      <div class="spec-section">
+        <h3 class="spec-h2">Copy Patterns</h3>
+        <table class="spec-table">
+          <thead><tr><th>Element</th><th>EN</th><th>JA</th></tr></thead>
+          <tbody>
+            <tr><td>Panel title</td><td>Condition Setup</td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Section header label</td><td>Condition flow [N]</td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>IF label</td><td>IF</td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>THEN label</td><td>THEN</td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>AND toggle option</td><td>AND</td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>OR toggle option</td><td>OR</td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Add condition link</td><td>Add condition</td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Add group link</td><td>Add group</td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Add condition flow button</td><td>Add condition flow</td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Empty state message</td><td>No condition set</td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Remove all action label</td><td><span class="flag-missing">MISSING</span></td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Remove all dialog copy</td><td><span class="flag-missing">MISSING</span></td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Snackbar — flow added</td><td><span class="flag-missing">MISSING</span></td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Snackbar — flow removed</td><td><span class="flag-missing">MISSING</span></td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Snackbar — flow duplicated</td><td><span class="flag-missing">MISSING</span></td><td><span class="flag-missing">MISSING</span></td></tr>
+            <tr><td>Max limit reached message</td><td><span class="flag-missing">MISSING</span></td><td><span class="flag-missing">MISSING</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── Color Tokens ── -->
+      <div class="spec-section">
+        <h3 class="spec-h2">Color Tokens Used</h3>
+
+        <div class="token-row">
+          <div class="swatch" style="background:#1c1c1c;"></div>
+          <code class="token-name">var(--text/high-default)</code>
+          <span class="token-desc">Panel title, "Add condition flow" button label</span>
+        </div>
+        <div class="token-row">
+          <div class="swatch" style="background:#a4adb9;"></div>
+          <code class="token-name">var(--text/low)</code>
+          <span class="token-desc">IF/THEN labels <span class="flag-confirm">CONFIRM token name</span></span>
+        </div>
+        <div class="token-row">
+          <div class="swatch" style="background:#edeef2; border:0.5px solid #d0d2db;"></div>
+          <code class="token-name">var(--secondary/secondary, #edeef2)</code>
+          <span class="token-desc">AND/OR toggle background</span>
+        </div>
+        <div class="token-row">
+          <div class="swatch" style="background:#057aff;"></div>
+          <code class="token-name">var(--primary/primary, #057aff)</code>
+          <span class="token-desc">"Add condition" and "Add group" link color</span>
+        </div>
+        <div class="token-row">
+          <div class="swatch" style="background:#edeef2; border:1px solid #c5c8d2;"></div>
+          <code class="token-name">var(--border/mid-light-hover)</code>
+          <span class="token-desc">Group box border</span>
+        </div>
+        <div class="token-row">
+          <div class="swatch" style="background:#edeef2; border:1px solid #c5c8d2;"></div>
+          <code class="token-name">var(--border/default-mid-hover)</code>
+          <span class="token-desc">"Add condition flow" button border</span>
+        </div>
+        <div class="token-row">
+          <div class="swatch" style="background:#a4adb9;"></div>
+          <code class="token-name">#a4adb9</code>
+          <span class="token-desc">Empty state text <span class="flag-confirm">CONFIRM token name — map once _theme.md is populated</span></span>
+        </div>
+      </div>
+
+      <!-- ── Open Items ── -->
+      <div class="spec-section">
+        <h3 class="spec-h2">Open Items</h3>
+
+        <div class="oi-bucket">
+          <div class="oi-bucket-header warn">Inconsistencies with config files</div>
+          <div class="oi-list">
+            <div class="oi-item"><span class="oi-num">1</span><span>All config files (<code>_theme.md</code>, <code>_glossary.md</code>, <code>_guidelines.md</code> — both workflows and global) are stubs. No token mappings, approved terms, or guidelines can be verified.</span></div>
+            <div class="oi-item"><span class="oi-num">2</span><span>Hex <code>#a4adb9</code> (empty state text) — token name unknown until <code>_theme.md</code> is populated.</span></div>
+            <div class="oi-item"><span class="oi-num">3</span><span>Hex <code>#057aff</code> (<code>var(--primary/primary)</code>) used for add links — confirm token name from <code>_theme.md</code>.</span></div>
+            <div class="oi-item"><span class="oi-num">4</span><span>All JA translations are MISSING — <code>_glossary.md</code> is a stub.</span></div>
+          </div>
+        </div>
+
+        <div class="oi-bucket">
+          <div class="oi-bucket-header miss">Missing states or flows</div>
+          <div class="oi-list">
+            <div class="oi-item"><span class="oi-num">5</span><span>Snackbar copy for add, remove, and duplicate actions not captured from Figma.</span></div>
+            <div class="oi-item"><span class="oi-num">6</span><span>Basic Dialog copy for "Remove all" confirmation not captured.</span></div>
+            <div class="oi-item"><span class="oi-num">7</span><span>Placeholder text for IF field selector and THEN approval flow selector dropdowns not captured.</span></div>
+            <div class="oi-item"><span class="oi-num">8</span><span>Inline validation / error state UI not shown in reviewed Figma frames.</span></div>
+            <div class="oi-item"><span class="oi-num">9</span><span>Empty group behavior (auto-remove vs. persist with validation) not shown in Figma.</span></div>
+            <div class="oi-item"><span class="oi-num">10</span><span>Loading state for Condition Setup panel not present in Figma.</span></div>
+            <div class="oi-item"><span class="oi-num">11</span><span>Operator value input UI (date pickers, multi-select chips, range inputs, etc.) per field type not fully documented — Figma <code>3055:113677</code> "Conditional flow setting based on form element setup" contains detailed per-type states that were partially reviewed.</span></div>
+            <div class="oi-item"><span class="oi-num">12</span><span>"Styling" section in Figma <code>3055:113677</code> not fully reviewed — may contain additional visual rules.</span></div>
+            <div class="oi-item"><span class="oi-num">13</span><span>Mobile Web design absent — only desktop is specified.</span></div>
+          </div>
+        </div>
+
+        <div class="oi-bucket">
+          <div class="oi-bucket-header decide">Decisions needed</div>
+          <div class="oi-list">
+            <div class="oi-item"><span class="oi-num">14</span><span>Which role(s) can configure conditional flows? Admin only, or also template owners?</span></div>
+            <div class="oi-item"><span class="oi-num">15</span><span>Maximum number of condition rows per group.</span></div>
+            <div class="oi-item"><span class="oi-num">16</span><span>Maximum number of groups per condition flow.</span></div>
+            <div class="oi-item"><span class="oi-num">17</span><span>Maximum number of condition flows per template.</span></div>
+            <div class="oi-item"><span class="oi-num">18</span><span>Empty group behavior: auto-remove or persist with validation?</span></div>
+            <div class="oi-item"><span class="oi-num">19</span><span>"Add condition flow" button: disables or hides when max reached?</span></div>
+            <div class="oi-item"><span class="oi-num">20</span><span>How is the Condition Setup panel triggered? Explicit button/toggle in Approval Flow Setup canvas, or always-visible side panel?</span></div>
+            <div class="oi-item"><span class="oi-num">21</span><span>THEN approval flow selector: can admin create a new AF inline, or only select from existing flows?</span></div>
+            <div class="oi-item"><span class="oi-num">22</span><span>Condition evaluation: server-side only, or also client-side preview during form submission?</span></div>
+            <div class="oi-item"><span class="oi-num">23</span><span>Platform classification: User Portal confirmed as primary platform (Admin configuring templates)?</span></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- /spec-body -->
+
+  </main>
+</div>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

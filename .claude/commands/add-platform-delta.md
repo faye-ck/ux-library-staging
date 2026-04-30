@@ -5,6 +5,8 @@ description: Document a platform delta for the Colorkrew UX Library by comparing
 
 # Add Platform Delta
 
+> ⚠️ **Always write to `ux-library-staging` only.** Never write to `ux-library` directly. Do not commit to production or push to the `ux-library` repo as part of this skill.
+
 Generates a platform delta `.md` (AI-facing) and `.html` (designer-facing) for the Colorkrew UX Library by comparing a baseline platform against a delta platform, writing only what differs. Primary source for each platform is a Figma frame; ClickUp or other spec URLs can be provided as supplementary context. If no meaningful differences exist, reports that no delta file is needed. See `CLAUDE.md` at the library root for format rules.
 
 ## Inputs required

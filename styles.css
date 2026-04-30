@@ -238,6 +238,18 @@ main { flex: 1; padding: 40px 48px; max-width: 1080px; min-width: 0; display: fl
   margin: 0 0 28px; border-radius: 1px;
 }
 
+/* ── STAGING NOTICE ── */
+.staging-notice {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: #fffbeb; border: 0.5px solid #f59e0b;
+  border-radius: 10px; padding: 10px 14px;
+  margin-bottom: 20px;
+  font-size: 12px; color: #92400e; line-height: 1.5;
+}
+.staging-notice .ti { font-size: 14px; flex-shrink: 0; margin-top: 1px; color: #d97706; }
+.staging-notice strong { font-weight: 600; }
+.staging-notice code { font-family: var(--mono); font-size: 11px; background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 4px; }
+
 /* ── PATTERN CARDS ── */
 .patterns-grid {
   display: grid;

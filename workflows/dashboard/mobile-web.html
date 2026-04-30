@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Mobile Web — UX Library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 760px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* Tables */
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .spec-table th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    .spec-table td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--text); vertical-align: top; line-height: 1.55; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table td:first-child { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); white-space: nowrap; }
+
+    /* Flags */
+    .flag-confirm { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; background: #fffbe6; color: #b45309; border: 0.5px solid #fcd34d; padding: 1px 6px; border-radius: 10px; margin-left: 4px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.04em; }
+    .flag-inferred { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; background: var(--bg); color: var(--muted); border: 0.5px solid var(--border); padding: 1px 6px; border-radius: 10px; margin-left: 4px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.04em; }
+    .flag-missing { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; background: #fff1f0; color: #c0392b; border: 0.5px solid #fca5a5; padding: 1px 6px; border-radius: 10px; margin-left: 4px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* Banners */
+    .confirm-banner { background: #fffbe6; border: 0.5px solid #fcd34d; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #92400e; margin: 8px 0; line-height: 1.6; }
+    .inferred-banner { background: var(--bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: var(--muted); margin: 8px 0; line-height: 1.6; }
+    .missing-banner { background: #fff1f0; border: 0.5px solid #fca5a5; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #9b1c1c; margin: 8px 0; line-height: 1.6; }
+
+    /* Delta header note */
+    .delta-note { background: var(--teal-light); border-left: 3px solid var(--teal); border-radius: 8px; padding: 12px 16px; font-size: 12px; color: var(--teal-dark); margin: 0 0 28px; line-height: 1.6; }
+    .delta-note strong { font-weight: 600; }
+
+    /* Meta bar */
+    .meta-bar { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+    .meta-item { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+    .meta-item span { color: var(--text); font-weight: 500; }
+
+    /* Open items */
+    .open-items-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 14px; padding: 20px 24px; margin-top: 8px; }
+    .open-items-card h4 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-family: var(--mono); margin: 18px 0 8px; }
+    .open-items-card h4:first-child { margin-top: 0; }
+    .open-items-card ol { margin: 0; padding-left: 18px; }
+    .open-items-card li { font-size: 12px; color: var(--muted); line-height: 1.65; margin-bottom: 6px; }
+
+    /* Breakpoint badge */
+    .bp-badge { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; background: #e8f0fe; color: #1a56db; border: 0.5px solid rgba(26,86,219,0.25); padding: 1px 7px; border-radius: 10px; margin-right: 4px; letter-spacing: 0.03em; vertical-align: middle; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span>
+      <a href="../_index.html">Workflows</a><span class="breadcrumb-sep">/</span>
+      <a href="feature.html">Dashboard</a><span class="breadcrumb-sep">/</span>
+      <span>Mobile Web</span>
+    </div>
+
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-device-mobile"></i></span> Dashboard — Mobile Web</h2>
+      <p>Responsive delta for the Dashboard. Documents only what changes from the User Portal (desktop) baseline.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="md-content">
+
+      <div class="delta-note">
+        <strong>Delta file.</strong> Base spec: <a href="feature.html" style="color:var(--teal-dark);">feature.html</a> — Platform: Mobile Web<br>
+        Anything not listed here is identical to the base spec.
+      </div>
+
+      <div class="meta-bar">
+        <div class="meta-item">Figma source: <span>node-id=70-9164</span></div>
+        <div class="meta-item">Base spec: <span>feature.html / feature.md</span></div>
+        <div class="meta-item">Status: <span>draft</span></div>
+        <div class="meta-item">Last updated: <span>2026-04-30</span></div>
+        <div class="meta-item">Open items: <span>8</span></div>
+      </div>
+
+      <!-- Layout -->
+      <div class="md-hr"></div>
+      <div class="md-h2">Layout</div>
+
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Breakpoint</th>
+            <th>Width</th>
+            <th>Changes from base spec</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>XL</td>
+            <td>≥1320px</td>
+            <td>No change</td>
+          </tr>
+          <tr>
+            <td>L</td>
+            <td>1180–1319px</td>
+            <td>Right panel floats (not in fixed column) — same as base spec</td>
+          </tr>
+          <tr>
+            <td>M-L</td>
+            <td>920–1179px</td>
+            <td>Right panel floats — same as base spec</td>
+          </tr>
+          <tr>
+            <td>M</td>
+            <td>664–919px</td>
+            <td>Right panel collapses to 68px icon strip; 3-col card grid → 2-col at ≤849px</td>
+          </tr>
+          <tr>
+            <td>S</td>
+            <td>520–663px</td>
+            <td>1-col card grid; table min-width 550px enforces horizontal scroll</td>
+          </tr>
+          <tr>
+            <td>XS</td>
+            <td>360–519px</td>
+            <td>No sidebar; hamburger nav drawer; card grid only (no table toggle); 16px horizontal margin; floating CTA; sticky tabs on scroll</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="md-h3"><span class="bp-badge">XS</span> XS-specific layout (≤519px)</div>
+      <table class="spec-table">
+        <tbody>
+          <tr>
+            <td>Left sidebar</td>
+            <td>Hidden. Replaced by hamburger (≡) icon in top bar. "Left sidebar" icon swaps to "burger menu" icon per Figma annotation.</td>
+          </tr>
+          <tr>
+            <td>Horizontal margin</td>
+            <td>16px (reduced from 24px on desktop)</td>
+          </tr>
+          <tr>
+            <td>Right panel</td>
+            <td>Fully hidden <span class="flag-confirm">CONFIRM</span> — confirm whether becomes slide-in drawer or absent entirely (base spec Open Item 18)</td>
+          </tr>
+          <tr>
+            <td>Table view</td>
+            <td>Unavailable. Card grid is the only layout. View toggle icons hidden.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="md-h3"><span class="bp-badge">M</span> Right panel at 664–919px</div>
+      <ul style="font-size:13px; color:var(--muted); line-height:1.7; padding-left:18px; margin:0 0 16px;">
+        <li>Right panel collapses to 68px-wide icon strip (icons only, no labels)</li>
+        <li>Red notification dot on Mentioned icon when unread items exist</li>
+        <li>Tap on icon strip expands panel to full 330px width <span class="flag-inferred">INFERRED</span></li>
+      </ul>
+
+      <!-- Navigation -->
+      <div class="md-hr"></div>
+      <div class="md-h2">Navigation</div>
+
+      <div class="md-h3"><span class="bp-badge">XS</span> Hamburger drawer</div>
+      <ul style="font-size:13px; color:var(--muted); line-height:1.7; padding-left:18px; margin:0 0 8px;">
+        <li>Hamburger icon in top bar opens left nav as slide-in drawer <span class="flag-inferred">INFERRED</span> from left, full height</li>
+        <li>All nav items same as desktop left menu (Home, Inbox, Lookup, Templates, Master list, Settings)</li>
+        <li>Tap outside drawer or tap ✕ to close; Escape key closes <span class="flag-inferred">INFERRED</span></li>
+      </ul>
+      <div class="confirm-banner">CONFIRM: Drawer overlay opacity and slide-in animation duration/easing token.</div>
+
+      <!-- Tabs + Sort -->
+      <div class="md-hr"></div>
+      <div class="md-h2">Tabs &amp; Sort</div>
+
+      <div class="md-h3">Tab overflow (narrow breakpoints)</div>
+      <ul style="font-size:13px; color:var(--muted); line-height:1.7; padding-left:18px; margin:0 0 16px;">
+        <li>When tabs exceed container width, a <code>&gt;</code> chevron appears at right edge</li>
+        <li>Tap <code>&gt;</code> to reveal overflowed tabs <span class="flag-inferred">INFERRED</span>: may scroll horizontally rather than open a popover</li>
+      </ul>
+
+      <div class="md-h3"><span class="bp-badge">XS</span> Sort by dropdown</div>
+      <ul style="font-size:13px; color:var(--muted); line-height:1.7; padding-left:18px; margin:0 0 8px;">
+        <li>Column-level table sorting unavailable on XS (table view hidden)</li>
+        <li>A "Sort by" dropdown appears inline at the right side of the tab row</li>
+      </ul>
+      <div class="confirm-banner">CONFIRM: Exact position and trigger for "Sort by" dropdown — observed in frame screenshot but not confirmed via metadata. Confirm available sort options (may differ from desktop table columns).</div>
+
+      <!-- Floating CTA -->
+      <div class="md-hr"></div>
+      <div class="md-h2">Floating CTA <span class="bp-badge">XS</span></div>
+
+      <table class="spec-table">
+        <tbody>
+          <tr>
+            <td>Type</td>
+            <td>Circular floating action button (FAB), bottom-right of screen</td>
+          </tr>
+          <tr>
+            <td>Icon</td>
+            <td><code>+</code> — blue fill (<code>palette.primary.main</code> <span class="flag-confirm">CONFIRM</span>)</td>
+          </tr>
+          <tr>
+            <td>Label</td>
+            <td><span class="flag-confirm">CONFIRM</span> whether label text is shown or icon-only</td>
+          </tr>
+          <tr>
+            <td>Replaces</td>
+            <td>Top-right "+ Create" / "+ Create / Manage" button (hidden on XS)</td>
+          </tr>
+          <tr>
+            <td>Touch target</td>
+            <td>Min 56×56px for FAB <span class="flag-confirm">CONFIRM</span></td>
+          </tr>
+          <tr>
+            <td>Admin variant</td>
+            <td><span class="flag-confirm">CONFIRM</span> whether admin FAB differs (e.g. opens a menu with Create + Manage options)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Scroll behaviour -->
+      <div class="md-hr"></div>
+      <div class="md-h2">Scroll Behaviour <span class="bp-badge">XS</span></div>
+
+      <p>Per Figma annotation: <em>"When user starts scrolling down, only the tabs will float and remain sticky on top."</em></p>
+
+      <table class="spec-table">
+        <tbody>
+          <tr>
+            <td>Scroll down</td>
+            <td>Page title ("Welcome back [First Name]!"), subtitle, and toolbar area scroll out of view. Tab row pins to top of viewport (sticky).</td>
+          </tr>
+          <tr>
+            <td>Scroll back up</td>
+            <td>Title and toolbar reappear as user returns to top of page.</td>
+          </tr>
+          <tr>
+            <td>Implementation</td>
+            <td><code>position: sticky</code> or scroll listener <span class="flag-inferred">INFERRED</span> — confirm with engineering</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="confirm-banner">CONFIRM: Sticky tabs transition animation — duration and easing token needed.</div>
+
+      <!-- Card grid density -->
+      <div class="md-hr"></div>
+      <div class="md-h2">Card Grid Density</div>
+
+      <table class="spec-table">
+        <thead><tr><th>Breakpoint</th><th>Card columns</th></tr></thead>
+        <tbody>
+          <tr><td>M-L / L / XL</td><td>3-col grid</td></tr>
+          <tr><td>M (≤849px)</td><td>2-col grid</td></tr>
+          <tr><td>S</td><td>1-col grid</td></tr>
+          <tr><td>XS</td><td>1-col grid</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Details modal -->
+      <div class="md-hr"></div>
+      <div class="md-h2">Details Modal <span class="bp-badge">XS</span></div>
+
+      <div class="inferred-banner"><strong>INFERRED</strong> — no explicit mobile modal frame captured. Expected behaviour based on responsive patterns.</div>
+
+      <ul style="font-size:13px; color:var(--muted); line-height:1.7; padding-left:18px; margin:0 0 8px;">
+        <li>Details modal opens full-screen on XS (no side margins or overlay effect) <span class="flag-inferred">INFERRED</span></li>
+        <li>Right section (Approval/History/Comments) rendered below the left section on single-column layout <span class="flag-inferred">INFERRED</span></li>
+      </ul>
+      <div class="confirm-banner">CONFIRM: Exact modal pattern on mobile — full-screen, bottom-sheet, or slide-over?</div>
+
+      <!-- Interactions -->
+      <div class="md-hr"></div>
+      <div class="md-h2">Interaction Changes</div>
+
+      <table class="spec-table">
+        <thead><tr><th>Desktop</th><th>Mobile Web equivalent</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Click row / card</td>
+            <td>Tap row / card</td>
+          </tr>
+          <tr>
+            <td>Hover on mention item → clear icon visible</td>
+            <td>Tap-and-hold or swipe to reveal clear action <span class="flag-confirm">CONFIRM</span></td>
+          </tr>
+          <tr>
+            <td>Hover on table row</td>
+            <td>No hover state on touch devices</td>
+          </tr>
+          <tr>
+            <td>Keyboard Escape to close modal</td>
+            <td>Tap ✕ button or back gesture <span class="flag-confirm">CONFIRM</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-size:12px; color:var(--muted);">All interactive elements must meet 44×44px minimum touch target per <code>global/foundations/accessibility.md</code>.</p>
+
+      <!-- Open Items -->
+      <div class="md-hr"></div>
+      <div class="md-h2">Open Items</div>
+      <div class="open-items-card">
+        <h4>Inconsistencies with config files</h4>
+        <ol>
+          <li><code>_theme.md</code> is a stub — FAB color (<code>palette.primary.main</code>) unconfirmed.</li>
+          <li><code>_glossary.md</code> is a stub — no JA copy can be verified for any mobile-specific strings.</li>
+        </ol>
+        <h4>Missing states or flows</h4>
+        <ol start="3">
+          <li>FAB long-press or alternative action on admin role — not shown in Figma responsive frames.</li>
+          <li>Right panel at XS: no frame shows whether panel becomes a drawer, bottom sheet, or is entirely absent. Base spec Open Item 18 still unresolved.</li>
+          <li>Details modal layout on XS not explicitly shown — full-screen assumption is INFERRED.</li>
+          <li>Sticky tabs transition animation not captured — duration and easing token needed.</li>
+        </ol>
+        <h4>Decisions needed</h4>
+        <ol start="7">
+          <li>Sort by dropdown (XS): confirm position and available sort options — column headings may differ from desktop table columns.</li>
+          <li>FAB admin variant: confirm whether admin sees a different FAB (e.g. "+" with a menu, or a "+ Create / Manage" label variant).</li>
+        </ol>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

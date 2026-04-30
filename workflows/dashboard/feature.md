@@ -1,9 +1,9 @@
 ---
-product: Workflows
+product: workflows
 feature: dashboard
 platform: web
 status: draft
-last_updated: 2026-04-29
+last_updated: 2026-04-30
 confirms_needed: 20
 ---
 
@@ -103,6 +103,8 @@ Responsive breakpoints (from responsive spec annotation):
 - Component: `Empty State` (instance in "Frame 17" container)
 - Shown when selected tab has no workflows (e.g., "Approved" tab with no items)
 - Present in frames: `163:20614` (Home - Default - Empty state), `164:21862`
+- Title: "You don't have any workflows yet"
+- Subtitle: "You'll see them listed once there's something to submit or review"
 - Two visible instances suggest per-section empty states exist (INFERRED: two tabs simultaneously empty)
 
 ### Loading State
@@ -174,9 +176,9 @@ MISSING: No error states shown. Expected states to define:
 | Infinite scroll: 20–30 initial batch, load next on scroll-to-bottom | Figma annotation node 70:9945 |
 | Grid height fixed for 2 rows (card title truncation) | Figma annotation |
 | Timeline panel collapsed by default at ≤919px | Figma annotation node 83:18486 |
-| At ≤519px: mobile menu, floating CTA, grid only, 16px margin | Figma annotation node 70:9163 |
-| Tabs sticky-on-scroll on mobile | Figma annotation node 70:11002 |
-| Min table width 550px (horizontal scroll below) | Figma annotation node 70:9162 |
+| At ≤519px: mobile menu, floating CTA, grid only, 16px margin | Figma annotation |
+| Tabs sticky-on-scroll on mobile | Figma annotation |
+| Min table width 550px (horizontal scroll below) | Figma annotation |
 
 ---
 
@@ -315,7 +317,10 @@ Target: **WCAG 2.1 Level AA** per `global/foundations/accessibility.md`.
 | Proxy dialog title | "Select proxy approvers" | CONFIRM: |
 | Proxy dialog body | "Select one or more users as proxy approvers to review this specific application. The application will be returned to the applicant if rejected by a proxy approver." | CONFIRM: |
 | Proxy: no approver | "No approver assigned yet" | CONFIRM: |
-| Mobile footer: withdraw | "Withdraw workflow" | CONFIRM: |
+| Empty state title | "You don't have any workflows yet" | CONFIRM: |
+| Empty state subtitle | "You'll see them listed once there's something to submit or review" | CONFIRM: |
+| Right panel empty | "No mentions yet" | CONFIRM: |
+| Right panel empty sub | "When someone mentions you, it will show up here" | CONFIRM: |
 
 ---
 
@@ -355,7 +360,7 @@ CONFIRM: All mappings below are inferred from visual appearance — `_theme.md` 
 ### Missing states or flows
 8. No loading/skeleton state in any Figma frame — required before production per `global/foundations/loading-states.md` (stub; add when populated).
 9. No explicit error states for API failure or action failure — error table in spec is a placeholder; check `global/foundations/error-patterns.md` when populated.
-10. No empty state for the right "Mentioned" panel (when no mentions exist).
+10. No empty state for the right "Mentioned" panel (when no mentions exist) — screenshot captured (cactus + "No mentions yet") but frame not independently indexed.
 11. No explicit success feedback after Approve/Reject — toast, redirect, or inline confirmation needed.
 12. Table row hover state referenced in Figma annotations (nodes 310:63790, 310:63831) but not fully captured — context menu/dropdown behavior partially unknown.
 13. Details modal right panel (node 82:12032) timed out during extraction — Approval/History/Comments tab content documented from screenshot only.

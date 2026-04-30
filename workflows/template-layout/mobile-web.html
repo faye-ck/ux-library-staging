@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Layout — Mobile Web — UX Library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 760px; }
+    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 10px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 22px 0 8px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .spec-table th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    .spec-table td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); vertical-align: top; font-size: 12px; color: var(--text); line-height: 1.6; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table td:first-child { font-weight: 500; white-space: nowrap; }
+    .spec-table tr.highlight-row td { background: var(--teal-light); font-weight: 600; }
+    .flag-confirm { display: inline-block; background: #fffbe6; color: #8a6500; border: 0.5px solid #e6c800; border-radius: 4px; font-size: 10px; font-family: var(--mono); font-weight: 600; padding: 1px 6px; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 4px; vertical-align: middle; }
+    .flag-inferred { display: inline-block; background: var(--bg); color: var(--muted); border: 0.5px solid var(--border); border-radius: 4px; font-size: 10px; font-family: var(--mono); font-weight: 600; padding: 1px 6px; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 4px; vertical-align: middle; }
+    .flag-missing { display: inline-block; background: #fff2f2; color: #c0392b; border: 0.5px solid rgba(192,57,43,0.3); border-radius: 4px; font-size: 10px; font-family: var(--mono); font-weight: 600; padding: 1px 6px; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 4px; vertical-align: middle; }
+    .banner-confirm { background: #fffbe6; border-left: 3px solid #e6c800; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12px; color: #6b4e00; margin: 12px 0; line-height: 1.6; }
+    .banner-missing { background: #fff2f2; border-left: 3px solid #e24f4b; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12px; color: #8b1e1c; margin: 12px 0; line-height: 1.6; }
+    .delta-notice { background: var(--teal-light); border: 0.5px solid rgba(0,169,167,0.3); border-radius: 10px; padding: 14px 18px; font-size: 12px; color: var(--teal-dark); margin: 0 0 24px; line-height: 1.65; }
+    .delta-notice strong { color: var(--text); }
+    .oi-section { background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+    .oi-header { padding: 10px 16px; background: var(--bg); border-bottom: 0.5px solid var(--border); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-family: var(--mono); }
+    .oi-item { padding: 10px 16px; border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--text); line-height: 1.6; display: grid; grid-template-columns: 24px 1fr; gap: 8px; align-items: start; }
+    .oi-item:last-child { border-bottom: none; }
+    .oi-num { font-family: var(--mono); font-size: 11px; color: var(--muted-light); padding-top: 1px; }
+    /* Breakpoint bars */
+    .bp-row { display: flex; align-items: stretch; gap: 0; border: 0.5px solid var(--border); border-radius: 10px; overflow: hidden; margin: 12px 0 20px; font-size: 11px; }
+    .bp-panel { padding: 12px 10px; text-align: center; display: flex; flex-direction: column; gap: 3px; align-items: center; justify-content: center; }
+    .bp-left { background: var(--bg); flex: 0 0 90px; border-right: 0.5px solid var(--border); }
+    .bp-main { flex: 1; }
+    .bp-right { background: var(--bg); flex: 0 0 90px; border-left: 0.5px solid var(--border); }
+    .bp-label { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+    .bp-px { font-size: 13px; font-weight: 600; color: var(--text); }
+    .bp-baseline { background: var(--teal-light); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span>
+      <a href="../_index.html">Workflows</a><span class="breadcrumb-sep">/</span>
+      <a href="feature.html">Template Layout</a><span class="breadcrumb-sep">/</span>
+      <span>Mobile Web</span>
+    </div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-layout-grid"></i></span> Template Layout — Mobile Web</h2>
+      <p>Delta only. Base spec: <a href="feature.html" style="color:var(--teal-dark);">feature.html</a> · Anything not listed here is identical to the base spec.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="md-content">
+
+      <!-- ── IMPORTANT NOTICE ── -->
+      <div class="delta-notice">
+        <strong>Note on this delta:</strong> The Figma frame provided (node 1911:200130, "Responsive spec") does not contain a dedicated mobile phone design. It shows the <strong>desktop User Portal at two additional viewport breakpoints: 1320px and 2558px (1920+)</strong>. No phone-specific UI (single-column layout, bottom navigation, touch-optimised tap targets) is present.<br><br>
+        This delta documents the <strong>responsive layout behaviour</strong> of the User Portal across these breakpoints. A true phone-width mobile web design (≤ 768px) appears to be absent from the Figma file. <span class="flag-confirm">confirm</span> with designer whether a phone design is planned.
+      </div>
+
+      <hr class="md-hr" />
+
+      <!-- ── LAYOUT CHANGES ── -->
+      <div class="md-h2">Layout Changes</div>
+      <p>The 3-panel structure is preserved across all breakpoints. Only the <strong>main canvas</strong> flexes; left and right panels remain fixed at 330px.</p>
+
+      <div class="md-h3">At 1320px</div>
+      <div class="bp-row">
+        <div class="bp-panel bp-left"><span class="bp-label">Left panel</span><span class="bp-px">330px</span><span class="bp-label">fixed</span></div>
+        <div class="bp-panel bp-main"><span class="bp-label">Main canvas</span><span class="bp-px">660px</span><span class="bp-label">flexes</span></div>
+        <div class="bp-panel bp-right"><span class="bp-label">Right panel</span><span class="bp-px">330px</span><span class="bp-label">fixed</span></div>
+      </div>
+
+      <div class="md-h3">At 1600px (baseline)</div>
+      <div class="bp-row">
+        <div class="bp-panel bp-left bp-baseline"><span class="bp-label">Left panel</span><span class="bp-px">330px</span></div>
+        <div class="bp-panel bp-main bp-baseline"><span class="bp-label">Main canvas</span><span class="bp-px">940px</span></div>
+        <div class="bp-panel bp-right bp-baseline"><span class="bp-label">Right panel</span><span class="bp-px">330px</span></div>
+      </div>
+
+      <div class="md-h3">At 1920+ (2558px frame)</div>
+      <div class="bp-row">
+        <div class="bp-panel bp-left"><span class="bp-label">Left panel</span><span class="bp-px">330px</span><span class="bp-label">fixed</span></div>
+        <div class="bp-panel bp-main"><span class="bp-label">Main canvas</span><span class="bp-px">1898px</span><span class="bp-label">flexes</span></div>
+        <div class="bp-panel bp-right"><span class="bp-label">Right panel</span><span class="bp-px">330px</span><span class="bp-label">fixed</span></div>
+      </div>
+
+      <table class="spec-table">
+        <thead><tr><th>Dimension</th><th>At 1320px</th><th>At 1600px (baseline)</th><th>At 1920+</th></tr></thead>
+        <tbody>
+          <tr><td>Total width</td><td>1320px</td><td>1600px</td><td>2558px</td></tr>
+          <tr><td>Left panel</td><td>330px (fixed)</td><td>330px (fixed)</td><td>330px (fixed)</td></tr>
+          <tr><td>Main canvas</td><td><strong>660px</strong></td><td>940px</td><td><strong>1898px</strong></td></tr>
+          <tr><td>Right panel</td><td>330px (fixed)</td><td>330px (fixed)</td><td>330px (fixed)</td></tr>
+          <tr><td>Max-width constraint</td><td>Not applied (660 &lt; 960)</td><td>960px inner</td><td><span class="flag-inferred">inferred</span> 960px centres in canvas</td></tr>
+          <tr><td>2-col element grid</td><td>Preserved, narrower columns (~300px)</td><td>~440px per column</td><td>Wide columns</td></tr>
+        </tbody>
+      </table>
+
+      <div class="md-h3">1320px — specific observations</div>
+      <ul style="font-size:13px; color:var(--muted); line-height:1.8; padding-left:18px; margin-bottom:16px;">
+        <li>Form element 2-col grid maintained but columns compress to ~300px each.</li>
+        <li>Date Range and Date/Time Range fields remain side-by-side at reduced width.</li>
+        <li>Section headers reflow tightly but all controls (🔔 🗑 ∧) remain visible.</li>
+        <li>Left panel element palette tile sizes appear unchanged (137px wide tiles).</li>
+        <li>Top bar breadcrumb truncates at reduced viewport; action buttons preserved.</li>
+      </ul>
+
+      <div class="md-h3">1920+ — specific observations</div>
+      <ul style="font-size:13px; color:var(--muted); line-height:1.8; padding-left:18px; margin-bottom:16px;">
+        <li>Main canvas is 1898px; content appears to remain at readable widths. <span class="flag-inferred">inferred</span> 960px max-width applies — confirm.</li>
+        <li>Visual layout identical to baseline; extra horizontal space adds whitespace margin.</li>
+      </ul>
+
+      <hr class="md-hr" />
+
+      <!-- ── OPEN ITEMS ── -->
+      <div class="md-h2">Open Items</div>
+
+      <div class="md-h3">Inconsistencies with config files</div>
+      <div class="oi-section">
+        <div class="oi-header">None beyond base spec</div>
+        <div class="oi-item"><span class="oi-num">—</span><span>No delta-specific token or copy inconsistencies identified. See base spec open items.</span></div>
+      </div>
+
+      <div class="md-h3">Missing states or flows</div>
+      <div class="oi-section">
+        <div class="oi-header">Missing design</div>
+        <div class="oi-item"><span class="oi-num">1</span><span><strong>Phone-width mobile web (≤ 768px)</strong> — No dedicated phone design exists in the Figma file. A drag-and-drop layout editor on a phone screen requires significant UX rethinking (collapsed panels, modal-based settings, touch-optimised drag interactions). <span class="flag-confirm">confirm</span> Is this a planned deliverable?</span></div>
+      </div>
+
+      <div class="md-h3">Decisions needed</div>
+      <div class="oi-section">
+        <div class="oi-header">Requires designer or PM decision</div>
+        <div class="oi-item"><span class="oi-num">2</span><span><strong>Max-width at 1920+</strong> — <span class="flag-inferred">inferred</span> content centres at 960px within the 1898px canvas. Confirm this is intentional, or if the form canvas should reflow to use more horizontal space at wide viewports.</span></div>
+        <div class="oi-item"><span class="oi-num">3</span><span><strong>Breakpoint definitions</strong> — Figma shows 1320px and 2558px. Confirm whether intermediate breakpoints (768px tablet, 1024px small desktop) need dedicated frames for the template editor.</span></div>
+      </div>
+
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

@@ -5,6 +5,8 @@ description: Document a UX feature spec for the Colorkrew UX Library by extracti
 
 # Document Feature Spec
 
+> ⚠️ **Always write to `ux-library-staging` only.** Never write to `ux-library` directly. Do not commit to production or push to the `ux-library` repo as part of this skill.
+
 Generates a complete `feature.md` (AI-facing) and `feature.html` (designer-facing) spec for the Colorkrew UX Library. Primary source is a Figma frame; ClickUp or other spec URLs can be provided as supplementary context. See `CLAUDE.md` at the library root for format rules for each file type.
 
 ## Inputs required

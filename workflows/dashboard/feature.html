@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard — Web Spec — Workflows — UX Library</title>
+  <title>Dashboard — Feature — Workflows — UX Library</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
     .spec-body { max-width: 860px; }
@@ -22,10 +22,7 @@
     .spec-section h4 { font-size: 13px; font-weight: 500; color: var(--text); margin: 18px 0 6px; }
     .flow-step { display: flex; gap: 10px; margin-bottom: 5px; font-size: 12px; color: var(--text); line-height: 1.6; }
     .flow-num { font-family: var(--mono); font-size: 10px; color: var(--muted); background: var(--bg); border: 0.5px solid var(--border); border-radius: 4px; padding: 1px 6px; min-width: 20px; text-align: center; height: 18px; margin-top: 2px; flex-shrink: 0; }
-    .bp-row { display: flex; gap: 8px; align-items: baseline; font-size: 12px; padding: 5px 0; border-bottom: 0.5px solid var(--border); }
-    .bp-label { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--teal-dark); background: var(--teal-light); padding: 1px 6px; border-radius: 4px; min-width: 28px; text-align: center; }
-    .bp-range { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 100px; }
-    .bp-desc { font-size: 12px; color: var(--text); }
+    .bp-label { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--teal-dark); background: var(--teal-light); padding: 1px 6px; border-radius: 4px; }
     .open-item { padding: 8px 12px; border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--text); line-height: 1.6; display: flex; gap: 10px; align-items: flex-start; }
     .open-num { font-family: var(--mono); font-size: 10px; color: var(--muted); min-width: 22px; padding-top: 2px; }
     .open-items-card { border: 0.5px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 10px; }
@@ -33,8 +30,6 @@
     .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-family: var(--mono); font-weight: 500; padding: 2px 8px; border-radius: 20px; border: 0.5px solid; }
     .status-draft { background: #fffbe6; color: #7a5a00; border-color: #e6c700; }
     code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
-    .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 0.5px solid rgba(0,0,0,0.12); vertical-align: middle; margin-right: 5px; }
-    .coverage-full { background: #e8f5e9; color: #1a7a47; font-size: 10px; font-family: var(--mono); padding: 2px 7px; border-radius: 20px; border: 0.5px solid rgba(26,122,71,0.25); }
     .figma-link { font-size: 11px; color: var(--teal-dark); text-decoration: none; font-family: var(--mono); }
     .figma-link:hover { text-decoration: underline; }
   </style>
@@ -54,18 +49,21 @@
       <a href="../_index.html">Workflows</a>
       <span class="breadcrumb-sep">/</span>
       <span>Dashboard</span>
+      <span class="breadcrumb-sep">/</span>
+      <span>Feature</span>
     </div>
     <div class="page-header">
-      <h2>Dashboard — Web Spec</h2>
-      <p>Home page for Colorkrew Workflows. Entry point for all submitters and approvers.</p>
+      <h2><span class="icon"><i class="ti ti-layout-dashboard"></i></span> Dashboard — Feature</h2>
+      <p>Home page for Colorkrew Workflows. Entry point for all submitters and approvers to view, filter, and act on workflows.</p>
     </div>
 
     <div style="display:flex; gap:10px; align-items:center; margin-bottom:20px; flex-wrap:wrap;">
       <span class="status-badge status-draft">⬤ Draft</span>
-      <span style="font-size:11px; color:var(--muted);">Last updated: 2026-04-29</span>
+      <span style="font-size:11px; color:var(--muted);">Last updated: 2026-04-30</span>
       <span style="font-size:11px; color:#7a5a00; background:#fffbe6; padding:2px 8px; border-radius:20px; border:0.5px solid #e6c700; font-family:var(--mono);">20 confirms needed</span>
       <a class="figma-link" href="https://www.figma.com/design/zRdvOjETHyehzZpEUEoQEZ/Workflows-Renewal?node-id=70-15685" target="_blank">↗ Figma: Home</a>
       <a class="figma-link" href="https://www.figma.com/design/zRdvOjETHyehzZpEUEoQEZ/Workflows-Renewal?node-id=94-15478" target="_blank">↗ Figma: Details modal</a>
+      <a class="figma-link" href="https://www.figma.com/design/zRdvOjETHyehzZpEUEoQEZ/Workflows-Renewal?node-id=82-12032" target="_blank">↗ Figma: Right panel</a>
     </div>
 
     <div class="confirm-banner">
@@ -119,18 +117,26 @@
         <div class="flow-step"><span class="flow-num">3</span><span><strong>Card view:</strong> Grid of cards, infinite scroll (20–30 initial, loads next on scroll-to-bottom)</span></div>
         <div class="flow-step"><span class="flow-num">4</span><span>On XS (≤519px): only card view available, toggle hidden</span></div>
 
-        <h4>Flow 5 — Manage right panel mentions</h4>
+        <h4>Flow 5 — Open workflow details</h4>
+        <div class="flow-step"><span class="flow-num">1</span><span>User clicks a table row or card</span></div>
+        <div class="flow-step"><span class="flow-num">2</span><span>Details modal opens as overlay on Dashboard</span></div>
+        <div class="flow-step"><span class="flow-num">3</span><span>Breadcrumb: "Home / [Tab name] / [Ref. No.]" with edit icon; expand and close buttons</span></div>
+        <div class="flow-step"><span class="flow-num">4</span><span>Left section: workflow form (collapsible sections) + sticky Action Footer</span></div>
+        <div class="flow-step"><span class="flow-num">5</span><span>Right section (330px): Approval / History / Comments tabs with timeline</span></div>
+        <div class="flow-step"><span class="flow-num">6</span><span>Close (×) → returns to Dashboard; scroll position preserved <span class="flag-inferred">INFERRED</span></span></div>
+
+        <h4>Flow 6 — Manage right panel mentions</h4>
         <div class="flow-step"><span class="flow-num">1</span><span>Right panel shows "Mentioned [N]" with count badge</span></div>
         <div class="flow-step"><span class="flow-num">2</span><span>Unread items shown <strong>bold</strong> with red dot</span></div>
         <div class="flow-step"><span class="flow-num">3</span><span>Hover item → "clear" icon overlaps right edge → click removes item (not deleted; revisit via Inbox)</span></div>
         <div class="flow-step"><span class="flow-num">4</span><span>"Mark all as read" link → marks all read. "Clear list" link → clears all.</span></div>
         <div class="flow-step"><span class="flow-num">5</span><span>Click item body → navigates to referenced workflow</span></div>
 
-        <h4>Flow 6 — Admin view</h4>
+        <h4>Flow 7 — Admin view</h4>
         <div class="flow-step"><span class="flow-num">1</span><span>Admin sees CTA "+ Create / Manage" instead of "+ Create"</span></div>
         <div class="flow-step"><span class="flow-num">2</span><span>Extra "To update [N]" tab when proxy user assignment is pending</span></div>
 
-        <h4>Flow 7 — Mobile web (XS, ≤519px)</h4>
+        <h4>Flow 8 — Mobile web (XS, ≤519px)</h4>
         <div class="flow-step"><span class="flow-num">1</span><span>No sidebar; hamburger opens nav drawer; "Left sidebar" icon → "burger menu" icon</span></div>
         <div class="flow-step"><span class="flow-num">2</span><span>Grid view only; no view toggle; floating "+ Create" button bottom-right</span></div>
         <div class="flow-step"><span class="flow-num">3</span><span>Tabs become sticky (float at top as user scrolls); 16px horizontal margin</span></div>
@@ -141,7 +147,7 @@
         <h3>States</h3>
 
         <h4>Empty State</h4>
-        <p style="font-size:12px; color:var(--muted); line-height:1.65;">Empty State component (254px height) shown when selected tab has no workflows. Appears inside a container frame ("Frame 17") at 960px width. Two empty-state frames exist, suggesting per-section empty states when multiple tabs are empty simultaneously.</p>
+        <p style="font-size:12px; color:var(--muted); line-height:1.65;">Empty State component (254px height) shown when selected tab has no workflows. Title: "You don't have any workflows yet". Subtitle: "You'll see them listed once there's something to submit or review". Appears inside a container frame at 960px width. Two empty-state frames exist, suggesting per-section empty states when multiple tabs are empty simultaneously.</p>
 
         <h4>Loading State</h4>
         <div class="missing-banner">⬤ <strong>MISSING</strong> — No loading/skeleton state shown in any Figma frame. Expected: skeleton rows (table) or skeleton cards (grid) while data loads. Needs design before production.</div>
@@ -192,9 +198,9 @@
             <tr><td>Workflow section</td><td>Defined in Workflows <span class="flag-confirm">CONFIRM — promote if reused</span></td><td>Section header + card grid</td></tr>
             <tr><td>Empty State</td><td><span class="flag-confirm">CONFIRM source</span></td><td>254px; centered in 960px content area</td></tr>
             <tr><td>Right panel (Mentioned)</td><td>Defined here</td><td>330px; collapsible to 68px icon strip</td></tr>
-            <tr><td>Details modal</td><td>Defined here</td><td>1400px default / full screen variant</td></tr>
+            <tr><td>Details modal</td><td>Defined here</td><td>Overlay; full-width; full screen variant</td></tr>
             <tr><td>Details header</td><td>Defined here</td><td>56px; breadcrumb + link/expand/close</td></tr>
-            <tr><td>Left section (modal)</td><td>Defined here</td><td>1070px; scrollable content + sticky Action Footer</td></tr>
+            <tr><td>Left section (modal)</td><td>Defined here</td><td>Scrollable content + sticky Action Footer</td></tr>
             <tr><td>Right section (modal)</td><td>Defined here</td><td>330px; Approval/History/Comments tabs</td></tr>
             <tr><td>Action Footer</td><td><span class="flag-confirm">CONFIRM source</span></td><td>60px; sticky bottom; Withdraw / Reject / Approve</td></tr>
             <tr><td>Alert</td><td><span class="flag-confirm">CONFIRM source</span></td><td>Inline banners in modal left section</td></tr>
@@ -229,6 +235,9 @@
             <tr><td>Proxy dialog title</td><td>"Select proxy approvers"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
             <tr><td>Proxy dialog body</td><td>"Select one or more users as proxy approvers to review this specific application. The application will be returned to the applicant if rejected by a proxy approver."</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
             <tr><td>Proxy: no assignee</td><td>"No approver assigned yet"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Empty state title</td><td>"You don't have any workflows yet"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Empty state subtitle</td><td>"You'll see them listed once there's something to submit or review"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
+            <tr><td>Right panel empty</td><td>"No mentions yet" · "When someone mentions you, it will show up here"</td><td><span class="flag-confirm">CONFIRM</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -273,9 +282,9 @@
             <tr><td>Infinite scroll: 20–30 initial batch; load next on scroll-to-bottom</td><td>Figma annotation node 70:9945</td></tr>
             <tr><td>Grid height fixed for 2 rows (card title truncation)</td><td>Figma annotation</td></tr>
             <tr><td>Right panel (timeline) collapsed by default at ≤919px</td><td>Figma annotation node 83:18486</td></tr>
-            <tr><td>Mobile ≤519px: mobile menu, floating CTA, grid only, 16px margin</td><td>Figma annotation node 70:9163</td></tr>
-            <tr><td>Tabs sticky-on-scroll on mobile</td><td>Figma annotation node 70:11002</td></tr>
-            <tr><td>Min table width = 550px; horizontal scroll below</td><td>Figma annotation node 70:9162</td></tr>
+            <tr><td>Mobile ≤519px: mobile menu, floating CTA, grid only, 16px margin</td><td>Figma annotation</td></tr>
+            <tr><td>Tabs sticky-on-scroll on mobile</td><td>Figma annotation</td></tr>
+            <tr><td>Min table width = 550px; horizontal scroll below</td><td>Figma annotation</td></tr>
           </tbody>
         </table>
       </div>
@@ -308,13 +317,13 @@
       <!-- ICONOGRAPHY -->
       <div class="spec-section">
         <h3>Iconography</h3>
-        <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:10px;">Library: <strong>Tabler Icons</strong> (<code>@tabler/icons-react</code> / <code>@tabler/icons-webfont</code>) per <code>global/foundations/iconography.md</code>. Style and stroke width: <span class="flag-confirm">CONFIRM</span> — <code>_theme.md</code> is a stub.</p>
+        <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:10px;">Library: <strong>Tabler Icons</strong> per <code>global/foundations/iconography.md</code>. Style and stroke width: <span class="flag-confirm">CONFIRM</span> — <code>_theme.md</code> is a stub.</p>
         <table>
           <thead><tr><th>Usage</th><th>Size</th><th>Notes</th></tr></thead>
           <tbody>
             <tr><td>Left nav items</td><td>24px</td><td>Home, Inbox, Lookup, Templates, Master list, Settings</td></tr>
             <tr><td>Top bar actions</td><td>20px</td><td>Hamburger/sidebar toggle</td></tr>
-            <tr><td>Table view toggle</td><td>20px</td><td>Grid / list view icons</td></tr>
+            <tr><td>Table view toggle</td><td>20px</td><td>Grid / list view icons — both need <code>aria-label</code></td></tr>
             <tr><td>Modal header actions</td><td>20px</td><td>Link, expand, close icons — all need <code>aria-label</code></td></tr>
             <tr><td>Right panel clear icon (hover)</td><td>16px</td><td>Appears on hover over mention item — needs <code>aria-label</code></td></tr>
             <tr><td>Empty state illustration</td><td>32px</td><td><code>aria-hidden="true"</code> if decorative</td></tr>
@@ -400,7 +409,7 @@
           <div class="open-section-header">Missing states or flows</div>
           <div class="open-item"><span class="open-num">8</span><span><strong>Loading/skeleton state</strong> — not in any Figma frame. Required before production.</span></div>
           <div class="open-item"><span class="open-num">9</span><span><strong>Error states</strong> — not in Figma. Placeholder table needs designer input; check <code>global/foundations/error-patterns.md</code> when populated.</span></div>
-          <div class="open-item"><span class="open-num">10</span><span><strong>Right panel empty state</strong> — no frame showing "Mentioned" panel with zero items.</span></div>
+          <div class="open-item"><span class="open-num">10</span><span><strong>Right panel empty state</strong> — "No mentions yet" copy captured from screenshot; frame not independently indexed in Figma.</span></div>
           <div class="open-item"><span class="open-num">11</span><span><strong>Post-action feedback</strong> — no explicit success state after Approve/Reject (toast, redirect, or animation not shown).</span></div>
           <div class="open-item"><span class="open-num">12</span><span><strong>Table row hover state</strong> — referenced in annotations (nodes 310:63790, 310:63831) but not fully captured. Dropdown behaviour partially unknown.</span></div>
           <div class="open-item"><span class="open-num">13</span><span><strong>Right panel detail (node 82:12032)</strong> — Figma API timed out. Approval/History/Comments tab content documented from screenshot only.</span></div>

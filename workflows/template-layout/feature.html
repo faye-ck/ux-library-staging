@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Layout — Feature — UX Library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 760px; }
+    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 10px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 22px 0 8px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .md-content ol { font-size: 13px; color: var(--muted); line-height: 1.8; padding-left: 20px; margin-bottom: 10px; }
+    .md-content li { margin-bottom: 4px; }
+    /* Spec tables */
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .spec-table th { background: var(--bg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding: 7px 10px; border-bottom: 0.5px solid var(--border); text-align: left; }
+    .spec-table td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); vertical-align: top; font-size: 12px; color: var(--text); line-height: 1.6; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table td:first-child { font-weight: 500; color: var(--text); white-space: nowrap; }
+    /* Flags */
+    .flag-confirm { display: inline-block; background: #fffbe6; color: #8a6500; border: 0.5px solid #e6c800; border-radius: 4px; font-size: 10px; font-family: var(--mono); font-weight: 600; padding: 1px 6px; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 4px; vertical-align: middle; }
+    .flag-inferred { display: inline-block; background: var(--bg); color: var(--muted); border: 0.5px solid var(--border); border-radius: 4px; font-size: 10px; font-family: var(--mono); font-weight: 600; padding: 1px 6px; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 4px; vertical-align: middle; }
+    .flag-missing { display: inline-block; background: #fff2f2; color: #c0392b; border: 0.5px solid rgba(192,57,43,0.3); border-radius: 4px; font-size: 10px; font-family: var(--mono); font-weight: 600; padding: 1px 6px; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 4px; vertical-align: middle; }
+    /* Banner flags */
+    .banner-confirm { background: #fffbe6; border-left: 3px solid #e6c800; padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 12px; color: #6b4e00; margin: 8px 0; }
+    .banner-missing { background: #fff2f2; border-left: 3px solid #e24f4b; padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 12px; color: #8b1e1c; margin: 8px 0; }
+    /* Layout diagram */
+    .layout-diagram { display: flex; gap: 2px; border: 0.5px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 11px; font-family: var(--mono); margin: 12px 0 20px; }
+    .layout-panel { padding: 14px 10px; text-align: center; font-size: 10px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; }
+    .layout-panel strong { font-size: 12px; color: var(--text); font-family: var(--sans, sans-serif); }
+    .lp-left { background: var(--bg); flex: 0 0 120px; border-right: 0.5px solid var(--border); }
+    .lp-main { background: var(--surface); flex: 1; }
+    .lp-right { background: var(--bg); flex: 0 0 120px; border-left: 0.5px solid var(--border); }
+    /* Open items */
+    .oi-section { background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+    .oi-header { padding: 10px 16px; background: var(--bg); border-bottom: 0.5px solid var(--border); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-family: var(--mono); }
+    .oi-item { padding: 10px 16px; border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--text); line-height: 1.6; display: grid; grid-template-columns: 24px 1fr; gap: 8px; align-items: start; }
+    .oi-item:last-child { border-bottom: none; }
+    .oi-num { font-family: var(--mono); font-size: 11px; color: var(--muted-light); padding-top: 1px; }
+    /* Token swatch */
+    .token-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 0.5px solid var(--border); font-size: 12px; }
+    .token-row:last-child { border-bottom: none; }
+    .token-swatch { width: 18px; height: 18px; border-radius: 4px; border: 0.5px solid rgba(0,0,0,0.1); flex-shrink: 0; }
+    .token-name { font-family: var(--mono); font-size: 11px; color: var(--teal-dark); flex: 1; }
+    .token-hex { font-family: var(--mono); font-size: 10px; color: var(--muted-light); }
+    .token-use { font-size: 11px; color: var(--muted); }
+    /* Flow list */
+    .flow-list { list-style: none; padding: 0; margin: 0 0 16px; }
+    .flow-list li { padding: 10px 0; border-bottom: 0.5px solid var(--border); font-size: 13px; color: var(--muted); line-height: 1.65; display: grid; grid-template-columns: 28px 1fr; gap: 8px; }
+    .flow-list li:last-child { border-bottom: none; }
+    .flow-num { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--teal-dark); padding-top: 2px; }
+    .flow-list strong { color: var(--text); font-weight: 500; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span>
+      <a href="../_index.html">Workflows</a><span class="breadcrumb-sep">/</span>
+      <span>Template Layout</span><span class="breadcrumb-sep">/</span>
+      <span>Feature</span>
+    </div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-layout-grid"></i></span> Template Layout — Feature</h2>
+      <p>Step 1 of 3 in the template creation wizard. Admin builds a workflow form by dragging layout sections and form elements onto a canvas, then configuring each element's settings.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="md-content">
+
+      <!-- ── PLATFORM & ROLE ── -->
+      <p style="font-size:12px; color:var(--muted); margin-bottom:4px;"><strong style="color:var(--text);">Platform:</strong> User Portal &nbsp;·&nbsp; <strong style="color:var(--text);">Role:</strong> Admin (template creator) <span class="flag-inferred">inferred</span> &nbsp;·&nbsp; <strong style="color:var(--text);">Wizard step:</strong> 1 / 3 (Layout)</p>
+
+      <hr class="md-hr" />
+
+      <!-- ── LAYOUT ── -->
+      <div class="md-h2">Layout</div>
+      <p>Total canvas width: <strong>1600px</strong>. Three fixed columns split by the stepper at top.</p>
+
+      <div class="layout-diagram">
+        <div class="layout-panel lp-left">
+          <strong>Left panel</strong>
+          330px
+          <span>Stepper · Form picker · Layout tiles · Element palette</span>
+        </div>
+        <div class="layout-panel lp-main">
+          <strong>Main canvas</strong>
+          940px (scrollable)
+          <span>Subject fields · Sections · Elements</span>
+          <span style="font-size:10px; color:var(--muted-light);">max-width 960px · 24px padding</span>
+        </div>
+        <div class="layout-panel lp-right">
+          <strong>Right panel</strong>
+          330px
+          <span>Element settings (empty by default)</span>
+        </div>
+      </div>
+
+      <p>The top bar spans the right 1270px: breadcrumbs on the left, action footer (status + buttons) on the right. The left panel (330px) is fixed and sits outside the top bar.</p>
+
+      <hr class="md-hr" />
+
+      <!-- ── CORE FLOWS ── -->
+      <div class="md-h2">Core Flows</div>
+      <ul class="flow-list">
+        <li><span class="flow-num">1</span><span><strong>Start from scratch (empty canvas)</strong> — Admin lands on Layout step. Stepper shows ① Layout (active, blue underline) | ② Approvals | ③ Preview. Canvas displays: "Drag and drop a layout section from the left panel to get started." Right panel shows empty state. Action bar: Cancel | Save as Draft | Publish (disabled).</span></li>
+        <li><span class="flow-num">2</span><span><strong>Select form type</strong> — Admin picks a form from the "Form" dropdown in the left panel (e.g. "Custom form"). <span class="flag-inferred">inferred</span> — gates available element types.</span></li>
+        <li><span class="flow-num">3</span><span><strong>Add subject fields</strong> — Admin clicks "Add subject fields" (Select with Chips) at the top of the canvas. Hint: "Select up to 3 fields, with at least 1 required field." <span class="flag-confirm">confirm</span> Is 3 a hard limit?</span></li>
+        <li><span class="flow-num">4</span><span><strong>Add a Section</strong> — Admin drags "Section" tile from left panel to canvas. Section appears with: "Enter section title*" input · "Enter description (optional)" · drop zone "Drag and drop to add element here." Header controls: ⠿ drag handle | 🔔 pin | 🗑 delete | ∧ collapse.</span></li>
+        <li><span class="flow-num">5</span><span><strong>Add a Multi-entry Section</strong> — Same as above but adds a "Max. entries: 10 ↓" control in the section header. <span class="flag-confirm">confirm</span> Is 10 a fixed default or user-configurable?</span></li>
+        <li><span class="flow-num">6</span><span><strong>Add a form element</strong> — Admin drags an element tile (e.g. Short Text) from the palette to a section drop zone. Element appears in a 2-col grid inside the section. Element is auto-selected; right panel opens with that element's settings.</span></li>
+        <li><span class="flow-num">7</span><span><strong>Configure element settings</strong> — Right panel shows the selected element's config. For Dropdown: title "Dropdown" + ✕ close · Required field toggle · Label title* text field · Allow multiple selections checkbox · Options list (min 2, each with ⠿ | text field | + | 🗑) · Add option button · "All fields are required" error · Remove element (red link).</span></li>
+        <li><span class="flow-num">8</span><span><strong>Reorder via drag-and-drop</strong> — 5 snapping zones: (a) in between rows, (b) left of a row, (c) right of a row, (d) left side of an element (creates 2-col split), (e) right side of an element (creates 2-col split). Each zone has an animated snap indicator.</span></li>
+        <li><span class="flow-num">9</span><span><strong>Collapse / expand section</strong> — Admin clicks ∧ icon. Section collapses: title stays visible, description truncates to 1 sentence with ellipsis, elements hidden. Click again to expand.</span></li>
+        <li><span class="flow-num">10</span><span><strong>Delete section</strong> — Admin clicks 🗑. Dialog: "Delete section?" / "All elements inside will be permanently deleted. This action cannot be undone." → [No, keep section] [Yes, delete section].</span></li>
+        <li><span class="flow-num">11</span><span><strong>Save as Draft</strong> — Admin clicks "Save as Draft." Action bar updates: status badge "Draft ·" appears, buttons become Cancel | Save Changes | Publish.</span></li>
+        <li><span class="flow-num">12</span><span><strong>Edit saved draft with unsaved changes</strong> — Admin edits after saving. Action bar: "Unsaved changes · Draft ·" | Cancel | Save Changes (primary, blue) | Publish.</span></li>
+        <li><span class="flow-num">13</span><span><strong>Exit with unsaved changes</strong> — Admin clicks Cancel or navigates away. Dialog: "Exit without saving?" / "You have unsaved changes. Leaving now will discard them permanently." → [No, keep editing] [Yes, discard changes].</span></li>
+        <li><span class="flow-num">14</span><span><strong>Validate on Publish</strong> — Admin clicks Publish with incomplete fields. Required field labels highlight in red: "Missing input*". Empty section drop zone: red dashed border + "At least 1 element is required." Options fields: "All fields are required" in settings panel.</span></li>
+      </ul>
+
+      <hr class="md-hr" />
+
+      <!-- ── STATES ── -->
+      <div class="md-h2">States</div>
+
+      <div class="md-h3">Empty State</div>
+      <table class="spec-table">
+        <thead><tr><th>Zone</th><th>Content</th></tr></thead>
+        <tbody>
+          <tr><td>Main canvas</td><td>"Drag and drop a layout section from the left panel to get started" — centered, <code>--text/placeholder</code></td></tr>
+          <tr><td>Right panel</td><td>"Select a form element to view and edit its settings here" — italic, <code>--text/placeholder</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="md-h3">Loading State</div>
+      <div class="banner-missing">⚠ No loading frame found in Figma. Expected skeleton or spinner. <span class="flag-confirm">confirm</span> with designer.</div>
+
+      <div class="md-h3">Error States</div>
+      <table class="spec-table">
+        <thead><tr><th>Error</th><th>Trigger</th><th>Copy (EN)</th><th>Visual</th></tr></thead>
+        <tbody>
+          <tr><td>Empty section</td><td>Publish attempted on section with no elements</td><td>"At least 1 element is required."</td><td>Drop zone: red dashed border; error text below in <code>--status/error</code></td></tr>
+          <tr><td>Missing required input</td><td>Publish attempted — field label empty</td><td>"Missing input*"</td><td>Field label text turns <code>--status/error</code></td></tr>
+          <tr><td>Options incomplete</td><td>Dropdown/Single/Multiple — option text empty</td><td>"All fields are required"</td><td>Red caption in settings panel footer</td></tr>
+          <tr><td>Empty canvas Publish</td><td>Publish with no sections added</td><td><span class="flag-missing">missing</span></td><td><span class="flag-confirm">confirm</span> with designer</td></tr>
+        </tbody>
+      </table>
+
+      <div class="md-h3">Success / Confirmation</div>
+      <table class="spec-table">
+        <thead><tr><th>Action</th><th>Feedback</th></tr></thead>
+        <tbody>
+          <tr><td>Save as Draft</td><td>Action bar status badge changes to "Draft ·"</td></tr>
+          <tr><td>Edit saved draft</td><td>Status badge shows "Unsaved changes · Draft ·"</td></tr>
+          <tr><td>Delete section confirmed</td><td>Section removed from canvas. <span class="flag-missing">missing</span> No toast or undo visible</td></tr>
+          <tr><td>Publish success</td><td><span class="flag-missing">missing</span> No frame captured — <span class="flag-confirm">confirm</span> with designer</td></tr>
+        </tbody>
+      </table>
+
+      <div class="md-h3">Edge Cases</div>
+      <table class="spec-table">
+        <thead><tr><th>Case</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td>Collapsed section</td><td>Title visible; description truncated to 1 sentence with ellipsis; elements hidden</td></tr>
+          <tr><td>Multi-entry section</td><td>Header shows "Max. entries: 10 ↓" — <span class="flag-confirm">confirm</span> if user-configurable</td></tr>
+          <tr><td>Edit after published</td><td><span class="flag-inferred">inferred</span> — "Published ·" status badge; no dedicated annotated frame</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- ── COMPONENTS ── -->
+      <div class="md-h2">Components Used</div>
+      <table class="spec-table">
+        <thead><tr><th>Component</th><th>Source</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Horizontal Stepper</td><td><code>global/components/</code></td><td>3 steps: Layout (active) | Approvals | Preview</td></tr>
+          <tr><td>Select</td><td><code>global/components/</code></td><td>Form type picker in left panel</td></tr>
+          <tr><td>Breadcrumbs</td><td><code>global/components/</code></td><td>"Create New Template / Layout Setup"</td></tr>
+          <tr><td>Switch</td><td><code>global/components/</code></td><td>"Required field" toggle in element settings</td></tr>
+          <tr><td>Checkbox</td><td><code>global/components/</code></td><td>"Allow multiple selections" in Dropdown settings</td></tr>
+          <tr><td>Text Field</td><td><code>global/components/</code></td><td>Label title, option inputs in settings panel</td></tr>
+          <tr><td>Basic Dialog</td><td><code>global/components/</code></td><td>Delete section dialog; Exit without saving dialog</td></tr>
+          <tr><td>Icon Button</td><td><code>global/components/</code></td><td>🔔 pin, 🗑 delete, ∧ collapse (section header); ✕ close (settings panel)</td></tr>
+          <tr><td>Select with Chips</td><td>defined here — promote if reused</td><td>Subject fields multi-select; max 3 chips</td></tr>
+          <tr><td>Form Elements Palette (Icon Vertical)</td><td>defined here — promote if reused</td><td>2-col draggable tile grid; grip icon ⠿ top-left; icon + label</td></tr>
+          <tr><td>Layout Tiles</td><td>defined here — promote if reused</td><td>Section tile, Multi-entry tile; same Icon Vertical pattern</td></tr>
+          <tr><td>Section container</td><td>defined here — promote if reused</td><td>Expandable/collapsible; drag handle; title + description inputs; 2-col inner grid</td></tr>
+          <tr><td>Multi-entry Section</td><td>defined here — promote if reused</td><td>Section variant; adds "Max. entries" spinner in header</td></tr>
+          <tr><td>Section Element (2-col row)</td><td>defined here — promote if reused</td><td>Form field rendered inside section; responsive 2-col layout</td></tr>
+          <tr><td>Action Footer</td><td>defined here — promote if reused</td><td>Right side of top bar: status badge + Cancel / Save / Publish; 3 states</td></tr>
+          <tr><td>Right Panel Settings</td><td>defined here — promote if reused</td><td>Per-element config panel: title, settings fields, "Remove element" footer</td></tr>
+          <tr><td>Dropdown Option Row</td><td>defined here — promote if reused</td><td>⠿ drag + text field + + icon + 🗑; used in Dropdown/Single/Multiple settings</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- ── GUIDELINES ── -->
+      <div class="md-h2">Guidelines Applied</div>
+      <div class="banner-missing">All source guideline files (<code>workflows/_guidelines.md</code>, <code>global/_guidelines.md</code>) are stubs. All guidelines below are inferred from Figma.</div>
+      <table class="spec-table">
+        <thead><tr><th>Guideline</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Required fields marked with *</td><td><code>global/_guidelines.md</code> <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td>Validation triggers on Publish, not on Save as Draft</td><td><code>workflows/_guidelines.md</code> <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td>Destructive actions require a confirmation dialog</td><td><code>global/_guidelines.md</code> <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td>Unsaved changes prompt shown before navigating away</td><td><code>global/_guidelines.md</code> <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td>Form elements render in 2-col grid within sections</td><td><code>workflows/_guidelines.md</code> <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td>5 drag-and-drop snapping zones for element placement</td><td><code>workflows/_guidelines.md</code> <span class="flag-inferred">inferred</span></td></tr>
+          <tr><td>Collapsed section description truncates to 1 sentence with ellipsis</td><td><code>workflows/_guidelines.md</code> <span class="flag-inferred">inferred</span></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- ── COPY PATTERNS ── -->
+      <div class="md-h2">Copy Patterns</div>
+      <p style="color:var(--muted); font-size:12px; margin-bottom:8px;"><code>workflows/_glossary.md</code> is a stub — all JA translations are missing.</p>
+      <table class="spec-table">
+        <thead><tr><th>Element</th><th>EN</th><th>JA</th></tr></thead>
+        <tbody>
+          <tr><td>Stepper step 1</td><td>Layout</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Stepper step 2</td><td>Approvals</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Stepper step 3</td><td>Preview</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Breadcrumb</td><td>Create New Template / Layout Setup</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Left panel label</td><td>Form</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Left panel label</td><td>Layout</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Left panel label</td><td>Form Elements</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Layout tile</td><td>Section</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Layout tile</td><td>Multi-entry</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Short Text</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Text Area</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Email</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>URL</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Number</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Currency</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Date</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Time</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Dropdown</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Single Choice</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Multiple Choice</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>Yes/No Check</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Element tile</td><td>File Upload</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Subject fields hint</td><td>Select up to 3 fields, with at least 1 required field</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Section title placeholder</td><td>Enter section title*</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Section description placeholder</td><td>Enter description (optional)</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Drop zone — empty section</td><td>Drag and drop to add element here</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Drop zone — empty canvas</td><td>Drag and drop a layout section from the left panel to get started</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Right panel empty state</td><td>Select a form element to view and edit its settings here</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Max entries label</td><td>Max. entries</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Action</td><td>Cancel</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Action</td><td>Save as Draft</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Action</td><td>Save Changes</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Action</td><td>Publish</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Status badge</td><td>Draft</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Status badge</td><td>Unsaved changes</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Settings: Required field</td><td>Required field</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Settings: Label title</td><td>Label title</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Settings: Allow multiple</td><td>Allow multiple selections</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Settings: Options label</td><td>Options (Min. 2)</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Settings: Option placeholder</td><td>Option*</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Settings: Add option</td><td>Add option</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Settings: Remove element</td><td>Remove element</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Settings: Error</td><td>All fields are required</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Validation error</td><td>Missing input*</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Validation error</td><td>At least 1 element is required.</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>File upload CTA</td><td>Drop files here or browse to upload</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>File upload spec</td><td>Documents, compressed, images, audio, video up to 25MB</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Dialog: Delete title</td><td>Delete section?</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Dialog: Delete body</td><td>All elements inside will be permanently deleted. This action cannot be undone.</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Dialog: Delete cancel</td><td>No, keep section</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Dialog: Delete confirm</td><td>Yes, delete section</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Dialog: Exit title</td><td>Exit without saving?</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Dialog: Exit body</td><td>You have unsaved changes. Leaving now will discard them permanently.</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Dialog: Exit cancel</td><td>No, keep editing</td><td><span class="flag-missing">missing</span></td></tr>
+          <tr><td>Dialog: Exit confirm</td><td>Yes, discard changes</td><td><span class="flag-missing">missing</span></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- ── COLOR TOKENS ── -->
+      <div class="md-h2">Color Tokens Used</div>
+      <p style="font-size:12px; color:var(--muted); margin-bottom:8px;"><code>workflows/_theme.md</code> is a stub — tokens extracted directly from Figma CSS variables. All need to be formally defined there.</p>
+      <div style="border: 0.5px solid var(--border); border-radius: 10px; overflow: hidden; padding: 8px 16px; margin-bottom: 16px;">
+        <div class="token-row">
+          <div class="token-swatch" style="background:#ffffff;"></div>
+          <span class="token-name">--secondary/white</span>
+          <span class="token-hex">#ffffff</span>
+          <span class="token-use">Panel backgrounds (left panel, right panel, element tiles)</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#b9c0cc;"></div>
+          <span class="token-name">--border/default-mid-hover</span>
+          <span class="token-hex">#b9c0cc</span>
+          <span class="token-use">Element tile borders, section borders</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#d4d9e1;"></div>
+          <span class="token-name">--border/mid-light-hover</span>
+          <span class="token-hex">#d4d9e1</span>
+          <span class="token-use">Form input borders in settings panel</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#edeef2;"></div>
+          <span class="token-name">--border/light</span>
+          <span class="token-hex">#edeef2</span>
+          <span class="token-use">Left panel right border, right panel left border, panel dividers</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#1c1c1c;"></div>
+          <span class="token-name">--text/high-default</span>
+          <span class="token-hex">#1c1c1c</span>
+          <span class="token-use">Primary text: section titles, element labels, settings panel title</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#728096;"></div>
+          <span class="token-name">--text/low</span>
+          <span class="token-hex">#728096</span>
+          <span class="token-use">Secondary text: stepper inactive steps, left panel section labels, settings field labels</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#a4adb9;"></div>
+          <span class="token-name">--text/placeholder</span>
+          <span class="token-hex">#a4adb9</span>
+          <span class="token-use">Placeholder text in inputs, right panel empty state</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#e24f4b;"></div>
+          <span class="token-name">--status/error</span>
+          <span class="token-hex">#e24f4b</span>
+          <span class="token-use">Validation errors, required field *, "Remove element" link, option errors</span>
+        </div>
+        <div class="token-row">
+          <div class="token-swatch" style="background:#1565c0; border-color: rgba(21,101,192,0.3);"></div>
+          <span class="token-name">primary blue <span class="flag-inferred">inferred</span></span>
+          <span class="token-hex">—</span>
+          <span class="token-use">"Save as Draft", "Save Changes", "Yes, delete section" buttons; stepper active underline</span>
+        </div>
+      </div>
+
+      <hr class="md-hr" />
+
+      <!-- ── OPEN ITEMS ── -->
+      <div class="md-h2">Open Items</div>
+
+      <div class="md-h3">Inconsistencies with config files</div>
+      <div class="oi-section">
+        <div class="oi-header">Config gaps — action required</div>
+        <div class="oi-item"><span class="oi-num">1</span><span><code>workflows/_theme.md</code> is a stub — 8 token names above need formal definitions (hex, usage, semantic meaning) before implementation.</span></div>
+        <div class="oi-item"><span class="oi-num">2</span><span><code>workflows/_glossary.md</code> is a stub — all 50+ EN copy strings need JA translations before the product ships.</span></div>
+        <div class="oi-item"><span class="oi-num">3</span><span><code>workflows/_guidelines.md</code> is a stub — drag-and-drop snapping rules, 2-col grid constraints, Multi-entry Max.entries behavior, and validation trigger rules (Publish-only, not Draft) need documentation.</span></div>
+        <div class="oi-item"><span class="oi-num">4</span><span><code>global/_guidelines.md</code> is a stub — confirmation dialog pattern, unsaved-changes prompt behavior, and empty-state conventions need cross-product documentation.</span></div>
+      </div>
+
+      <div class="md-h3">Missing states or flows</div>
+      <div class="oi-section">
+        <div class="oi-header">Frames missing from Figma</div>
+        <div class="oi-item"><span class="oi-num">5</span><span><strong>Loading state</strong> — no skeleton or spinner frame. Designer to supply or confirm there is none.</span></div>
+        <div class="oi-item"><span class="oi-num">6</span><span><strong>Publish success state</strong> — no frame showing what happens after Publish completes (redirect? toast? status change?).</span></div>
+        <div class="oi-item"><span class="oi-num">7</span><span><strong>"Edit after published" top bar state</strong> — only a cropped screenshot exists; no annotated frame. Unclear if status badge reads "Published ·" or another label.</span></div>
+        <div class="oi-item"><span class="oi-num">8</span><span><strong>Element settings for all types</strong> — only Dropdown settings are fully shown. Short Text, Text Area, Email, URL, Number, Currency, Date, Time, Single Choice, Multiple Choice, Yes/No Check, and File Upload settings panels need separate Figma frames and documentation.</span></div>
+        <div class="oi-item"><span class="oi-num">9</span><span><strong>Drag ghost / drop highlight visual</strong> — the active drag state (element being dragged, drop zone highlight color/animation) is not shown in a dedicated frame.</span></div>
+        <div class="oi-item"><span class="oi-num">10</span><span><strong>Empty canvas Publish validation</strong> — no frame for attempting Publish when zero sections exist.</span></div>
+      </div>
+
+      <div class="md-h3">Decisions needed</div>
+      <div class="oi-section">
+        <div class="oi-header">Requires designer or PM decision</div>
+        <div class="oi-item"><span class="oi-num">11</span><span><strong>Role access</strong> — INFERRED as Admin-only (template creation). Confirm: can Submitters or Approvers reach this screen?</span></div>
+        <div class="oi-item"><span class="oi-num">12</span><span><strong>Subject fields max</strong> — "Select up to 3 fields" shown in Figma. Confirm: is 3 a hard system limit or a soft UI suggestion?</span></div>
+        <div class="oi-item"><span class="oi-num">13</span><span><strong>Multi-entry Max entries default</strong> — shown as 10 in design. Confirm: is this fixed, or can the template creator change it?</span></div>
+        <div class="oi-item"><span class="oi-num">14</span><span><strong>File upload size limit</strong> — "up to 25MB" shown in Figma copy. Confirm this is production-accurate before shipping.</span></div>
+        <div class="oi-item"><span class="oi-num">15</span><span><strong>Select with Chips</strong> not in <code>global/components/</code> or <code>workflows/_components.md</code> — needs formal definition or promotion as a Workflows component.</span></div>
+        <div class="oi-item"><span class="oi-num">16</span><span><strong>Action Footer</strong> component not in <code>workflows/_components.md</code> — used across all 3 wizard steps; should be promoted and formally specified (3 states: new / draft-clean / draft-dirty).</span></div>
+        <div class="oi-item"><span class="oi-num">17</span><span><strong>Remove element vs. Delete section</strong> — Delete section shows a confirmation dialog; Remove element appears to be immediate (no dialog in Figma). Confirm: should Remove element also have a confirmation step?</span></div>
+      </div>
+
+    </div>
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>

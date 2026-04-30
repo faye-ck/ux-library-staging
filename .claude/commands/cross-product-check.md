@@ -5,6 +5,8 @@ description: Compare a UX pattern or concept across multiple Colorkrew products 
 
 # Cross-Product Consistency Check
 
+> ⚠️ **Always work in `ux-library-staging` only.** If a promotion is triggered from this skill, all writes go to `ux-library-staging` — never to `ux-library` directly.
+
 Compares a named pattern or concept across two or more products in the UX Library. Outputs a structured report covering: what's shared (global promotion candidates), what's product-specific (intentional or inconsistent), and gaps. Designed to be token-efficient — reads index files and targeted sections only, not full specs.
 
 ## Inputs required

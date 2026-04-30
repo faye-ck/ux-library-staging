@@ -5,6 +5,8 @@ description: Run an interactive QA test session for UX Library skills. Use this 
 
 # Run Skill Tests
 
+> ⚠️ **Always run in `ux-library-staging` only.** All test writes are sandboxed to `_test/` — never write to real product folders or to the `ux-library` repo.
+
 Runs a structured QA session for the three core UX Library skills — `setup-product`, `document-feature-spec`, and `add-platform-delta`. The tester picks a scenario, runs the corresponding skill in a sandbox product, and scores the output against a quality checklist. Results are logged to the relevant product changelog with a `[Test]` badge.
 
 ## Sandbox mode (ALWAYS active — read before anything else)

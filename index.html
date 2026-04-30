@@ -314,6 +314,7 @@
         'Product Name': { type: 'text', hint: 'e.g. Goals' },
       },
       body:
+'⚠ Always work in ux-library-staging — never update ux-library directly.\n\n' +
 'Set up [Product Name] in the UX Library.\n\n' +
 'Run /setup-product — the skill will guide you through the rest interactively.\n' +
 'Have these ready before you start:\n' +
@@ -341,6 +342,7 @@
         'Feature Name': { type: 'text', hint: 'e.g. Office Map' },
       },
       body:
+'⚠ Always work in ux-library-staging — never update ux-library directly.\n\n' +
 'Add a new feature called [Feature Name] to [Product Name].\n\n' +
 '── SET UP ───────────────────────────────────────────────────\n' +
 '1. Create /[product-slug]/[feature-slug]/ with:\n' +
@@ -385,6 +387,7 @@
       title: 'Add platform deltas to a feature',
       desc: 'Compare Figma platforms and document only what differs (up to 3 deltas)',
       body:
+'⚠ Always work in ux-library-staging — never update ux-library directly.\n\n' +
 'Document platform deltas for [Product Name] › [Feature Name].\n\n' +
 'Baseline: [Platform A]  ·  URL: [Baseline URL]\n\n' +
 'Run /add-platform-delta once per delta below.\n\n' +
@@ -450,6 +453,7 @@
       title: 'Promote a component to global level',
       desc: 'Pre-flight conflict check, product impact assessment, then promote with changelog',
       body:
+'⚠ Always work in ux-library-staging — never update ux-library directly.\n\n' +
 'Run /promote-to-global to promote [Component Name] from [Product Name] › [Feature Name] to the Global shared library.\n\n' +
 'Figma URL: [URL]   ← optional; if provided, used to verify the component definition\n\n' +
 '── PHASE 1: PRE-FLIGHT (read-only) ──────────────────────────\n' +
@@ -477,7 +481,7 @@
       title: 'Run skill tests',
       desc: 'QA the core skills end-to-end with scored checklists',
       body:
-'⚠ Run this in the ux-library-staging repo, not ux-library-main.\n\n' +
+'⚠ Always work in ux-library-staging — never update ux-library directly.\n\n' +
 'Run /run-skill-tests to start an interactive skill QA session.\n\n' +
 'Available test scenarios:\n' +
 '  1. Setup Product                 — /setup-product\n' +
