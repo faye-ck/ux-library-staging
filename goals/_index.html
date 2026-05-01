@@ -7,12 +7,18 @@
   <link rel="stylesheet" href="../styles.css" />
   <style>
     .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
-    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 10px; letter-spacing: -0.2px; }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
-    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .cov-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; }
+    .cov-table th { text-align: left; font-size: 10px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 0.5px solid var(--border); padding: 6px 12px; background: var(--bg); }
+    .cov-table td { padding: 9px 12px; border-bottom: 0.5px solid var(--border); color: var(--text); vertical-align: middle; }
+    .cov-table tr:last-child td { border-bottom: none; }
+    .cov-table td:first-child { font-weight: 500; }
+    .badge { display: inline-block; font-size: 9px; font-weight: 500; padding: 2px 7px; border-radius: 20px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.04em; border: 0.5px solid; }
+    .badge-full { background: #f0faf4; color: var(--green); border-color: rgba(26,122,71,0.25); }
+    .badge-stub { background: var(--bg); color: var(--muted); border-color: var(--border); }
+    .badge-na { color: var(--border); font-size: 12px; }
   </style>
 </head>
 <body>
@@ -22,8 +28,7 @@
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
-  <nav class="sidebar">
-  </nav>
+  <nav class="sidebar"></nav>
   <main>
     <div class="breadcrumb"><a href="../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Goals</span></div>
     <div class="page-header">
@@ -32,7 +37,44 @@
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Platform Coverage</h2>
+      <table class="cov-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>User Portal</th>
+            <th>Admin Portal</th>
+            <th>Mobile Web</th>
+            <th>Mobile App</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="kpi-management/feature.html">KPI Management</a></td>
+            <td><span class="badge badge-stub">stub</span></td>
+            <td><span class="badge-na">—</span></td>
+            <td><span class="badge badge-stub">stub</span></td>
+            <td><span class="badge-na">—</span></td>
+          </tr>
+          <tr>
+            <td><a href="goals-okrs/feature.html">Goals &amp; OKRs</a></td>
+            <td><span class="badge badge-stub">stub</span></td>
+            <td><span class="badge-na">—</span></td>
+            <td><span class="badge badge-stub">stub</span></td>
+            <td><span class="badge-na">—</span></td>
+          </tr>
+          <tr>
+            <td><a href="department-deck/feature.html">Department Deck</a></td>
+            <td><span class="badge badge-full">full</span></td>
+            <td><span class="badge-na">—</span></td>
+            <td><span class="badge-na">—</span></td>
+            <td><span class="badge-na">—</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px;color:var(--muted);margin-top:-8px;"><strong>full</strong> = baseline documented &nbsp;·&nbsp; <strong>stub</strong> = file exists, spec pending &nbsp;·&nbsp; <strong>—</strong> = not applicable / not started</p>
+
     </div>
   </main>
 </div>

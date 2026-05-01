@@ -178,6 +178,11 @@
             { label: 'Admin Portal',  href: '/biz/analytics/admin-portal.html' },
           ]
         },
+        {
+          label: 'Custom assets management', children: [
+            { label: 'Feature', href: '/biz/custom-assets-management/feature.html' },
+          ]
+        },
         { label: 'Changelog',   href: '/biz/changelog.html' },
       ]
     },
@@ -352,6 +357,11 @@
           label: 'Goals & OKRs', children: [
             { label: 'Feature',     href: '/goals/goals-okrs/feature.html' },
             { label: 'Mobile Web',  href: '/goals/goals-okrs/mobile-web.html' },
+          ]
+        },
+        {
+          label: 'Department Deck', children: [
+            { label: 'Feature',     href: '/goals/department-deck/feature.html' },
           ]
         },
         { label: 'Changelog', href: '/goals/changelog.html' },

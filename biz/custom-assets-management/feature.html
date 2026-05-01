@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Assets Management — Feature — UX Library</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .md-content { max-width: 760px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 10px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 24px 0 6px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* status badges */
+    .status-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 20px; border: 0.5px solid; margin-right: 6px; }
+    .status-draft { background: var(--bg); color: var(--muted); border-color: var(--border); }
+
+    /* flag banners */
+    .flag-confirm { background: #fffbea; border-left: 3px solid #f0a500; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12px; color: #7a5800; margin: 10px 0; }
+    .flag-inferred { background: #f4f4f6; border-left: 3px solid #bcc3cc; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12px; color: var(--muted); margin: 10px 0; }
+    .flag-missing { background: #fff2f2; border-left: 3px solid var(--red, #e24f4b); padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12px; color: #8b1c1c; margin: 10px 0; }
+
+    /* tables */
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .spec-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 6px 10px; border-bottom: 1px solid var(--border); }
+    .spec-table td { padding: 7px 10px; border-bottom: 0.5px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.55; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table code { font-family: var(--mono); font-size: 10px; background: var(--bg); padding: 1px 4px; border-radius: 3px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* swatch */
+    .swatch-row { display: flex; align-items: center; gap: 10px; padding: 5px 0; }
+    .swatch { width: 20px; height: 20px; border-radius: 4px; border: 0.5px solid rgba(0,0,0,0.1); flex-shrink: 0; }
+
+    /* flow steps */
+    .flow-steps { list-style: none; padding: 0; margin: 0 0 16px; counter-reset: step; }
+    .flow-steps li { counter-increment: step; display: flex; gap: 10px; align-items: flex-start; padding: 5px 0; font-size: 13px; color: var(--muted); }
+    .flow-steps li::before { content: counter(step); min-width: 20px; height: 20px; background: var(--teal-light); color: var(--teal-dark); font-family: var(--mono); font-size: 10px; font-weight: 600; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+    /* open items */
+    .open-items-list { list-style: none; padding: 0; margin: 0; }
+    .open-items-list li { display: flex; gap: 10px; padding: 6px 0; border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--muted); align-items: flex-start; }
+    .open-items-list li:last-child { border-bottom: none; }
+    .oi-num { font-family: var(--mono); font-size: 10px; font-weight: 600; min-width: 22px; color: var(--muted-light); }
+
+    /* color token grid */
+    .token-grid { display: grid; grid-template-columns: 20px 1fr 1fr; gap: 6px 12px; align-items: center; font-size: 12px; margin: 10px 0; }
+    .token-grid .th { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted-light); padding-bottom: 4px; border-bottom: 0.5px solid var(--border); }
+
+    /* rule block */
+    .rule-block { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 14px 16px; margin: 10px 0; font-size: 12px; color: var(--muted); }
+    .rule-block strong { display: block; color: var(--text); font-size: 13px; margin-bottom: 4px; }
+    .rule-block .rule-ctx { font-family: var(--mono); font-size: 10px; color: var(--muted-light); margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span>
+      <a href="../_index.html">Biz</a><span class="breadcrumb-sep">/</span>
+      <span>Custom Assets Management</span><span class="breadcrumb-sep">/</span>
+      <span>Feature</span>
+    </div>
+
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-box"></i></span> Custom Assets Management — Feature</h2>
+      <p>User Portal baseline. Upload, rename, and remove 3D model assets (.GLB) and 2D thumbnail icons for the Office Map.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="md-content">
+
+      <!-- Meta -->
+      <div style="display:flex; align-items:center; gap:6px; margin-bottom:20px; flex-wrap:wrap;">
+        <span class="status-badge status-draft">🟡 Draft</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--muted-light);">product: biz · platform: user-portal · updated: 2026-04-30</span>
+      </div>
+
+      <!-- Overview -->
+      <div class="md-h2">Overview</div>
+      <p>Custom assets are decorative 3D model objects users can upload and manage for the Office Map. This page is the sole entry point for both creation and management — accessible via <strong>Office Map → Custom Assets tab</strong> in the User Portal. Assets are not functional like seats or spaces; they are purely visual map objects.</p>
+
+      <div class="flag-inferred">💡 <strong>Suggested:</strong> Feature lives within the Seat module context (left nav shows Seat as active). Confirm whether this is always the case or if the nav state varies by entry point.</div>
+
+      <hr class="md-hr" />
+
+      <!-- Navigation -->
+      <div class="md-h2">Navigation path</div>
+      <p><code>Office Map (top nav)</code> → <code>Custom Assets</code> tab</p>
+      <p>Tab strip (same level): Pages · Access Links · <strong>Custom Assets</strong> (active)</p>
+
+      <hr class="md-hr" />
+
+      <!-- Core Flows -->
+      <div class="md-h2">Core flows</div>
+
+      <div class="md-h3">Flow 1 — Upload a 3D model asset</div>
+      <ol class="flow-steps">
+        <li>User opens Manage Custom Assets page (empty or populated list).</li>
+        <li>User clicks <strong>Upload New</strong> (outlined button, top right of section header).</li>
+        <li>File picker opens — accepts <code>.GLB</code> only; single file at a time.</li>
+        <li>Upload begins; loading / skeleton state shown on new AssetCard.</li>
+        <li>On success: new AssetCard appears in grid; Snackbar shows <em>"Upload successful"</em>.</li>
+        <li>Default asset name = filename minus <code>.GLB</code> (e.g., <code>TV.GLB</code> → "TV").</li>
+        <li>If name already exists: suffix appended automatically (TV → TV 2 → TV 3…).</li>
+      </ol>
+
+      <div class="md-h3">Flow 2 — Upload a 2D icon (thumbnail) for an existing asset</div>
+      <ol class="flow-steps">
+        <li>User hovers over an existing AssetCard.</li>
+        <li>Upload icon button appears overlaid on the thumbnail area.</li>
+        <li>File picker opens — accepts <code>.PNG</code> or <code>.JPG</code> only.</li>
+        <li>On success: thumbnail updates; 2D Icon file size shown in details row.</li>
+      </ol>
+      <div class="flag-confirm">⚠️ <strong>Confirm needed:</strong> The guidance alert shows "maximum size of 500KB" for thumbnails; the error spec and error snackbar say 50KB. Which is the enforced limit?</div>
+
+      <div class="md-h3">Flow 3 — Rename an asset</div>
+      <ol class="flow-steps">
+        <li>User hovers over AssetCard — pencil icon appears next to asset name.</li>
+        <li>User clicks pencil → inline rename field activates.</li>
+        <li>User edits and confirms name.</li>
+        <li>If new name collides: suffix appended automatically (no error shown).</li>
+      </ol>
+
+      <div class="md-h3">Flow 4 — Remove an asset</div>
+      <ol class="flow-steps">
+        <li>User hovers over AssetCard → <strong>Remove Asset</strong> button appears.</li>
+        <li>User clicks Remove Asset.</li>
+        <li>Confirmation dialog opens (dark backdrop, modal).</li>
+        <li>User confirms → asset removed; list refreshes.</li>
+      </ol>
+      <div class="flag-missing">🔴 <strong>Missing:</strong> Exact copy for the Remove Asset confirmation dialog (title, body, confirm CTA) not captured in Figma.</div>
+
+      <div class="md-h3">Flow 5 — Remove a 2D icon (thumbnail)</div>
+      <ol class="flow-steps">
+        <li>User hovers over AssetCard thumbnail → remove icon appears.</li>
+        <li>User confirms removal.</li>
+        <li>2D Icon field on details row reverts to "NA".</li>
+      </ol>
+
+      <hr class="md-hr" />
+
+      <!-- States -->
+      <div class="md-h2">States</div>
+
+      <div class="md-h3">Empty state</div>
+      <p>Shown when no assets uploaded. Copy: <em>"No custom assets here."</em> The Upload New button remains in the section header — no secondary CTA inside the empty body.</p>
+
+      <div class="md-h3">Loading state</div>
+      <div class="flag-inferred">💡 <strong>Suggested:</strong> Skeleton placeholder shown on new AssetCard during upload. Shape inferred from AssetCard dimensions — not fully visible in Figma.</div>
+
+      <div class="md-h3">Error states</div>
+      <p>All errors surface as Snackbar (bottom, error severity). Some validate before upload starts; others appear after.</p>
+      <table class="spec-table">
+        <thead><tr><th>Error</th><th>Trigger</th><th>Message (EN)</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Model file too large</td><td>.GLB &gt; 5MB</td><td>File exceeds size limit (5MB)</td><td>Snackbar dismisses; user re-selects file</td></tr>
+          <tr><td>Icon file too large</td><td>.PNG/.JPG &gt; 50KB</td><td>File exceeds size limit (50KB)</td><td>Snackbar dismisses</td></tr>
+          <tr><td>Corrupt / unreadable</td><td>Invalid file binary</td><td>Corrupt or unreadable file</td><td>Snackbar dismisses</td></tr>
+          <tr><td>Unsupported model format</td><td>Non-.GLB file</td><td>Unsupported format GLB</td><td>Snackbar dismisses</td></tr>
+          <tr><td>Unsupported icon format</td><td>Non-.PNG/.JPG file</td><td>Unsupported image format (PNG/JPG)</td><td>Snackbar dismisses</td></tr>
+          <tr><td>Upload failed</td><td>Network timeout / server error</td><td>Upload failed</td><td>Snackbar dismisses</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:var(--muted-light);">Note: Dimension errors (icon too small/large) are handled by auto-fit to 32×32 — no error shown. Network/server errors collapse to "Upload failed".</p>
+
+      <div class="md-h3">Success / confirmation</div>
+      <ul style="font-size:13px;color:var(--muted);line-height:1.8;padding-left:20px;">
+        <li>Upload model → Snackbar: <em>"Upload successful"</em></li>
+        <li>Upload icon → Snackbar: <em>"Upload successful"</em> <span style="font-size:11px;color:var(--muted-light)">(INFERRED)</span></li>
+        <li>Rename → Inline update, no snackbar</li>
+        <li>Remove asset → Card disappears; list count updates</li>
+      </ul>
+
+      <div class="md-h3">Edge cases</div>
+      <ul style="font-size:13px;color:var(--muted);line-height:1.8;padding-left:20px;">
+        <li>Name collision on upload or rename: auto-suffix added (XXXX 2, XXXX 3…). No error shown.</li>
+        <li>2D Icon not uploaded: details row shows "2D Icon: NA".</li>
+        <li>Total upload limit: 50MB (shown in guidance alert).</li>
+      </ul>
+
+      <hr class="md-hr" />
+
+      <!-- Components Used -->
+      <div class="md-h2">Components used</div>
+      <table class="spec-table">
+        <thead><tr><th>Component</th><th>Source</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>AppBar + Toolbar (Biz shell)</td><td><code>biz/config/_components.md</code></td><td>Top bar: user email, Manual link, help icon</td></tr>
+          <tr><td>Drawer (permanent, 280px)</td><td><code>biz/config/_components.md</code></td><td>Left nav; Seat item active in this context</td></tr>
+          <tr><td>Top Menu tab bar</td><td><code>biz/config/_components.md</code></td><td>Search / Create / Reports / Office Map / Status & Booking</td></tr>
+          <tr><td>Tab filter strip</td><td>defined here</td><td>Pages | Access Links | Custom Assets — bordered pill style, NOT standard MUI Tabs. Promote if reused.</td></tr>
+          <tr><td>Alert (info)</td><td><code>global/components/</code></td><td>Guidance box above asset grid; secondary-light background</td></tr>
+          <tr><td>AssetCard</td><td>defined here</td><td>Custom compound: thumbnail + name + details row + hover controls. Promote if reused.</td></tr>
+          <tr><td>Button (outlined)</td><td><code>global/components/</code></td><td>"Upload New" — <code>variant="outlined"</code></td></tr>
+          <tr><td>Button (outlined, error)</td><td><code>global/components/</code></td><td>"Remove Asset" — <code>variant="outlined" color="error"</code>, 32px height</td></tr>
+          <tr><td>Snackbar + Alert (error)</td><td><code>global/components/</code></td><td>All error messages; bottom anchor; <code>severity="error"</code></td></tr>
+          <tr><td>Pagination</td><td><code>biz/config/_components.md</code></td><td>"Items per page: N · x–y of z" with prev/next chevrons</td></tr>
+          <tr><td>Dialog</td><td><code>global/components/</code></td><td>Remove confirmation; <code>maxWidth="sm"</code>; Cancel + Confirm (error)</td></tr>
+          <tr><td>IconButton (pencil)</td><td><code>global/components/</code></td><td>Inline rename trigger; hidden until hover</td></tr>
+          <tr><td>IconButton (trash)</td><td><code>global/components/</code></td><td>Delete trigger; hidden until hover</td></tr>
+          <tr><td>IconButton (upload)</td><td><code>global/components/</code></td><td>Thumbnail upload trigger on card hover</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- Guidelines -->
+      <div class="md-h2">Guidelines applied</div>
+      <table class="spec-table">
+        <thead><tr><th>Guideline</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Single file upload at a time</td><td>Figma annotation: "Single uploads at once"</td></tr>
+          <tr><td>All errors surface as Snackbar, not inline</td><td>Figma annotation on Snackbar component</td></tr>
+          <tr><td>Show file limits upfront via Alert guidance</td><td>Figma annotation on Alert: "Show basic limitations up front"</td></tr>
+          <tr><td>Hover reveals destructive / edit controls</td><td>Figma annotation: "Controls on Hover" on AssetCards</td></tr>
+          <tr><td>Default name = filename minus extension</td><td>Figma annotation: "Default asset name will be Filename (remove .GLB)"</td></tr>
+          <tr><td>Name collision → auto-suffix, no error</td><td>Figma annotation: "Name becomes XXXX 2 XXXX 3…"</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- Copy Patterns -->
+      <div class="md-h2">Copy patterns</div>
+      <p style="font-size:12px;color:var(--muted-light);margin-bottom:8px;">JA translations not yet available — glossary is a stub. All strings need JA review.</p>
+      <table class="spec-table">
+        <thead><tr><th>Element</th><th>EN</th><th>JA</th></tr></thead>
+        <tbody>
+          <tr><td>Page / section title</td><td>Manage Custom Assets</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Active tab label</td><td>Custom Assets</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Other tab labels</td><td>Pages · Access Links</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Upload button</td><td>Upload New</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Remove button</td><td>Remove Asset</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Guidance alert</td><td>You can upload .GLB models that are up to 5MB in size, and .JPG or .PNG thumbnail images with a maximum size of 500KB. The total upload limit is 50MB.</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Empty state</td><td>No custom assets here.</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Success snackbar</td><td>Upload successful</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Error — model too large</td><td>File exceeds size limit (5MB)</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Error — icon too large</td><td>File exceeds size limit (50KB)</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Error — corrupt file</td><td>Corrupt or unreadable file</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Error — bad model format</td><td>Unsupported format GLB</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Error — bad icon format</td><td>Unsupported image format (PNG/JPG)</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Error — upload failed</td><td>Upload failed</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Pagination label</td><td>Items per page:</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>Asset details row</td><td>[filename].GLB · Model Size: [N]KB · 2D Icon: [N]KB</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+          <tr><td>No icon fallback</td><td>2D Icon: NA</td><td><span style="color:var(--muted-light)">Missing</span></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <!-- Color tokens -->
+      <div class="md-h2">Color tokens used</div>
+      <p style="font-size:12px;color:var(--muted-light);margin-bottom:12px;">Tokens observed from Figma CSS variables. Formal aliases pending <code>biz/config/_theme.md</code> completion.</p>
+      <div class="token-grid">
+        <div class="th"></div><div class="th">Figma CSS var → hex</div><div class="th">MUI mapping</div>
+        <div class="swatch" style="background:#00a9a1;"></div><div><code>--primary/main</code> #00a9a1</div><div style="font-size:12px;color:var(--muted)">palette.primary.main</div>
+        <div class="swatch" style="background:#f0fafa;"></div><div><code>--primary/light</code> #f0fafa</div><div style="font-size:12px;color:var(--muted)">palette.primary.light</div>
+        <div class="swatch" style="background:#edeef2;"></div><div><code>--secondary/main</code> #edeef2</div><div style="font-size:12px;color:var(--muted)">palette.secondary.main</div>
+        <div class="swatch" style="background:#f5f7fa;"></div><div><code>--secondary/light</code> #f5f7fa</div><div style="font-size:12px;color:var(--muted)">palette.background.default</div>
+        <div class="swatch" style="background:#303640;"></div><div><code>--text/primary</code> #303640</div><div style="font-size:12px;color:var(--muted)">palette.text.primary</div>
+        <div class="swatch" style="background:#676c74;"></div><div><code>--text/secondary</code> #676c74</div><div style="font-size:12px;color:var(--muted)">palette.text.secondary</div>
+        <div class="swatch" style="background:#909292;"></div><div><code>--text/low</code> #909292</div><div style="font-size:12px;color:var(--muted)">palette.text.disabled</div>
+        <div class="swatch" style="background:#409aa2;"></div><div><code>--text/link</code> #409aa2</div><div style="font-size:12px;color:var(--muted)">Active tab link (no direct MUI mapping)</div>
+        <div class="swatch" style="background:#e24f4b;"></div><div><code>--error/main</code> #e24f4b</div><div style="font-size:12px;color:var(--muted)">palette.error.main</div>
+        <div class="swatch" style="background:#fef1f0;"></div><div><code>--components/alert/error/background</code> #fef1f0</div><div style="font-size:12px;color:var(--muted)">palette.error.light (custom)</div>
+        <div class="swatch" style="background:#d4d9e1;"></div><div><code>--border/divider</code> #d4d9e1</div><div style="font-size:12px;color:var(--muted)">palette.divider</div>
+        <div class="swatch" style="background:#bcc3cc;"></div><div><code>--divider / --border*/main</code> #bcc3cc</div><div style="font-size:12px;color:var(--muted)">palette.divider</div>
+        <div class="swatch" style="background:#e7e7e7;"></div><div><code>--border</code> #e7e7e7</div><div style="font-size:12px;color:var(--muted)">palette.divider (header)</div>
+      </div>
+
+      <hr class="md-hr" />
+
+      <!-- Design Rules -->
+      <div class="md-h2">Design rules</div>
+
+      <div class="rule-block">
+        <strong>AssetCard — hover-reveal controls</strong>
+        <div class="rule-ctx">Context: custom-assets-management · 2026-04-30</div>
+        <ul style="margin:0;padding-left:18px;line-height:1.8;">
+          <li>Edit controls (pencil rename, Remove Asset button, thumbnail upload icon) are hidden by default and revealed only on card hover.</li>
+          <li>Thumbnail area shows upload overlay icon (semi-transparent dark circle, 50% opacity backdrop) on hover when no 2D icon is set.</li>
+          <li>Remove Asset button uses <code>variant="outlined" color="error"</code> at 32px height — smaller than the standard MUI 40px button.</li>
+        </ul>
+        <div style="font-size:11px;color:var(--muted-light);margin-top:6px;">Figma source: AssetCards component, "Controls on Hover" annotation.</div>
+      </div>
+
+      <div class="rule-block">
+        <strong>Tab filter strip — non-standard Tabs style</strong>
+        <div class="rule-ctx">Context: custom-assets-management (likely Office Map-wide) · 2026-04-30</div>
+        <ul style="margin:0;padding-left:18px;line-height:1.8;">
+          <li>Pages / Access Links / Custom Assets filter uses bordered pill-style buttons (3px border-radius, 40px height) — <strong>not</strong> the standard MUI underline Tabs pattern.</li>
+          <li>Active tab: <code>border-color: --border/highlight (#409aa2)</code>, <code>color: --text/link (#409aa2)</code>.</li>
+          <li>Inactive tab: <code>border-color: --border/low (#909292)</code>, <code>color: --text/low (#909292)</code>.</li>
+        </ul>
+        <div style="font-size:11px;color:var(--muted-light);margin-top:6px;">Figma source: Status Indicators frame, Tabs instances.</div>
+      </div>
+
+      <hr class="md-hr" />
+
+      <!-- Open Items -->
+      <div class="md-h2">Open items</div>
+
+      <div class="md-h3">Inconsistencies with config files</div>
+      <ul class="open-items-list">
+        <li><span class="oi-num">1</span>Alert guidance text says "maximum size of 500KB" for thumbnails; error spec and snackbar copy say 50KB. Confirm which limit is enforced.</li>
+        <li><span class="oi-num">2</span>All <code>biz/config/</code> files are stubs — <code>_theme.md</code>, <code>_glossary.md</code>, <code>_guidelines.md</code> must be populated before token and copy validation can be completed.</li>
+        <li><span class="oi-num">3</span>Two CSS variable values observed for <code>--text/primary</code> (#303640 and #1c1c1c) — possible theme inconsistency. Confirm canonical value.</li>
+      </ul>
+
+      <div class="md-h3">Missing states or flows</div>
+      <ul class="open-items-list">
+        <li><span class="oi-num">4</span>Remove Asset confirmation dialog copy not captured — title, body, and CTA text needed.</li>
+        <li><span class="oi-num">5</span>Upload loading / skeleton state not fully visible in Figma — shape inferred from AssetCard dimensions.</li>
+        <li><span class="oi-num">6</span>No JA translations available (glossary stub) — all EN copy is unvalidated against approved terms.</li>
+        <li><span class="oi-num">7</span>Remove 2D icon flow (without removing the model) partially observed — copy not captured.</li>
+      </ul>
+
+      <div class="md-h3">Decisions needed</div>
+      <ul class="open-items-list">
+        <li><span class="oi-num">8</span>Map Editor flows (animation settings, BG color settings) appear in the same Figma section — confirm if in scope for this spec or a separate editor spec.</li>
+        <li><span class="oi-num">9</span>Confirm access control: who can access the Custom Assets tab — all users with Seat module access, or a specific role?</li>
+        <li><span class="oi-num">10</span>AssetCard and Tab filter strip components should be reviewed for promotion to <code>biz/config/_components.md</code> given likely reuse across Office Map sub-pages.</li>
+      </ul>
+
+    </div><!-- /.md-content -->
+  </main>
+</div>
+<script src="../../nav.js"></script>
+</body>
+</html>
