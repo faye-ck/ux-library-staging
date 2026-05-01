@@ -199,14 +199,187 @@
       <hr class="md-hr">
 
       <h2 class="md-h2">Breakpoints</h2>
-      <p><span class="badge-inferred">INFERRED</span> MUI standard breakpoints apply. 1620px is the primary design reference (desktop). Mobile / responsive behavior is not yet documented for this library version.</p>
+      <p><span class="badge-inferred">INFERRED</span> MUI standard breakpoints apply. 1620px is the primary design reference (desktop). Mobile responsive web behavior is not documented.</p>
+
+      <hr class="md-hr">
+
+      <!-- MOBILE SECTION -->
+      <h2 class="md-h2">Mobile — Platform Notes</h2>
+      <p>The Biz mobile app is a <strong>native iOS application</strong>, not a responsive version of the web portal.</p>
+      <table class="token-table">
+        <thead><tr><th>Property</th><th>Mobile (iOS)</th><th>Web Portal</th></tr></thead>
+        <tbody>
+          <tr><td>Framework</td><td>iOS native</td><td>MUI v5+</td></tr>
+          <tr><td>EN font</td><td>SF Pro</td><td>Inter</td></tr>
+          <tr><td>JP font</td><td>Noto Sans JP</td><td>Noto Sans JP</td></tr>
+          <tr><td>Color tokens</td><td>Shared (<code>--primary/main</code> etc.)</td><td>Shared</td></tr>
+          <tr><td>Components</td><td>iOS native (not MUI)</td><td>MUI components</td></tr>
+          <tr><td>Action sheet font</td><td>Helvetica (iOS system)</td><td>N/A</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Mobile — Dashboard</h2>
+      <p>Screen: <strong>375×812px</strong> (iPhone standard).</p>
+
+      <!-- Mobile shell diagram -->
+      <div class="shell-diagram">
+        <div style="margin-bottom:10px; font-size:11px; font-family:var(--mono); color:var(--muted);">Mobile Dashboard — simplified preview</div>
+        <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+          <!-- Phone frame -->
+          <div style="width:200px; border:1.5px solid #b9c0cc; border-radius:24px; overflow:hidden; background:#f5f7fa; flex-shrink:0;">
+            <!-- Status bar -->
+            <div style="background:#01c5c1; height:24px; display:flex; align-items:center; justify-content:space-between; padding:0 12px;">
+              <span style="font-size:9px; color:#fff; font-family:var(--mono);">9:41</span>
+              <span style="font-size:9px; color:#fff; font-family:var(--mono);">▪▪▪</span>
+            </div>
+            <!-- Top bar -->
+            <div style="background:#01c5c1; height:40px; display:flex; align-items:center; padding:0 10px; gap:6px;">
+              <div style="width:18px; height:14px; border-top:2px solid #fff; border-bottom:2px solid #fff; border-color:#fff; opacity:0.8;"></div>
+              <span style="font-size:9px; font-weight:700; color:#fff; flex:1;">Colorkrew</span>
+              <div style="background:#ffc107; border-radius:20px; padding:2px 6px; font-size:8px; color:#fff; font-family:var(--mono);">Portal ▾</div>
+            </div>
+            <!-- Greeting -->
+            <div style="background:#01c5c1; padding:6px 10px 10px;">
+              <div style="font-size:10px; font-weight:700; color:#fff;">HELLO!</div>
+              <div style="font-size:8px; color:rgba(255,255,255,0.8);">Colorkrew Inc.</div>
+            </div>
+            <!-- Content -->
+            <div style="padding:6px;">
+              <div style="background:#fff; border-radius:10px; overflow:hidden;">
+                <div style="padding:6px 8px; display:flex; align-items:center; gap:6px; border-bottom:0.5px solid #b9c0cc;">
+                  <div style="width:10px; height:10px; background:#e8f8f8; border-radius:2px; flex-shrink:0;"></div>
+                  <span style="font-size:8px; color:#1c1c1c;">10 April 2025 (Thu)</span>
+                </div>
+                <div style="padding:5px 8px; display:flex; gap:6px; align-items:center; border-bottom:0.5px solid #b9c0cc;">
+                  <span style="font-size:7px; color:#676c74; width:28px;">09:26</span>
+                  <div style="width:1px; height:14px; background:#b9c0cc; flex-shrink:0;"></div>
+                  <span style="font-size:8px; color:#1c1c1c;">Checked-in</span>
+                </div>
+                <div style="padding:5px 8px; display:flex; gap:6px; align-items:center; border-bottom:0.5px solid #b9c0cc;">
+                  <span style="font-size:7px; color:#676c74; width:28px;">09:42</span>
+                  <div style="width:1px; height:14px; background:#b9c0cc; flex-shrink:0;"></div>
+                  <span style="font-size:8px; color:#1c1c1c;">Changed Seat</span>
+                </div>
+                <div style="padding:5px 8px; display:flex; gap:6px; align-items:center; border-bottom:0.5px solid #b9c0cc;">
+                  <span style="font-size:7px; color:#676c74; width:28px;">14:10</span>
+                  <div style="width:1px; height:14px; background:#d4d9e1; flex-shrink:0;"></div>
+                  <span style="font-size:8px; color:#1c1c1c; flex:1;">オフィスグリコ×3</span>
+                  <span style="font-size:8px; color:#1c1c1c; font-weight:700;">¥250</span>
+                </div>
+                <div style="padding:5px 8px; display:flex; gap:6px; align-items:center;">
+                  <span style="font-size:7px; color:#676c74; width:28px;">17:00</span>
+                  <div style="width:1px; height:14px; background:#b9c0cc; flex-shrink:0;"></div>
+                  <span style="font-size:8px; color:#1c1c1c;">Checked-out</span>
+                </div>
+              </div>
+            </div>
+            <!-- Footer -->
+            <div style="background:#01c5c1; height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 10px;">
+              <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+                <div style="width:24px; height:24px; background:rgba(255,255,255,0.2); border-radius:50%;"></div>
+                <span style="font-size:7px; color:#fff; font-family:var(--mono);">ステータス</span>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+                <span style="font-size:10px; color:#fff; font-weight:700;">¥2,300</span>
+                <span style="font-size:7px; color:rgba(255,255,255,0.8);">今月の使用金額</span>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+                <div style="width:24px; height:24px; background:rgba(255,255,255,0.2); border-radius:50%;"></div>
+                <span style="font-size:7px; color:#fff; font-family:var(--mono);">QR</span>
+              </div>
+            </div>
+            <!-- Home indicator -->
+            <div style="background:#01c5c1; height:14px; display:flex; align-items:center; justify-content:center;">
+              <div style="width:60px; height:3px; background:rgba(255,255,255,0.5); border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- Annotations -->
+          <div style="flex:1; min-width:180px; display:flex; flex-direction:column; gap:10px; padding-top:8px;">
+            <div class="annot-row"><span class="annot-key">Status bar</span><span class="annot-val"><code>--primary/main</code> bg · white text</span></div>
+            <div class="annot-row"><span class="annot-key">Top bar</span><span class="annot-val">Hamburger + logo + "Portal" switch (amber #ffc107)</span></div>
+            <div class="annot-row"><span class="annot-key">Greeting</span><span class="annot-val">HELLO! (24px Bold) + company (14px Regular)</span></div>
+            <div class="annot-row"><span class="annot-key">Logs card</span><span class="annot-val">White, rounded-16px. Date header (55px) + log rows (49px)</span></div>
+            <div class="annot-row"><span class="annot-key">Log row</span><span class="annot-val">Time (53px) + divider + icon + text + optional price</span></div>
+            <div class="annot-row"><span class="annot-key">Footer</span><span class="annot-val">68px · teal · left action + spend summary + right action</span></div>
+            <div class="annot-row"><span class="annot-key">Home indicator</span><span class="annot-val">20px · teal bg · white pill</span></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="md-h3">Mobile Top Bar</h3>
+      <table class="token-table">
+        <thead><tr><th>Element</th><th>Size</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Hamburger</td><td>34×28px</td><td>Left. Opens drawer (not yet documented).</td></tr>
+          <tr><td>Logo</td><td>196×36px</td><td>Colorkrew wordmark</td></tr>
+          <tr><td>"Portal" switch</td><td>Pill, right-anchored</td><td>bg #ffc107 (amber) · white text · expand icon. Switches to web portal.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Dashboard Logs Card</h3>
+      <table class="token-table">
+        <thead><tr><th>Element</th><th>Height</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Date header row</td><td>55px</td><td>Schedule icon + date (17px Regular SF Pro, <code>--text/primary</code>)</td></tr>
+          <tr><td>Log rows</td><td>49px each</td><td>border-top: 0.5px <code>--border/main</code></td></tr>
+        </tbody>
+      </table>
+      <p>Log row anatomy: time (13px Semibold SF Pro, <code>--text/secondary</code>, 53px) · vertical divider (2.2px) · event icon · log text (14px Regular, <code>--text/primary</code>) · optional price (12px Bold, right-aligned).</p>
+      <p>Log event types: Checked-in · Changed Seat · Participated / space · Ended / space · Inventory item × qty + price · Checked-out.</p>
+
+      <h3 class="md-h3">Mobile Footer (Action Bar)</h3>
+      <table class="token-table">
+        <thead><tr><th>Zone</th><th>Content</th></tr></thead>
+        <tbody>
+          <tr><td>Left</td><td>64×64px action icon + 10px Bold white label ("ステータス変更")</td></tr>
+          <tr><td>Center</td><td>Monthly spend (18px white) + divider + "今月の使用金額" (12px Bold white)</td></tr>
+          <tr><td>Right</td><td>64×64px action icon + 10px Bold white label ("QR")</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Mobile — Item Details / Event Screen</h2>
+      <p>Full-screen <code>--primary/main</code> teal background. No separate top bar.</p>
+      <table class="token-table">
+        <thead><tr><th>Element</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td>Title block (pt 70px)</td><td>Resource name: 26px Heavy SF Pro, white. Date/time: 14px Regular, white.</td></tr>
+          <tr><td>Horizontal divider</td><td>White semi-transparent line</td></tr>
+          <tr><td>"Take inventory" button</td><td>Right-aligned · bg #33dddb (lighter teal) · borderRadius 30px · px 14 py 11 · 16px Medium white</td></tr>
+          <tr><td>Textarea</td><td>300×95px · white bg · borderRadius 4px · <code>--text/tertiary*</code> #7b828b placeholder</td></tr>
+          <tr><td>"Start Event" FAB</td><td>136×136px circle · white bg · borderRadius 100px · SVG icon + "Start Event" (17px Medium, <code>--primary/main</code>)</td></tr>
+          <tr><td>Footer "Cancel"</td><td>White border outlined button · borderRadius 30px · px 40 py 11 · 16px Regular white text</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Mobile — Check-in Menu (Action Sheet)</h2>
+      <p>iOS-native bottom sheet. Uses <strong>Helvetica</strong> (iOS native font) — not SF Pro or MUI.</p>
+
+      <table class="token-table">
+        <thead><tr><th>Element</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td>Card bg</td><td>#f1f0f0 · borderRadius 16px</td></tr>
+          <tr><td>Header</td><td>"Select Action" (Helvetica Bold, 14px, #7f7f7f, centered) + date/time (Helvetica Regular)</td></tr>
+          <tr><td>Menu row height</td><td>61px · border-top 0.5px #b3b3b2</td></tr>
+          <tr><td>Row layout</td><td>Left: user avatar 44×44px · Center: label (Helvetica Regular, 21px, black) · Right: 44px spacer</td></tr>
+          <tr><td>Cancel button</td><td>Separate white card · borderRadius 16px · 61px tall · Helvetica Bold 21px, centered</td></tr>
+        </tbody>
+      </table>
+
+      <p>Actions: In the Office · Out of Office · Remote Work · Seat Lottery · Check-out · Exit Space</p>
 
       <hr class="md-hr">
 
       <div class="open-items">
         <h4>Open Items</h4>
         <ol>
-          <li>Confirm content area padding value (left/right padding of page content within the shell).</li>
+          <li>Confirm content area padding value (left/right padding of page content within the web portal shell).</li>
+          <li>Document the mobile left drawer (opened by hamburger in Mobile Top Bar) — not yet in Figma library.</li>
         </ol>
       </div>
 

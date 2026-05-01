@@ -570,6 +570,176 @@
     });
   });
 
+  // ── SEARCH ────────────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function () {
+    // Build flat index from NAV tree: { label, href, breadcrumb }
+    function buildIndex(nodes, ancestors) {
+      var out = [];
+      nodes.forEach(function (node) {
+        if (node.divider) return;
+        var path = ancestors.concat(node.label);
+        if (node.href) {
+          out.push({
+            label: node.label,
+            href: node.href,
+            breadcrumb: path.slice(0, -1).join(' › ')
+          });
+        }
+        if (node.children) {
+          out = out.concat(buildIndex(node.children, path));
+        }
+      });
+      return out;
+    }
+    var INDEX = buildIndex(NAV, []);
+
+    var header = document.querySelector('.site-header');
+    if (!header) return;
+
+    // Inject search wrap after .header-spacer (right side of header)
+    var wrap = document.createElement('div');
+    wrap.className = 'search-wrap';
+    wrap.innerHTML =
+      '<i class="ti ti-search search-icon"></i>' +
+      '<input type="text" placeholder="Search… ⌘K" autocomplete="off" spellcheck="false" />' +
+      '<span class="search-count"></span>';
+
+    var spacer = header.querySelector('.header-spacer');
+    if (spacer) {
+      header.insertBefore(wrap, spacer.nextSibling);
+    } else {
+      header.appendChild(wrap);
+    }
+
+    var input = wrap.querySelector('input');
+    var countEl = wrap.querySelector('.search-count');
+
+    // Dropdown element
+    var dropdown = document.createElement('div');
+    dropdown.style.cssText =
+      'position:absolute;top:calc(100% + 6px);left:0;right:0;' +
+      'background:var(--surface);border:0.5px solid var(--border);' +
+      'border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,0.12);' +
+      'max-height:360px;overflow-y:auto;display:none;z-index:200;';
+    wrap.appendChild(dropdown);
+
+    var activeIdx = -1;
+    var currentResults = [];
+
+    function escapeRe(s) {
+      return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function highlight(q, text) {
+      if (!q) return text;
+      return text.replace(
+        new RegExp('(' + escapeRe(q) + ')', 'gi'),
+        '<mark style="background:rgba(25,118,210,0.15);color:inherit;border-radius:2px">$1</mark>'
+      );
+    }
+
+    function setActive(idx) {
+      var items = dropdown.querySelectorAll('.sr-item');
+      items.forEach(function (el, i) {
+        el.style.background = i === idx ? 'var(--bg)' : '';
+      });
+      activeIdx = idx;
+    }
+
+    function closeDropdown() {
+      dropdown.style.display = 'none';
+      countEl.style.display = 'none';
+      activeIdx = -1;
+    }
+
+    function renderResults(q) {
+      q = q.trim();
+      if (!q) { closeDropdown(); return; }
+
+      var ql = q.toLowerCase();
+      currentResults = INDEX.filter(function (item) {
+        return item.label.toLowerCase().indexOf(ql) !== -1 ||
+               item.breadcrumb.toLowerCase().indexOf(ql) !== -1;
+      }).slice(0, 12);
+
+      activeIdx = -1;
+
+      if (currentResults.length === 0) {
+        dropdown.innerHTML =
+          '<div style="padding:14px 16px;font-size:13px;color:var(--muted)">No results for “' + q + '”</div>';
+        dropdown.style.display = 'block';
+        countEl.style.display = 'none';
+        return;
+      }
+
+      countEl.textContent = currentResults.length;
+      countEl.style.display = 'block';
+
+      dropdown.innerHTML = currentResults.map(function (item, i) {
+        return '<a href="' + item.href + '" class="sr-item" data-idx="' + i + '" style="' +
+          'display:block;padding:10px 16px;text-decoration:none;' +
+          'border-bottom:0.5px solid var(--border);cursor:pointer;transition:background 0.1s">' +
+          '<div style="font-size:13px;font-weight:500;color:var(--text)">' + highlight(q, item.label) + '</div>' +
+          (item.breadcrumb
+            ? '<div style="font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--mono)">' +
+              highlight(q, item.breadcrumb) + '</div>'
+            : '') +
+          '</a>';
+      }).join('');
+
+      var items = dropdown.querySelectorAll('.sr-item');
+      if (items.length) items[items.length - 1].style.borderBottom = 'none';
+      dropdown.style.display = 'block';
+
+      items.forEach(function (el, i) {
+        el.addEventListener('mouseenter', function () { setActive(i); });
+      });
+    }
+
+    input.addEventListener('input', function () { renderResults(input.value); });
+
+    input.addEventListener('keydown', function (e) {
+      var items = dropdown.querySelectorAll('.sr-item');
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setActive(Math.min(activeIdx + 1, items.length - 1));
+        if (items[activeIdx]) items[activeIdx].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setActive(Math.max(activeIdx - 1, 0));
+        if (items[activeIdx]) items[activeIdx].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        var target = activeIdx >= 0 ? currentResults[activeIdx] : currentResults[0];
+        if (target) window.location.href = target.href;
+      } else if (e.key === 'Escape') {
+        closeDropdown();
+        input.blur();
+      }
+    });
+
+    // Cmd+K / Ctrl+K to focus
+    document.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        input.focus();
+        input.select();
+      }
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function (e) {
+      if (!wrap.contains(e.target)) closeDropdown();
+    });
+
+    // Close on blur (delay so result clicks register first)
+    input.addEventListener('blur', function () {
+      setTimeout(function () {
+        if (!wrap.contains(document.activeElement)) closeDropdown();
+      }, 150);
+    });
+  });
+
   // ── SAVE SCROLL POSITION BEFORE NAVIGATION ────────────────────────────────
   // Persist the sidebar's scrollTop so the next page can restore it.
   document.addEventListener('click', function (e) {

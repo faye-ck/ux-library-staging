@@ -8,32 +8,47 @@ confirms_needed: 0
 
 # Biz — Index
 
-> Smart office management platform. MUI-based web portal for booking desks, spaces, lockers, and managing office resources.
+> Smart office management platform for workplace booking, resource management, and office operations.
 
 ---
 
 ## Product Overview
 
-**Colorkrew Biz** is a workplace management SaaS. The User Portal is a web application for employees to discover and book office resources.
+**Colorkrew Biz** is a workplace management SaaS available on multiple platforms:
 
-Platform: **Web** (desktop-first, 1620px reference width).
-
-Framework: **MUI v5+** (Material UI). Theme: `_theme.md`. Components: `_components.md`. Layout: `_layout.md`.
+- **Web — User Portal** — desktop-first (1620px reference), MUI v5+. Theme: `_theme.md`. Components: `_components.md`. Layout: `_layout.md`.
+- **Web — Admin Portal** — separate surface, not covered in this library version.
+- **Mobile — iOS native** — 375×812px. SF Pro + Noto Sans JP. Shares Biz color tokens; uses iOS-native patterns (not MUI).
+- **Room Signage** — not yet in scope.
 
 ---
 
-## Features
+## Feature Coverage
 
-| Feature | Slug | Status |
-|---|---|---|
-| Office Map | `office-map` | Active |
-| Space List | `space-list` | Active |
-| Seat List | `seat-list` | Active |
-| Scheduler | `scheduler` | Active |
-| Inventory | `inventory` | Active |
-| Locker | `locker` | Active |
-| Analytics | `analytics` | Active |
-| Reception / Post | `reception`, `post` | Active |
+| Feature | User Portal (web) | Admin Portal | Mobile (iOS) | Room Signage |
+|---|---|---|---|---|
+| Office Map | partial | partial | partial | — |
+| Space List | partial | partial | partial | — |
+| Seat List | partial | partial | partial | — |
+| Scheduler | partial | partial | partial | — |
+| Inventory | partial | partial | — | — |
+| Locker | partial | partial | — | — |
+| Analytics | — | partial | — | — |
+| Reception / Post | partial | partial | partial | — |
+| Dashboard | — | — | full | — |
+| Check-in Menu | — | — | full | — |
+
+Coverage values: `full` = spec documented · `partial` = files exist, spec pending · `—` = not in scope
+
+---
+
+## Mobile App Features (iOS)
+
+| Screen | Description |
+|---|---|
+| Dashboard | Activity log timeline, check-in/out, monthly spend summary |
+| Check-in Menu | iOS action sheet — In the Office / Out of Office / Remote Work / Seat Lottery / Check-out / Exit Space |
+| Item Details / Event | Full-screen overlay — inventory intake, event start/end |
 
 ---
 
@@ -41,9 +56,9 @@ Framework: **MUI v5+** (Material UI). Theme: `_theme.md`. Components: `_componen
 
 | File | Description |
 |---|---|
-| `_theme.md` | Color tokens, typography, shape, shadows |
-| `_components.md` | MUI component overrides + custom Biz components |
-| `_layout.md` | Portal shell, left menu, top bar, feature layouts |
+| `_theme.md` | Color tokens, typography, shape, shadows (web + mobile share tokens) |
+| `_components.md` | MUI component overrides + custom Biz components (web portal only) |
+| `_layout.md` | Web portal shell + mobile app layout documentation |
 | `_guidelines.md` | UX principles and interaction patterns |
 | `_glossary.md` | Domain terms (seat, space, booking, etc.) |
 
@@ -51,14 +66,24 @@ Framework: **MUI v5+** (Material UI). Theme: `_theme.md`. Components: `_componen
 
 ## Roles
 
-Users of the Biz User Portal are office employees performing self-service booking and resource management tasks. Admin-facing surfaces are not covered here.
+Users are office employees performing self-service booking and resource management tasks. Admin-facing surfaces are not covered here.
 
 ---
 
 ## Platform Coverage
 
-| Platform | Status |
-|---|---|
-| Web (desktop) | ✓ Documented |
-| Mobile web | Partial — responsive behavior pending |
-| Native mobile | Not in scope for this library version |
+| Platform | Status | Notes |
+|---|---|---|
+| Web — User Portal (desktop) | ✓ documented | 1620px reference. MUI v5+. |
+| Web — Admin Portal | not in scope | — |
+| Web — Mobile responsive | not documented | MUI breakpoints apply; no responsive specs yet. |
+| Mobile — iOS native | ✓ documented | 375×812px. Dashboard, Check-in Menu, Item Details. |
+| Mobile — Android | not in scope | — |
+| Room Signage | not in scope | — |
+
+---
+
+## Open Items
+
+1. All config files except `_theme.md` and `_components.md` are stubs — need population before cross-feature validation.
+2. Admin Portal surfaces not yet scoped for the library.
