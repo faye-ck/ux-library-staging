@@ -82,7 +82,7 @@
       <!-- Meta -->
       <div style="display:flex; align-items:center; gap:6px; margin-bottom:20px; flex-wrap:wrap;">
         <span class="status-badge status-draft">🟡 Draft</span>
-        <span style="font-family:var(--mono);font-size:11px;color:var(--muted-light);">product: biz · platform: user-portal · updated: 2026-04-30</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--muted-light);">product: biz · platform: user-portal · updated: 2026-05-01</span>
       </div>
 
       <!-- Overview -->
@@ -260,23 +260,8 @@
 
       <!-- Color tokens -->
       <div class="md-h2">Color tokens used</div>
-      <p style="font-size:12px;color:var(--muted-light);margin-bottom:12px;">Tokens observed from Figma CSS variables. Formal aliases pending <code>biz/config/_theme.md</code> completion.</p>
-      <div class="token-grid">
-        <div class="th"></div><div class="th">Figma CSS var → hex</div><div class="th">MUI mapping</div>
-        <div class="swatch" style="background:#00a9a1;"></div><div><code>--primary/main</code> #00a9a1</div><div style="font-size:12px;color:var(--muted)">palette.primary.main</div>
-        <div class="swatch" style="background:#f0fafa;"></div><div><code>--primary/light</code> #f0fafa</div><div style="font-size:12px;color:var(--muted)">palette.primary.light</div>
-        <div class="swatch" style="background:#edeef2;"></div><div><code>--secondary/main</code> #edeef2</div><div style="font-size:12px;color:var(--muted)">palette.secondary.main</div>
-        <div class="swatch" style="background:#f5f7fa;"></div><div><code>--secondary/light</code> #f5f7fa</div><div style="font-size:12px;color:var(--muted)">palette.background.default</div>
-        <div class="swatch" style="background:#303640;"></div><div><code>--text/primary</code> #303640</div><div style="font-size:12px;color:var(--muted)">palette.text.primary</div>
-        <div class="swatch" style="background:#676c74;"></div><div><code>--text/secondary</code> #676c74</div><div style="font-size:12px;color:var(--muted)">palette.text.secondary</div>
-        <div class="swatch" style="background:#909292;"></div><div><code>--text/low</code> #909292</div><div style="font-size:12px;color:var(--muted)">palette.text.disabled</div>
-        <div class="swatch" style="background:#409aa2;"></div><div><code>--text/link</code> #409aa2</div><div style="font-size:12px;color:var(--muted)">Active tab link (no direct MUI mapping)</div>
-        <div class="swatch" style="background:#e24f4b;"></div><div><code>--error/main</code> #e24f4b</div><div style="font-size:12px;color:var(--muted)">palette.error.main</div>
-        <div class="swatch" style="background:#fef1f0;"></div><div><code>--components/alert/error/background</code> #fef1f0</div><div style="font-size:12px;color:var(--muted)">palette.error.light (custom)</div>
-        <div class="swatch" style="background:#d4d9e1;"></div><div><code>--border/divider</code> #d4d9e1</div><div style="font-size:12px;color:var(--muted)">palette.divider</div>
-        <div class="swatch" style="background:#bcc3cc;"></div><div><code>--divider / --border*/main</code> #bcc3cc</div><div style="font-size:12px;color:var(--muted)">palette.divider</div>
-        <div class="swatch" style="background:#e7e7e7;"></div><div><code>--border</code> #e7e7e7</div><div style="font-size:12px;color:var(--muted)">palette.divider (header)</div>
-      </div>
+      <p>The canonical Biz color token map is in <a href="../_theme.html"><code>biz/config/_theme</code></a> (status: reviewed). The per-feature token table has been removed to avoid duplication.</p>
+      <div class="flag-confirm">⚠️ <strong>Cross-check discrepancies found:</strong> Several token values observed in this feature's Figma frames do not match <code>_theme.md</code>. See Open Items 3 and 4 below for details and confirmation needed.</div>
 
       <hr class="md-hr" />
 
@@ -299,10 +284,11 @@
         <div class="rule-ctx">Context: custom-assets-management (likely Office Map-wide) · 2026-04-30</div>
         <ul style="margin:0;padding-left:18px;line-height:1.8;">
           <li>Pages / Access Links / Custom Assets filter uses bordered pill-style buttons (3px border-radius, 40px height) — <strong>not</strong> the standard MUI underline Tabs pattern.</li>
-          <li>Active tab: <code>border-color: --border/highlight (#409aa2)</code>, <code>color: --text/link (#409aa2)</code>.</li>
-          <li>Inactive tab: <code>border-color: --border/low (#909292)</code>, <code>color: --text/low (#909292)</code>.</li>
+          <li>Active tab: border-color and text-color observed as <code>#409aa2</code>.</li>
+          <li>Inactive tab: border-color and text-color observed as <code>#909292</code>.</li>
         </ul>
         <div style="font-size:11px;color:var(--muted-light);margin-top:6px;">Figma source: Status Indicators frame, Tabs instances.</div>
+        <div class="flag-confirm" style="margin-top:8px;">⚠️ <strong>Confirm needed:</strong> <code>#409aa2</code> was recorded as <code>--border/highlight</code> and <code>--text/link</code>, but <code>_theme.md</code> sets <code>--border/highlight = #99a5b8</code> (significant mismatch). Verify canonical token names and hex against current Figma library. See Open Item 3.</div>
       </div>
 
       <hr class="md-hr" />
@@ -312,24 +298,33 @@
 
       <div class="md-h3">Inconsistencies with config files</div>
       <ul class="open-items-list">
-        <li><span class="oi-num">1</span>Alert guidance text says "maximum size of 500KB" for thumbnails; error spec and snackbar copy say 50KB. Confirm which limit is enforced.</li>
-        <li><span class="oi-num">2</span>All <code>biz/config/</code> files are stubs — <code>_theme.md</code>, <code>_glossary.md</code>, <code>_guidelines.md</code> must be populated before token and copy validation can be completed.</li>
-        <li><span class="oi-num">3</span>Two CSS variable values observed for <code>--text/primary</code> (#303640 and #1c1c1c) — possible theme inconsistency. Confirm canonical value.</li>
+        <li><span class="oi-num">1</span>⚠️ <strong>Confirm:</strong> Thumbnail icon size limit — guidance alert says "maximum size of 500KB"; error snackbars say 50KB. Design decision needed.</li>
+        <li><span class="oi-num">2</span><code>_glossary.md</code> and <code>_guidelines.md</code> remain stubs — EN copy validation against approved terms is blocked until populated. (<code>_theme.md</code> is now reviewed and complete.)</li>
+        <li><span class="oi-num">3</span>⚠️ <strong>Confirm:</strong> Token discrepancies found against <code>_theme.md</code> (reviewed 2026-05-01):
+          <ul style="margin-top:6px;padding-left:16px;line-height:1.9;font-size:12px;">
+            <li><code>--primary/main</code> observed as #00a9a1 — canonical is #01c5c1; #00a9a1 = <code>--primary/dark</code> / <code>--primary/textandicon*</code></li>
+            <li><code>--primary/light</code> observed as #f0fafa — canonical is #e8f8f8</li>
+            <li><code>--text/low</code> (#909292) and <code>--text/link</code> (#409aa2) have no canonical name in <code>_theme.md</code></li>
+            <li><code>--secondary/main</code> (#edeef2) not present in <code>_theme.md</code></li>
+            <li><code>--border/highlight</code> in Design Rules recorded as #409aa2; <code>_theme.md</code> has #99a5b8</li>
+            <li><code>--divider</code> observed as #bcc3cc; <code>_theme.md</code>: <code>--divider</code> = #d4d9e1, <code>--border/main</code> = #b9c0cc</li>
+          </ul>
+        </li>
+        <li><span class="oi-num">4</span>⚠️ <strong>Confirm:</strong> Left nav shell — Components table lists "Drawer (permanent, 280px)" but <code>_layout.md</code> documents the left menu as 64px icon-only (no expanded state documented). Verify if a wider drawer mode exists or update this entry.</li>
       </ul>
 
       <div class="md-h3">Missing states or flows</div>
       <ul class="open-items-list">
-        <li><span class="oi-num">4</span>Remove Asset confirmation dialog copy not captured — title, body, and CTA text needed.</li>
-        <li><span class="oi-num">5</span>Upload loading / skeleton state not fully visible in Figma — shape inferred from AssetCard dimensions.</li>
-        <li><span class="oi-num">6</span>No JA translations available (glossary stub) — all EN copy is unvalidated against approved terms.</li>
+        <li><span class="oi-num">5</span>🔴 <strong>Missing:</strong> Remove Asset confirmation dialog copy (title, body, confirm CTA) not captured in Figma.</li>
+        <li><span class="oi-num">6</span>Upload loading / skeleton state not fully visible in Figma — shape inferred from AssetCard dimensions.</li>
         <li><span class="oi-num">7</span>Remove 2D icon flow (without removing the model) partially observed — copy not captured.</li>
       </ul>
 
       <div class="md-h3">Decisions needed</div>
       <ul class="open-items-list">
-        <li><span class="oi-num">8</span>Map Editor flows (animation settings, BG color settings) appear in the same Figma section — confirm if in scope for this spec or a separate editor spec.</li>
+        <li><span class="oi-num">8</span>Confirm whether Map Editor flows (animation settings, BG color settings) in the same Figma section are in scope for this spec or a separate editor spec.</li>
         <li><span class="oi-num">9</span>Confirm access control: who can access the Custom Assets tab — all users with Seat module access, or a specific role?</li>
-        <li><span class="oi-num">10</span>AssetCard and Tab filter strip components should be reviewed for promotion to <code>biz/config/_components.md</code> given likely reuse across Office Map sub-pages.</li>
+        <li><span class="oi-num">10</span>AssetCard and Tab filter strip should be reviewed for promotion to <code>biz/config/_components.md</code> given likely reuse across Office Map sub-pages.</li>
       </ul>
 
     </div><!-- /.md-content -->

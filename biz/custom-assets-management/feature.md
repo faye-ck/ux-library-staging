@@ -3,7 +3,7 @@ product: biz
 feature: custom-assets-management
 platform: user-portal
 status: draft
-last_updated: 2026-04-30
+last_updated: 2026-05-01
 confirms_needed: 4
 ---
 
@@ -177,25 +177,7 @@ Note from error annotation: Dimension errors (too small / too large) are handled
 
 ## Color tokens used
 
-All tokens observed from Figma CSS variables. Mapped to MUI palette equivalents; formal token names pending `biz/config/_theme.md` completion.
-
-| Figma CSS var | Hex observed | MUI mapping |
-|---------------|-------------|-------------|
-| `--primary/main` | #00a9a1 | `palette.primary.main` |
-| `--primary/light` | #f0fafa | `palette.primary.light` |
-| `--secondary/main` | #edeef2 | `palette.secondary.main` |
-| `--secondary/light` | #f5f7fa | `palette.background.default` |
-| `--text/primary` | #303640 / #1c1c1c | `palette.text.primary` |
-| `--text/secondary` | #535353 / #676c74 | `palette.text.secondary` |
-| `--text/low` | #909292 | `palette.text.disabled` |
-| `--text/link` | #409aa2 | INFERRED: active tab link, no direct MUI mapping |
-| `--error/main` | #e24f4b | `palette.error.main` |
-| `--border/divider` | #d4d9e1 | `palette.divider` |
-| `--border/low` | #909292 | INFERRED: inactive border |
-| `--border/highlight` | #409aa2 | INFERRED: active tab border |
-| `--divider` | #bcc3cc | `palette.divider` |
-| `--border` | #e7e7e7 | `palette.divider` |
-| `--_components/alert/error/background` | #fef1f0 | `palette.error.light` (custom) |
+See `../config/_theme.md` for the canonical Biz token map (status: reviewed). The table below has been removed to avoid duplication. Cross-check discrepancies are tracked in Open Items.
 
 ---
 
@@ -211,26 +193,33 @@ Context: custom-assets-management
 ### Tab filter strip — non-MUI Tabs style — 2026-04-30
 Context: custom-assets-management (INFERRED: also used in Office Map other sub-pages)
 - The Pages / Access Links / Custom Assets filter uses bordered pill-style buttons (3px rounded corners, 40px height), NOT the standard MUI underline Tabs.
-- Active tab: border-color `--border/highlight` (#409aa2), text-color `--text/link` (#409aa2).
-- Inactive tab: border-color `--border/low` (#909292), text-color `--text/low` (#909292).
+- Active tab: border-color and text-color observed as #409aa2.
+- Inactive tab: border-color and text-color observed as #909292.
   Figma source: Status Indicators frame, Tabs instances.
+- CONFIRM: #409aa2 observed as `--border/highlight` and `--text/link`, but `_theme.md` sets `--border/highlight` = #99a5b8 (significant mismatch). Verify canonical token names and hex values against current Figma library. See Open Item 9.
 
 ---
 
 ## Open items
 
 **Inconsistencies with config files**
-1. Alert guidance text states "maximum size of 500KB" for thumbnail images; error annotation and snackbar copy use "50KB". CONFIRM which limit is enforced.
-2. All `biz/config/` files are stubs — `_theme.md`, `_glossary.md`, `_guidelines.md` need to be populated before token and copy validation can be completed.
-3. Two CSS variable variants for `--text/primary` observed (#303640 and #1c1c1c) — likely a theme inconsistency. CONFIRM canonical value.
+1. CONFIRM thumbnail icon size limit: guidance alert says "maximum size of 500KB"; error snackbars say 50KB. Design decision needed before spec can be finalized.
+2. `_glossary.md` and `_guidelines.md` remain stubs — EN copy validation against approved terms is blocked until populated. (`_theme.md` is now reviewed and complete.)
+3. CONFIRM token discrepancies found against `_theme.md` (reviewed 2026-05-01):
+   - `--primary/main` observed as #00a9a1 — `_theme.md` canonical is #01c5c1; #00a9a1 = `--primary/dark` / `--primary/textandicon*`
+   - `--primary/light` observed as #f0fafa — `_theme.md` canonical is #e8f8f8
+   - `--text/low` (#909292) and `--text/link` (#409aa2) have no canonical name in `_theme.md`
+   - `--secondary/main` (#edeef2) not present in `_theme.md`
+   - `--border/highlight` in Design Rules recorded as #409aa2; `_theme.md` has #99a5b8
+   - `--divider`/`--border*/main` observed as #bcc3cc; `_theme.md`: `--divider` = #d4d9e1, `--border/main` = #b9c0cc
+4. CONFIRM left nav shell: Components table references "Drawer (permanent, 280px)" but `_layout.md` documents the left menu as 64px icon-only (no expanded/labeled state). Verify if a wider drawer mode exists or update entry to match the Left Menu pattern.
 
 **Missing states or flows**
-4. Exact copy for the Remove Asset confirmation dialog not captured in Figma. MISSING.
-5. Upload loading/progress state not fully visible in Figma — skeleton shape inferred from AssetCard dimensions.
-6. No JA translations available in glossary (stub) — all EN copy is unvalidated against approved terms.
-7. Thumbnail-only removal flow (remove 2D icon without removing model) not fully documented — seen in flow group "Remove Thumbnail" but copy not captured.
+5. MISSING: Remove Asset confirmation dialog copy (title, body, confirm CTA) not captured in Figma.
+6. Upload loading / skeleton state not fully visible in Figma — shape inferred from AssetCard dimensions.
+7. Remove 2D icon flow (without removing the model) partially observed — copy not captured.
 
 **Decisions needed**
-8. Confirm whether Map Editor flows (animation settings, BG color settings) in the same Figma section are in scope for this feature spec or belong to a separate editor spec.
+8. Confirm whether Map Editor flows (animation settings, BG color settings) in the same Figma section are in scope for this spec or belong to a separate editor spec.
 9. Confirm access control: who can access the Custom Assets tab — all users with Seat module access, or a specific role?
-10. AssetCard and Tab filter strip components should be reviewed for promotion to `biz/config/_components.md` given likely reuse across Office Map sub-pages.
+10. AssetCard and Tab filter strip should be reviewed for promotion to `biz/config/_components.md` given likely reuse across Office Map sub-pages.
