@@ -6,13 +6,37 @@
   <title>Biz — Overview — UX Library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
+    .md-content { max-width: 760px; }
     .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .token-table a { color: var(--teal-dark); text-decoration: none; }
+    .token-table a:hover { text-decoration: underline; }
+
+    .badge-stable { display: inline-block; background: #eefaf2; border: 0.5px solid #39a86b; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #276e45; padding: 1px 6px; }
+    .badge-partial { display: inline-block; background: #fff8e1; border: 0.5px solid #f0c030; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #8a6800; padding: 1px 6px; }
+    .badge-missing { display: inline-block; background: #fef1f0; border: 0.5px solid #e24f4b; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #b02020; padding: 1px 6px; }
+
+    /* Feature grid */
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin: 16px 0 24px; }
+    .feature-tile { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+    .feature-tile .ft-icon { font-size: 20px; color: var(--teal); }
+    .feature-tile .ft-name { font-size: 13px; font-weight: 500; color: var(--text); }
+    .feature-tile .ft-slug { font-size: 10px; font-family: var(--mono); color: var(--muted); }
+
+    /* Config link cards */
+    .config-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin: 16px 0 24px; }
+    .config-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 16px; text-decoration: none; display: block; transition: border-color 0.15s; }
+    .config-card:hover { border-color: var(--teal); }
+    .config-card .cc-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .config-card .cc-desc { font-size: 11px; color: var(--muted); line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -22,17 +46,114 @@
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
-  <nav class="sidebar">
-  </nav>
+  <nav class="sidebar"></nav>
   <main>
     <div class="breadcrumb"><a href="../index.html">Home</a><span class="breadcrumb-sep">/</span><span>Biz</span></div>
     <div class="page-header">
       <h2><span class="icon"><i class="ti ti-building"></i></span> Biz — Overview</h2>
-      <p>Features, platforms, roles, and coverage table for Colorkrew Biz.</p>
+      <p>Smart office management platform. MUI-based web portal for booking desks, spaces, lockers, and managing office resources.</p>
+      <div style="margin-top:8px; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <span class="badge-stable">✓ reviewed</span>
+        <span style="font-size:11px; color:var(--muted);">Platform: Web · Framework: MUI v5+ · Last updated: 2026-05-01</span>
+      </div>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Features</h2>
+      <div class="feature-grid">
+        <div class="feature-tile">
+          <div class="ft-icon"><i class="ti ti-map-2"></i></div>
+          <div class="ft-name">Office Map</div>
+          <div class="ft-slug">office-map</div>
+        </div>
+        <div class="feature-tile">
+          <div class="ft-icon"><i class="ti ti-building"></i></div>
+          <div class="ft-name">Space List</div>
+          <div class="ft-slug">space-list</div>
+        </div>
+        <div class="feature-tile">
+          <div class="ft-icon"><i class="ti ti-armchair"></i></div>
+          <div class="ft-name">Seat List</div>
+          <div class="ft-slug">seat-list</div>
+        </div>
+        <div class="feature-tile">
+          <div class="ft-icon"><i class="ti ti-calendar"></i></div>
+          <div class="ft-name">Scheduler</div>
+          <div class="ft-slug">scheduler</div>
+        </div>
+        <div class="feature-tile">
+          <div class="ft-icon"><i class="ti ti-box"></i></div>
+          <div class="ft-name">Inventory</div>
+          <div class="ft-slug">inventory</div>
+        </div>
+        <div class="feature-tile">
+          <div class="ft-icon"><i class="ti ti-lock"></i></div>
+          <div class="ft-name">Locker</div>
+          <div class="ft-slug">locker</div>
+        </div>
+        <div class="feature-tile">
+          <div class="ft-icon"><i class="ti ti-chart-bar"></i></div>
+          <div class="ft-name">Analytics</div>
+          <div class="ft-slug">analytics</div>
+        </div>
+        <div class="feature-tile">
+          <div class="ft-icon"><i class="ti ti-mail"></i></div>
+          <div class="ft-name">Reception / Post</div>
+          <div class="ft-slug">reception · post</div>
+        </div>
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Config Files</h2>
+      <div class="config-grid">
+        <a class="config-card" href="_theme.html">
+          <div class="cc-title"><i class="ti ti-palette" style="margin-right:5px;"></i>Theme</div>
+          <div class="cc-desc">Color tokens, typography, shape, shadows</div>
+        </a>
+        <a class="config-card" href="_components.html">
+          <div class="cc-title"><i class="ti ti-puzzle" style="margin-right:5px;"></i>Components</div>
+          <div class="cc-desc">MUI overrides + custom Biz components</div>
+        </a>
+        <a class="config-card" href="_layout.html">
+          <div class="cc-title"><i class="ti ti-layout-2" style="margin-right:5px;"></i>Layout</div>
+          <div class="cc-desc">Portal shell, left menu, top bar, feature layouts</div>
+        </a>
+        <a class="config-card" href="_guidelines.html">
+          <div class="cc-title"><i class="ti ti-list-check" style="margin-right:5px;"></i>Guidelines</div>
+          <div class="cc-desc">UX principles and interaction patterns</div>
+        </a>
+        <a class="config-card" href="_glossary.html">
+          <div class="cc-title"><i class="ti ti-book" style="margin-right:5px;"></i>Glossary</div>
+          <div class="cc-desc">Domain terms: seat, space, booking, etc.</div>
+        </a>
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Platform Coverage</h2>
+      <table class="token-table">
+        <thead><tr><th>Platform</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Web — Desktop</td>
+            <td><span class="badge-stable">✓ documented</span></td>
+            <td>1620px reference width. MUI v5+.</td>
+          </tr>
+          <tr>
+            <td>Web — Mobile responsive</td>
+            <td><span class="badge-partial">partial</span></td>
+            <td>Responsive behavior not yet documented.</td>
+          </tr>
+          <tr>
+            <td>Native mobile</td>
+            <td><span class="badge-missing">not in scope</span></td>
+            <td>Not covered in this library version.</td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
   </main>
 </div>

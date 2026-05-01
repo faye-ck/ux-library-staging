@@ -6,13 +6,60 @@
   <title>Biz — Layout — UX Library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
+    .md-content { max-width: 760px; }
     .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
     .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    .badge-stable { display: inline-block; background: #eefaf2; border: 0.5px solid #39a86b; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #276e45; padding: 1px 6px; vertical-align: middle; }
+    .badge-inferred { display: inline-block; background: #f3f3f3; border: 0.5px solid #ccc; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #777; padding: 1px 6px; vertical-align: middle; }
+    .badge-missing { display: inline-block; background: #fef1f0; border: 0.5px solid #e24f4b; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #b02020; padding: 1px 6px; vertical-align: middle; }
+
+    .confirm-banner { background: #fff8e1; border: 0.5px solid #f0c030; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #6b4f00; line-height: 1.65; margin: 12px 0 16px; }
+    .confirm-banner strong { color: #8a6800; font-family: var(--mono); }
+
+    /* Shell diagram */
+    .shell-diagram { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 20px; margin: 16px 0 24px; overflow-x: auto; }
+    .shell-outer { display: flex; height: 360px; border: 1px solid #b9c0cc; border-radius: 8px; overflow: hidden; background: #fff; font-family: var(--mono); font-size: 11px; }
+    .shell-left-menu { width: 64px; min-width: 64px; background: #fff; border-right: 1px solid #d4d9e1; display: flex; flex-direction: column; align-items: center; padding: 8px 0; gap: 4px; }
+    .shell-menu-item { width: 40px; height: 40px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #676c74; font-size: 18px; }
+    .shell-menu-item.active { background: #e8f8f8; color: #01c5c1; }
+    .shell-main { flex: 1; display: flex; flex-direction: column; }
+    .shell-topbar { height: 64px; min-height: 64px; background: #fff; border-bottom: 1px solid #d4d9e1; display: flex; align-items: center; padding: 0 16px; gap: 10px; }
+    .shell-content { flex: 1; background: #f5f7fa; display: flex; }
+    .shell-content-area { flex: 1; padding: 16px; color: #a4adb9; font-size: 12px; }
+    .shell-right-panel { width: 180px; min-width: 180px; background: #fff; border-left: 1px solid #d4d9e1; padding: 12px; color: #a4adb9; font-size: 11px; }
+    .mock-search { height: 28px; border: 1px solid #b9c0cc; border-radius: 6px; flex: 1; max-width: 160px; background: #fff; }
+    .mock-btn-primary { height: 28px; padding: 0 10px; background: #01c5c1; border-radius: 6px; color: #fff; font-size: 11px; white-space: nowrap; display: flex; align-items: center; }
+    .mock-btn-text { height: 28px; padding: 0 8px; color: #01c5c1; font-size: 11px; white-space: nowrap; display: flex; align-items: center; }
+    .mock-avatar { width: 24px; height: 24px; border-radius: 50%; background: #e8f8f8; margin-left: auto; }
+    .dim-label { position: absolute; font-size: 9px; font-family: var(--mono); color: #999; }
+
+    /* Annotation */
+    .annot-row { display: flex; align-items: flex-start; gap: 12px; margin: 8px 0; font-size: 12px; color: var(--muted); }
+    .annot-key { font-family: var(--mono); background: var(--bg); border: 0.5px solid var(--border); border-radius: 4px; padding: 2px 6px; font-size: 11px; color: var(--teal-dark); white-space: nowrap; }
+    .annot-val { font-size: 12px; color: #444; }
+
+    /* Feature layout cards */
+    .feature-card { border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 18px; margin: 12px 0; background: var(--surface); }
+    .feature-card h4 { font-size: 13px; font-weight: 500; color: var(--text); margin: 0 0 6px; }
+    .feature-card p { font-size: 12px; color: var(--muted); line-height: 1.7; margin: 4px 0; }
+    .feature-card code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* Open items */
+    .open-items { background: var(--bg); border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+    .open-items h4 { font-size: 12px; font-weight: 600; color: var(--text); margin: 0 0 10px; }
+    .open-items ol { margin: 0; padding-left: 18px; }
+    .open-items li { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 6px; }
+    .open-items li code { font-family: var(--mono); background: #fff; padding: 1px 4px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
   </style>
 </head>
 <body>
@@ -27,11 +74,142 @@
     <div class="breadcrumb"><a href="../index.html">Home</a><span class="breadcrumb-sep">/</span><a href="./_index.html">Biz</a><span class="breadcrumb-sep">/</span><span>Layout</span></div>
     <div class="page-header">
       <h2><span class="icon"><i class="ti ti-layout-2"></i></span> Biz — Layout</h2>
-      <p>Layout rules and grid conventions for Biz — covering Office Map, Reception, Scheduler, Inventory, Locker, Post, and Analytics.</p>
+      <p>Shell structure, page-level grid, and feature layout patterns for the Biz User Portal (web).</p>
+      <div style="margin-top:8px;">
+        <span class="badge-stable">✓ reviewed</span>
+        <span style="font-size:11px; color:var(--muted); margin-left:8px;">Last updated: 2026-05-01 &nbsp;·&nbsp; Reference width: 1620px</span>
+      </div>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Shell: Portal Layout</h2>
+      <p>The portal shell wraps all Biz features. Total canvas reference width: <strong>1620px</strong>.</p>
+
+      <!-- Shell diagram -->
+      <div class="shell-diagram">
+        <div style="margin-bottom:10px; font-size:11px; font-family:var(--mono); color:var(--muted);">Portal layout preview (simplified)</div>
+        <div class="shell-outer">
+          <!-- Left menu -->
+          <div class="shell-left-menu">
+            <div class="shell-menu-item active"><i class="ti ti-map-2" style="font-size:16px;"></i></div>
+            <div class="shell-menu-item"><i class="ti ti-building" style="font-size:16px;"></i></div>
+            <div class="shell-menu-item"><i class="ti ti-armchair" style="font-size:16px;"></i></div>
+            <div class="shell-menu-item"><i class="ti ti-calendar" style="font-size:16px;"></i></div>
+            <div class="shell-menu-item"><i class="ti ti-box" style="font-size:16px;"></i></div>
+            <div class="shell-menu-item"><i class="ti ti-lock" style="font-size:16px;"></i></div>
+            <div class="shell-menu-item"><i class="ti ti-chart-bar" style="font-size:16px;"></i></div>
+          </div>
+          <!-- Main -->
+          <div class="shell-main">
+            <!-- Top bar -->
+            <div class="shell-topbar">
+              <div style="font-size:10px; font-weight:700; color:#1c1c1c; white-space:nowrap;">Colorkrew</div>
+              <div class="mock-search"></div>
+              <div class="mock-btn-primary">New</div>
+              <div class="mock-btn-text">My Bookings</div>
+              <div style="width:1px; height:24px; background:#d4d9e1;"></div>
+              <div class="mock-avatar"></div>
+            </div>
+            <!-- Content -->
+            <div class="shell-content">
+              <div class="shell-content-area">Content area (map, list, etc.)</div>
+              <div class="shell-right-panel">Right panel<br>399px<br>(optional)</div>
+            </div>
+          </div>
+        </div>
+        <!-- Annotations -->
+        <div style="margin-top:14px; display:grid; grid-template-columns: 1fr 1fr; gap:6px;">
+          <div class="annot-row"><span class="annot-key">Left menu</span><span class="annot-val">64px wide · icon-only</span></div>
+          <div class="annot-row"><span class="annot-key">Top bar</span><span class="annot-val">64px tall</span></div>
+          <div class="annot-row"><span class="annot-key">Dividers</span><span class="annot-val"><code>--divider</code> #d4d9e1 · 1px</span></div>
+          <div class="annot-row"><span class="annot-key">Right panel</span><span class="annot-val">399px · in-flow (not modal)</span></div>
+        </div>
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Left Menu</h2>
+
+      <table class="token-table">
+        <thead><tr><th>Property</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Width</td><td>64px (collapsed, icon-only)</td></tr>
+          <tr><td>Item size</td><td>64×64px per slot</td></tr>
+          <tr><td>Background</td><td><code>--white/white</code> #ffffff</td></tr>
+          <tr><td>Right border</td><td>1px · <code>--divider</code> #d4d9e1</td></tr>
+          <tr><td>Active icon</td><td><code>--primary/main</code> #01c5c1</td></tr>
+          <tr><td>Active bg</td><td><code>--primary/light</code> #e8f8f8</td></tr>
+          <tr><td>Inactive icon</td><td><code>--text/secondary</code> #676c74</td></tr>
+        </tbody>
+      </table>
+      <p>Menu items (top to bottom): hamburger toggle, office-map, space-list, seat-list, scheduler, inventory, locker, analytics, manual.</p>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Top Bar</h2>
+
+      <table class="token-table">
+        <thead><tr><th>Element</th><th>Size / Width</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Top bar height</td><td>64px</td><td>Background: <code>--white/white</code></td></tr>
+          <tr><td>Bottom border</td><td>1px</td><td><code>--divider</code> #d4d9e1</td></tr>
+          <tr><td>Colorkrew Logo</td><td>162×30px</td><td>Left-aligned</td></tr>
+          <tr><td>Search field</td><td>335px wide · 40px tall</td><td>Border: <code>--border/main</code> · Placeholder: <code>--text/placeholder*</code></td></tr>
+          <tr><td>Filter chip</td><td>32px height · pill</td><td><code>--secondary/light</code> bg</td></tr>
+          <tr><td>"New" button</td><td>40px height · <code>contained</code></td><td>bg: <code>--primary/main</code></td></tr>
+          <tr><td>"My Bookings"</td><td>40px height · <code>text</code></td><td>color: <code>--primary/textandicon*</code></td></tr>
+          <tr><td>Vertical divider</td><td>1px</td><td><code>--divider</code></td></tr>
+          <tr><td>User avatar</td><td>32×32px</td><td>Circular</td></tr>
+          <tr><td>User name</td><td><code>body1</code></td><td><code>--text/primary</code></td></tr>
+          <tr><td>User status</td><td><code>caption</code></td><td><code>--text/secondary</code></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Feature Layouts</h2>
+
+      <div class="feature-card">
+        <h4>Seat Booking</h4>
+        <p>Full-screen Office Map view. Left menu + top bar shell. Map fills the content area.</p>
+        <p>Right panel (399px) opens on seat selection — shows seat detail and booking form. Slides in-flow; not a modal.</p>
+        <p>Map overlays: date navigation component + on-map action buttons. Shadow: <code>drop-shadow(0px 4px 20px rgba(0,0,0,0.15))</code>.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>Seat Booking Confirmation</h4>
+        <p>Confirmation shown after a seat is booked. Booking summary: seat, date/time, user.</p>
+        <p><span class="badge-inferred">INFERRED</span> MUI <code>Dialog</code> (<code>maxWidth="sm"</code>) or right panel overlay. Confirm / Cancel actions.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>Space Booking Confirmation</h4>
+        <p>Same pattern as Seat Booking Confirmation but for meeting space / room bookings.</p>
+        <p><span class="badge-inferred">INFERRED</span> MUI <code>Dialog</code> (<code>maxWidth="sm"</code>) or right panel overlay.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>My Bookings</h4>
+        <p>List view of current and upcoming bookings. Standard portal shell (left menu + top bar).</p>
+        <p>Content: paginated table or card list. Pagination: MUI <code>TablePagination</code>.</p>
+        <p>Empty state: Empty State component (Illustration variant) when no bookings exist.</p>
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Breakpoints</h2>
+      <p><span class="badge-inferred">INFERRED</span> MUI standard breakpoints apply. 1620px is the primary design reference (desktop). Mobile / responsive behavior is not yet documented for this library version.</p>
+
+      <hr class="md-hr">
+
+      <div class="open-items">
+        <h4>Open Items</h4>
+        <ol>
+          <li>Confirm content area padding value (left/right padding of page content within the shell).</li>
+        </ol>
+      </div>
+
     </div>
   </main>
 </div>

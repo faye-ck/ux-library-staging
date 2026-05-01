@@ -6,13 +6,43 @@
   <title>Biz — Components — UX Library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
+    .md-content { max-width: 760px; }
     .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
     .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    .badge-confirm { display: inline-block; background: #fff8e1; border: 0.5px solid #f0c030; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #8a6800; padding: 1px 6px; vertical-align: middle; }
+    .badge-inferred { display: inline-block; background: #f3f3f3; border: 0.5px solid #ccc; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #777; padding: 1px 6px; vertical-align: middle; }
+    .badge-custom { display: inline-block; background: #f0edff; border: 0.5px solid #9c72ed; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #5a35b5; padding: 1px 6px; vertical-align: middle; }
+    .badge-stable { display: inline-block; background: #eefaf2; border: 0.5px solid #39a86b; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #276e45; padding: 1px 6px; vertical-align: middle; }
+
+    .confirm-banner { background: #fff8e1; border: 0.5px solid #f0c030; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #6b4f00; line-height: 1.65; margin: 12px 0 16px; }
+    .confirm-banner strong { color: #8a6800; font-family: var(--mono); }
+
+    .comp-entry { border: 0.5px solid var(--border); border-radius: 10px; padding: 16px 20px; margin: 12px 0; background: var(--surface); }
+    .comp-entry h4 { font-size: 14px; font-weight: 500; color: var(--text); margin: 0 0 4px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .comp-entry .comp-subtitle { font-size: 11px; font-family: var(--mono); color: var(--muted); margin-bottom: 12px; }
+    .comp-entry p { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 8px; }
+    .comp-entry p:last-child { margin-bottom: 0; }
+    .comp-entry code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    .swatch { width: 16px; height: 16px; border-radius: 4px; display: inline-block; vertical-align: middle; border: 0.5px solid rgba(0,0,0,0.10); }
+
+    .section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--mono); color: var(--muted); margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 0.5px solid var(--border); }
+
+    .open-items { background: var(--bg); border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+    .open-items h4 { font-size: 12px; font-weight: 600; color: var(--text); margin: 0 0 10px; }
+    .open-items ol { margin: 0; padding-left: 18px; }
+    .open-items li { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 6px; }
+    .open-items li code { font-family: var(--mono); background: #fff; padding: 1px 4px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
   </style>
 </head>
 <body>
@@ -27,11 +57,246 @@
     <div class="breadcrumb"><a href="../index.html">Home</a><span class="breadcrumb-sep">/</span><a href="./_index.html">Biz</a><span class="breadcrumb-sep">/</span><span>Components</span></div>
     <div class="page-header">
       <h2><span class="icon"><i class="ti ti-puzzle"></i></span> Biz — Components</h2>
-      <p>Shared UI components used across Office Map, Reception, Scheduler, Inventory, Locker, Post, and Analytics.</p>
+      <p>MUI-based and custom components for the Biz User Portal (web). All MUI components inherit the Biz theme. Only Biz-specific overrides and variant details are documented here.</p>
+      <div style="margin-top:8px;">
+        <span class="badge-stable">✓ reviewed</span>
+        <span style="font-size:11px; color:var(--muted); margin-left:8px;">Last updated: 2026-05-01 &nbsp;·&nbsp; Source: Figma library -Library- Biz User Portal v2</span>
+      </div>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <div class="section-label">MUI Components</div>
+
+      <div class="comp-entry">
+        <h4>Accordion <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Accordion</code></span></h4>
+        <div class="comp-subtitle">States: Collapsed · Text · User list</div>
+        <p>Border: <code>--border/main</code> #b9c0cc. Corner radius: 8px. Use <code>disableGutters</code> for tight layouts.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Alert <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Alert</code></span></h4>
+        <div class="comp-subtitle">6 severities · 2 sizes (Medium / Small) · Mobile responsive variant</div>
+        <p>Props: icon, title (optional heading), actionButtons, closeButton. Mobile: full-width stacked layout.</p>
+        <table class="token-table" style="margin-top:10px;">
+          <thead><tr><th style="width:28px;"></th><th>Severity</th><th>Background</th><th>Icon / text color</th></tr></thead>
+          <tbody>
+            <tr><td><div class="swatch" style="background:#e3f2fd;"></div></td><td>Info</td><td><code>#e3f2fd</code></td><td><span class="swatch" style="background:#1e88e5;"></span> <code>--info/main</code></td></tr>
+            <tr><td><div class="swatch" style="background:#eefaf2;"></div></td><td>Success</td><td><code>#eefaf2</code></td><td><span class="swatch" style="background:#39a86b;"></span> <code>--success/main</code></td></tr>
+            <tr><td><div class="swatch" style="background:#faf2df;"></div></td><td>Warning</td><td><code>#faf2df</code></td><td><span class="swatch" style="background:#e2b243;"></span> <code>--warning/main</code></td></tr>
+            <tr><td><div class="swatch" style="background:#fef1f0;"></div></td><td>Error</td><td><code>#fef1f0</code></td><td><span class="swatch" style="background:#e24f4b;"></span> <code>--error/main</code></td></tr>
+            <tr><td><div class="swatch" style="background:#f5f7fa; border-color:#ddd;"></div></td><td>Secondary</td><td><code>--secondary/light</code></td><td><code>--text/secondary</code></td></tr>
+            <tr><td><div class="swatch" style="background:#1c1c1c;"></div></td><td>Invert</td><td><code>--text/primary</code> #1c1c1c</td><td>#ffffff</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Badge <span style="font-size:11px; font-weight:400; color:var(--muted);">Tab/Menu + Active — Height: 20px · Pill shape</span></h4>
+        <table class="token-table" style="margin-top:10px;">
+          <thead><tr><th>State</th><th>Background</th><th>Text</th></tr></thead>
+          <tbody>
+            <tr><td>Default</td><td><span class="swatch" style="background:#f5f7fa; border-color:#ddd;"></span> <code>--secondary/light</code></td><td><code>--text/tertiary*</code> #7b828b</td></tr>
+            <tr><td>Active</td><td><span class="swatch" style="background:#e8f8f8;"></span> <code>--primary/light</code></td><td><span class="swatch" style="background:#00a9a1;"></span> <code>--primary/textandicon*</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Button <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Button</code> — Sizes: Small · Medium · Large</span></h4>
+        <table class="token-table" style="margin-top:10px;">
+          <thead><tr><th>Variant</th><th>MUI</th><th>Color</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td>Primary</td><td><code>contained</code></td><td><code>primary</code></td><td>New booking, confirm, primary CTA</td></tr>
+            <tr><td>Secondary</td><td><code>outlined</code></td><td><code>primary</code></td><td>Secondary action, cancel</td></tr>
+            <tr><td>Transparent</td><td><code>text</code></td><td><code>primary</code></td><td>Tertiary action, nav links</td></tr>
+            <tr><td>Destructive</td><td><code>contained</code></td><td><code>error</code></td><td>Delete, remove</td></tr>
+          </tbody>
+        </table>
+        <p>Loading: built-in <code>loadingIndicator</code> (MUI v5+). FAB documented separately.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Checkbox <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Checkbox</code> + <code>FormControlLabel</code></span></h4>
+        <div class="comp-subtitle">States: Unchecked · Checked · Indeterminate · Disabled</div>
+        <p>Checked / indeterminate: <span class="swatch" style="background:#01c5c1;"></span> <code>--primary/main</code> #01c5c1.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Chip <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Chip</code></span></h4>
+        <div class="comp-subtitle">Shapes: Round (pill) · Square (4px) &nbsp;|&nbsp; Sizes: Medium 32px · Small 24px · X-Small</div>
+        <p>Colors: Primary · Secondary · Info · Success · Warning · Error · Highlight · Workflows</p>
+        <p>Highlight: <span class="swatch" style="background:#9c72ed;"></span> <code>--highlight*/main</code> #9c72ed. Filled Info Chips = read-only informational chips.</p>
+        <div class="confirm-banner"><strong>⚠ CONFIRM:</strong> Workflows chip color token.</div>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Date Picker <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI X <code>DatePicker</code></span></h4>
+        <p>Calendar popover: <code>borderRadius: 8px</code>. <span class="badge-inferred">INFERRED</span> selected date fill: <code>--primary/main</code>. No additional documented overrides.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>FAB <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Fab</code> — Sizes: Small 32px · Medium 40px · Large 48px</span></h4>
+        <div class="comp-subtitle">States: Default · Hover · Disabled · Loading</div>
+        <table class="token-table" style="margin-top:10px;">
+          <thead><tr><th>State</th><th>Background</th><th>Icon</th></tr></thead>
+          <tbody>
+            <tr><td>Default</td><td><span class="swatch" style="background:#01c5c1;"></span> <code>--primary/main</code></td><td>#ffffff</td></tr>
+            <tr><td>Hover</td><td><span class="swatch" style="background:#0bb7b4;"></span> <code>--primary/mainhover*</code></td><td>#ffffff</td></tr>
+            <tr><td>Disabled</td><td><span class="swatch" style="background:#f5f7fa; border-color:#ddd;"></span> <code>--secondary/light</code></td><td><code>--text/placeholder*</code></td></tr>
+          </tbody>
+        </table>
+        <p>Shadow: <code>drop-shadow(0px 4.4px 11.1px rgba(0,0,0,0.3))</code></p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>File Upload</h4>
+        <div class="comp-subtitle">States: Default · Hover · Uploading · Complete · Error</div>
+        <p><span class="badge-inferred">INFERRED</span> Drag-and-drop zone, dashed <code>--border/main</code> border, <code>borderRadius: 8px</code>.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>List Menu <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Menu</code> + <code>MenuItem</code></span></h4>
+        <p>Shadow: <code>drop-shadow(0px 3px 12px rgba(0,0,0,0.2))</code>. Paper <code>borderRadius: 8px</code>. Item height: <span class="badge-inferred">INFERRED</span> 40px.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Modal <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Dialog</code> — 2 variants</span></h4>
+        <p><strong>Basic:</strong> Simple content. <span class="badge-inferred">INFERRED</span> <code>maxWidth="sm"</code> for confirmations, <code>maxWidth="md"</code> for forms.</p>
+        <p><strong>With header/footer:</strong> Fixed <code>DialogTitle</code> + scrollable <code>DialogContent</code> + fixed <code>DialogActions</code>. Destructive confirm: <code>color="error" variant="contained"</code>.</p>
+        <p><code>onClose</code> handles backdrop + Escape (MUI v5+). Do not use removed <code>onBackdropClick</code>.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Progress <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>CircularProgress</code> — Small 16px · Medium 20px · Large 24px</span></h4>
+        <p>Color: <span class="swatch" style="background:#01c5c1;"></span> <code>--primary/main</code>. Optional body2 label below spinner. LinearProgress not documented — use only if a specific feature requires it.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Radio <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>RadioGroup</code> + <code>Radio</code></span></h4>
+        <div class="comp-subtitle">States: Unselected · Selected · Disabled</div>
+        <p>Selected: <span class="swatch" style="background:#01c5c1;"></span> <code>--primary/main</code> #01c5c1.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Select <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Select</code> + <code>FormControl</code> — 4 Biz configurations</span></h4>
+        <table class="token-table" style="margin-top:10px;">
+          <thead><tr><th>Configuration</th><th>Height</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Standard (with label)</td><td>40px</td><td>Label above, helper text below</td></tr>
+            <tr><td>Select without Label</td><td>24px</td><td>Compact; toolbars and map controls</td></tr>
+            <tr><td>Select with Chips</td><td>Variable</td><td>Multi-select; values as chips inside field</td></tr>
+            <tr><td>Transparent Select</td><td>Variable</td><td>No border; map overlays and scheduler</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Snackbar <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Snackbar</code> — Anchor: bottom-right</span></h4>
+        <div class="comp-subtitle">States: Default · Success · Error · Warning &nbsp;|&nbsp; Props: icon · closeButton · undo</div>
+        <p><strong>Default:</strong> Dark inverted toast — bg <code>--text/primary</code> #1c1c1c, white text. Not a severity Alert.</p>
+        <p><strong>Success / Error / Warning:</strong> uses Alert severity tokens. Shadow: <code>drop-shadow(0px 3px 6px rgba(0,0,0,0.2))</code>.</p>
+        <p><span class="badge-inferred">INFERRED</span> <code>autoHideDuration=6000</code> unless undo action is present.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Switch <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Switch</code> — 27.2×16px</span></h4>
+        <div class="comp-subtitle">States: Off · On · Disabled</div>
+        <p>On track: <span class="swatch" style="background:#01c5c1;"></span> <code>--primary/main</code>. Optional front/back text labels (Biz extension).</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Table Pagination <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>TablePagination</code></span></h4>
+        <p>Standard MUI behavior. <span class="badge-inferred">INFERRED</span> <code>rowsPerPageOptions={[10, 25, 50]}</code>.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Tab <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>Tabs</code> + <code>Tab</code> — Regular 40px · Large 56px</span></h4>
+        <table class="token-table" style="margin-top:10px;">
+          <thead><tr><th>State</th><th>Text color</th><th>Indicator</th></tr></thead>
+          <tbody>
+            <tr><td>Active</td><td><span class="swatch" style="background:#00a9a1;"></span> <code>--primary/textandicon*</code> #00a9a1</td><td>2px bottom border</td></tr>
+            <tr><td>Inactive</td><td><span class="swatch" style="background:#676c74;"></span> <code>--text/secondary</code> #676c74</td><td>—</td></tr>
+          </tbody>
+        </table>
+        <p>Tab badges: see Badge entry above.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Text Field <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>TextField</code> — variant: <code>outlined</code> · Height: 40px</span></h4>
+        <div class="comp-subtitle">States: Default · Hover · Focused · Error · Disabled</div>
+        <table class="token-table" style="margin-top:10px;">
+          <thead><tr><th>State</th><th>Border</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Default</td><td><code>--border/main</code> #b9c0cc</td><td>Placeholder: <code>--text/placeholder*</code> #a4adb9</td></tr>
+            <tr><td>Focused</td><td><span class="swatch" style="background:#01c5c1;"></span> <code>--primary/main</code></td><td>—</td></tr>
+            <tr><td>Error</td><td><span class="swatch" style="background:#e24f4b;"></span> <code>--error/main</code></td><td>Helper text with error message</td></tr>
+            <tr><td>Disabled</td><td>dimmed <code>--border/main</code></td><td>Bg: <code>--secondary/light</code></td></tr>
+          </tbody>
+        </table>
+        <p>Search field variant (Top Bar): 335px wide.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Toggle Buttons <span style="font-size:11px; font-weight:400; color:var(--muted);">MUI <code>ToggleButtonGroup</code></span></h4>
+        <div class="comp-subtitle">States: Unselected · Selected · Disabled</div>
+        <p>Selected: bg <span class="swatch" style="background:#e8f8f8;"></span> <code>--primary/light</code>, text/icon <span class="swatch" style="background:#00a9a1;"></span> <code>--primary/textandicon*</code>.</p>
+        <p>Used for view-mode switching (e.g. list vs grid, day vs week).</p>
+      </div>
+
+      <div class="section-label">Custom Components (Biz Only)</div>
+
+      <div class="comp-entry">
+        <h4>Custom Icons <span class="badge-custom">Biz custom</span></h4>
+        <div class="comp-subtitle">SVG icon set beyond standard MUI / Tabler icons</div>
+        <p>Sidebar menu icons: office-map, space-list, seat-list, scheduler, inventory, locker, analytics, manual.</p>
+        <div class="confirm-banner"><strong>⚠ CONFIRM:</strong> Full icon catalog and implementation naming convention.</div>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Empty State <span class="badge-custom">Biz custom</span></h4>
+        <div class="comp-subtitle">2 variants: Illustration (300px) · Text only (200px)</div>
+        <p><strong>Illustration:</strong> Custom SVG + optional title (h5/h6) + overline-style description.</p>
+        <p><strong>Text only:</strong> body2 italic text, no illustration.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Map Date Navigation <span class="badge-custom">Biz custom</span></h4>
+        <div class="comp-subtitle">Day-by-day navigation for Office Map</div>
+        <p>Prev/next arrows + date label. Shadow: <code>drop-shadow(0px 4px 20px rgba(0,0,0,0.15))</code>.</p>
+        <p><span class="badge-inferred">INFERRED</span> MUI <code>IconButton</code> arrows + <code>body1</code> label.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Month Year Navigation <span class="badge-custom">Biz custom</span></h4>
+        <div class="comp-subtitle">Scheduler and Date Picker header</div>
+        <p>Prev/next arrows flanking a month + year label.</p>
+        <p><span class="badge-inferred">INFERRED</span> MUI <code>IconButton</code> arrows + <code>body1</code> or <code>h6</code> label.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Profile Card <span class="badge-custom">Biz custom</span></h4>
+        <div class="comp-subtitle">Top Bar and user list contexts</div>
+        <p>Avatar (32×32px) + name (<code>body1</code>) + status/role (<code>caption</code>).</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Timeline Picker <span class="badge-custom">Biz custom</span></h4>
+        <div class="comp-subtitle">Time-range selection for Scheduler</div>
+        <p><span class="badge-inferred">INFERRED</span> Horizontal scrollable timeline with draggable start/end handles. Not a standard MUI component.</p>
+        <div class="confirm-banner"><strong>⚠ CONFIRM:</strong> Full anatomy and token usage.</div>
+      </div>
+
+      <hr class="md-hr">
+
+      <div class="open-items">
+        <h4>Open Items</h4>
+        <ol>
+          <li>Confirm Workflows chip color token — is it <code>--highlight*/main</code> or a separate token?</li>
+          <li>Confirm full custom icon catalog and implementation naming convention.</li>
+        </ol>
+      </div>
+
     </div>
   </main>
 </div>

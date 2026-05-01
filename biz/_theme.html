@@ -6,13 +6,57 @@
   <title>Biz — Theme — UX Library</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
+    .md-content { max-width: 760px; }
     .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
     .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
     .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* Token tables */
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: middle; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    /* Color swatch */
+    .swatch { width: 28px; height: 28px; border-radius: 6px; display: inline-block; vertical-align: middle; border: 0.5px solid rgba(0,0,0,0.10); flex-shrink: 0; }
+    .swatch-cell { display: flex; align-items: center; gap: 8px; }
+    .hex-label { font-family: var(--mono); font-size: 11px; color: #666; }
+
+    /* Status badges */
+    .badge-confirm { display: inline-block; background: #fff8e1; border: 0.5px solid #f0c030; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #8a6800; padding: 1px 6px; vertical-align: middle; }
+    .badge-inferred { display: inline-block; background: #f3f3f3; border: 0.5px solid #ccc; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #777; padding: 1px 6px; vertical-align: middle; }
+    .badge-stable { display: inline-block; background: #eefaf2; border: 0.5px solid #39a86b; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #276e45; padding: 1px 6px; vertical-align: middle; }
+
+    /* Confirm banner */
+    .confirm-banner { background: #fff8e1; border: 0.5px solid #f0c030; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #6b4f00; line-height: 1.65; margin: 16px 0; }
+    .confirm-banner strong { color: #8a6800; font-family: var(--mono); }
+
+    /* Typography specimen */
+    .type-specimen { padding: 10px 0; border-bottom: 0.5px solid var(--border); display: flex; align-items: baseline; gap: 20px; }
+    .type-specimen:last-child { border-bottom: none; }
+    .type-meta { flex: 0 0 200px; font-family: var(--mono); font-size: 10px; color: var(--muted); line-height: 1.6; }
+    .type-preview { flex: 1; color: #1c1c1c; }
+
+    /* Shadow preview */
+    .shadow-card { display: inline-block; background: #fff; border-radius: 8px; padding: 14px 18px; font-size: 12px; color: #555; margin: 8px 12px 8px 0; }
+    .shadow-listmenu { filter: drop-shadow(0px 3px 12px rgba(0,0,0,0.2)); }
+    .shadow-fab { filter: drop-shadow(0px 4.4px 11.1px rgba(0,0,0,0.3)); }
+    .shadow-onmap { filter: drop-shadow(0px 4px 20px rgba(0,0,0,0.15)); }
+
+    /* Shape preview */
+    .shape-demo { display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 40px; background: #01c5c1; color: #fff; font-size: 11px; font-family: var(--mono); margin-right: 12px; }
+    .shape-pill { display: inline-flex; align-items: center; justify-content: center; padding: 0 14px; height: 28px; background: #01c5c1; color: #fff; font-size: 11px; font-family: var(--mono); }
+
+    /* Open items */
+    .open-items { background: var(--bg); border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+    .open-items h4 { font-size: 12px; font-weight: 600; color: var(--text); margin: 0 0 10px; }
+    .open-items ol { margin: 0; padding-left: 18px; }
+    .open-items li { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 6px; }
+    .open-items li code { font-family: var(--mono); background: #fff; padding: 1px 4px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
   </style>
 </head>
 <body>
@@ -22,17 +66,509 @@
   <div class="header-spacer"></div>
 </header>
 <div class="layout">
-  <nav class="sidebar">
-  </nav>
+  <nav class="sidebar"></nav>
   <main>
     <div class="breadcrumb"><a href="../index.html">Home</a><span class="breadcrumb-sep">/</span><a href="./_index.html">Biz</a><span class="breadcrumb-sep">/</span><span>Theme</span></div>
     <div class="page-header">
-      <h2><span class="icon"><i class="ti ti-building"></i></span> Biz — Theme</h2>
-      <p>User portal and admin portal theme tokens. Separate surface definitions.</p>
+      <h2><span class="icon"><i class="ti ti-palette"></i></span> Biz — Theme</h2>
+      <p>MUI color tokens and typography for the Biz User Portal (web). Source: Figma library <code>-Library- Biz User Portal v2</code>.</p>
+      <div style="margin-top:8px;">
+        <span class="badge-stable">✓ reviewed</span>
+        <span style="font-size:11px; color:var(--muted); margin-left:8px;">Last updated: 2026-05-01 &nbsp;·&nbsp; Framework: MUI v5+</span>
+      </div>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Framework</h2>
+      <p>MUI v5+ (Material UI). Theme delivered via <code>createTheme()</code>. CSS variables mode (<code>cssVariables: true</code>) generates <code>--mui-palette-*</code> vars alongside the Figma custom property names shown below.</p>
+
+      <hr class="md-hr">
+
+      <!-- COLOR PALETTE -->
+      <h2 class="md-h2">Color Palette</h2>
+
+      <h3 class="md-h3">Primary</h3>
+      <table class="token-table">
+        <thead>
+          <tr><th>Swatch</th><th>Token (CSS var)</th><th>Hex</th><th>MUI path</th><th>Usage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="swatch" style="background:#01c5c1;"></div></td>
+            <td><code>--primary/main</code></td>
+            <td><span class="hex-label">#01c5c1</span></td>
+            <td><code>palette.primary.main</code></td>
+            <td>Buttons, active states, FAB</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#0bb7b4;"></div></td>
+            <td><code>--primary/mainhover*</code></td>
+            <td><span class="hex-label">#0bb7b4</span></td>
+            <td><code>palette.primary.dark</code></td>
+            <td>Hover state for primary elements</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#e8f8f8;"></div></td>
+            <td><code>--primary/light</code></td>
+            <td><span class="hex-label">#e8f8f8</span></td>
+            <td><code>palette.primary.light</code></td>
+            <td>Active badge bg, active chip bg</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#00a9a1;"></div></td>
+            <td><code>--primary/dark</code></td>
+            <td><span class="hex-label">#00a9a1</span></td>
+            <td><span class="badge-inferred">INFERRED</span> dark variant</td>
+            <td>Links, some icon fills</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#00a9a1;"></div></td>
+            <td><code>--primary/textandicon*</code></td>
+            <td><span class="hex-label">#00a9a1</span></td>
+            <td><code>palette.primary.contrastText</code> (on light)</td>
+            <td>Active tab text, active badge text</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="confirm-banner">
+        <strong>⚠ CONFIRM:</strong> Whether <code>--primary/dark</code> and <code>--primary/textandicon*</code> are both <code>#00a9a1</code> or if dark is a slightly different value.
+      </div>
+
+      <h3 class="md-h3">Secondary / Surface</h3>
+      <table class="token-table">
+        <thead>
+          <tr><th>Swatch</th><th>Token (CSS var)</th><th>Hex</th><th>MUI path</th><th>Usage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="swatch" style="background:#f5f7fa; border-color:#ddd;"></div></td>
+            <td><code>--secondary/light</code></td>
+            <td><span class="hex-label">#f5f7fa</span></td>
+            <td><code>palette.secondary.light</code></td>
+            <td>Page background, disabled bg, inactive badge bg</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#ffffff; border-color:#ddd;"></div></td>
+            <td><code>--secondary/contrasttext</code></td>
+            <td><span class="hex-label">#ffffff</span></td>
+            <td><code>palette.secondary.contrastText</code></td>
+            <td>Text on dark surfaces</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#ffffff; border-color:#ddd;"></div></td>
+            <td><code>--white/white</code></td>
+            <td><span class="hex-label">#ffffff</span></td>
+            <td><code>palette.background.paper</code></td>
+            <td>Card / panel backgrounds</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Text</h3>
+      <table class="token-table">
+        <thead>
+          <tr><th>Swatch</th><th>Token (CSS var)</th><th>Hex</th><th>MUI path</th><th>Usage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="swatch" style="background:#1c1c1c;"></div></td>
+            <td><code>--text/primary</code></td>
+            <td><span class="hex-label">#1c1c1c</span></td>
+            <td><code>palette.text.primary</code></td>
+            <td>Body text, headings, labels</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#676c74;"></div></td>
+            <td><code>--text/secondary</code></td>
+            <td><span class="hex-label">#676c74</span></td>
+            <td><code>palette.text.secondary</code></td>
+            <td>Default tab label, secondary labels</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#7b828b;"></div></td>
+            <td><code>--text/tertiary*</code></td>
+            <td><span class="hex-label">#7b828b</span></td>
+            <td><span class="badge-inferred">INFERRED</span> muted variant</td>
+            <td>Helper text, captions, subtitles</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#a4adb9;"></div></td>
+            <td><code>--text/placeholder*</code></td>
+            <td><span class="hex-label">#a4adb9</span></td>
+            <td><code>palette.text.disabled</code></td>
+            <td>Input placeholder text</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#ffffff; border-color:#ddd;"></div></td>
+            <td><code>--text/invert</code></td>
+            <td><span class="hex-label">#ffffff</span></td>
+            <td><code>palette.primary.contrastText</code></td>
+            <td>Text on dark / primary fills</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Border / Divider</h3>
+      <table class="token-table">
+        <thead>
+          <tr><th>Swatch</th><th>Token (CSS var)</th><th>Hex</th><th>MUI path</th><th>Usage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="swatch" style="background:#b9c0cc;"></div></td>
+            <td><code>--border/main</code></td>
+            <td><span class="hex-label">#b9c0cc</span></td>
+            <td><code>palette.divider</code></td>
+            <td>Input borders, card borders, accordion borders</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#99a5b8;"></div></td>
+            <td><code>--border/highlight</code></td>
+            <td><span class="hex-label">#99a5b8</span></td>
+            <td><span class="badge-inferred">INFERRED</span> stronger border</td>
+            <td>Alert secondary buttons, emphasis borders</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#d4d9e1;"></div></td>
+            <td><code>--divider</code></td>
+            <td><span class="hex-label">#d4d9e1</span></td>
+            <td><code>palette.divider</code> (alt)</td>
+            <td>Layout dividers (left menu / top bar separator)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="confirm-banner">
+        <strong>⚠ CONFIRM:</strong> Which of <code>--divider</code> (#d4d9e1) vs <code>--border/main</code> (#b9c0cc) maps to MUI's <code>palette.divider</code>.
+      </div>
+
+      <h3 class="md-h3">Semantic Colors</h3>
+      <table class="token-table">
+        <thead>
+          <tr><th>Swatch</th><th>Token (CSS var)</th><th>Hex</th><th>MUI path</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="swatch" style="background:#1e88e5;"></div></td>
+            <td><code>--info/main</code></td>
+            <td><span class="hex-label">#1e88e5</span></td>
+            <td><code>palette.info.main</code></td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#39a86b;"></div></td>
+            <td><code>--success/main</code></td>
+            <td><span class="hex-label">#39a86b</span></td>
+            <td><code>palette.success.main</code></td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#e2b243;"></div></td>
+            <td><code>--warning/main</code></td>
+            <td><span class="hex-label">#e2b243</span></td>
+            <td><code>palette.warning.main</code></td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#c29121;"></div></td>
+            <td><code>--warning/dark</code></td>
+            <td><span class="hex-label">#c29121</span></td>
+            <td><code>palette.warning.dark</code></td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#e24f4b;"></div></td>
+            <td><code>--error/main</code></td>
+            <td><span class="hex-label">#e24f4b</span></td>
+            <td><code>palette.error.main</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Component-Level — Alert / Snackbar Backgrounds</h3>
+      <table class="token-table">
+        <thead>
+          <tr><th>Swatch</th><th>Token (CSS var)</th><th>Hex</th><th>Usage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="swatch" style="background:#e3f2fd;"></div></td>
+            <td><code>--_components/alert/info/background</code></td>
+            <td><span class="hex-label">#e3f2fd</span></td>
+            <td>Alert info bg</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#eefaf2;"></div></td>
+            <td><code>--_components/alert/success/background</code></td>
+            <td><span class="hex-label">#eefaf2</span></td>
+            <td>Alert success bg</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#faf2df;"></div></td>
+            <td><code>--_components/alert/warning/background</code></td>
+            <td><span class="hex-label">#faf2df</span></td>
+            <td>Alert warning bg, Snackbar warning bg</td>
+          </tr>
+          <tr>
+            <td><div class="swatch" style="background:#fef1f0;"></div></td>
+            <td><code>--_components/alert/error/background</code></td>
+            <td><span class="hex-label">#fef1f0</span></td>
+            <td>Alert error bg, Snackbar error bg</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Highlight / Accent</h3>
+      <table class="token-table">
+        <thead>
+          <tr><th>Swatch</th><th>Token (CSS var)</th><th>Hex</th><th>Usage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="swatch" style="background:#9c72ed;"></div></td>
+            <td><code>--highlight*/main</code></td>
+            <td><span class="hex-label">#9c72ed</span></td>
+            <td>Chip highlight variant, Figma annotation color</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="confirm-banner">
+        <strong>⚠ CONFIRM:</strong> MUI semantic token mapping for <code>--highlight*/main</code> (#9c72ed) — not a standard palette key, likely a custom extension.
+      </div>
+
+      <hr class="md-hr">
+
+      <!-- TYPOGRAPHY -->
+      <h2 class="md-h2">Typography</h2>
+      <p>Rem base: <strong>1rem = 16px</strong>. Both fonts loaded from Google Fonts.</p>
+
+      <h3 class="md-h3">Fonts</h3>
+      <table class="token-table">
+        <thead>
+          <tr><th>Language</th><th>Family</th><th>Weights available</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>English</td>
+            <td><strong>Inter</strong></td>
+            <td>9 weights (Regular 400, Medium 500, Bold 700, etc.)</td>
+          </tr>
+          <tr>
+            <td>日本語</td>
+            <td><strong>Noto Sans JP</strong></td>
+            <td>9 weights</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Type Scale</h3>
+      <table class="token-table">
+        <thead>
+          <tr><th>MUI Variant</th><th>Size</th><th>Weight</th><th>Line height</th><th>Letter spacing</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>h1</code></td>
+            <td>34px / 2.125rem</td>
+            <td>Bold 700</td>
+            <td>1.2</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>h2</code></td>
+            <td>32px / 2rem</td>
+            <td>Bold 700</td>
+            <td>1.2</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>h3</code></td>
+            <td>24px / 1.5rem</td>
+            <td>Bold 700</td>
+            <td>1.2</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>h4</code></td>
+            <td>18px / 1.125rem</td>
+            <td>Bold 700</td>
+            <td>1.2</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>h5</code></td>
+            <td>16px / 1rem</td>
+            <td>Bold 700</td>
+            <td>1.3</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>h6</code></td>
+            <td>14px / 0.875rem</td>
+            <td>Bold 700</td>
+            <td>1.3</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>overline</code></td>
+            <td>11px / 0.688rem</td>
+            <td>Bold 700</td>
+            <td>1.3</td>
+            <td>0.44px (UPPERCASE)</td>
+          </tr>
+          <tr>
+            <td><code>body1</code></td>
+            <td>14px / 0.875rem</td>
+            <td>Regular 400</td>
+            <td>1.3</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>body2</code></td>
+            <td>12px / 0.75rem</td>
+            <td>Regular 400</td>
+            <td>1.3</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>caption</code></td>
+            <td>11px / 0.688rem</td>
+            <td>Regular 400</td>
+            <td>1.3</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>button</code> (button1)</td>
+            <td>14px / 0.875rem</td>
+            <td>Medium 500</td>
+            <td>1</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><code>button2</code> <span class="badge-inferred">Biz custom</span></td>
+            <td>12px / 0.75rem</td>
+            <td>Medium 500</td>
+            <td>1</td>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Note: <code>button2</code> is a Biz-specific addition to the MUI type scale (not a standard MUI variant). Map to <code>typography.button</code> at small size or define as a custom variant.</p>
+
+      <!-- Typography Specimens -->
+      <h3 class="md-h3">Type Specimens</h3>
+      <div style="background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 20px 24px; margin: 12px 0 20px;">
+        <div class="type-specimen">
+          <div class="type-meta">h1 · 34px · Bold 700<br>Inter / Noto Sans JP</div>
+          <div class="type-preview" style="font-size:34px; font-weight:700; line-height:1.2;">Heading 1</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">h2 · 32px · Bold 700</div>
+          <div class="type-preview" style="font-size:32px; font-weight:700; line-height:1.2;">Heading 2</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">h3 · 24px · Bold 700</div>
+          <div class="type-preview" style="font-size:24px; font-weight:700; line-height:1.2;">Heading 3</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">h4 · 18px · Bold 700</div>
+          <div class="type-preview" style="font-size:18px; font-weight:700; line-height:1.2;">Heading 4</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">h5 · 16px · Bold 700</div>
+          <div class="type-preview" style="font-size:16px; font-weight:700; line-height:1.3;">Heading 5</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">h6 · 14px · Bold 700</div>
+          <div class="type-preview" style="font-size:14px; font-weight:700; line-height:1.3;">Heading 6</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">overline · 11px · Bold 700<br>0.44px letter-spacing</div>
+          <div class="type-preview" style="font-size:11px; font-weight:700; line-height:1.3; letter-spacing:0.44px; text-transform:uppercase;">OVERLINE LABEL</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">body1 · 14px · Regular 400</div>
+          <div class="type-preview" style="font-size:14px; font-weight:400; line-height:1.3; color:#676c74;">The quick brown fox jumps over the lazy dog.</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">body2 · 12px · Regular 400</div>
+          <div class="type-preview" style="font-size:12px; font-weight:400; line-height:1.3; color:#676c74;">The quick brown fox jumps over the lazy dog.</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">caption · 11px · Regular 400</div>
+          <div class="type-preview" style="font-size:11px; font-weight:400; line-height:1.3; color:#7b828b;">Helper text · Caption · Timestamp</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">button1 · 14px · Medium 500</div>
+          <div class="type-preview" style="font-size:14px; font-weight:500; line-height:1; color:#01c5c1;">Button Label</div>
+        </div>
+        <div class="type-specimen">
+          <div class="type-meta">button2 · 12px · Medium 500<br><span class="badge-inferred">Biz custom</span></div>
+          <div class="type-preview" style="font-size:12px; font-weight:500; line-height:1; color:#01c5c1;">Small Button</div>
+        </div>
+      </div>
+
+      <hr class="md-hr">
+
+      <!-- SHAPE -->
+      <h2 class="md-h2">Shape</h2>
+      <p><code>theme.shape.borderRadius</code>: <strong>8px</strong> — used on inputs, accordions, chips, alerts.</p>
+      <p>Pill / badge radius: <strong>100px</strong> — used on badges, FAB, pill chips.</p>
+      <div style="margin: 16px 0; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <div>
+          <div class="shape-demo" style="border-radius:8px;">8px</div>
+          <div style="font-size:10px; font-family:var(--mono); color:var(--muted); margin-top:4px; text-align:center;">default</div>
+        </div>
+        <div>
+          <div class="shape-pill" style="border-radius:100px;">Pill</div>
+          <div style="font-size:10px; font-family:var(--mono); color:var(--muted); margin-top:4px; text-align:center;">100px</div>
+        </div>
+      </div>
+
+      <hr class="md-hr">
+
+      <!-- SHADOWS / ELEVATION -->
+      <h2 class="md-h2">Shadows / Elevation</h2>
+      <table class="token-table">
+        <thead>
+          <tr><th>Name</th><th>Value</th><th>Usage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>List Menu Shadow</td>
+            <td><code>drop-shadow(0px 3px 12px rgba(0,0,0,0.2))</code></td>
+            <td>Dropdown menus, list menus</td>
+          </tr>
+          <tr>
+            <td>FAB Shadow</td>
+            <td><code>drop-shadow(0px 4.4px 11.1px rgba(0,0,0,0.3))</code></td>
+            <td>Floating Action Button</td>
+          </tr>
+          <tr>
+            <td>On-map buttons</td>
+            <td><code>drop-shadow(0px 4px 20px rgba(0,0,0,0.15))</code></td>
+            <td>Map overlay controls</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Shadow previews:</p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap; padding: 16px 0;">
+        <div class="shadow-card shadow-listmenu" style="border-radius:8px;">List Menu</div>
+        <div class="shadow-card shadow-fab" style="border-radius:8px;">FAB</div>
+        <div class="shadow-card shadow-onmap" style="border-radius:8px;">On-map</div>
+      </div>
+
+      <hr class="md-hr">
+
+      <!-- OPEN ITEMS -->
+      <div class="open-items">
+        <h4>Open Items</h4>
+        <ol>
+          <li>Confirm whether <code>--primary/dark</code> and <code>--primary/textandicon*</code> are both <code>#00a9a1</code> or if dark is slightly different.</li>
+          <li>Confirm <code>--divider</code> (#d4d9e1) vs <code>--border/main</code> (#b9c0cc) — which token maps to MUI <code>palette.divider</code>.</li>
+          <li>Confirm complete MUI semantic token mapping for <code>--highlight*/main</code> (#9c72ed) — likely not a standard palette key.</li>
+        </ol>
+      </div>
+
     </div>
   </main>
 </div>
