@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biz — Figma API — UX Library</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .md-content { max-width: 760px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
+    .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0 20px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); }
+    .token-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 9px 14px; background: var(--bg); border-bottom: 0.5px solid var(--border); }
+    .token-table td { padding: 9px 14px; border-bottom: 0.5px solid var(--border); color: #444; vertical-align: top; line-height: 1.55; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); word-break: break-all; }
+
+    .badge-stable { display: inline-block; background: #eefaf2; border: 0.5px solid #39a86b; border-radius: 4px; font-size: 10px; font-family: var(--mono); color: #276e45; padding: 1px 6px; vertical-align: middle; }
+
+    .note-banner { background: #e3f2fd; border-left: 3px solid #1e88e5; border-radius: 4px; padding: 10px 14px; font-size: 12px; color: #1a5276; line-height: 1.65; margin: 12px 0 16px; }
+    .warn-banner { background: #faf2df; border-left: 3px solid #e2b243; border-radius: 4px; padding: 10px 14px; font-size: 12px; color: #6b4f00; line-height: 1.65; margin: 12px 0 16px; }
+
+    .code-block { background: var(--bg); border: 0.5px solid var(--border); border-radius: 10px; padding: 16px; overflow-x: auto; margin: 12px 0 20px; }
+    .code-block pre { margin: 0; font-family: var(--mono); font-size: 11px; line-height: 1.6; color: #303640; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="../index.html"><div class="logo-dot"></div>UX Library</a></h1>
+  <span class="version-badge">v2.0</span>
+  <div class="header-spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar"></nav>
+  <main>
+    <div class="breadcrumb"><a href="../index.html">Home</a><span class="breadcrumb-sep">/</span><a href="./_index.html">Biz</a><span class="breadcrumb-sep">/</span><span>Figma API</span></div>
+    <div class="page-header">
+      <h2><span class="icon"><i class="ti ti-api"></i></span> Biz — Figma API Reference</h2>
+      <p>Developer reference for Figma plugin scripting. Component import keys, prop tables, and design token keys for the Biz User Portal v2 library.</p>
+      <div style="margin-top:8px;">
+        <span class="badge-stable">✓ stable</span>
+        <span style="font-size:11px; color:var(--muted); margin-left:8px;">Last updated: 2026-05-01 &nbsp;·&nbsp; Source: ClickUp Design System doc, BUP v2</span>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+    <div class="md-content">
+
+      <div class="note-banner">Developer reference for Figma plugin scripting. For visual specs and UX guidelines, see <code>_components.html</code> and <code>_layout.html</code>. Full prop tables with <code>#uid</code> suffixes are in <code>_figma-api.md</code>.</div>
+
+      <h2 class="md-h2">Library Metadata</h2>
+      <table class="token-table">
+        <thead><tr><th>Property</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>File key</td><td><code>Br4iJ26Yaj0Qn8RHz0mSht</code></td></tr>
+          <tr><td>Source file</td><td>-Library- Biz User Portal v2</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Import Patterns</h2>
+      <div class="code-block">
+        <pre>// Component SET (has variants)
+const set = await figma.importComponentSetByKeyAsync('KEY');
+const variant = set.findChild(c => c.type === 'COMPONENT' &&
+  c.variantProperties?.State === 'Default' && c.variantProperties?.Size === 'Medium');
+const inst = variant.createInstance();
+
+// Single component (no variants)
+const comp = await figma.importComponentByKeyAsync('KEY');
+const inst = comp.createInstance();
+
+// Set props — TEXT and BOOLEAN use exact '#uid' key; VARIANT use plain names
+inst.setProperties({ 'Title#34279:0': 'Save', 'Front icon#34306:52': false });</pre>
+      </div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Component Index</h2>
+      <p>Quick-access key index. Full prop tables with <code>#uid</code> suffixes and per-variant node IDs are in <code>_figma-api.md</code>.</p>
+
+      <h3 class="md-h3">Buttons</h3>
+      <table class="token-table">
+        <thead><tr><th>Component</th><th>Import key</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>Button — Primary</td><td><code>7a9e975…480fa52</code></td><td>Set</td></tr>
+          <tr><td>Button — Secondary</td><td><code>4d39a83…13bcab</code></td><td>Set</td></tr>
+          <tr><td>Button — Outlined</td><td><code>fb36e8e…d8513f</code></td><td>Set</td></tr>
+          <tr><td>Button — Transparent</td><td><code>011b46f…0f0c75</code></td><td>Set</td></tr>
+          <tr><td>Button — Icon Transparent</td><td><code>7eeeaa6…3b2ba8d</code></td><td>Set</td></tr>
+          <tr><td>Button — Icon Outlined</td><td><code>0ae6291…7f52d6f</code></td><td>Set</td></tr>
+          <tr><td>Button — Icon Vertical</td><td><code>4659af2…9ef349f</code></td><td>Set</td></tr>
+          <tr><td>Button — Transparent with Badge</td><td><code>f62db0b…aab4cae76</code></td><td>Set</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Inputs</h3>
+      <table class="token-table">
+        <thead><tr><th>Component</th><th>Import key</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>Text Field</td><td><code>5dd9907…661b8d</code></td><td>Set</td></tr>
+          <tr><td>Select</td><td><code>e5bd3df…bad1e0d40</code></td><td>Set</td></tr>
+          <tr><td>Select without Label</td><td><code>fde7a2e…57949dec</code></td><td>Set</td></tr>
+          <tr><td>Select with Chips</td><td><code>3541671…abdec96c</code></td><td>Set</td></tr>
+          <tr><td>Filter Select</td><td><code>30fbbdc…27be1c66</code></td><td>Set</td></tr>
+          <tr><td>Transparent Select</td><td><code>af6abc3…d2b52e33</code></td><td>Set</td></tr>
+          <tr><td>Checkbox</td><td><code>4982c7a…1abbcca9</code></td><td>Set</td></tr>
+          <tr><td>Checklist Fieldset Vertical</td><td><code>41e0e4d…fe52cb2a</code></td><td>Set</td></tr>
+          <tr><td>Checklist Fieldset Horizontal</td><td><code>d616107…3e48631</code></td><td>Set</td></tr>
+          <tr><td>Radio</td><td><code>187afd2…ffc3f12fe6</code></td><td>Set</td></tr>
+          <tr><td>Radio Fieldset Vertical</td><td><code>fa39fa4…1cb3706a</code></td><td>Set</td></tr>
+          <tr><td>Radio Fieldset Horizontal</td><td><code>47bdcc9…54e35e8d</code></td><td>Set</td></tr>
+          <tr><td>Switch</td><td><code>aa19ddf…cc0a74e25</code></td><td>Set</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Selection &amp; Toggle</h3>
+      <table class="token-table">
+        <thead><tr><th>Component</th><th>Import key</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>Toggle Button (Standalone)</td><td><code>0d2c912…d85b548</code></td><td>Set</td></tr>
+          <tr><td>Toggle Button Transparent</td><td><code>ab63a85…e5e2cd7</code></td><td>Set</td></tr>
+          <tr><td>Filled Group Toggle</td><td><code>983eadb…0fe8567b</code></td><td>Set</td></tr>
+          <tr><td>Outlined Group Toggle</td><td><code>e816992…5c1af06</code></td><td>Set</td></tr>
+          <tr><td>Icon Group Toggle</td><td><code>73c7ebe…c039f6ba</code></td><td>Set</td></tr>
+          <tr><td>Tab Menu</td><td><code>7c27cab…b19df4fd</code></td><td>Set</td></tr>
+          <tr><td>Tab Menu Group</td><td><code>850d738…b69dc3df</code></td><td>Single</td></tr>
+          <tr><td>Round Chips</td><td><code>6a97a28…dd01ed3a</code></td><td>Set</td></tr>
+          <tr><td>Filled Info Chips</td><td><code>3822a24…e06800d</code></td><td>Set</td></tr>
+          <tr><td>Square Chips</td><td><code>3d370bb…b1245760</code></td><td>Set</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Date &amp; Time</h3>
+      <table class="token-table">
+        <thead><tr><th>Component</th><th>Import key</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>Basic Date Picker</td><td><code>fde5276…3c53d1</code></td><td>Single</td></tr>
+          <tr><td>Date Range</td><td><code>898a858…72cb3fd0</code></td><td>Single</td></tr>
+          <tr><td>Time Picker with Field</td><td><code>205f7b2…1f54e3292</code></td><td>Single</td></tr>
+          <tr><td>Drumroll Time Picker</td><td><code>f53aec1…e790872</code></td><td>Set</td></tr>
+          <tr><td>Timeline Picker</td><td><code>8fa1c44…e136afd</code></td><td>Single</td></tr>
+          <tr><td>Date Navigation (Single)</td><td><code>e8a6b7a…3e1962</code></td><td>Single</td></tr>
+          <tr><td>Date Navigation (Month)</td><td><code>78446b2…1af3b559</code></td><td>Single</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Layout / Shell</h3>
+      <table class="token-table">
+        <thead><tr><th>Component</th><th>Import key</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Portal Template</td><td><code>a4d5c90…f9469cc1b</code></td><td>Full page shell</td></tr>
+          <tr><td>Top Bar</td><td><code>3a81814…f137a5541</code></td><td>Global nav header</td></tr>
+          <tr><td>Left Menu</td><td><code>25abb3d…d84bb423</code></td><td>9-slot sidebar</td></tr>
+          <tr><td>Panel Header</td><td><code>5e80f72…e78a6bfa</code></td><td>Right panel header</td></tr>
+        </tbody>
+      </table>
+      <div class="warn-banner">⚠️ Menu Icon (Side Nav) states are private (dot-prefixed). Use <strong>Left Menu</strong> instead of importing individual state keys.</div>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Design Token Import Keys</h2>
+      <p>Use <code>figma.variables.importVariableByKeyAsync(key)</code> for color and spacing tokens. Use <code>figma.importStyleByKeyAsync(key)</code> for text styles. Import only what each script needs — importing all at once causes timeouts.</p>
+
+      <h3 class="md-h3">Key Text Styles</h3>
+      <table class="token-table">
+        <thead><tr><th>Style</th><th>Key</th></tr></thead>
+        <tbody>
+          <tr><td>EN/body1 (14px Regular)</td><td><code>9515cda…e888a75</code></td></tr>
+          <tr><td>EN/body2 (12px Regular)</td><td><code>eae038d…b4398a6</code></td></tr>
+          <tr><td>EN/button1</td><td><code>f648452…0dad42b3</code></td></tr>
+          <tr><td>EN/caption (11px)</td><td><code>aad1ce6…5633e54</code></td></tr>
+        </tbody>
+      </table>
+      <p>⚠️ No medium/semibold text styles — only Regular and Bold.</p>
+
+      <h3 class="md-h3">Key Color Variables</h3>
+      <table class="token-table">
+        <thead><tr><th>Variable</th><th>Hex</th><th>Key</th></tr></thead>
+        <tbody>
+          <tr><td>primary/main</td><td>#01c5c1</td><td><code>618cc33…803843ff</code></td></tr>
+          <tr><td>text/primary</td><td>#1c1c1c</td><td><code>d374d89…92f759</code></td></tr>
+          <tr><td>secondary/light</td><td>#f5f7fa</td><td><code>379ba64…8467447</code></td></tr>
+          <tr><td>error/main</td><td>#e24f4b</td><td><code>bcf357c…b74a244</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Spacing Variables</h3>
+      <table class="token-table">
+        <thead><tr><th>Multiplier</th><th>Value</th><th>Key</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>8px</td><td><code>aab4c0a…8318517</code></td></tr>
+          <tr><td>2</td><td>16px</td><td><code>90ae737…218e1f12</code></td></tr>
+          <tr><td>3</td><td>24px</td><td><code>ebd09d8…9f31d6</code></td></tr>
+          <tr><td>4</td><td>32px</td><td><code>da8d517…dbf3820d</code></td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Common Naming Mistakes</h2>
+      <p>What you call it vs. the correct Figma component name.</p>
+      <table class="token-table">
+        <thead><tr><th>What you might say</th><th>Correct Figma component</th></tr></thead>
+        <tbody>
+          <tr><td>Input, text box</td><td>Text Field</td></tr>
+          <tr><td>Dropdown, select box</td><td>Select</td></tr>
+          <tr><td>Toggle switch, on/off</td><td>Switch</td></tr>
+          <tr><td>Segment tabs, tab group, pill tabs</td><td>Filled Group Toggle</td></tr>
+          <tr><td>Modal, popup, dialog</td><td>Basic Dialog</td></tr>
+          <tr><td>Menu, sidebar item, list item</td><td>List / Menu</td></tr>
+          <tr><td>Tag, pill, filter chip</td><td>Round Chips</td></tr>
+          <tr><td>Notification dot, count bubble</td><td>Active Badge</td></tr>
+          <tr><td>Banner, inline alert, callout</td><td>Alert</td></tr>
+          <tr><td>Toast, notification</td><td>Snackbar</td></tr>
+          <tr><td>Hint, info bubble</td><td>Tooltip</td></tr>
+          <tr><td>Collapsible section</td><td>Accordion</td></tr>
+          <tr><td>Round action button</td><td>FAB</td></tr>
+          <tr><td>Loading bar, spinner</td><td>Progress</td></tr>
+          <tr><td>Time wheel, drum picker</td><td>Drumroll Time Picker</td></tr>
+          <tr><td>Calendar, datepicker</td><td>Date Picker</td></tr>
+          <tr><td>Next/prev day, date switcher</td><td>Date Navigation</td></tr>
+          <tr><td>No data, blank state</td><td>Empty State</td></tr>
+          <tr><td>App shell, page layout wrapper</td><td>Portal Template</td></tr>
+          <tr><td>Left nav, sidebar menu</td><td>Left Menu</td></tr>
+        </tbody>
+      </table>
+
+    </div>
+  </main>
+</div>
+<script src="../nav.js"></script>
+</body>
+</html>

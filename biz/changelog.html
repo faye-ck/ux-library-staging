@@ -65,6 +65,119 @@
     </div>
     <div class="section-divider"></div>
 
+    <!-- ── v0.5.0 ── -->
+    <div class="cl-version-block">
+      <div class="cl-version-header">
+        <span class="cl-version-num">v0.5.0</span>
+        <span class="cl-version-date">2026-05-01</span>
+        <span class="cl-version-tag cl-tag-minor">Minor</span>
+      </div>
+      <div class="cl-card">
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div>
+            <div class="cl-entry-title">Locker — Feature, Mobile Web, Admin Portal</div>
+            <div class="cl-entry-desc">Full spec from ClickUp. Feature: locker dashboard (4 summary grids), office map search/grid/panel, transfer and booking flows, locker booking during seat booking, My Bookings tab. Mobile: auto/manual start, pick-up confirmation, QR scanning flows (group, transfer, booking, dedicated). Admin Portal: user portal settings, email notifications, Create Locker Group (general settings, layout, grid preview, cell merging, non-lockers), group details, edit locker, CSV column changes, search tables, In Use Lockers report, map editor placement.</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div>
+            <div class="cl-entry-title">Office Map — Feature (F01–F10)</div>
+            <div class="cl-entry-desc">Full user portal spec from ClickUp. Covers seat map navigation (F01), space booking + time extension (F02/F02-EXT), seat booking (F03), bulk seat booking (F04), custom status (F06), proxy user management (F07), search and filter from map (F08), custom group (F09), and My Bookings (F10).</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div>
+            <div class="cl-entry-title">Office Map — Admin Portal</div>
+            <div class="cl-entry-desc">Dynamic time slot settings (with-time-slots and full-day-only setup tables) and map editor improvements (Phase 1: space creation, seat creation, map area creation, keyboard shortcuts; Next Phase items listed).</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div>
+            <div class="cl-entry-title">Analytics — Admin Portal</div>
+            <div class="cl-entry-desc">Seat/space analytics dashboard: global filters (time period, location), sub-menu (Space Utilization, Seat Utilization, Check-in by Department), time dimension toggle table, stacked bar charts, grid heat map with color coding (5 utilization bands), Business Hours setting, and Check-in by Department.</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div>
+            <div class="cl-entry-title">Reception — Admin Portal + Receptionist Portal</div>
+            <div class="cl-entry-desc">Security Card Management spec. Admin Portal (sections 1–3): enable/disable feature, create/edit cards (fields table, CSV bulk update), manage unpaired/paired cards (pairing queue, bulk actions, card status reference table, search). Receptionist Portal (section 4): guest check-in (skip card with In: prefix), guest check-out (skip card with Lost/Damaged/Other reason options, Out: prefix, bulk mixed check-out).</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div>
+            <div class="cl-entry-title">Inventory — Feature</div>
+            <div class="cl-entry-desc">Bulk Booking/Borrowing spec: switching to bulk mode (right panel changes, eligibility checks, mobile behaviour), evidence upload flow, timeline view (multi-date item-level selection), My Bookings (bulk booking and borrowing/returning), and Phase 2 Workflows integration (upcoming).</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div>
+            <div class="cl-entry-title">All content pages — Sources moved to bottom</div>
+            <div class="cl-entry-desc">Moved "Source:" paragraph from the page header area to a dedicated "Sources" section at the end of each page, formatted as a bullet list. Applied to 9 pages: Office Map (feature, admin-portal), Analytics (admin-portal), Reception (admin-portal, receptionist-portal), Inventory (feature), Locker (feature, mobile-web, admin-portal).</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div>
+            <div class="cl-entry-title">Stub pages — CSS and status badge standardized</div>
+            <div class="cl-entry-desc">Updated 15 stub HTML pages to use the standard feature page template: max-width 760px, updated md-h3 styling (11px/600/0.07em), added ul/li rules, spec-table styles, and status-badge classes. Added "draft" status badge with last-updated date to all stub pages missing it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- ── v0.4.0 ── -->
+    <div class="cl-version-block">
+      <div class="cl-version-header">
+        <span class="cl-version-num">v0.4.0</span>
+        <span class="cl-version-date">2026-05-01</span>
+        <span class="cl-version-tag cl-tag-minor">Minor</span>
+      </div>
+      <div class="cl-card">
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-added">Added</span>
+          <div>
+            <div class="cl-entry-title">Figma API Reference (<code>_figma-api.md</code> / <code>.html</code>)</div>
+            <div class="cl-entry-desc">New developer reference for Figma plugin scripting. Covers 30+ component import keys organized by category (Buttons, Inputs, Selection &amp; Toggle, Date &amp; Time, Feedback, Data Display, Layout/Shell), full prop tables with <code>#uid</code> suffixes, custom icon catalog (70+ icons across 6 categories), Empty State illustration keys, and design token import keys (text styles, color variables, spacing, shape).</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div>
+            <div class="cl-entry-title">Theme — expanded token coverage</div>
+            <div class="cl-entry-desc">Added raw color scales (Teal 50–900, Grey 50–900, BlueGrey 100–700), action state overlays, spacing table, breakpoints (confirmed xs=444px through xl=1536px), component-specific tokens (Avatar, Input, Switch, Chip, Snackbar, Tooltip, Backdrop, Alert, Breadcrumbs, Stepper), and font weight/size scales. Status upgraded to stable.</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div>
+            <div class="cl-entry-title">Components — full audit from ClickUp Design System</div>
+            <div class="cl-entry-desc">Expanded component catalog: Button variants (10 Figma types), Chip types (Round / Square / Filled Info, 32 Filled Info variants), Modal (added Scrolling Long Dialog, Action Footer mobile), Select (added Filter Select and Filter Select Transparent), custom icon catalog (6 categories, 70+ named icons), Empty State illustrations (10 context types), Date Navigation (Single + Month), Avatar component set, Profile/User List, Timeline Slot sub-component. All CONFIRM/INFERRED flags resolved. Status upgraded to stable.</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div>
+            <div class="cl-entry-title">Layout — Figma keys + confirmed token values</div>
+            <div class="cl-entry-desc">Added Figma import keys for Portal Template, Left Menu, Top Bar, and Panel Header. Confirmed Left Menu hover state tokens. Added Content Area / Panel Header section. Removed INFERRED flag from breakpoints (all values confirmed). Status upgraded to stable.</div>
+          </div>
+        </div>
+        <div class="cl-entry">
+          <span class="cl-entry-type cl-type-changed">Changed</span>
+          <div>
+            <div class="cl-entry-title">Index — added Figma API to config file directory</div>
+            <div class="cl-entry-desc">Added <code>_figma-api.md</code> entry to the Config Files table. Status upgraded to stable.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ── v0.3.0 ── -->
     <div class="cl-version-block">
       <div class="cl-version-header">

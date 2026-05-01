@@ -6,13 +6,21 @@
   <title>Locker — Admin Portal — UX Library</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
-    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-content { max-width: 760px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 10px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 24px 0 6px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content ul { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 0 0 10px 18px; }
+    .md-content li { margin-bottom: 4px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .status-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 20px; border: 0.5px solid; margin-right: 6px; }
+    .status-draft { background: var(--bg); color: var(--muted); border-color: var(--border); }
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .spec-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 6px 10px; border-bottom: 1px solid var(--border); }
+    .spec-table td { padding: 7px 10px; border-bottom: 0.5px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.55; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .flag-confirm { background: #fffbea; border-left: 3px solid #f0a500; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12px; color: #7a5800; margin: 10px 0; }
   </style>
 </head>
 <body>
@@ -28,11 +36,215 @@
     <div class="breadcrumb"><a href="../../index.html">Home</a><span class="breadcrumb-sep">/</span><a href="../_index.html">Biz</a><span class="breadcrumb-sep">/</span><span>Locker</span><span class="breadcrumb-sep">/</span><span>Admin Portal</span></div>
     <div class="page-header">
       <h2><span class="icon"><i class="ti ti-building"></i></span> Locker — Admin Portal</h2>
-      <p>Admin portal delta.</p>
+      <p>Admin portal — settings, locker group creation, management, CSV, search, and reports.</p>
+    </div>
+    <div style="margin-bottom:12px">
+      <span class="status-badge status-draft">draft</span>
+      <span style="font-size:11px;color:var(--muted);font-family:var(--mono)">Updated 2026-05-01</span>
     </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Settings</h2>
+
+      <h3 class="md-h3">User Portal Settings</h3>
+      <table class="spec-table">
+        <thead><tr><th>Setting</th><th>Default</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Locker Transfers and Bookings</td><td>Enabled</td><td>Disabling hides "Make a Transfer" and "Book Locker" buttons in user portal</td></tr>
+          <tr><td>Allow locker booking during seat booking</td><td>Disabled</td><td>Shows locker booking checkbox in seat booking form when enabled</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Locker Sizes (read-only)</h3>
+      <table class="spec-table">
+        <thead><tr><th>Size</th><th>Dimensions</th></tr></thead>
+        <tbody>
+          <tr><td>S</td><td>1×1</td></tr>
+          <tr><td>M</td><td>1×2 or 2×1</td></tr>
+          <tr><td>L</td><td>2×2</td></tr>
+          <tr><td>XL</td><td>2×3 or 3×2</td></tr>
+          <tr><td>XXL</td><td>3×3</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Email Notifications</h3>
+      <table class="spec-table">
+        <thead><tr><th>Notification</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Booking confirmation</td><td>Sent on booking</td></tr>
+          <tr><td>On the day booking reminder</td><td>15 min before locker start time</td></tr>
+          <tr><td>Return locker reminder</td><td>Configurable per locker group (see Create Locker Group)</td></tr>
+          <tr><td>Transfer confirmation (sender)</td><td>Sent to sender on transfer</td></tr>
+          <tr><td>New pick-up notification (receiver)</td><td>Sent to receiver when transfer made</td></tr>
+          <tr><td>Confirm pick-up notification (sender)</td><td>Sent to sender when receiver confirms</td></tr>
+          <tr><td>Overdue pick-up notification</td><td>Add button · up to 5 intervals configurable</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Create Locker Group</h2>
+      <p><a href="https://www.figma.com/design/QLihniCb5uRhbCwE4ufLrO/Locker-2026?node-id=100-30386" style="color:var(--teal-dark);font-size:12px">Figma →</a></p>
+
+      <h3 class="md-h3">1.1 General Settings</h3>
+      <table class="spec-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Locker Group Name</td><td>Text</td><td>Required · Max 50 chars · Must be unique</td></tr>
+          <tr><td>Area</td><td>Dropdown</td><td>Optional</td></tr>
+          <tr><td>Auto Start Time for Bookings</td><td>Time picker</td><td>Default: 08:00 · Booking starts automatically at this time unless user starts early manually</td></tr>
+          <tr><td>Return Time for Bookings</td><td>Time picker + radio</td><td>Same day (default 21:00) / Next day (default 07:00) · Same day: must be later than Start Time · Next day: must be ≤ Start Time · Bookings usage type only</td></tr>
+          <tr><td>Return reminder notifications</td><td>Dropdown</td><td>10 (default) / 15 / 30 / 60 / 90 / 120 min before Return Time</td></tr>
+          <tr><td>Access Method</td><td>Dropdown</td><td>Pin code · Numeric field "# digits (max: 12)" · Default: 4 · Range: 1–12</td></tr>
+          <tr><td>Locker Usage Type</td><td>Dropdown</td><td>Transfers and Bookings (default) / Transfers only / Bookings only · Changeable per individual locker after creation</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">1.2 Layout Setup</h3>
+      <ul>
+        <li><strong>Prefix</strong> (max 10 chars) · <strong>Suffix</strong> (max 10 chars) · <strong>Use leading zeros</strong> toggle (default off; scales with largest number) · All reflected immediately in grid preview.</li>
+        <li><strong>Numbering Order:</strong> Left to right, left to right (default) / Left to right, right to left / Top to bottom, top to bottom / Top to bottom, bottom to top.</li>
+        <li><strong>Locker Group Size:</strong> Rows × Columns · Default 4×4 · Range 1–25 · Reflected immediately in grid preview.</li>
+        <li>Font size scales with locker name: first 13 chars on one line; 14th char+ wraps to second line.</li>
+      </ul>
+
+      <h3 class="md-h3">1.3 Grid Preview</h3>
+      <ul>
+        <li>Header: total cell count. Left: grid (columns A–Y, rows 1–25, each cell 96×64px). Right: selected cell settings (default first cell).</li>
+        <li>Cell size (max 3×3): merging starts top-left; cannot combine merged cells; errors block update.</li>
+        <li>Reducing Locker Group size affecting merged cells: error shown, grid not updated until resolved.</li>
+        <li>"Mark as non-locker" checkbox: dropdown — Empty / Touch panel / Rack / Utility / Other. Non-lockers excluded from locker count.</li>
+      </ul>
+      <div class="flag-confirm">Layout cannot be modified after creation.</div>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Locker Group Details Page</h2>
+      <p><a href="https://www.figma.com/design/QLihniCb5uRhbCwE4ufLrO/Locker-2026?node-id=116-28120" style="color:var(--teal-dark);font-size:12px">Figma →</a></p>
+
+      <h3 class="md-h3">2.1 Group Info</h3>
+      <p>QR code, Group ID (UUID), Group Name, Area, Return Time (time + same/next day), Return reminder, Access Method, Created at. Actions: Edit Group · Print Group QR Code · Print All Locker Cards · Delete Group (confirmation required).</p>
+
+      <h3 class="md-h3">2.2 Locker Details Panel</h3>
+      <p>Links: View locker list · Export to CSV · Update by CSV. Header shows total lockers + non-lockers. Status counts: Available · In use · Dedicated.</p>
+      <p>Same grid as creation. Per-locker details: coordinate, status, UUID, name, usage type (Public/Dedicated), pin by admin, Print Locker Card button. Non-locker: coordinate + label.</p>
+
+      <h3 class="md-h3">2.3 Edit Locker Details</h3>
+      <ul>
+        <li><strong>Locker Name</strong> (text) · <strong>Usage Type</strong> (Public: 3 options / Dedicated: User / Dept; multiple via chips; NOT editable if "In use") · <strong>Locker Pin by Admin</strong> (alphanumeric; blank = no pin).</li>
+        <li>Changed cells highlighted yellow. Footer: "[#] changes made" · Cancel (confirm prompt) · Save Changes.</li>
+      </ul>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">CSV</h2>
+      <p><a href="https://www.figma.com/design/QLihniCb5uRhbCwE4ufLrO/Locker-2026?node-id=110-28106" style="color:var(--teal-dark);font-size:12px">Figma →</a></p>
+
+      <h3 class="md-h3">New and Changed Columns</h3>
+      <table class="spec-table">
+        <thead><tr><th>Column</th><th>Change</th></tr></thead>
+        <tbody>
+          <tr><td>Coordinate</td><td>New; readonly; after Locker ID</td></tr>
+          <tr><td>Row Span</td><td>New (1–3); readonly; after Coordinate</td></tr>
+          <tr><td>Col Span</td><td>New (1–3); readonly; after Row Span</td></tr>
+          <tr><td>Access Method</td><td>New; readonly; after Group Name</td></tr>
+          <tr><td>Pin Code Digit</td><td>New (1–12); after Access Method; all rows must match or error</td></tr>
+          <tr><td>Locker Name</td><td>Max 23 chars (was 4)</td></tr>
+          <tr><td>Locker Pin Type</td><td>Auto-sets "Set by Admin" when pin entered; blank = "None"</td></tr>
+          <tr><td>Locker Usage Type</td><td>"Transfers only" / "Bookings only" (was "Only Transfers" / "Only Bookings")</td></tr>
+          <tr><td>Dedicated IDs / Dedicated Users</td><td>Now supports departments as well as users</td></tr>
+          <tr><td>Locker Status</td><td>"In use" (was "Used"); added "Reserved" for dedicated lockers</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Search</h2>
+      <p><a href="https://www.figma.com/design/QLihniCb5uRhbCwE4ufLrO/Locker-2026?node-id=169-78261" style="color:var(--teal-dark);font-size:12px">Figma →</a></p>
+      <p>MUI table; sortable by column; default first column. Pagination: 100 rows/page; [#]–[#] of [Total].</p>
+
+      <h3 class="md-h3">Locker Groups Table</h3>
+      <table class="spec-table">
+        <thead><tr><th>Column</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Group Name</td><td></td></tr>
+          <tr><td>Area</td><td></td></tr>
+          <tr><td>Return Time</td><td>[time] ([same day/next day])</td></tr>
+          <tr><td>Access Method</td><td>Pin code: [#] digits</td></tr>
+          <tr><td>Total / Available / In Use / Dedicated</td><td>Right-aligned counts</td></tr>
+          <tr><td>Locker List</td><td>Arrow → Search Lockers filtered by group UUID</td></tr>
+          <tr><td>View Group</td><td>Arrow → Group details page</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="md-h3">Lockers Table</h3>
+      <table class="spec-table">
+        <thead><tr><th>Column</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Coordinate</td><td>[col][row]</td></tr>
+          <tr><td>Locker Name</td><td></td></tr>
+          <tr><td>Locker Size</td><td>S/M/L/XL/XXL ([col-span]×[row-span]) · Sort order: S(1×1), M(1×2), M(2×1), L(2×2), XL(2×3), XL(3×2), XXL(3×3)</td></tr>
+          <tr><td>Usage Type</td><td>Transfers and Bookings / Transfers only / Bookings only / Dedicated locker</td></tr>
+          <tr><td>Dedicated To</td><td>User or department names</td></tr>
+          <tr><td>Status</td><td>Available / In use / Reserved</td></tr>
+          <tr><td>Pin Code</td><td>None / Set by Admin</td></tr>
+          <tr><td>Locker Group</td><td></td></tr>
+          <tr><td>View Locker</td><td>Arrow → Group details page with locker selected in grid</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">In Use Lockers (Reports)</h2>
+      <p><a href="https://www.figma.com/design/QLihniCb5uRhbCwE4ufLrO/Locker-2026?node-id=169-84974" style="color:var(--teal-dark);font-size:12px">Figma →</a></p>
+      <p>Location: Reports → new tabs "Locker Usage Report" (unchanged) and "In Use Lockers". Search field + MUI table.</p>
+      <table class="spec-table">
+        <thead><tr><th>Column</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Start Date</td><td>YYYY/MM/DD hh:mm</td></tr>
+          <tr><td>Name</td><td>Current user</td></tr>
+          <tr><td>Coordinate</td><td></td></tr>
+          <tr><td>Locker Name</td><td></td></tr>
+          <tr><td>Usage</td><td>Booking / Transfer Received</td></tr>
+          <tr><td>Locker Group</td><td></td></tr>
+          <tr><td>Return/Pick-up Due</td><td>YYYY/MM/DD hh:mm · Booking: return time from group settings · Transfer: admin setting</td></tr>
+          <tr><td>Status</td><td>In use (active, not due) / Late return (booked, past due) / Overdue (pick-up, past due)</td></tr>
+          <tr><td>Return Reminder</td><td>"Send" → prompt with optional custom message → email to current user</td></tr>
+          <tr><td>Force Return</td><td>→ confirmation prompt with optional message → email to user → locker → Available</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Map Editor — Locker Group Placement</h2>
+      <p>When a map area is assigned, Locker section appears in right panel: Locker Group Name + column × row dimensions. Drag and drop locker group object onto map; object shows column count with facing arrow.</p>
+
+      <h3 class="md-h3">Object Toolbar</h3>
+      <table class="spec-table">
+        <thead><tr><th>Property</th><th>Default</th></tr></thead>
+        <tbody>
+          <tr><td>Width</td><td>45</td></tr>
+          <tr><td>Height</td><td>30</td></tr>
+          <tr><td>Depth</td><td>45</td></tr>
+          <tr><td>Design</td><td>Type 1</td></tr>
+          <tr><td>Angle</td><td>Adjustable</td></tr>
+          <tr><td>Remove / Close</td><td>—</td></tr>
+        </tbody>
+      </table>
+
+
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Sources</h2>
+      <ul>
+        <li><a href="https://app.clickup.com/9010156709/v/dc/8cgr555-35898/8cgr555-73698" style="color:var(--teal-dark)">ClickUp: Administration</a></li>
+        <li><a href="https://app.clickup.com/9010156709/v/dc/8cgr555-35898/8cgr555-73718" style="color:var(--teal-dark)">ClickUp: Map editor</a></li>
+        <li><a href="https://app.clickup.com/9010156709/v/dc/8cgr555-35898/8cgr555-72558" style="color:var(--teal-dark)">ClickUp: Locker (create/manage)</a></li>
+        <li><a href="https://www.figma.com/design/QLihniCb5uRhbCwE4ufLrO/Locker-2026" style="color:var(--teal-dark)">Figma: Locker-2026</a></li>
+      </ul>
+
     </div>
   </main>
 </div>

@@ -73,7 +73,7 @@
       <h2><span class="icon"><i class="ti ti-palette"></i></span> Biz — Theme</h2>
       <p>MUI color tokens and typography for the Biz User Portal (web). Source: Figma library <code>-Library- Biz User Portal v2</code>.</p>
       <div style="margin-top:8px;">
-        <span class="badge-stable">✓ reviewed</span>
+        <span class="badge-stable">✓ stable</span>
         <span style="font-size:11px; color:var(--muted); margin-left:8px;">Last updated: 2026-05-01 &nbsp;·&nbsp; Framework: MUI v5+</span>
       </div>
     </div>
@@ -559,13 +559,87 @@
 
       <hr class="md-hr">
 
+      <!-- RAW COLOR SCALE -->
+      <hr class="md-hr">
+      <h2 class="md-h2">Raw Color Scale</h2>
+      <p style="font-size:12px; color:var(--muted);">For building new semantic tokens only — use semantic tokens in components.</p>
+      <h3 class="md-h3">Teal (Primary Brand)</h3>
+      <table class="token-table">
+        <tr><th>Scale</th><th>Hex</th><th>Swatch</th></tr>
+        <tr><td><code>teal.400</code></td><td>#01c5c1</td><td><span class="swatch" style="background:#01c5c1"></span></td></tr>
+        <tr><td><code>teal.500</code></td><td>#0bb7b4</td><td><span class="swatch" style="background:#0bb7b4"></span></td></tr>
+        <tr><td><code>teal.600</code></td><td>#00a9a1</td><td><span class="swatch" style="background:#00a9a1"></span></td></tr>
+        <tr><td><code>teal.100</code></td><td>#e8f8f8</td><td><span class="swatch" style="background:#e8f8f8"></span></td></tr>
+        <tr><td><code>teal.900</code></td><td>#005d58</td><td><span class="swatch" style="background:#005d58"></span></td></tr>
+      </table>
+      <h3 class="md-h3">Blue Grey (Surfaces &amp; Borders)</h3>
+      <table class="token-table">
+        <tr><th>Scale</th><th>Hex</th><th>Swatch</th></tr>
+        <tr><td><code>blueGrey.100</code></td><td>#f5f7fa</td><td><span class="swatch" style="background:#f5f7fa"></span></td></tr>
+        <tr><td><code>blueGrey.200</code></td><td>#edeef2</td><td><span class="swatch" style="background:#edeef2"></span></td></tr>
+        <tr><td><code>blueGrey.300</code></td><td>#d4d9e1</td><td><span class="swatch" style="background:#d4d9e1"></span></td></tr>
+        <tr><td><code>blueGrey.400</code></td><td>#b9c0cc</td><td><span class="swatch" style="background:#b9c0cc"></span></td></tr>
+        <tr><td><code>blueGrey.500</code></td><td>#99a5b8</td><td><span class="swatch" style="background:#99a5b8"></span></td></tr>
+        <tr><td><code>blueGrey.700</code></td><td>#60708a</td><td><span class="swatch" style="background:#60708a"></span></td></tr>
+      </table>
+
+      <!-- ACTION STATES -->
+      <hr class="md-hr">
+      <h2 class="md-h2">Action State Overlays</h2>
+      <table class="token-table">
+        <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+        <tr><td><code>action.hover</code></td><td>rgba(0,0,0,0.04)</td><td>Hover overlay</td></tr>
+        <tr><td><code>action.selected</code></td><td>rgba(0,0,0,0.08)</td><td>Selected state</td></tr>
+        <tr><td><code>action.focus</code></td><td>rgba(0,0,0,0.12)</td><td>Focus overlay</td></tr>
+        <tr><td><code>action.disabled</code></td><td>rgba(0,0,0,0.38)</td><td>Disabled opacity</td></tr>
+        <tr><td><code>action.disabledBackground</code></td><td>rgba(0,0,0,0.12)</td><td>Disabled background</td></tr>
+      </table>
+
+      <!-- SPACING + BREAKPOINTS -->
+      <hr class="md-hr">
+      <h2 class="md-h2">Spacing</h2>
+      <p>Base unit: <strong>8px</strong></p>
+      <table class="token-table">
+        <tr><th>Multiplier</th><th>Value</th><th>MUI token</th></tr>
+        <tr><td>1</td><td>8px</td><td><code>spacing(1)</code></td></tr>
+        <tr><td>2</td><td>16px</td><td><code>spacing(2)</code></td></tr>
+        <tr><td>3</td><td>24px</td><td><code>spacing(3)</code></td></tr>
+        <tr><td>4</td><td>32px</td><td><code>spacing(4)</code></td></tr>
+        <tr><td>5</td><td>40px</td><td><code>spacing(5)</code></td></tr>
+        <tr><td>6</td><td>48px</td><td><code>spacing(6)</code></td></tr>
+      </table>
+
+      <h2 class="md-h2">Breakpoints</h2>
+      <table class="token-table">
+        <tr><th>Token</th><th>Value</th><th>Notes</th></tr>
+        <tr><td><code>xs</code></td><td>444px</td><td>Extra small</td></tr>
+        <tr><td><code>sm</code></td><td>600px</td><td>Mobile landscape</td></tr>
+        <tr><td><code>md</code></td><td>900px</td><td>Tablet</td></tr>
+        <tr><td><code>lg</code></td><td>1200px</td><td>Desktop</td></tr>
+        <tr><td><code>xl</code></td><td>1536px</td><td>Extra large</td></tr>
+      </table>
+      <p style="font-size:12px; color:var(--muted);">1620px is the primary Biz design reference canvas (between lg and xl).</p>
+
+      <!-- COMPONENT TOKENS -->
+      <hr class="md-hr">
+      <h2 class="md-h2">Component-Specific Tokens</h2>
+      <table class="token-table">
+        <tr><th>Component</th><th>Token</th><th>Value</th></tr>
+        <tr><td>Avatar</td><td>avatar.fill</td><td><span class="swatch-cell"><span class="swatch" style="background:#b9c0cc"></span><span class="hex-label">#b9c0cc</span></span></td></tr>
+        <tr><td>Input borders</td><td>enabled / hover</td><td>#d4d9e1 / #99a5b8</td></tr>
+        <tr><td>Switch knob</td><td>enabled / disabled</td><td>#d4d9e1 / #fbfbfc</td></tr>
+        <tr><td>Chip border</td><td>defaultEnabledBorder</td><td>#bcc3cc</td></tr>
+        <tr><td>Snackbar fill</td><td>snackbar.fill</td><td><span class="swatch-cell"><span class="swatch" style="background:#323232"></span><span class="hex-label">#323232</span></span></td></tr>
+        <tr><td>Tooltip fill</td><td>tooltip.fill</td><td>rgba(97,97,97,0.9)</td></tr>
+        <tr><td>Backdrop fill</td><td>backdrop.fill</td><td>rgba(0,0,0,0.5)</td></tr>
+      </table>
+
       <!-- OPEN ITEMS -->
       <div class="open-items">
         <h4>Open Items</h4>
         <ol>
-          <li>Confirm whether <code>--primary/dark</code> and <code>--primary/textandicon*</code> are both <code>#00a9a1</code> or if dark is slightly different.</li>
-          <li>Confirm <code>--divider</code> (#d4d9e1) vs <code>--border/main</code> (#b9c0cc) — which token maps to MUI <code>palette.divider</code>.</li>
-          <li>Confirm complete MUI semantic token mapping for <code>--highlight*/main</code> (#9c72ed) — likely not a standard palette key.</li>
+          <li>Confirm whether <code>--primary/dark</code> and <code>--primary/textandicon*</code> are both <code>#00a9a1</code> or slightly different.</li>
+          <li>Confirm MUI semantic token mapping for <code>--highlight*/main</code> (#9c72ed) — likely not a standard palette key.</li>
         </ol>
       </div>
 

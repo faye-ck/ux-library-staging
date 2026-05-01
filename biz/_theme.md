@@ -1,7 +1,7 @@
 ---
 product: biz
 feature: theme
-status: reviewed
+status: stable
 last_updated: 2026-05-01
 confirms_needed: 0
 ---
@@ -34,6 +34,8 @@ MUI v5+ (Material UI). Theme delivered via `createTheme()`. CSS variables mode: 
 
 | Token (CSS var) | Hex | MUI path | Usage |
 |---|---|---|---|
+| `--secondary/main` | `#edeef2` | `palette.secondary.main` | Secondary button fills |
+| `--secondary/dark` | `#99a5b8` | `palette.secondary.dark` | Secondary hover state |
 | `--secondary/light` | `#f5f7fa` | `palette.secondary.light` | Page background, disabled bg, inactive badge bg |
 | `--secondary/contrasttext` | `#ffffff` | `palette.secondary.contrastText` | Text on dark surfaces |
 | `--white/white` | `#ffffff` | `palette.background.paper` | Card / panel backgrounds |
@@ -52,9 +54,14 @@ MUI v5+ (Material UI). Theme delivered via `createTheme()`. CSS variables mode: 
 
 | Token (CSS var) | Hex | MUI path | Usage |
 |---|---|---|---|
-| `--border/main` | `#b9c0cc` | `palette.divider` | Input borders, card borders, accordion borders |
-| `--border/highlight` | `#99a5b8` | INFERRED: stronger border | Alert secondary buttons, emphasis borders |
-| `--divider` | `#d4d9e1` | `palette.divider` (alt) | Layout dividers (left menu / top bar separator) |
+| `--border/main` | `#b9c0cc` | `palette.divider` | Standard borders, outlines |
+| `--border/low` | `#edeef2` | — | Subtle dividers |
+| `--border/highlight` | `#99a5b8` | — | Focused / highlighted borders |
+| `--border/highlightHover` | `#60708a` | — | Hover on highlighted borders |
+| `--border/disabled` | `#edeef2` | — | Disabled element borders |
+| `--border/warning` | `#e2b243` | — | Warning state borders |
+| `--border/divider` | `#d4d9e1` | — | Section dividers |
+| `--divider` | `#d4d9e1` | `palette.divider` | Layout dividers (left menu / top bar separator) |
 
 ### Semantic Colors
 
@@ -81,6 +88,64 @@ MUI v5+ (Material UI). Theme delivered via `createTheme()`. CSS variables mode: 
 |---|---|---|
 | `--highlight*/main` | `#9c72ed` | Chip highlight variant, documentation annotations (Figma only) |
 
+### Action States (overlays)
+
+| Token | Value | Usage |
+|---|---|---|
+| `action.hover` | `rgba(0,0,0,0.04)` | Hover overlay |
+| `action.selected` | `rgba(0,0,0,0.08)` | Selected state overlay |
+| `action.focus` | `rgba(0,0,0,0.12)` | Focus overlay |
+| `action.disabled` | `rgba(0,0,0,0.38)` | Disabled content opacity |
+| `action.disabledBackground` | `rgba(0,0,0,0.12)` | Disabled background overlay |
+
+---
+
+## Raw Color Scale
+
+Use semantic tokens above in components. Raw scale is for building new semantic tokens only.
+
+### Teal (Primary Brand)
+
+| Scale | Hex |
+|---|---|
+| `teal.50` | `#f0fafa` |
+| `teal.100` | `#e8f8f8` |
+| `teal.200` | `#d2f2f1` |
+| `teal.300` | `#ace6e5` |
+| `teal.400` | `#01c5c1` |
+| `teal.500` | `#0bb7b4` |
+| `teal.600` | `#00a9a1` |
+| `teal.700` | `#0b9791` |
+| `teal.800` | `#007a76` |
+| `teal.900` | `#005d58` |
+
+### Grey (Neutral)
+
+| Scale | Hex |
+|---|---|
+| `grey.50` | `#fbfbfc` |
+| `grey.100` | `#edeff1` |
+| `grey.200` | `#d5d9de` |
+| `grey.300` | `#bcc3cc` |
+| `grey.400` | `#a4adb9` |
+| `grey.500` | `#9097a2` |
+| `grey.600` | `#7b828b` |
+| `grey.700` | `#676c74` |
+| `grey.800` | `#303640` |
+| `grey.900` | `#1c1c1c` |
+
+### Blue Grey (Surfaces & Borders)
+
+| Scale | Hex |
+|---|---|
+| `blueGrey.100` | `#f5f7fa` |
+| `blueGrey.200` | `#edeef2` |
+| `blueGrey.300` | `#d4d9e1` |
+| `blueGrey.400` | `#b9c0cc` |
+| `blueGrey.500` | `#99a5b8` |
+| `blueGrey.600` | `#728096` |
+| `blueGrey.700` | `#60708a` |
+
 ---
 
 ## Typography
@@ -91,10 +156,20 @@ Rem base: **1rem = 16px**
 
 | Language | Family | Weights available |
 |---|---|---|
-| English | Inter | 9 weights (Regular, Medium, Bold, etc.) |
+| English | Inter | 9 weights |
 | 日本語 | Noto Sans JP | 9 weights |
 
 Both fonts loaded from Google Fonts.
+
+### Font Weights
+
+| Token | Value | Usage |
+|---|---|---|
+| `fontWeightLight` | 300 | Light text |
+| `fontWeightRegular` | 400 | Body text |
+| `fontWeightMedium` | 500 | Labels, emphasis |
+| `fontWeightSemiBold` | 600 | Subheadings |
+| `fontWeightBold` | 700 | Headings, strong |
 
 ### Type Scale
 
@@ -114,6 +189,51 @@ Both fonts loaded from Google Fonts.
 | `button2` | 12px / 0.75rem | Medium (500) | 1 | 0 | ✓ (Biz custom) | ✓ |
 
 Note: `button2` is a Biz-specific addition to the MUI type scale (not a standard MUI variant). Map to `typography.button` at small size or define as custom variant.
+
+### Font Size Scale
+
+| rem | px | Typical use |
+|---|---|---|
+| 0.625rem | 10px | Micro labels |
+| 0.688rem | 11px | Captions, overlines |
+| 0.75rem | 12px | body2, button2, badges |
+| 0.8125rem | 13px | Small labels |
+| 0.875rem | 14px | body1, button1, h6 |
+| 1rem | 16px | h5 |
+| 1.125rem | 18px | h4 |
+| 1.5rem | 24px | h3 |
+| 2rem | 32px | h2 |
+| 2.125rem | 34px | h1 |
+
+---
+
+## Spacing
+
+Base unit: **8px**
+
+| Multiplier | Value | MUI token |
+|---|---|---|
+| 1 | 8px | `spacing(1)` |
+| 2 | 16px | `spacing(2)` |
+| 3 | 24px | `spacing(3)` |
+| 4 | 32px | `spacing(4)` |
+| 5 | 40px | `spacing(5)` |
+| 6 | 48px | `spacing(6)` |
+| 7 | 56px | `spacing(7)` |
+
+---
+
+## Breakpoints
+
+| Token | Value | Applies from |
+|---|---|---|
+| `xs` | 444px | Extra small |
+| `sm` | 600px | Small (mobile landscape) |
+| `md` | 900px | Medium (tablet) |
+| `lg` | 1200px | Large (desktop) |
+| `xl` | 1536px | Extra large |
+
+1620px is the primary Biz design reference canvas (between `lg` and `xl`).
 
 ---
 
@@ -135,8 +255,36 @@ Pill / badge radius: **100px** (`rounded-[100px]`) for badges, FAB, pill chips.
 
 ---
 
+## Component-Specific Tokens
+
+Overrides applied to individual components. Use the component's standard behavior — apply these directly only when building new components or overriding theme defaults.
+
+| Component | Token | Value |
+|---|---|---|
+| Avatar | `avatar.fill` | `#b9c0cc` |
+| Input (outlined, enabled) | `input.outlined.enabledBorder` | `#d4d9e1` |
+| Input (outlined, hover) | `input.outlined.hoverBorder` | `#99a5b8` |
+| Input (standard, enabled) | `input.standard.enabledBorder` | `#d4d9e1` |
+| Input (standard, hover) | `input.standard.hoverBorder` | `#99a5b8` |
+| Input (filled, enabled) | `input.filled.enabledFill` | `rgba(0,0,0,0.06)` |
+| Input (filled, hover) | `input.filled.hoverFill` | `rgba(0,0,0,0.09)` |
+| Switch | `switch.knobFillEnabled` | `#d4d9e1` |
+| Switch | `switch.knobFillDisabled` | `#fbfbfc` |
+| Chip (border) | `chip.defaultEnabledBorder` | `#bcc3cc` |
+| Chip (hover) | `chip.defaultHoverFill` | `rgba(0,0,0,0.12)` |
+| Snackbar | `snackbar.fill` | `#323232` |
+| Tooltip | `tooltip.fill` | `rgba(97,97,97,0.9)` |
+| Backdrop | `backdrop.fill` | `rgba(0,0,0,0.5)` |
+| Alert (error bg) | — | `#fef1f0` |
+| Alert (warning bg) | — | `#faf2df` |
+| Alert (info bg) | — | `#e3f2fd` |
+| Alert (success bg) | — | `#eefaf2` |
+| Breadcrumbs | `breadcrumbs.collapseFill` | `#edeff1` |
+| Stepper connector | `stepper.connector` | `#bcc3cc` |
+
+---
+
 ## Open Items
 
-1. Confirm whether `--primary/dark` and `--primary/textandicon*` are both `#00a9a1` or if dark is slightly different.
-2. Confirm `--divider` (#d4d9e1) vs `--border/main` (#b9c0cc) — which token is used in MUI `palette.divider`.
-3. Confirm complete mapping of `--highlight*/main` (#9c72ed) to MUI semantic token (likely not a standard palette key).
+1. Confirm whether `--primary/dark` and `--primary/textandicon*` are both `#00a9a1` or slightly different.
+2. Confirm complete mapping of `--highlight*/main` (#9c72ed) to a MUI semantic token (likely not a standard palette key).

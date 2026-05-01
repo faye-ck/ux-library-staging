@@ -1,7 +1,7 @@
 ---
 product: biz
 feature: layout
-status: reviewed
+status: stable
 last_updated: 2026-05-01
 confirms_needed: 1
 ---
@@ -14,7 +14,9 @@ confirms_needed: 1
 
 ## Shell: Portal Layout
 
-Total canvas width: **1620px** (reference breakpoint).
+Total canvas width: **1620px** (reference breakpoint, between `lg` 1200px and `xl` 1536px MUI breakpoints).
+
+**Figma component:** Portal Template · key `a4d5c905957341de3f836d59990dd43f9469cc1b` — single component, use `importComponentByKeyAsync`. Right area background: `secondary.light (#f5f7fa)`. Total: ~1620×1013px.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -33,25 +35,29 @@ Divider color: `--divider` (#d4d9e1).
 
 ## Left Menu
 
-Width: **64px** (icon-only, collapsed state). No expanded/labeled state documented.
+Width: **64px** (icon-only). No expanded/labeled state.
 
-Item size: **64×64px** per menu slot.
+Item size: **64×64px** per slot. 9 slots total.
 
 Items (top to bottom): hamburger toggle, office-map, space-list, seat-list, scheduler, inventory, locker, analytics, manual.
 
-Active item: primary teal fill (`--primary/main` #01c5c1) on icon, `--primary/light` (#e8f8f8) background highlight.
-
-Inactive item: `--text/secondary` (#676c74) icon color.
+Active item: icon in `--primary/main` (#01c5c1), transparent background.
+Hover item: `--secondary/light` (#f5f7fa) background, icon in `--text/secondary`.
+Inactive item: `--text/secondary` (#676c74) icon.
 
 Background: `--white/white` (#ffffff). Separated from main area by `--divider` 1px vertical line.
+
+**Figma component:** Left Menu · key `25abb3daaa3ffbc8c5219251cd9f60c0d84bb423` — single component with 9 embedded `.menuIcon` slots. Use `importComponentByKeyAsync`. ⚠️ Do NOT import individual Menu Icon states — `.menuIcon` is dot-prefixed (private/unpublished) and cannot be imported from other files. Index 1 defaults to Active state.
 
 ---
 
 ## Top Bar
 
-Height: **64px**.
+Height: **64px**. Width: 1555px.
 
 Background: `--white/white` (#ffffff). Separated from content area by `--divider` 1px horizontal line.
+
+**Figma component:** Top Bar · key `3a818148a3859340863899131ab8c26f137a5541` — single component, use `importComponentByKeyAsync`. Set `inst.layoutSizingHorizontal = 'FILL'`.
 
 **Contents (left → right):**
 | Element | Width / Size | Token |
@@ -70,9 +76,11 @@ Background: `--white/white` (#ffffff). Separated from content area by `--divider
 
 Fills remaining space after left menu (64px) and top bar (64px).
 
-Right panel (map detail / booking summary): **399px** fixed width when open. Slides in from right; not a modal — stays in-flow.
+Right panel (map detail / booking summary): **399px** fixed width, white background. Slides in from right; not a modal — stays in-flow.
 
 Content padding: INFERRED 24px (3 × spacing unit).
+
+**Panel Header component** (right panel header): key `5e80f72d048faf2ba03e03e2b830e9abe78a6bfa` — 400px wide, 16px vertical / 8px horizontal padding. Optional back button, close button, title text.
 
 ---
 
@@ -110,7 +118,7 @@ Empty state: Empty State component (Illustration variant) when no bookings exist
 
 ## Breakpoints
 
-INFERRED: MUI standard breakpoints apply. 1620px is the primary design reference (desktop).
+MUI standard breakpoints: `xs=444px`, `sm=600px`, `md=900px`, `lg=1200px`, `xl=1536px`. 1620px is the primary Biz design reference canvas (between lg and xl).
 
 ---
 

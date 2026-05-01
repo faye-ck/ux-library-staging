@@ -6,13 +6,21 @@
   <title>Reception — Admin Portal — UX Library</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
-    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-content { max-width: 760px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 10px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 24px 0 6px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content ul { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 0 0 10px 18px; }
+    .md-content li { margin-bottom: 4px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .status-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 20px; border: 0.5px solid; margin-right: 6px; }
+    .status-draft { background: var(--bg); color: var(--muted); border-color: var(--border); }
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .spec-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 6px 10px; border-bottom: 1px solid var(--border); }
+    .spec-table td { padding: 7px 10px; border-bottom: 0.5px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.55; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .flag-confirm { background: #fffbea; border-left: 3px solid #f0a500; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12px; color: #7a5800; margin: 10px 0; }
   </style>
 </head>
 <body>
@@ -30,9 +38,73 @@
       <h2><span class="icon"><i class="ti ti-building"></i></span> Reception — Admin Portal</h2>
       <p>Admin portal delta.</p>
     </div>
+    <div style="margin-bottom:12px">
+      <span class="status-badge status-draft">draft</span>
+      <span style="font-size:11px;color:var(--muted);font-family:var(--mono)">Updated 2026-05-01</span>
+    </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Security Card Management</h2>
+      <p>Manages physical security cards — enable feature, create card inventory, pair cards with items, and monitor card status. Receptionist check-in/out flows: <a href="receptionist-portal.html" style="color:var(--teal-dark)">Receptionist Portal →</a></p>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">1 — Enable/Disable Feature</h2>
+      <p><strong>Location:</strong> Reception → Settings → Receptionist Settings → Security card reader</p>
+      <ul>
+        <li>Toggle (default: Disabled). Enabling also shows "Also activate during check-out" toggle (default: Enabled).</li>
+        <li>When check-out enabled: return and check-out time recorded simultaneously. When disabled: recorded separately.</li>
+        <li>Save to apply. Once saved: Security Cards available in both portals; Guest Info gets "Status Remark" column.</li>
+      </ul>
+      <div class="flag-confirm">⚠️ Disabling after data exists requires confirmation. Existing data preserved and restored if re-enabled.</div>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">2 — Create/Edit Security Cards</h2>
+      <table class="spec-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Validation</th></tr></thead>
+        <tbody>
+          <tr><td>Item Name</td><td>Text</td><td>Required · Non-unique · Max 50 chars</td></tr>
+          <tr><td>Item ID</td><td>Text</td><td>Required · Non-unique · Max 50 chars</td></tr>
+          <tr><td>Access</td><td>Dropdown</td><td>Optional · From Access management config · Hidden if disabled</td></tr>
+        </tbody>
+      </table>
+      <p><strong>CSV bulk update:</strong> Columns: UUID · Item Name · Item ID · Access · Card Status (read-only). Preview before commit. Errors block submit; success shows created/updated counts.</p>
+      <p><strong>Note:</strong> Assigned cards — Edit, Update Card ID, and Delete disabled. CSV edits for assigned cards ignored.</p>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">3 — Manage Security Cards</h2>
+      <p>Tabs: Unpaired cards · Paired cards (with totals). CSV export from both tabs.</p>
+      <h3 class="md-h3">Unpaired Cards</h3>
+      <p>Columns: UUID · Name · Item ID · Access · Pair card · Details (admin only). Single pairing: dialog → success auto-closes (3s). Bulk pairing: queue max 100; continuous scanning; errors: Try Again or Skip.</p>
+      <h3 class="md-h3">Paired Cards</h3>
+      <p>Additional columns: Card Status · Assigned To · Host · Actions. Bulk action on checkboxes: Assigned → Return; Available → Update Card ID. Lost/Damaged: one-by-one only.</p>
+      <h3 class="md-h3">Card Status Reference</h3>
+      <table class="spec-table">
+        <thead><tr><th>Status</th><th>Actions</th><th>Scan Errors</th></tr></thead>
+        <tbody>
+          <tr><td>Unpaired</td><td>Pair card</td><td>Already paired · Read failed</td></tr>
+          <tr><td>Available</td><td>Update Card ID · Lost · Damaged</td><td>Already paired · Read failed · Already assigned · Access mismatch</td></tr>
+          <tr><td>Assigned</td><td>Return card · Lost · Damaged</td><td>Mismatch · Inactive · Already returned · Read failed</td></tr>
+          <tr><td>Lost</td><td>Reactivate · Damaged</td><td>—</td></tr>
+          <tr><td>Damaged</td><td>Reactivate · Lost</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <h3 class="md-h3">Search</h3>
+      <p>Keyword (non-case-sensitive, all columns) or "Scan to search" via card reader. MUI table with sort and resize.</p>
+
+
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Sources</h2>
+      <ul>
+        <li><a href="https://app.clickup.com/9010156709/v/dc/8cgr555-36978/8cgr555-76138" style="color:var(--teal-dark)">ClickUp Security card management</a></li>
+        <li><a href="https://www.figma.com/design/5t1fGT90z9qtxhXH70fUvX/Receptionist-Portal-2026" style="color:var(--teal-dark)">Figma: Receptionist-Portal-2026</a></li>
+      </ul>
+
     </div>
   </main>
 </div>

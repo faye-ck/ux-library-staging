@@ -117,6 +117,7 @@
     {
       label: 'Biz', children: [
         { label: 'Overview',    href: '/biz/_index.html' },
+        { label: 'Figma API',   href: '/biz/_figma-api.html' },
         {
           label: 'Config', children: [
             { label: 'Theme',       href: '/biz/_theme.html' },

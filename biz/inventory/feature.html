@@ -6,13 +6,21 @@
   <title>Inventory — Feature — UX Library</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
-    .md-content { max-width: 720px; }
-    .md-quote { background: var(--teal-light); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: #555; margin: 12px 0; line-height: 1.65; }
-    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 28px 0 8px; letter-spacing: -0.2px; }
-    .md-h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+    .md-content { max-width: 760px; }
+    .md-h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 10px; letter-spacing: -0.2px; }
+    .md-h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 24px 0 6px; text-transform: uppercase; letter-spacing: 0.07em; font-family: var(--mono); }
     .md-hr { border: none; border-top: 0.5px solid var(--border); margin: 24px 0; }
     .md-content p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .md-content ul { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 0 0 10px 18px; }
+    .md-content li { margin-bottom: 4px; }
     .md-content code { font-family: var(--mono); background: var(--bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--teal-dark); border: 0.5px solid var(--border); }
+    .status-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 20px; border: 0.5px solid; margin-right: 6px; }
+    .status-draft { background: var(--bg); color: var(--muted); border-color: var(--border); }
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0 20px; }
+    .spec-table th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 6px 10px; border-bottom: 1px solid var(--border); }
+    .spec-table td { padding: 7px 10px; border-bottom: 0.5px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.55; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .phase-badge { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--teal-light); color: var(--teal-dark); border: 0.5px solid var(--teal); margin-left: 8px; }
   </style>
 </head>
 <body>
@@ -30,9 +38,69 @@
       <h2><span class="icon"><i class="ti ti-building"></i></span> Inventory — Feature</h2>
       <p>User portal baseline for inventory requests and borrowing.</p>
     </div>
+    <div style="margin-bottom:12px">
+      <span class="status-badge status-draft">draft</span>
+      <span style="font-size:11px;color:var(--muted);font-family:var(--mono)">Updated 2026-05-01</span>
+    </div>
     <div class="section-divider"></div>
     <div class="md-content">
-<p><em>Content pending.</em></p>
+
+      <h2 class="md-h2">Bulk Booking/Borrowing</h2>
+      <p>Select multiple items in one booking or borrowing session. Handles varied item configs — evidence, Workflows, and different max durations. Max duration: <strong>30 days</strong>.</p>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">1 — Switching to Bulk Mode</h2>
+      <p>From booking form: <strong>New Booking → "Bulk Booking"</strong> · <strong>Borrow Now → "Bulk Borrowing"</strong>.</p>
+      <h3 class="md-h3">Right Panel</h3>
+      <ul>
+        <li>Title changes. Item-specific fields removed.</li>
+        <li>Item list: sorted by add time · remove via "x" · empty = "No item selected" (Confirm disabled).</li>
+        <li>Return date field shown for Bulk Borrowing.</li>
+      </ul>
+      <h3 class="md-h3">Left Section — Eligibility Checks</h3>
+      <p>Checkboxes on grid/list; timeline slots as checkboxes. Only eligible items selectable — checks: bookable without approval · available in range · max duration within range · lease duration within range.</p>
+      <p><strong>After date/time update:</strong> Unavailable items turn red. Error alert with "Remove all unavailable items" button. Confirm disabled until resolved.</p>
+      <p><strong>Mobile:</strong> Panel closes on bulk mode; floating back button. Confirmation screen shows items sorted alphabetically.</p>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">2 — Evidence Required</h2>
+      <p>"Evidence is required for some items" message. Camera icon → opens camera. Upload icon → take photo or choose file. Confirm disabled until all evidence uploaded.</p>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">3 — Timeline View</h2>
+      <p>Multi-date: clicking any slot of an item selects all its slots across dates (item-level selection). Dates beyond 7-day view: start date auto-shown as first column (3-day on mobile).</p>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">4 — My Bookings</h2>
+      <h3 class="md-h3">Bulk Booking</h3>
+      <p>Title "Bulk booking (#)". Actions by status: Edit · Borrow Now (when ready) · Cancel. Item list expand/collapse (sorted alphabetically). Edit = same creation flow. Cancel = confirmation prompt.</p>
+      <h3 class="md-h3">Bulk Borrowing/Returning</h3>
+      <p>Title "Bulk borrowing (#)" + "Return All Items". Item list with checkboxes and Return icons. "Return (#)" for multi-return. Item details: Take Inventory + Return Item. Remaining time shown when returning.</p>
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Phase 2 — Workflows <span class="phase-badge">Upcoming</span></h2>
+      <ul>
+        <li>Items requiring permission bookable but cannot mix with non-permission items.</li>
+        <li>All items must share the same Workflows template (one Workflow per bulk booking).</li>
+        <li>Approval message shown. Edit = resets approval process.</li>
+        <li>My Bookings: Workflows status before item list. Additional filter for Workflow templates.</li>
+      </ul>
+
+
+
+      <hr class="md-hr" />
+
+      <h2 class="md-h2">Sources</h2>
+      <ul>
+        <li><a href="https://app.clickup.com/9010156709/v/dc/8cgr555-31158/8cgr555-66918" style="color:var(--teal-dark)">ClickUp Bulk Booking/Borrowing spec</a></li>
+        <li><a href="https://www.figma.com/design/S9jGdASdyEr6wTMiwuDk1j/Inventory" style="color:var(--teal-dark)">Figma: Inventory</a></li>
+      </ul>
+
     </div>
   </main>
 </div>

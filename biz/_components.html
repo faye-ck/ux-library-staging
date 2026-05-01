@@ -59,8 +59,8 @@
       <h2><span class="icon"><i class="ti ti-puzzle"></i></span> Biz — Components</h2>
       <p>MUI-based and custom components for the Biz User Portal (web). All MUI components inherit the Biz theme. Only Biz-specific overrides and variant details are documented here.</p>
       <div style="margin-top:8px;">
-        <span class="badge-stable">✓ reviewed</span>
-        <span style="font-size:11px; color:var(--muted); margin-left:8px;">Last updated: 2026-05-01 &nbsp;·&nbsp; Source: Figma library -Library- Biz User Portal v2</span>
+        <span class="badge-stable">✓ stable</span>
+        <span style="font-size:11px; color:var(--muted); margin-left:8px;">Last updated: 2026-05-01 &nbsp;·&nbsp; Source: Figma library -Library- Biz User Portal v2 (<code>Br4iJ26Yaj0Qn8RHz0mSht</code>)</span>
       </div>
     </div>
     <div class="section-divider"></div>
@@ -261,30 +261,33 @@
       </div>
 
       <div class="comp-entry">
-        <h4>Map Date Navigation <span class="badge-custom">Biz custom</span></h4>
-        <div class="comp-subtitle">Day-by-day navigation for Office Map</div>
-        <p>Prev/next arrows + date label. Shadow: <code>drop-shadow(0px 4px 20px rgba(0,0,0,0.15))</code>.</p>
-        <p><span class="badge-inferred">INFERRED</span> MUI <code>IconButton</code> arrows + <code>body1</code> label.</p>
+        <h4>Date Navigation <span class="badge-custom">Biz custom</span></h4>
+        <div class="comp-subtitle">Single Date Navigation · Month Navigation</div>
+        <p><strong>Single Date Navigation</strong> — day-by-day for Office Map. Shadow: <code>drop-shadow(0px 4px 20px rgba(0,0,0,0.15))</code>. MUI <code>IconButton</code> arrows + <code>body1</code> label.</p>
+        <p><strong>Month Navigation</strong> — month/year for Scheduler and Date Picker header. Arrows + <code>body1</code>/<code>h6</code> label.</p>
       </div>
 
       <div class="comp-entry">
-        <h4>Month Year Navigation <span class="badge-custom">Biz custom</span></h4>
-        <div class="comp-subtitle">Scheduler and Date Picker header</div>
-        <p>Prev/next arrows flanking a month + year label.</p>
-        <p><span class="badge-inferred">INFERRED</span> MUI <code>IconButton</code> arrows + <code>body1</code> or <code>h6</code> label.</p>
-      </div>
-
-      <div class="comp-entry">
-        <h4>Profile Card <span class="badge-custom">Biz custom</span></h4>
-        <div class="comp-subtitle">Top Bar and user list contexts</div>
-        <p>Avatar (32×32px) + name (<code>body1</code>) + status/role (<code>caption</code>).</p>
+        <h4>Profile / User List <span class="badge-custom">Biz custom</span></h4>
+        <div class="comp-subtitle">Profile · User List · List Select All Header</div>
+        <p><strong>Profile</strong> — 3 variants (Type). Avatar + name (<code>body1</code>) + status/role (<code>caption</code>). Used in Top Bar.</p>
+        <p><strong>User List</strong> — 4 variants (State × Size). Rich person row with name, role, company, action slots.</p>
+        <p><strong>List Select All Header</strong> — select-all row for user list tables. Standalone.</p>
       </div>
 
       <div class="comp-entry">
         <h4>Timeline Picker <span class="badge-custom">Biz custom</span></h4>
-        <div class="comp-subtitle">Time-range selection for Scheduler</div>
-        <p><span class="badge-inferred">INFERRED</span> Horizontal scrollable timeline with draggable start/end handles. Not a standard MUI component.</p>
-        <div class="confirm-banner"><strong>⚠ CONFIRM:</strong> Full anatomy and token usage.</div>
+        <div class="comp-subtitle">Used in Space Booking — Space details</div>
+        <p>Horizontal time-slot selector with 5 configurable slots. <strong>Timeline Slot</strong> sub-component has 6 variants (Type). Not standard MUI.</p>
+      </div>
+
+      <div class="comp-entry">
+        <h4>Custom Icons <span class="badge-custom">Biz custom</span></h4>
+        <div class="comp-subtitle">Menu · Properties · Action · Text Editor · Small &amp; Filters · Inventory Categories</div>
+        <p>All standalone SVG components. 6 categories, 70+ icons total. Import keys in <code>_figma-api.md</code>.</p>
+        <p><strong>Menu:</strong> menu · office-map · space-list · seat-list · scheduler · inventory · locker · postal · analytics · manual</p>
+        <p><strong>Action:</strong> exit · extend-time · borrow · return · confirm-inventory · map-2d · map-3d · open-map</p>
+        <p><strong>Inventory Categories:</strong> 24 icons (devices, computer, monitor, phone, …)</p>
       </div>
 
       <hr class="md-hr">
@@ -292,8 +295,8 @@
       <div class="open-items">
         <h4>Open Items</h4>
         <ol>
-          <li>Confirm Workflows chip color token — is it <code>--highlight*/main</code> or a separate token?</li>
-          <li>Confirm full custom icon catalog and implementation naming convention.</li>
+          <li>Confirm whether <code>--primary/dark</code> and <code>--primary/textandicon*</code> are both <code>#00a9a1</code> or slightly different.</li>
+          <li>Confirm MUI semantic token mapping for <code>--highlight*/main</code> (#9c72ed).</li>
         </ol>
       </div>
 

@@ -76,7 +76,7 @@
       <h2><span class="icon"><i class="ti ti-layout-2"></i></span> Biz — Layout</h2>
       <p>Shell structure, page-level grid, and feature layout patterns for the Biz User Portal (web).</p>
       <div style="margin-top:8px;">
-        <span class="badge-stable">✓ reviewed</span>
+        <span class="badge-stable">✓ stable</span>
         <span style="font-size:11px; color:var(--muted); margin-left:8px;">Last updated: 2026-05-01 &nbsp;·&nbsp; Reference width: 1620px</span>
       </div>
     </div>
@@ -127,6 +127,8 @@
         </div>
       </div>
 
+      <p style="font-size:12px; color:var(--muted); margin-top:-4px;">Figma: <strong>Portal Template</strong> · key <code>a4d5c90…f9469cc1b</code> · single component · use <code>importComponentByKeyAsync</code>. Right area bg: <code>secondary.light</code> (#f5f7fa).</p>
+
       <hr class="md-hr">
 
       <h2 class="md-h2">Left Menu</h2>
@@ -139,11 +141,14 @@
           <tr><td>Background</td><td><code>--white/white</code> #ffffff</td></tr>
           <tr><td>Right border</td><td>1px · <code>--divider</code> #d4d9e1</td></tr>
           <tr><td>Active icon</td><td><code>--primary/main</code> #01c5c1</td></tr>
-          <tr><td>Active bg</td><td><code>--primary/light</code> #e8f8f8</td></tr>
+          <tr><td>Active bg</td><td>transparent</td></tr>
+          <tr><td>Hover bg</td><td><code>--secondary/light</code> #f5f7fa</td></tr>
+          <tr><td>Hover icon</td><td><code>--text/secondary</code></td></tr>
           <tr><td>Inactive icon</td><td><code>--text/secondary</code> #676c74</td></tr>
         </tbody>
       </table>
       <p>Menu items (top to bottom): hamburger toggle, office-map, space-list, seat-list, scheduler, inventory, locker, analytics, manual.</p>
+      <p style="font-size:12px; color:var(--muted);">Figma: <strong>Left Menu</strong> · key <code>25abb3d…d84bb423</code> · single component · use <code>importComponentByKeyAsync</code>. ⚠️ Do not import individual <code>.menuIcon</code> states — they are dot-prefixed (private).</p>
 
       <hr class="md-hr">
 
@@ -165,6 +170,14 @@
           <tr><td>User status</td><td><code>caption</code></td><td><code>--text/secondary</code></td></tr>
         </tbody>
       </table>
+
+      <p style="font-size:12px; color:var(--muted);">Figma: <strong>Top Bar</strong> · key <code>3a81814…f137a5541</code> · 1555px wide · single component · use <code>importComponentByKeyAsync</code>. Set <code>inst.layoutSizingHorizontal = 'FILL'</code>.</p>
+
+      <hr class="md-hr">
+
+      <h2 class="md-h2">Content Area &amp; Panel Header</h2>
+      <p>Fills remaining space after left menu and top bar. Right panel (map detail / booking summary): <strong>399px</strong> fixed width, white bg. Slides in-flow, not a modal. Content padding: 24px (3 × spacing unit).</p>
+      <p style="font-size:12px; color:var(--muted);">Figma: <strong>Panel Header</strong> · key <code>5e80f72…e78a6bfa</code> · 400px wide · 16px vertical / 8px horizontal padding. Optional back button, close button, title.</p>
 
       <hr class="md-hr">
 
@@ -199,7 +212,7 @@
       <hr class="md-hr">
 
       <h2 class="md-h2">Breakpoints</h2>
-      <p><span class="badge-inferred">INFERRED</span> MUI standard breakpoints apply. 1620px is the primary design reference (desktop). Mobile responsive web behavior is not documented.</p>
+      <p>MUI standard breakpoints: <code>xs=444px · sm=600px · md=900px · lg=1200px · xl=1536px</code>. Primary design reference is 1620px (between lg and xl). Mobile responsive web behavior is not documented.</p>
 
       <hr class="md-hr">
 

@@ -1,7 +1,7 @@
 ---
 product: biz
 feature: index
-status: reviewed
+status: stable
 last_updated: 2026-05-01
 confirms_needed: 0
 ---
@@ -59,6 +59,7 @@ Coverage values: `full` = spec documented · `partial` = files exist, spec pendi
 | `_theme.md` | Color tokens, typography, shape, shadows (web + mobile share tokens) |
 | `_components.md` | MUI component overrides + custom Biz components (web portal only) |
 | `_layout.md` | Web portal shell + mobile app layout documentation |
+| `_figma-api.md` | Figma plugin API reference — component import keys, prop tables, token keys |
 | `_guidelines.md` | UX principles and interaction patterns |
 | `_glossary.md` | Domain terms (seat, space, booking, etc.) |
 
