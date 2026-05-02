@@ -161,7 +161,7 @@
     .dd-url-desc {
       width: 120px; flex-shrink: 0;
       border: 0.5px solid var(--border); border-radius: 6px;
-      padding: 6px 10px; font-size: 12px; font-family: var(--font);
+      padding: 6px 10px; font-size: 12px; font-family: var(--mono);
       outline: none; background: var(--bg); color: var(--text); min-width: 0;
     }
     .dd-url-desc:focus { border-color: var(--teal); }
@@ -307,6 +307,8 @@
     'Delta URL':    { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
     'Delta URL 2':  { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
     'Delta URL 3':  { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
+    'URL A':        { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
+    'URL B':        { type: 'url-list', hint: 'Add Figma URL (recommended), ClickUp or other URL', max: 5 },
   };
 
   // Derived keys: auto-computed from another key, shown as non-interactive chips
@@ -327,24 +329,16 @@
         'Product Name': { type: 'text', hint: 'e.g. Goals' },
       },
       body:
-'⚠ Always work in ux-library-staging — never update ux-library directly.\n\n' +
-'Set up [Product Name] in the UX Library.\n\n' +
-'Run /setup-product — the skill will guide you through the rest interactively.\n' +
-'Have these ready before you start:\n' +
-'  · Feature names (just a list — e.g. Dashboard, Announcements, Todo)\n' +
-'  · Platforms supported (portal, mobile web, email, etc.)\n' +
-'  · User roles and what they can do\n' +
-'  · Brand colors — hex codes or a Figma link to color styles\n\n' +
-'The skill generates automatically:\n' +
-'  · config/ files (theme mapped to global tokens, components, layout, guidelines, glossary)\n' +
-'  · _index.html with roles, feature list, and platform coverage table\n' +
-'  · Feature stub folders — one per feature, ready for /document-feature-spec\n' +
-'  · nav.js entry, sitemap.html section, and root changelog.html entry\n\n' +
-'── AFTER SETUP ──────────────────────────────────────────────\n' +
-'One manual step when the skill is done:\n' +
-'In this file (index.html), find the DEFS \'Product Name\' options array\n' +
-'and add "[Product Name]" — this enables it in the dropdown for\n' +
-'/document-feature-spec, /add-platform-delta, and all Update templates.'
+'⚠ Write to ux-library-staging only. Never touch ux-library.\n\n' +
+'Set up [Product Name] in the UX Library. Run /setup-product.\n\n' +
+'Have ready:\n' +
+'  · Feature names (e.g. Dashboard, Announcements, Todo)\n' +
+'  · Platforms (portal, mobile web, email, etc.)\n' +
+'  · User roles and permissions\n' +
+'  · Brand colors — hex codes or Figma link\n\n' +
+'AFTER SETUP — one manual step:\n' +
+'In index.html, find the DEFS \'Product Name\' options array and add "[Product Name]".\n' +
+'This enables it in the dropdown for all Update templates.'
     },
     {
       section: 'Update',
@@ -355,44 +349,54 @@
         'Feature Name': { type: 'text', hint: 'e.g. Office Map' },
       },
       body:
-'⚠ Always work in ux-library-staging — never update ux-library directly.\n\n' +
-'Add a new feature called [Feature Name] to [Product Name].\n\n' +
-'── SET UP ───────────────────────────────────────────────────\n' +
-'1. Create /[product-slug]/[feature-slug]/ with:\n' +
-'   - feature.html — shell page only (spec content added in step 5)\n' +
-'   - feature.md   — stub mirror\n' +
-'   Breadcrumb: Home / [Product Name] / [Feature Name] / Feature\n' +
-'   Base the shell on an existing feature page (e.g. biz/office-map/feature.html).\n\n' +
-'2. Register in nav.js inside [Product Name] children, before Changelog:\n' +
-'   { label: "[Feature Name]", children:\n' +
-'     [{ label: "Feature", href: "/[product-slug]/[feature-slug]/feature.html" }] }\n\n' +
-'3. Add folder block to sitemap.html under the [Product Name] section.\n' +
-'   Include a row for feature.html + .md. Follow the format of an existing feature block.\n\n' +
-'4. Add to /[product-slug]/changelog.html:\n' +
+'⚠ Write to ux-library-staging only. Never touch ux-library.\n\n' +
+'Add feature [Feature Name] to [Product Name].\n\n' +
+'1. CREATE /[product-slug]/[feature-slug]/\n' +
+'   feature.html — shell only (breadcrumb: Home / [Product Name] / [Feature Name] / Feature)\n' +
+'   feature.md   — stub mirror\n' +
+'   Copy shell structure from an existing feature (e.g. biz/office-map/feature.html).\n\n' +
+'2. REGISTER in nav.js under [Product Name] children, before Changelog:\n' +
+'   { label: "[Feature Name]", children: [{ label: "Feature", href: "/[product-slug]/[feature-slug]/feature.html" }] }\n\n' +
+'3. SITEMAP — add folder block for this feature under [Product Name] in sitemap.html.\n' +
+'   Include rows for feature.html + feature.md.\n\n' +
+'4. CHANGELOG — append to /[product-slug]/changelog.html:\n' +
 '   "Added [Feature Name] — files created, spec pending."\n\n' +
-'── SPEC ──────────────────────────────────────────────────────\n' +
-'5. Run /document-feature-spec to generate the full feature spec from Figma:\n' +
+'5. SPEC — run /document-feature-spec:\n' +
 '   Product: [Product Name]  ·  Feature: [Feature Name]\n' +
 '   Platform: [Platform]  ·  URL: [URL]\n\n' +
-'   The skill automatically:\n' +
-'   · Runs figma-generate-library (Discovery Only) to map Figma components → MUI catalog\n' +
-'     and Figma styles → MUI tokens before writing any spec content\n' +
-'   · Reads all config files (_theme.md, _glossary.md, _guidelines.md)\n' +
-'   · Generates feature.html + feature.md with Components Used and Color Tokens pre-filled\n' +
-'   · Runs figma-create-design-system-rules to capture any custom design patterns:\n' +
-'     product-wide rules → _components.md / _guidelines.md\n' +
-'     feature-specific rules → "Design Rules" section in the spec\n' +
-'   · Updates the coverage table in _index.html\n\n' +
-'── DELTA (optional, up to 3) ────────────────────────────────\n' +
-'6. If delta platforms are needed, run /add-platform-delta once per delta.\n' +
-'   Baseline: [Platform]  ·  URL: [URL]\n\n' +
-'   Delta 1: [Platform B]   ·  URL: [Delta URL]\n' +
-'   Delta 2: [Platform B2]  ·  URL: [Delta URL 2]   ← leave blank to skip\n' +
-'   Delta 3: [Platform B3]  ·  URL: [Delta URL 3]   ← leave blank to skip\n\n' +
-'   Each delta run also auto-captures platform-specific design rules\n' +
-'   (touch targets, rendering constraints, layout overrides) and writes them\n' +
-'   to _guidelines.md or inline in the delta file.\n\n' +
-'   Skip this step entirely if no delta platforms are needed for this feature.'
+'6. DELTAS (optional) — run /add-platform-delta once per platform:\n' +
+'   Baseline: [Platform]  ·  URL: [URL]\n' +
+'   Delta 1:  [Platform B]   ·  URL: [Delta URL]\n' +
+'   Delta 2:  [Platform B2]  ·  URL: [Delta URL 2]  ← blank = skip\n' +
+'   Delta 3:  [Platform B3]  ·  URL: [Delta URL 3]  ← blank = skip'
+    },
+    {
+      section: 'Update',
+      icon: 'ti-pencil',
+      title: 'Update an existing feature',
+      desc: 'Cross-check existing spec, apply changes, clean up, update nav if needed',
+      defs: {
+        'Description': { type: 'text', hint: 'e.g. Added cancel button to booking flow' },
+      },
+      body:
+'⚠ Write to ux-library-staging only. Never touch ux-library.\n\n' +
+'Update the spec for [Feature Name] in [Product Name].\n' +
+'Change: [Description]\n' +
+'Figma frame: [URL]\n\n' +
+'1. CROSS-CHECK — read /[product-slug]/[feature-slug]/feature.md and all platform deltas.\n' +
+'   Also scan /global/ for related components or guidelines that may apply.\n' +
+'   Flag similarities or conflicts before writing.\n' +
+'   Only update product-level files — never write to /global/.\n\n' +
+'2. DISCOVER — run figma-generate-library (Discovery Only) on [URL].\n' +
+'   Re-maps updated components → MUI catalog and styles → MUI tokens before editing.\n\n' +
+'3. UPDATE — apply changes to feature.md (and affected delta files).\n' +
+'   Edit only sections that differ. Preserve all unchanged content.\n\n' +
+'4. CLEANUP — remove CONFIRM:/MISSING: flags resolved by this update.\n' +
+'   Trim any content made redundant. Keep .md lean.\n\n' +
+'5. DESIGN RULES (if patterns changed) — run figma-create-design-system-rules.\n' +
+'   Product-wide rules → _guidelines.md  ·  Feature rules → "Design Rules" section.\n\n' +
+'6. NAV / SITEMAP / CHANGELOG — update only if file paths or feature name changed.\n' +
+'   Always append a changelog entry: "[Feature Name] — [Description]"'
     },
     {
       section: 'Update',
@@ -425,7 +429,8 @@
       title: 'Audit Figma file against a product or feature',
       desc: 'Compare a Figma file against the UX Library — entire product or specific feature',
       body:
-'Run /audit-figma to audit the Figma file at [URL] against the UX Library for [Product Name].\n\n' +
+'Run /audit-figma to audit the Figma file against the UX Library for [Product Name].\n' +
+'Figma frame: [URL]\n\n' +
 'Scope: [Scope]\n' +
 'Feature: [Feature Name]   ← required when Scope = "Specific feature"; leave blank for entire product\n\n' +
 'The skill automatically:\n' +
@@ -468,7 +473,7 @@
       body:
 '⚠ Always work in ux-library-staging — never update ux-library directly.\n\n' +
 'Run /promote-to-global to promote [Component Name] from [Product Name] › [Feature Name] to the Global shared library.\n\n' +
-'Figma URL: [URL]   ← optional; if provided, used to verify the component definition\n\n' +
+'Figma URL: [URL]   ← optional; verifies the component definition\n\n' +
 '── PHASE 1: PRE-FLIGHT (read-only) ──────────────────────────\n' +
 'Reads first, never writes. The skill will:\n' +
 '· Locate the component definition in the source spec\n' +
@@ -499,12 +504,13 @@
 'Available test scenarios:\n' +
 '  1. Setup Product                 — /setup-product\n' +
 '  2. Document Feature Spec         — /document-feature-spec\n' +
-'  3. Add Platform Delta            — /add-platform-delta\n' +
-'  4. Audit Figma against spec      — /audit-figma\n' +
-'  5. Cross-product consistency     — /cross-product-check\n' +
-'  6. Promote to global             — /promote-to-global\n' +
-'  7. Build Figma design system     — /figma-generate-library\n' +
-'  8. Generate design system rules  — /figma-create-design-system-rules\n\n' +
+'  3. Update Existing Feature       — /update-feature-spec\n' +
+'  4. Add Platform Delta            — /add-platform-delta\n' +
+'  5. Audit Figma against spec      — /audit-figma\n' +
+'  6. Cross-product consistency     — /cross-product-check\n' +
+'  7. Promote to global             — /promote-to-global\n' +
+'  8. Build Figma design system     — /figma-generate-library\n' +
+'  9. Generate design system rules  — /figma-create-design-system-rules\n\n' +
 'The skill will:\n' +
 '  · Ask which scenario(s) to run\n' +
 '  · Collect test variables (product name, Figma URLs, etc.)\n' +
@@ -863,7 +869,7 @@
         var descInp = document.createElement('input');
         descInp.type = 'text';
         descInp.className = 'dd-url-desc';
-        descInp.placeholder = '';
+        descInp.placeholder = 'Short description';
         descInp.value = entry.desc || '';
         descInp.addEventListener('input', function () {
           draft[i].desc = descInp.value;
@@ -951,7 +957,7 @@
       addBtn.style.display = (filled > 0 && draft.length < MAX) ? '' : 'none';
     }
 
-    dropdown.style.minWidth = '440px';
+    dropdown.style.minWidth = '560px';
     buildRows();
     dropdown.style.display = 'block';
     positionDropdown(chipEl);
